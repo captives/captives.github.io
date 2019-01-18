@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Piper Bird</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap:wrap;
+            align-content: center;
+            justify-content: center;
+        }
+
+        #canvas {
+            background-image: url('assets/cover.png');
+            background-position: center center;
+            background-size: 100px 100px;
+            background-repeat: no-repeat;
+        }
+
+        .video-bg-line{
+            background: -webkit-linear-gradient(-65deg, #43C6AC, #F8FFAE);
+            background: linear-gradient(-65deg, #43C6AC, #F8FFAE);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .video-group{
+            width: 720px;
+            height: 405px;
+            line-height: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .control{
+            height: 50px;
+            position: absolute;
+            background: red;
+            margin: 0;
+            bottom: -5px;
+            left: 5px;
+            background: rgba(0,0,0,.55);
+            z-index: 10;
+        }
+
+        .reset{
+            position: absolute;
+            right: 1px;
+            bottom: 1px;
+            z-index: 10;
+        }
+        canvas.video-item{
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            border: hidden;
+            cursor:move;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-group video-bg-line">
+        <canvas id="canvas" width="720" height="405"></canvas>
+    </div>
+
+    <div class="video-group video-bg-line" style="overflow: hidden">
+        <div id="video-group" class="video-group"></div>
+        <!--<div id="control-group" class="video-group control"></div>-->
+        <button id="resetBtn" class="reset">复位</button>
+    </div>
+
+    <div class="video-group video-bg-line">
+        <video id="video" width="720" height="405" style="width: 720px;height: 405px" autoplay controls loop src="/medias/Piper_HD720.mp4"></video>
+    </div>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="index.js"></script>
+</html>
