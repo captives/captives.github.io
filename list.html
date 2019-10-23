@@ -1,24 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>列表</title>
+    <title>收藏夹</title>
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <script src="js/jquery.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <style>
+        .news-grid {
+            padding: 1em;
+            margin: 1em 0;
+        }
+
+        .news-text h3 {
+            text-transform: none;
+        }
+
+        .news-text p {
+            height: 100px;
+            overflow: hidden;
+        }
+    </style>
+    <!---- start-smoth-scrolling---->
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!---- start-smoth-scrolling---->
 </head>
+
 <body>
-    <ul>
-        <li>
-            <a href="https://github.com/mrvautin/adminMongo"> adminmongo </a>      |       mongo可视化工具       |  <a href="https://www.cnblogs.com/shiweida/p/7692468.html">中文资料</a>
-        </li>
-        
-        <li>
-            <a href="http://www.mongoosejs.net/docs/index.html"> mongoose </a>      |       mongoose快速上手       |  <a href="http://www.mongoosejs.net/docs/index.html">中文资料</a>
-        </li>
-        
-        <li>
-            <a href="https://www.w3cschool.cn/nedbintro/nedbintro-asrf27md.html"> NeDB </a>      |       mongoDB Nodejs库       |  <a href="https://www.w3cschool.cn/nedbintro/nedbintro-asrf27md.html">中文资料</a>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="service-head text-center">
+            <h3>收藏夹</h3>
+            <span class="border one"></span>
+        </div>
+
+        <div class="col-md-6 news-grid">
+            <div class="news-text">
+                <h3><a href="https://github.com/mrvautin/adminMongo">adminMongo</a></h3>
+                <p>adminMongo is a cross platform user interface (GUI) to handle all your MongoDB
+                    connections/databases needs. adminMongo is fully responsive and should work on a range of
+                    devices.</p>
+                <a href="https://github.com/mrvautin/adminMongo" class="read hvr-shutter-in-horizontal">
+                    More</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-6 news-grid">
+            <div class="news-text">
+                <h3><a href="http://github.com/learnboost/mongoose">mongoose</a></h3>
+                <p>Mongoose为模型提供了一种直接的，基于scheme结构去定义你的数据模型。它内置数据验证， 查询构建，业务逻辑钩子等，开箱即用。</p>
+                <a href="http://www.mongoosejs.net/docs/index.html" class="read hvr-shutter-in-horizontal">
+                    More</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-6 news-grid">
+            <div class="news-text">
+                <h3><a href="https://github.com/louischatriot/nedb">NeDB</a></h3>
+                <p>NeDB是使用Nodejs实现的一个NoSQL嵌入式数据库操作模块，可以充当内存数据库，也可以用来实现本地存储，甚至可以在浏览器中使用。查询方式比较灵活，支持使用正则、比较运算符、逻辑运算符、索引以及JSON深度查询等。
+                </p>
+                <a href="https://www.w3cschool.cn/nedbintro/nedbintro-eqsm27mb.html"
+                    class="read hvr-shutter-in-horizontal">More</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-6 news-grid">
+            <div class="news-text">
+                <h3><a href="https://github.com/louischatriot/nedb">Lodash</a></h3>
+                <p>Lodash是一个一致性、模块化、高性能的 JavaScript 实用工具库。通过降低 array、number、objects、string 等等的使用难度从而让 JavaScript
+                    变得更简单。
+                </p>
+                <a href="https://www.lodashjs.com" class="read hvr-shutter-in-horizontal">More</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-6 news-grid">
+            <div class="news-text">
+                <h3><a href="https://graphql.cn/code/">GraphQL</a></h3>
+                <p>GraphQL 既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。
+                </p>
+                <a href="https://graphql.cn/learn/" class="read hvr-shutter-in-horizontal">More</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
 </body>
 </html>
