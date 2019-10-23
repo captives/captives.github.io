@@ -12,6 +12,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
     <style>
+        .news li {
+            display: block;
+            cursor: pointer;
+        }
+
+        .news li a {
+            text-decoration: none;
+        }
+
         .news-grid {
             padding: 1em;
             margin: 1em 0;
@@ -48,11 +57,15 @@
         <div class="col-md-6 news-grid">
             <div class="news-text">
                 <h3><a href="https://github.com/mrvautin/adminMongo">adminMongo</a></h3>
-                <p>adminMongo is a cross platform user interface (GUI) to handle all your MongoDB
-                    connections/databases needs. adminMongo is fully responsive and should work on a range of
-                    devices.</p>
-                <a href="https://github.com/mrvautin/adminMongo" class="read hvr-shutter-in-horizontal">
-                    More</a>
+                <p>adminMongo是一个跨平台用户界面（GUI），用于处理所有MongoDB连接/数据库需求。adminMongo是完全响应的，应该在一系列设备。</p>
+
+                <ul class="news">
+                    <li><a href="https://adminmongo.markmoffat.com/"><i class="glyphicon glyphicon-home"></i>主页</a></li>
+                    <li><a href="https://adminmongo.markmoffat.com/docs/"><i class="glyphicon glyphicon-book"></i>文档</a>
+                    </li>
+                    <li><a href="https://github.com/mrvautin/adminMongo"><i
+                                class="glyphicon glyphicon-user"></i>Github</a></li>
+                </ul>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -61,8 +74,16 @@
             <div class="news-text">
                 <h3><a href="http://github.com/learnboost/mongoose">mongoose</a></h3>
                 <p>Mongoose为模型提供了一种直接的，基于scheme结构去定义你的数据模型。它内置数据验证， 查询构建，业务逻辑钩子等，开箱即用。</p>
-                <a href="http://www.mongoosejs.net/docs/index.html" class="read hvr-shutter-in-horizontal">
-                    More</a>
+
+                <ul class="news">
+                    <li><a href="http://www.mongoosejs.net/"><i class="glyphicon glyphicon-home"></i>主页</a></li>
+                    <li><a href="http://www.mongoosejs.net/docs/index.html"><i
+                                class="glyphicon glyphicon-book"></i>文档</a>
+                    </li>
+                    <li><a href="http://github.com/learnboost/mongoose"><i
+                                class="glyphicon glyphicon-user"></i>Github</a></li>
+                </ul>
+
             </div>
             <div class="clearfix"></div>
         </div>
@@ -72,32 +93,50 @@
                 <h3><a href="https://github.com/louischatriot/nedb">NeDB</a></h3>
                 <p>NeDB是使用Nodejs实现的一个NoSQL嵌入式数据库操作模块，可以充当内存数据库，也可以用来实现本地存储，甚至可以在浏览器中使用。查询方式比较灵活，支持使用正则、比较运算符、逻辑运算符、索引以及JSON深度查询等。
                 </p>
-                <a href="https://www.w3cschool.cn/nedbintro/nedbintro-eqsm27mb.html"
-                    class="read hvr-shutter-in-horizontal">More</a>
+
+                <ul class="news">
+                    <li><a href="https://www.w3cschool.cn/nedbintro/nedbintro-eqsm27mb.html"><i
+                                class="glyphicon glyphicon-book"></i>文档</a></li>
+                    <li><a href="https://github.com/louischatriot/nedb"><i
+                                class="glyphicon glyphicon-user"></i>Github</a></li>
+                </ul>
             </div>
             <div class="clearfix"></div>
         </div>
         <div class="col-md-6 news-grid">
             <div class="news-text">
-                <h3><a href="https://github.com/louischatriot/nedb">Lodash</a></h3>
+                <h3><a href="https://www.lodashjs.com/" target="_blank">Lodash</a></h3>
                 <p>Lodash是一个一致性、模块化、高性能的 JavaScript 实用工具库。通过降低 array、number、objects、string 等等的使用难度从而让 JavaScript
                     变得更简单。
                 </p>
-                <a href="https://www.lodashjs.com" class="read hvr-shutter-in-horizontal">More</a>
+                <ul class="news">
+                    <li><a href="https://www.lodashjs.com/"><i class="glyphicon glyphicon-home"></i>主页</a></li>
+                    <li><a href="https://www.lodashjs.com/docs/latest"><i class="glyphicon glyphicon-book"></i>文档</a>
+                    </li>
+                    <li><a href="https://github.com/lodash/lodash/wiki/FP-Guide"><i
+                                class="glyphicon glyphicon-user"></i>Github</a></li>
+                </ul>
             </div>
             <div class="clearfix"></div>
         </div>
 
         <div class="col-md-6 news-grid">
             <div class="news-text">
-                <h3><a href="https://graphql.cn/code/">GraphQL</a></h3>
-                <p>GraphQL 既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。
+                <h3><a href="https://graphql.cn/">GraphQL</a></h3>
+                <p>GraphQL 既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API
+                    中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。
                 </p>
-                <a href="https://graphql.cn/learn/" class="read hvr-shutter-in-horizontal">More</a>
+                <ul class="news">
+                    <li><a href="https://graphql.cn/"><i class="glyphicon glyphicon-home"></i>主页</a></li>
+                    <li><a href="https://graphql.cn/learn/"><i class="glyphicon glyphicon-time"></i>学习</a></li>
+                    <li><a href="https://graphql.cn/code/"><i class="glyphicon glyphicon-cloud"></i>代码</a></li>
+                </ul>
+                <!-- <a href="https://graphql.cn/learn/" class="read hvr-shutter-in-horizontal">More</a> -->
             </div>
             <div class="clearfix"></div>
         </div>
 
     </div>
 </body>
+
 </html>
