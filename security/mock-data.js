@@ -63,7 +63,7 @@ module.exports = {
         { value: 78, name: "8-10年" },
         { value: 28, name: "10年以上" },
     ],
-    srv: { cpu: 45, memory: 45 }, //百分比
+    srv: { cpu: 100, memory: 50 }, //百分比
     disk: { use: 2 * 1024 * 1024, total: 8 * 1024 * 1024 },//最小单位，字节
     healthData: [{
         name: '王小虎',
