@@ -16,13 +16,14 @@
       <source-code v-model="list"></source-code>
 
       <el-row v-for="item in list" :key="item.value">
+        <!-- <vue-source :src="item.value" :lang="item.lang"></vue-source> -->
         <vue-code v-if="item.code">
           <p>{{item.value}}</p>
           <pre :lang="item.lang">{{item.code}}</pre>
         </vue-code>
       </el-row>
 
-      <vue-source value="src/plugins/global.js" lang="javascript"></vue-source>
+      <vue-source src="src/plugins/global.js" lang="javascript"></vue-source>
     </el-main>
   </el-container>
 </template>
