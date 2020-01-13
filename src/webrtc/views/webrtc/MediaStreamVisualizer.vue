@@ -14,6 +14,8 @@
     <StreamTracks v-model="localStream"></StreamTracks>
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
+
+    <vue-source value="src/webrtc/views/canvas/MediaStreamVisualizer.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

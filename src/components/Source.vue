@@ -1,6 +1,6 @@
 <template>
   <vue-code v-if="code">
-    <p class="title">{{value}}</p>
+    <p class="title">{{value | label}}</p>
     <pre :lang="lang">{{code}}</pre>
   </vue-code>
 </template>
@@ -18,6 +18,12 @@ export default {
   data() {
     return {
       code: null
+    }
+  },
+  filters: {
+    label(item) {
+      let arr = item.split('/');
+      return arr[arr.length - 1];
     }
   },
   methods: {

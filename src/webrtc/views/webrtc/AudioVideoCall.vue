@@ -14,12 +14,14 @@
         <StreamTracks v-model="remoteStream"></StreamTracks>
       </el-col>
     </el-row>
+
+    <vue-source value="src/webrtc/views/canvas/AudioVideoCall.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
 import StreamTracks from './../../components/StreamTracks';
 export default {
-  name: "PeerConnection",
+  name: "AudioVideoCall",
   components: {
     StreamTracks
   },

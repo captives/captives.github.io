@@ -4,15 +4,7 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Video</el-divider>
-        <video
-          ref="localVideo"
-          class="video-item"
-          :src="url"
-          controls
-          muted
-          loop
-          autoplay
-        ></video>
+        <video ref="localVideo" class="video-item" :src="url" controls muted loop autoplay></video>
       </el-col>
 
       <el-col class="center" :xs="24" :sm="24" :md="12">
@@ -25,6 +17,8 @@
         </el-row>
       </el-col>
     </el-row>
+
+    <vue-source value="src/webrtc/views/canvas/DrawVideoSplitCopy.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
@@ -33,7 +27,7 @@ export default {
   name: "DrawVideoSplitCopy",
   data() {
     return {
-      url:"",
+      url: "",
       list: [],
       row: 2,
       column: 2,

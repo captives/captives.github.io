@@ -17,6 +17,8 @@
         </el-row>
       </el-col>
     </el-row>
+
+    <vue-source value="src/webrtc/views/canvas/DrawVideoSplitScreen.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

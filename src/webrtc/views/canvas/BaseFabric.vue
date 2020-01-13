@@ -7,6 +7,8 @@
     <canvas ref="draw" class="panel" width="1360px" height="720px"></canvas>
     <!-- <el-row>{{canvas.toJSON()}}</el-row>
     <el-row>{{canvas.toSVG()}}</el-row>-->
+
+    <vue-source value="src/webrtc/views/canvas/BaseFabric.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
@@ -103,8 +105,8 @@ export default {
         } else if (klass == 'image') {
           fabric.Image.fromURL('/assets/corgi.jpg', img => {
             img.scale(0.5).set({
-              left: fabric.util.getRandomInt(0, width/2),
-              top: fabric.util.getRandomInt(0, height)/2,
+              left: fabric.util.getRandomInt(0, width / 2),
+              top: fabric.util.getRandomInt(0, height) / 2,
               angle: -15,
               clipTo: function (ctx) {
                 ctx.arc(0, 0, 300, 0, Math.PI * 2, true);

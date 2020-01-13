@@ -3,15 +3,9 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Video</el-divider>
-        <video
-          ref="localVideo"
-          class="video-item"
-          controls
-          muted
-          loop
-        >
-        <source src="/medias/demo.mp4">
-        <source src="/medias/musicdemo.mp4">
+        <video ref="localVideo" class="video-item" controls muted loop>
+          <source src="/medias/demo.mp4" />
+          <source src="/medias/musicdemo.mp4" />
         </video>
       </el-col>
 
@@ -20,6 +14,7 @@
         <canvas ref="draw" class="video-item"></canvas>
       </el-col>
     </el-row>
+    <vue-source value="src/webrtc/views/canvas/DrawVideoForFabric.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
@@ -43,8 +38,8 @@ export default {
       let videoEl = new fabric.Image(video, {
         left: video.offsetWidth / 2,
         top: video.offsetHeight / 2,
-        width: video.offsetWidth/2,
-        height: video.offsetHeight/2,
+        width: video.offsetWidth / 2,
+        height: video.offsetHeight / 2,
         originX: 'center',
         originY: 'center',
         objectCaching: false,

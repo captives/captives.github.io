@@ -11,6 +11,8 @@
     </el-col>
   </el-row>
   <el-tag class="error">左侧输入信息，右侧同步显示</el-tag>
+
+  <vue-source value="src/webrtc/views/canvas/PeerConnection.vue" lang="html"></vue-source>
 </el-main>
 </template>
 

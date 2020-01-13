@@ -38,6 +38,8 @@
         <StreamTracks v-model="remixStream"></StreamTracks>
       </el-col>
     </el-row>
+
+    <vue-source value="src/webrtc/views/canvas/MediaStreamMixer.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
@@ -51,7 +53,7 @@ export default {
   },
   data() {
     return {
-      url:null,
+      url: null,
       mixing: false,
       videoStream: null,
       audioStream: null,

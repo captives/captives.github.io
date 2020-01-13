@@ -37,6 +37,8 @@
         <canvas ref="compose" class="video-item"></canvas>
       </el-col>
     </el-row>
+
+    <vue-source value="src/webrtc/views/canvas/DrawVideoGreenScreen.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

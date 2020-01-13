@@ -29,30 +29,7 @@
         <VideoMetaData ref="videoMedata"></VideoMetaData>
       </el-col>
     </el-row>
-    <vue-code>
-      <pre lan="javascript">
-let source = this.$refs.localVideo;
-let canvas = this.$refs.canvas;
-if (source) {
-  const sourceWidth = Math.floor(source.videoWidth / this.column); //单个元素的宽
-  const sourceHeight = Math.floor(source.videoHeight / this.row);//单个元素的高
-
-  const drawWidth = Math.floor(canvas.width / this.column); //单个元素的宽
-  const drawHeight = Math.floor(canvas.height / this.row);//单个元素的高
-
-  this.context.clearRect(0, 0, canvas.width, canvas.height);
-  for (var i = 0; i &lt; this.column; i++) { //逐列
-    for (var k = 0; k &lt; this.row; k++) { //逐行
-      this.context.drawImage(source,
-        i * sourceWidth, k * sourceHeight, sourceWidth, sourceHeight,
-        i * drawWidth + 1, k * drawHeight + 1, drawWidth - 1, drawHeight - 1,
-      );
-
-      this.drawText((i + 1) * drawWidth - 150, k * drawHeight + 50, k * this.column + i + 1);
-    }
-  }
-</pre>
-    </vue-code>
+    <vue-source value="src/webrtc/views/canvas/DrawVideoSplicing.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

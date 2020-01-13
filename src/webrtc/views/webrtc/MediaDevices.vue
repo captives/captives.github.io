@@ -7,11 +7,13 @@
     </el-table>
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
+
+    <vue-source value="src/webrtc/views/canvas/MediaDevices.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
 export default {
-  name: "",
+  name: "MediaDevices",
   data() {
     return {
       tableData: [],

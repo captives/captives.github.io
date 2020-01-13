@@ -78,6 +78,23 @@ Vue.use(global);
     </el-row>
 
     <el-row class="content">
+      <h1>vue-source</h1>
+      <p>组件引入</p>
+      <vue-code>
+        <pre lang="javascript">
+import Source from './../components/Source';
+Vue.component('vue-source', Source);
+</pre>
+      </vue-code>
+      <p>组件使用</p>
+      <vue-code>
+        <pre lang="html">
+&lt;vue-source value=&quot;src/plugins/global.js&quot; lang=&quot;javascript&quot;&gt;&lt;/vue-source&gt;
+</pre>
+      </vue-code>
+    </el-row>
+
+    <el-row class="content">
       <h1>url-input</h1>
       <p>HTML</p>
       <vue-code>
@@ -121,6 +138,7 @@ export default {
     max-width: 960px;
     display: block;
     margin: 0 auto;
+    padding-bottom 20px;
   }
 }
 </style>

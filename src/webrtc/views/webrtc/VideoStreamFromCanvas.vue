@@ -12,6 +12,8 @@
     </el-row>
 
     <StreamTracks v-model="stream"></StreamTracks>
+
+    <vue-source value="src/webrtc/views/canvas/VideoStreamFromCanvas.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
