@@ -1,8 +1,8 @@
 <template>
-  <el-code v-if="code">
-    <p>{{value}}</p>
+  <vue-code v-if="code">
+    <p class="title">{{value}}</p>
     <pre :lang="lang">{{code}}</pre>
-  </el-code>
+  </vue-code>
 </template>
 <script>
 export default {
@@ -23,7 +23,6 @@ export default {
   methods: {
     fetch(url) {
       return new Promise((resolve, reject) => {
-        console.log('fetch', url);
         var xhr = new XMLHttpRequest();
         xhr.open('get', url);
         xhr.setRequestHeader('Content-type', 'text/html');

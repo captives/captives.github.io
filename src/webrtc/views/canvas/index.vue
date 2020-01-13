@@ -20,21 +20,21 @@
         <span style="line-height: inherit;">，并提供一个 "2d" 的参数：</span>
       </p>
 
-      <el-code>
+      <vue-code>
         <pre lang="javascript">
 var canvas = document.getElementById('tutorial');
 var ctx = canvas.getContext('2d');
 </pre>
-      </el-code>
+      </vue-code>
 
       <p>一旦你得到 2D 渲染背景后，你可以像下面一样绘制：</p>
 
-      <el-code>
+      <vue-code>
         <pre lang="javascript">
 ctx.fillStyle = "rgb(200,0,0)";  
 ctx.fillRect(10, 10, 55, 50); 
 </pre>
-      </el-code>
+      </vue-code>
 
       <p>
         在侧边栏和下面查看属性和方法。 Canvas 教程提供了更多的信息，例子和资源。

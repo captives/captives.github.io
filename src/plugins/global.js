@@ -7,9 +7,9 @@ import URLInput from './../components/URLInput.vue';
 /**Vue 全局属性、方法*/
 export default {
     install(Vue) {
-        Vue.component('el-code', Code);
+        Vue.component('vue-code', Code);
         Vue.component('url-input', URLInput);
-        Vue.component('el-source', Source);
+        Vue.component('vue-source', Source);
         Vue.component('source-code', SourceCode);
 
         Vue.prototype.$videoList = [

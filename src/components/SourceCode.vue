@@ -27,7 +27,6 @@ export default {
   methods: {
     fetch(url) {
       return new Promise((resolve, reject) => {
-        console.log('fetch', url);
         var xhr = new XMLHttpRequest();
         xhr.open('get', url);
         xhr.setRequestHeader('Content-type', 'text/html');
@@ -53,5 +52,6 @@ export default {
 <style lang="stylus" scoped>
 .el-dropdown {
   padding: 5px 12px;
+  cursor: pointer;
 }
 </style>

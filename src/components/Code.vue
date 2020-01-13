@@ -27,6 +27,10 @@ export default {
   p {
     margin: 5px 10px 0 10px;
     overflow-wrap: break-word;
+
+    &.title {
+      font-size: 12px;
+    }
   }
 }
 </style>

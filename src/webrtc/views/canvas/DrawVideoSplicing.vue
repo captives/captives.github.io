@@ -29,7 +29,7 @@
         <VideoMetaData ref="videoMedata"></VideoMetaData>
       </el-col>
     </el-row>
-    <el-code>
+    <vue-code>
       <pre lan="javascript">
 let source = this.$refs.localVideo;
 let canvas = this.$refs.canvas;
@@ -52,7 +52,7 @@ if (source) {
     }
   }
 </pre>
-    </el-code>
+    </vue-code>
   </el-main>
 </template>
 <script>

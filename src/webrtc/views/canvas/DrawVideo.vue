@@ -13,7 +13,7 @@
       </el-col>
     </el-row>
     <el-row>通过将video元素的功能与结合使用canvas，您可以实时处理视频数据，</el-row>
-    <el-code>
+    <vue-code>
       <pre lang="html">
 &lt;template&gt;
   &lt;el-main class=&quot;center&quot;&gt;
@@ -82,7 +82,7 @@ export default {
 }
 &lt;/style&gt;
       </pre>
-    </el-code>
+    </vue-code>
   </el-main>
 </template>
 <script>

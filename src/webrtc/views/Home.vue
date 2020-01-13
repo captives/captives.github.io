@@ -4,25 +4,25 @@
       <img alt="Vue logo" src="../assets/logo.png" />
     </el-row>
     <el-row class="content">
-      <h1>el-code</h1>
+      <h1>vue-code</h1>
       <p>组件及样式引入</p>
-      <el-code>
+      <vue-code>
         <pre lang="javascript">
 import '@/assets/css/code-style.css';
 import Code from './../components/Code.vue'
-Vue.component('el-code', Code);
+Vue.component('vue-code', Code);
 </pre>
-      </el-code>
+      </vue-code>
 
       <p>or</p>
-      <el-code>
+      <vue-code>
         <pre lang="javascript">
 global.js
 import './assets/css/code-style.css';
 import Code from './components/Code';
 export default {
     install(Vue) {
-        Vue.component('el-code', Code);
+        Vue.component('vue-code', Code);
     }
 }
 
@@ -30,19 +30,19 @@ main.js
 import global from './../plugins/global';
 Vue.use(global);
 </pre>
-      </el-code>
+      </vue-code>
 
       <p>组件使用</p>
-      <el-code>
+      <vue-code>
         <pre lang="html">
-&lt;el-code&gt;
+&lt;vue-code&gt;
   &lt;p&gt;sh&lt;/p&gt;
   &lt;pre lang=&quot;sh&quot;&gt;ping localhost&lt;/pre&gt;
-&lt;/el-code&gt;
+&lt;/vue-code&gt;
 </pre>
-      </el-code>
+      </vue-code>
 
-      <el-code>
+      <vue-code>
         <pre lang="css">
 .el-aside {
   .el-menu {
@@ -57,36 +57,36 @@ Vue.use(global);
   }
 }
 </pre>
-      </el-code>
+      </vue-code>
 
-      <el-code>
+      <vue-code>
         <p>console</p>
         <pre lang="console">ping localhost</pre>
-      </el-code>
-      <el-code>
+      </vue-code>
+      <vue-code>
         <p>bash</p>
         <pre lang="bash">ping localhost</pre>
-      </el-code>
-      <el-code>
+      </vue-code>
+      <vue-code>
         <p>sh</p>
         <pre lang="sh">ping localhost</pre>
-      </el-code>
-      <el-code>
+      </vue-code>
+      <vue-code>
         <p>cmd</p>
         <pre lang="cmd">ping localhost</pre>
-      </el-code>
+      </vue-code>
     </el-row>
 
     <el-row class="content">
       <h1>url-input</h1>
       <p>HTML</p>
-      <el-code>
+      <vue-code>
         <pre lang="html">
 &lt;url-input v-model=&quot;url&quot; :list=&quot;$videoList&quot;&gt;&lt;/url-input&gt; 
 &lt;video  :src=&quot;url&quot; controls muted loop autoplay&gt;&lt;/video&gt;
 </pre>
-      </el-code>JavasSript部分
-      <el-code>
+      </vue-code>JavasSript部分
+      <vue-code>
         <pre lang="javascript">data() {
   return {
     url: "",
@@ -105,7 +105,7 @@ Vue.use(global);
   }
 }
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
   </el-main>
 </template>

@@ -4,7 +4,7 @@
       <h3>
         <router-link to="/webrtc/stream-from-usermedia">Stream from UserMedia</router-link>
       </h3>
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 navigator.mediaDevices.getUserMedia({ video:true, audio:true }).then((stream) => {
   stream.oninactive = function () {
@@ -16,14 +16,14 @@ navigator.mediaDevices.getUserMedia({ video:true, audio:true }).then((stream) =>
   console.log('navigator.getUserMedia error: ', error);
 });
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
     <el-row>
       <h3>
         <router-link to="/webrtc/stream-from-displaymedia">Stream from DisplayMedia</router-link>
       </h3>
 
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 getDisplayMedia() {
     if (navigator.getDisplayMedia) {
@@ -45,13 +45,13 @@ getDisplayMedia().then((stream) => {
     console.log('navigator.getUserMedia error: ', error);
   });
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
     <el-row>
       <h3>
         <router-link to="/webrtc/stream-from-video">Stream from video element</router-link>
       </h3>
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 const video = this.$refs.localVideo;
 video.addEventListener('canplay', () => {
@@ -69,36 +69,36 @@ video.addEventListener('canplay', () => {
   player.srcObject = this.stream;
 });
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
     <el-row>
       <h3>
         <router-link to="/webrtc/stream-from-canvas">Stream from canvas element</router-link>
       </h3>
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 const stream = canvas.captureStream();
 video.srcObject = stream;
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
 
     <el-row>
       <h3>
         <router-link to="/webrtc/stream-from-displaymedia">Close video stream</router-link>
       </h3>
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 stream.getTracks().forEach(track => track.stop());
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
 
     <el-row>
       <h3>
         <router-link to="/webrtc/recorder">Recording media streaming to blob</router-link>
       </h3>
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 data() {
     return {
@@ -161,13 +161,13 @@ stopRecoder() {
   }
 },
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
     <el-row>
       <h3>
         <router-link to="/webrtc/recorder">Play blob media stream</router-link>
       </h3>
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 data() {
     return {
@@ -198,13 +198,13 @@ playStream() {
     }
 }
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
     <el-row>
       <h3>
         <router-link to="/webrtc/recorder">Download blob media stream</router-link>
       </h3>
-      <el-code>
+      <vue-code>
 <pre lang="javascript">
 data() {
     return {
@@ -229,7 +229,7 @@ downloadfile() {
   }
 }
 </pre>
-      </el-code>
+      </vue-code>
     </el-row>
   </el-main>
 </template>
