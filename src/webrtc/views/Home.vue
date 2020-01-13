@@ -4,7 +4,7 @@
       <img alt="Vue logo" src="../assets/logo.png" />
     </el-row>
     <el-row class="content">
-      <h1>el-code的使用</h1>
+      <h1>el-code</h1>
       <p>组件及样式引入</p>
       <el-code>
         <pre lang="javascript">
@@ -78,7 +78,7 @@ Vue.use(global);
     </el-row>
 
     <el-row class="content">
-      <h1>url-input的使用</h1>
+      <h1>url-input</h1>
       <p>HTML</p>
       <el-code>
         <pre lang="html">
