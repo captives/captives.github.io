@@ -44,7 +44,9 @@ export default {
     }
   },
   mounted() {
-    this.fetch(this.src).then(code => this.code = code);
+    if (this.src) {
+      this.fetch(this.src).then(code => this.code = code);
+    }
   }
 }
 </script>
