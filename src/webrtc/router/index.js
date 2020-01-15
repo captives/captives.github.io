@@ -34,6 +34,8 @@ const routes = [{
     { path: '/web/audio-lrc', name: 'LRC播放器', component: () => import('../views/web/AudioLRC.vue') },
     { path: '/web/media-source', name: 'Media Source', component: () => import('../views/web/MediaSource.vue') },
     { path: '/web/html-to-canvas', name: 'html2canvas', component: () => import('../views/web/Html2Canvas.vue') },
+    { path: '/web/cropperjs', name: 'cropper', component: () => import('../views/web/VueCropperjs.vue') },
+    { path: '/web/vue-cropper', name: 'vue cropper', component: () => import('../views/web/VueCropper.vue') },
   ]
 }, {
   path: '/webrtc',

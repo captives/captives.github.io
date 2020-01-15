@@ -43,6 +43,8 @@ export default {
         { label: "简单LRC播放器", to: '/audio-lrc', icon: 'el-icon-notebook-2' },
         { label: "MediaSource", to: '/media-source', icon: 'el-icon-notebook-2' },
         { label: "html2canvas", to: '/html-to-canvas', icon: 'el-icon-notebook-2' },
+        { label: "cropperjs", to: '/cropperjs', icon: 'el-icon-notebook-2' },
+        { label: "vue cropper", to: '/vue-cropper', icon: 'el-icon-notebook-2' },
       ]
     }
   },

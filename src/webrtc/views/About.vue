@@ -11,6 +11,11 @@
         </el-col>
         <el-col :span="12"></el-col>
       </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-link href="https://github.com/wangweianger/web-report-sdk">浏览器端页面性能监控平台</el-link>
+        </el-col>
+      </el-row>
     </el-aside>
     <el-main>
       <source-code v-model="list"></source-code>
@@ -22,8 +27,6 @@
           <pre :lang="item.lang">{{item.code}}</pre>
         </vue-code>
       </el-row>
-
-      <vue-source src="src/plugins/global.js" lang="javascript"></vue-source>
     </el-main>
   </el-container>
 </template>

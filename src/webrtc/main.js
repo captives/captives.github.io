@@ -19,9 +19,6 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 Vue.use(VueAxios, axios);
 
-// import '@/assets/css/code-style.css';
-// import Code from './../components/Code.vue'
-// Vue.component('vue-code', Code);
 import global from './../plugins/global';
 Vue.use(global);
 
