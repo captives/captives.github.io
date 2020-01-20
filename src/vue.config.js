@@ -16,7 +16,7 @@ module.exports = {
     },
     webrtc: {
       entry: 'src/webrtc/main.js',
-      title: 'Web RTC',
+      title: 'loading...',
       template: 'public/video.html',
       filename: 'webrtc.html',
       chunks: ['chunk-vendors', 'chunk-common', 'webrtc'],

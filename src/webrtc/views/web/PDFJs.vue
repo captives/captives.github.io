@@ -1,15 +1,26 @@
 <template>
   <el-container>
-    <el-main class="center">
+    <el-main class="center" v-loading="loading">
       <canvas ref="canvas"></canvas>
-      <el-pagination
-        :page-size="1"
-        :pager-count="7"
-        layout="prev, pager, next"
-        :hide-on-single-page="true"
-        :total="pages"
-        @current-change="init"
-      ></el-pagination>
+      <el-row class="control-bar">
+        <el-col :span="20">
+          <el-pagination
+            :page-size="1"
+            :pager-count="7"
+            layout="prev, pager, next"
+            :hide-on-single-page="true"
+            :total="pages"
+            @current-change="init"
+          ></el-pagination>
+        </el-col>
+        <el-col :span="4">
+          <el-button
+            size="mini"
+            type="success"
+            @click="openHandler"
+          >新页面打开</el-button>
+        </el-col>
+      </el-row>
     </el-main>
     <el-aside width="30%">
       <p>1、安装pdfjs依赖</p>
@@ -95,9 +106,12 @@ export default {
   name: "PDFJs",
   data() {
     return {
-      url: "assets/color-card.pdf",
+      loading: false,
+      url: "/assets/color-card.pdf",
       pdf: null,
       pages: 0,
+      page: null,
+      ratio: 1
     }
   },
   methods: {
@@ -105,6 +119,7 @@ export default {
       this.pdf.getPage(num).then(this.renderPage)
     },
     renderPage(page) {
+      this.page = page;
       var canvas = this.$refs.canvas;
       var context = canvas.getContext('2d');
 
@@ -118,24 +133,47 @@ export default {
         context.msBackingStorePixelRatio ||
         context.oBackingStorePixelRatio ||
         context.backingStorePixelRatio || 1
-      const ratio = dpr / bsr;
+      this.ratio = this.ratio || dpr / bsr;
 
       const padding = parseInt(getStyle(canvas.parentNode, 'padding-left')) * 2;
       const viewport = page.getViewport((canvas.parentNode.clientWidth - padding) / page.getViewport(1).width);
-      canvas.width = viewport.width * ratio;
-      canvas.height = viewport.height * ratio;
+      canvas.width = viewport.width * this.ratio;
+      canvas.height = viewport.height * this.ratio;
       canvas.style.width = viewport.width + 'px';
       canvas.style.height = viewport.height + 'px';
 
       page.render({ canvasContext: context, viewport: viewport });
+    },
+    openHandler(){
+      window.open('/pdfview/index.html?file=' + this.url);
     }
   },
   mounted() {
     PDF.disableWorker = true;
     const loadingTask = PDF.getDocument(this.url);
+    loadingTask.onProgress = ({ loaded, total }) => {
+      //   this.loading = loaded != total;
+    }
+
     loadingTask.promise.then(PDFDocument => {
       this.pdf = PDFDocument;
       this.pages = PDFDocument.numPages;
+      PDFDocument.getData().then(data => {
+        //   console.log('Uint8Array: get data', data);
+      });
+
+      PDFDocument.getDownloadInfo().then(({ length }) => {
+        console.log('文件大小', length);
+      });
+
+      PDFDocument.getMetadata().then(({ info, metadata }) => {
+        console.log('getMetadata', info, metadata);
+      });
+
+      PDFDocument.getOutline().then(list => {
+        console.log('getOutline', list);
+      });
+
       this.init(1);
     });
   }
@@ -144,7 +182,7 @@ export default {
 
 <style lang="stylus" scoped>
 .el-main {
-  .el-pagination {
+  .control-bar {
     margin-top: 40px;
   }
 }
