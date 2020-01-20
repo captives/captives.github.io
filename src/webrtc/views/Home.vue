@@ -89,7 +89,7 @@ Vue.component('vue-source', Source);
       <p>组件使用</p>
       <vue-code>
         <pre lang="html">
-&lt;vue-source src=&quot;src/plugins/global.js&quot; lang=&quot;javascript&quot;&gt;&lt;/vue-source&gt;
+&lt;vue-source src=&quot;/plugins/global.js&quot; lang=&quot;javascript&quot;&gt;&lt;/vue-source&gt;
 </pre>
       </vue-code>
     </el-row>
