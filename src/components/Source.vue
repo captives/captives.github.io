@@ -33,12 +33,14 @@ export default {
         xhr.open('get', url);
         xhr.setRequestHeader('Content-type', 'text/html');
         xhr.onloadstart = () => { };
+        xhr.onprogress = (e) => { };
         xhr.onload = () => {
           resolve(xhr.response);
         }
 
-        xhr.onprogress = (e) => {
-        };
+        xhr.onerror = err => {
+          console.error(err);
+        }
         xhr.send();
       });
     }

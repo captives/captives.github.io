@@ -4,7 +4,7 @@
       <img alt="Vue logo" src="../assets/logo.png" />
     </el-row>
     <el-row class="content">
-      <h1>vue-code</h1>
+      <h1 @click="show({ title:'vue-code', src:'/components/Code.vue' })">vue-code</h1>
       <p>组件及样式引入</p>
       <vue-code>
         <pre lang="javascript">
@@ -78,7 +78,7 @@ Vue.use(global);
     </el-row>
 
     <el-row class="content">
-      <h1>vue-source</h1>
+      <h1 @click="show({ title:'vue-source', src:'/components/Source.vue' })">vue-source</h1>
       <p>组件引入</p>
       <vue-code>
         <pre lang="javascript">
@@ -95,7 +95,7 @@ Vue.component('vue-source', Source);
     </el-row>
 
     <el-row class="content">
-      <h1>url-input</h1>
+      <h1 @click="show({ title:'url-input', src:'/components/URLInput.vue' })">url-input</h1>
       <p>HTML</p>
       <vue-code>
         <pre lang="html">
@@ -124,12 +124,33 @@ Vue.component('vue-source', Source);
 </pre>
       </vue-code>
     </el-row>
+
+    <el-dialog :title="dialog.title" :visible.sync="dialog.visible">
+      <vue-source v-if="dialog.src" :src="dialog.src"></vue-source>
+      <span v-else>暂无数据</span>
+    </el-dialog>
   </el-main>
 </template>
 
 <script>
 export default {
   name: 'Home',
+  data() {
+    return {
+      dialog: {
+        title: null,
+        visible: false,
+        src: null
+      }
+    }
+  },
+  methods: {
+    show(item) {
+      this.dialog.title = item.title;
+      this.dialog.src = item.src;
+      this.dialog.visible = true;
+    }
+  },
 }
 </script>
 <style lang="stylus" scoped>
@@ -138,7 +159,7 @@ export default {
     max-width: 960px;
     display: block;
     margin: 0 auto;
-    padding-bottom 20px;
+    padding-bottom: 20px;
   }
 }
 </style>

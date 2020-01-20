@@ -22,8 +22,9 @@
     </el-aside>
 
     <el-container>
-      <router-view />
-      <el-footer></el-footer>
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </el-container>
   </el-container>
 </template>
@@ -45,6 +46,7 @@ export default {
         { label: "html2canvas", to: '/html-to-canvas', icon: 'el-icon-notebook-2' },
         { label: "cropperjs", to: '/cropperjs', icon: 'el-icon-notebook-2' },
         { label: "vue cropper", to: '/vue-cropper', icon: 'el-icon-notebook-2' },
+        { label: "PDF 在线阅读器", to: '/pdf-js', icon: 'el-icon-notebook-2' },
       ]
     }
   },

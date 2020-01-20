@@ -11,13 +11,15 @@ export default {
     language: { type: String, default: 'javascrit' },
   },
   mounted() {
-    let preEl = this.$refs.code.querySelector('pre');
-    if (preEl.innerHTML) {
+    const list = this.$refs.code.querySelectorAll('pre') || [];
+    list.forEach(preEl => {
       var codeEl = document.createElement('code');
-      codeEl.innerHTML = preEl.innerHTML;
-      codeEl.className = 'language-' + preEl.getAttribute('lang');
+      if (preEl.innerHTML) {
+        codeEl.innerHTML = preEl.innerHTML;
+        codeEl.className = 'language-' + preEl.getAttribute('lang');
+      }
       this.$refs.code.replaceChild(codeEl, preEl);
-    }
+    });
     Prism.highlightAll();
   },
 }

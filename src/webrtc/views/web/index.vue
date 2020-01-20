@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       list: [
+        { label: '淘宝镜像', url: "//npm.taobao.org/" },
         { label: '西瓜播放器', url: "//h5player.bytedance.com/" },
         { label: 'video.js', url: "//videojs.com/" },
         { label: 'MediaElement.js', url: "//www.mediaelementjs.com/" },

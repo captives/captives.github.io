@@ -36,6 +36,7 @@ const routes = [{
     { path: '/web/html-to-canvas', name: 'html2canvas', component: () => import('../views/web/Html2Canvas.vue') },
     { path: '/web/cropperjs', name: 'cropper', component: () => import('../views/web/VueCropperjs.vue') },
     { path: '/web/vue-cropper', name: 'vue cropper', component: () => import('../views/web/VueCropper.vue') },
+    { path: '/web/pdf-js', name: 'PDF Js', component: () => import('../views/web/PDFJs.vue') },
   ]
 }, {
   path: '/webrtc',
