@@ -146,10 +146,10 @@ function getViewerConfiguration() {
       zoomIn: document.getElementById('zoomIn'),
       zoomOut: document.getElementById('zoomOut'),
       viewFind: document.getElementById('viewFind'),
-      openFile: document.getElementById('openFile'),
+      // openFile: document.getElementById('openFile'),
       print: document.getElementById('print'),
       presentationModeButton: document.getElementById('presentationMode'),
-      download: document.getElementById('download'),
+      // download: document.getElementById('download'),
       viewBookmark: document.getElementById('viewBookmark')
     },
     secondaryToolbar: {
@@ -1560,9 +1560,10 @@ var PDFViewerApplication = {
     }
 
     if (!this.supportsPrinting) {
-      this.l10n.get('printing_not_supported', null, 'Warning: Printing is not fully supported by ' + 'this browser.').then(function (printMessage) {
-        _this7.error(printMessage);
-      });
+      alert('文档不支持打印');
+      // this.l10n.get('printing_not_supported', null, 'Warning: Printing is not fully supported by ' + 'this browser.').then(function (printMessage) {
+      //   _this7.error(printMessage);
+      // });
       return;
     }
 
@@ -1625,7 +1626,7 @@ var PDFViewerApplication = {
     eventBus.on('presentationmode', webViewerPresentationMode);
     eventBus.on('openfile', webViewerOpenFile);
     eventBus.on('print', webViewerPrint);
-    eventBus.on('download', webViewerDownload);
+    // eventBus.on('download', webViewerDownload);
     eventBus.on('firstpage', webViewerFirstPage);
     eventBus.on('lastpage', webViewerLastPage);
     eventBus.on('nextpage', webViewerNextPage);
@@ -1708,7 +1709,7 @@ var PDFViewerApplication = {
     eventBus.off('presentationmode', webViewerPresentationMode);
     eventBus.off('openfile', webViewerOpenFile);
     eventBus.off('print', webViewerPrint);
-    eventBus.off('download', webViewerDownload);
+    // eventBus.off('download', webViewerDownload);
     eventBus.off('firstpage', webViewerFirstPage);
     eventBus.off('lastpage', webViewerLastPage);
     eventBus.off('nextpage', webViewerNextPage);
@@ -1770,9 +1771,9 @@ var validateFileURL;
           origin = _ref8.origin,
           protocol = _ref8.protocol;
 
-      if (origin !== viewerOrigin && protocol !== 'blob:') {
-        throw new Error('file origin does not match viewer\'s');
-      }
+      // if (origin !== viewerOrigin && protocol !== 'blob:') {
+      //   throw new Error('file origin does not match viewer\'s');
+      // }
     } catch (ex) {
       var message = ex && ex.message;
       PDFViewerApplication.l10n.get('loading_error', null, 'An error occurred while loading the PDF.').then(function (loadingErrorMessage) {
@@ -2109,7 +2110,7 @@ var webViewerFileInputChange;
     var appConfig = PDFViewerApplication.appConfig;
     appConfig.toolbar.viewBookmark.setAttribute('hidden', 'true');
     appConfig.secondaryToolbar.viewBookmarkButton.setAttribute('hidden', 'true');
-    appConfig.toolbar.download.setAttribute('hidden', 'true');
+    // appConfig.toolbar.download.setAttribute('hidden', 'true');
     appConfig.secondaryToolbar.downloadButton.setAttribute('hidden', 'true');
   };
 }
@@ -2445,14 +2446,14 @@ function webViewerKeyDown(evt) {
     }
   }
 
-  if (cmd === 1 || cmd === 8) {
-    switch (evt.keyCode) {
-      case 83:
-        PDFViewerApplication.download();
-        handled = true;
-        break;
-    }
-  }
+  // if (cmd === 1 || cmd === 8) {
+  //   switch (evt.keyCode) {
+  //     case 83:
+  //       PDFViewerApplication.download();
+  //       handled = true;
+  //       break;
+  //   }
+  // }
 
   if (cmd === 3 || cmd === 10) {
     switch (evt.keyCode) {
@@ -13334,21 +13335,21 @@ function () {
           source: self
         });
       });
-      items.openFile.addEventListener('click', function () {
-        eventBus.dispatch('openfile', {
-          source: self
-        });
-      });
+      // items.openFile.addEventListener('click', function () {
+      //   eventBus.dispatch('openfile', {
+      //     source: self
+      //   });
+      // });
       items.print.addEventListener('click', function () {
         eventBus.dispatch('print', {
           source: self
         });
       });
-      items.download.addEventListener('click', function () {
-        eventBus.dispatch('download', {
-          source: self
-        });
-      });
+      // items.download.addEventListener('click', function () {
+      //   eventBus.dispatch('download', {
+      //     source: self
+      //   });
+      // });
       items.scaleSelect.oncontextmenu = _ui_utils.noContextMenuHandler;
       eventBus.on('localized', function () {
         _this._localized();
@@ -15646,7 +15647,7 @@ function ensureOverlay() {
 }
 
 _app.PDFPrintServiceFactory.instance = {
-  supportsPrinting: true,
+  supportsPrinting: false,//关闭打印
   createPrintService: function createPrintService(pdfDocument, pagesOverview, printContainer, l10n) {
     if (activeService) {
       throw new Error('The print service is created and active.');
