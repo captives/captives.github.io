@@ -13,7 +13,7 @@
 
     <StreamTracks v-model="stream"></StreamTracks>
 
-    <vue-source src="src/webrtc/views/webrtc/VideoStreamFromCanvas.vue" lang="html"></vue-source>
+    <vue-source src="/webrtc/views/webrtc/VideoStreamFromCanvas.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

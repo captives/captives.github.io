@@ -14,7 +14,7 @@
         <canvas ref="draw" class="video-item"></canvas>
       </el-col>
     </el-row>
-    <vue-source src="src/webrtc/views/canvas/DrawVideoForFabric.vue" lang="html"></vue-source>
+    <vue-source src="/webrtc/views/canvas/DrawVideoForFabric.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

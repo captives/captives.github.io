@@ -15,7 +15,7 @@
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-    <vue-source src="src/webrtc/views/webrtc/VideoStreamFromDisplayMedia.vue" lang="html"></vue-source>
+    <vue-source src="/webrtc/views/webrtc/VideoStreamFromDisplayMedia.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

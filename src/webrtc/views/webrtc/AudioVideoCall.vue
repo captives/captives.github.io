@@ -15,7 +15,7 @@
       </el-col>
     </el-row>
 
-    <vue-source src="src/webrtc/views/webrtc/AudioVideoCall.vue" lang="html"></vue-source>
+    <vue-source src="/webrtc/views/webrtc/AudioVideoCall.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

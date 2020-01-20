@@ -1,0 +1,22 @@
+{
+  "name": "source-client",
+  "authors": [
+    "seven <593278382@qq.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://captives.github.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fabric.js": "fabric#^3.6.0",
+    "socket.io-client": "^2.3.0",
+    "webrtc-adapter": "^7.4.0"
+  }
+}

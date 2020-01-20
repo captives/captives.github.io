@@ -38,7 +38,7 @@
       </el-col>
     </el-row>
 
-    <vue-source src="src/webrtc/views/canvas/DrawVideoGreenScreen.vue" lang="html"></vue-source>
+    <vue-source src="/webrtc/views/canvas/DrawVideoGreenScreen.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
