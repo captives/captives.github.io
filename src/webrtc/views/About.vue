@@ -35,9 +35,9 @@ export default {
   data() {
     return {
       list: [
-        { value: 'src/components/SourceCode.vue', lang: "html" },
-        { value: 'src/plugins/global.js', lang: "javascript" },
-        { value: 'src/assets/css/code-style.css', lang: "css" },
+        { value: 'components/SourceCode.vue', lang: "html" },
+        { value: 'plugins/global.js', lang: "javascript" },
+        { value: 'assets/css/code-style.css', lang: "css" },
       ]
     }
   }

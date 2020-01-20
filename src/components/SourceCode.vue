@@ -1,6 +1,8 @@
 <template>
   <el-dropdown @command="selecteItem">
-    <span class="el-dropdown-link">Source</span>
+    <span class="el-dropdown-link">
+      <slot :data="value">Source</slot>
+    </span>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item
         v-for="(item,index) in value"
@@ -41,7 +43,7 @@ export default {
       });
     },
     selecteItem(data) {
-      this.fetch(data.value).then(code => {
+      this.fetch("src/" + data.value).then(code => {
         this.$set(data, 'code', code);
         this.$emit('input', this.value);
       });
