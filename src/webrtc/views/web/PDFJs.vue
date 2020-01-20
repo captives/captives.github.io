@@ -77,7 +77,10 @@ canvas.style.height = viewport.height + 'px';
           <template slot-scope="data">
             <span>完整源码</span>
             <el-row v-for="item in data" :key="item.value">
-              <vue-source :src="item.value" :lang="item.lang"></vue-source>
+              <vue-code v-if="item.code">
+                <p>{{item.value}}</p>
+                <pre :lang="item.lang">{{item.code}}</pre>
+              </vue-code>
             </el-row>
           </template>
         </source-code>

@@ -1,6 +1,6 @@
 <template>
   <div ref="code" class="code">
-    <slot>console.log('hello code~')</slot>
+    <slot>code info</slot>
   </div>
 </template>
 <script>

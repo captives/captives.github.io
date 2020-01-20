@@ -125,7 +125,7 @@ Vue.component('vue-source', Source);
       </vue-code>
     </el-row>
 
-    <el-dialog :title="dialog.title" :visible.sync="dialog.visible">
+    <el-dialog :title="dialog.title" :visible.sync="dialog.visible" @closed="dialog.src = null">
       <vue-source v-if="dialog.src" :src="dialog.src"></vue-source>
       <span v-else>暂无数据</span>
     </el-dialog>
