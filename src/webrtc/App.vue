@@ -40,7 +40,7 @@ export default {
       loading: false,
       index: 'h1',
       list: [
-        { label: "Home", to: '/', logo: './assets/logo.png' },
+        { label: "Home", to: '/index.html', logo: './assets/logo.png' },
         { label: "HTML5 Web", to: '/web', logo: null },
         { label: "Canvas", to: '/canvas', logo: null },
         { label: "WebRTC", to: '/webrtc', logo: null },

@@ -5,8 +5,12 @@
   </vue-code>
 </template>
 <script>
+import code from './Code'
 export default {
   name: "Source",
+  components: {
+    'vue-code': code
+  },
   props: {
     src: {
       type: String, default: ''

@@ -1,16 +1,28 @@
 <template>
   <el-container id="app">
     <el-header class="center">
-      <router-link to="/">HOME</router-link>&nbsp;|&nbsp;
-      <router-link to="/about">ABOUT</router-link>&nbsp;|&nbsp;
-      <router-link to="/element">ElementUI</router-link>&nbsp;|&nbsp;
-      <a href="/live.html">LIVE</a> &nbsp;|&nbsp;
-      <a href="/webrtc.html">WEB RTC</a> &nbsp;|&nbsp;
+      <router-link to="/">Home</router-link>
+      <router-link to="/element">ElementUI</router-link>
+      <router-link to="/url-format">URL编解码</router-link>
+      <a href="/live.html">LIVE</a>
+      <a href="/webrtc.html">WEB RTC</a>
       <a href="/charts.html">图表</a>
+      <router-link to="/about">处理中心</router-link>
     </el-header>
-    <el-main>
-      <router-view />
-    </el-main>
-    <el-footer>Footer</el-footer>
+    <router-view />
+    <!-- <el-footer>Footer</el-footer> -->
   </el-container>
 </template>
+<style lang="stylus" scoped>
+.el-header {
+  text-align: center;
+
+  a {
+    display: inline-block;
+    padding: 0 10px;
+    margin: 0 10px;
+    line-height: 60px;
+    text-decoration: none;
+  }
+}
+</style>

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import router from './router'
 import '@/assets/css/base-style.css';
 
 import ElementUI from 'element-ui';
@@ -19,13 +20,18 @@ import 'echarts/lib/chart/scatter';
 import 'echarts/lib/chart/radar';
 import 'echarts/lib/chart/gauge';
 import 'echarts/lib/chart/treemap';
+
+//地图插件
+import 'echarts/map/js/china.js'
 import 'echarts/lib/chart/funnel';
+import 'echarts/lib/chart/lines';
+import 'echarts/lib/chart/effectScatter';
 
 //有问题
 import "echarts/lib/component/graphic";
 import 'echarts/lib/chart/graph';
 
-//// 引入提示框组件、标题组件、工具箱、legend组件。
+// 引入提示框组件、标题组件、工具箱、legend组件。
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/toolbox';
@@ -33,8 +39,12 @@ import 'echarts/lib/component/legend';
 
 Vue.prototype.$echarts = echarts;
 
-Vue.config.productionTip = false
+import './../assets/css/code-style.css';
+import Source from './../components/Source';
+Vue.component('vue-source', Source);
 
-new Vue({
+Vue.config.productionTip = false
+window.vue = new Vue({
+  router,
   render: h => h(App)
 }).$mount('body')

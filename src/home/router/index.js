@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: () => import('../views/Home.vue')
   }, {
     path: '/about',
     name: 'about',
@@ -17,13 +16,26 @@ const routes = [
     path: '/element',
     name: 'element UI',
     component: () => import('../elements/VElInput.vue')
+  }, {
+    path: '/url-format',
+    name: 'URL编解码',
+    component: () => import('../views/URLFormat.vue')
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path.lastIndexOf('.html') != -1) {
+    window.location.href = to.path;
+  } else {
+    document.title = to.name;
+    next();
+  }
+});
 
 export default router
