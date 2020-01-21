@@ -3,7 +3,7 @@
 </template>
 <script>
 import { geoCoordMap } from './../utils/common';
-
+import 'echarts/map/js/china.js'
 export default {
   name: "AirRouteMap1",
   methods: {

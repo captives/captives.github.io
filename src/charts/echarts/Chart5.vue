@@ -14,9 +14,6 @@ export default {
       }, {
         name: '内存',
         value: 30
-      }, {
-        name: '硬盘',
-        value: 20
       }]
 
     var titleArr = [], seriesArr = [];
@@ -43,7 +40,7 @@ export default {
       seriesArr.push({
         name: item.name.toUpperCase(),
         type: 'pie',
-        radius: ['60%', '85%'],
+        radius: ['60%', '80%'],
         startAngle: 225,
         color: [{
           type: 'linear',
@@ -73,7 +70,7 @@ export default {
       }, {
         name: '',
         type: 'pie',
-        radius: ['60%', '85%'],
+        radius: ['60%', '80%'],
         center: [index * 50 + 25 + '%', '50%'],
         startAngle: 225,
         color: ["#052471"],

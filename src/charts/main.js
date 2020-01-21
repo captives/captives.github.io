@@ -22,7 +22,6 @@ import 'echarts/lib/chart/gauge';
 import 'echarts/lib/chart/treemap';
 
 //地图插件
-import 'echarts/map/js/china.js'
 import 'echarts/lib/chart/funnel';
 import 'echarts/lib/chart/lines';
 import 'echarts/lib/chart/effectScatter';

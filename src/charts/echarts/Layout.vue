@@ -54,6 +54,8 @@ export default {
         { to: "/chart17", label: "CPU消耗图", icon: 'el-icon-s-flag' },
         { to: "/airroutemap1", label: "模拟迁徙 1", icon: 'el-icon-s-flag' },
         { to: "/airroutemap2", label: "模拟迁徙 2", icon: 'el-icon-s-flag' },
+        { to: "/world-economy", label: "世界经济", icon: 'el-icon-s-flag' },
+        { to: "/world-money", label: "全球数字货币交易", icon: 'el-icon-s-flag' },
       ]
     }
   },
@@ -65,16 +67,21 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.el-aside {
-  .el-menu {
-    height: 100%;
-  }
-}
-
 .el-container {
-  .chart-view{
-    width 1200px;
-    height 720px;
+  height: calc(100% - 60px);
+
+  .el-aside {
+    height: 100%;
+    overflow: auto;
+
+    .el-menu {
+      height: 100%;
+    }
+  }
+
+  .chart-view {
+    width: 1200px;
+    height: 720px;
   }
 }
 </style>

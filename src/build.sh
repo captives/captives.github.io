@@ -17,4 +17,3 @@ cp -rf ./captives.github.io /Volumes/DATA/github
 
 rm -rf "./captives.github.io"
 echo 'build complete ~'
-done

@@ -39,6 +39,8 @@ const routes = [{
     { path: "/e-charts/chart17", name: "CPU消耗图", component: () => import('../echarts/Chart17.vue') },
     { path: "/e-charts/airroutemap1", name: "模拟迁徙 1", component: () => import('../echarts/AirRouteMap1.vue') },
     { path: "/e-charts/airroutemap2", name: "模拟迁徙 2", component: () => import('../echarts/AirRouteMap2.vue') },
+    { path: "/e-charts/world-economy", name: "世界经济", component: () => import('../echarts/WorldEconomy.vue') },
+    { path: "/e-charts/world-money", name: "全球数字货币交易", component: () => import('../echarts/WorldMoney.vue') },
   ]
 }, {
   path: '/live',
