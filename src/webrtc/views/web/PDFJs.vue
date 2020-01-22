@@ -18,7 +18,7 @@
         </el-col>
       </el-row>
     </el-main>
-    <el-aside width="30%">
+    <el-aside width="40%">
       <p>1、安装pdfjs依赖</p>
       <vue-code>
         <pre lang="javascript">npm install pdfjs-dist --save-dev</pre>
