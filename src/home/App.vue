@@ -18,6 +18,7 @@
 <style lang="stylus" scoped>
 .el-header {
   text-align: center;
+  overflow-x: auto;
 
   a {
     display: inline-block;
