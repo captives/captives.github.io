@@ -1,24 +1,7 @@
 <template>
   <el-container>
     <el-aside width="220px">
-      <el-menu
-        v-if="list.length"
-        :router="true"
-        :default-active="selectIndex"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-      >
-        <el-menu-item
-          v-for="(item, index) in list"
-          :key="index"
-          :index="'m' + (index + 1)"
-          :route="'/web' + item.to"
-        >
-          <i :class="item.icon"></i>
-          {{item.label}}
-        </el-menu-item>
-      </el-menu>
+      <nav-menu class="nav-menu" :list="list" :prefix="prefix"></nav-menu>
     </el-aside>
 
     <el-container>
@@ -36,24 +19,19 @@ export default {
   name: "Web",
   data() {
     return {
-      selectIndex: 'm1',
+      prefix: '/web',
       list: [
-        { label: "关键知识", to: '/index', icon: 'el-icon-s-flag' },
-        { label: "VideoJs", to: '/video-js', icon: 'el-icon-notebook-2' },
-        { label: "西瓜视频", to: '/xgvideo', icon: 'el-icon-notebook-2' },
-        { label: "简单LRC播放器", to: '/audio-lrc', icon: 'el-icon-notebook-2' },
-        { label: "MediaSource", to: '/media-source', icon: 'el-icon-notebook-2' },
-        { label: "html2canvas", to: '/html-to-canvas', icon: 'el-icon-notebook-2' },
-        { label: "cropperjs", to: '/cropperjs', icon: 'el-icon-notebook-2' },
-        { label: "vue cropper", to: '/vue-cropper', icon: 'el-icon-notebook-2' },
-        { label: "PDF 在线阅读器", to: '/pdf-js', icon: 'el-icon-notebook-2' },
+        { name: "关键知识", path: '/index', icon: 'el-icon-s-flag' },
+        { name: "VideoJs", path: '/video-js', icon: 'el-icon-notebook-2' },
+        { name: "西瓜视频", path: '/xgvideo', icon: 'el-icon-notebook-2' },
+        { name: "简单LRC播放器", path: '/audio-lrc', icon: 'el-icon-notebook-2' },
+        { name: "MediaSource", path: '/media-source', icon: 'el-icon-notebook-2' },
+        { name: "html2canvas", path: '/html-to-canvas', icon: 'el-icon-notebook-2' },
+        { name: "cropperjs", path: '/cropperjs', icon: 'el-icon-notebook-2' },
+        { name: "vue cropper", path: '/vue-cropper', icon: 'el-icon-notebook-2' },
+        { name: "PDF 在线阅读器", path: '/pdf-js', icon: 'el-icon-notebook-2' },
       ]
     }
-  },
-  mounted() {
-    const path = this.$route.path;
-    const item = this.list.find((item, index) => path.indexOf(item.to) != -1);
-    this.selectIndex = 'm' + (this.list.indexOf(item) + 1);
   }
 }
 </script>

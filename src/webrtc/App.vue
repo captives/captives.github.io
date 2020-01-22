@@ -17,12 +17,7 @@
             src="https://openvidu.io/img/logos/openvidu_vert_white_bg_trans_cropped.png"
           />-->
         </el-menu-item>
-        <el-menu-item
-          v-for="(item, index) in list"
-          :key="index"
-          :index="'h' + (index + 1)"
-          :route="item.to"
-        >
+        <el-menu-item v-for="item in list" :key="item.to" :index="item.to" :route="item.to">
           <i :class="item.icon"></i>
           {{item.label}}
         </el-menu-item>
@@ -34,12 +29,13 @@
   </el-container>
 </template>
 <script>
+import route1 from './router/index'
 export default {
   name: "",
   data() {
     return {
       loading: false,
-      index: 'h1',
+      index: '0',
       list: [
         { label: "Home", to: '/index.html', logo: './assets/logo.png' },
         { label: "HTML5 Web", to: '/web', logo: null },
@@ -53,10 +49,11 @@ export default {
   },
   methods: {
     navChangeHandler(key, keyPath) {
-
+      console.log(key, keyPath);
     }
   },
   created() {
+    console.log('33333', route1);
     this.$router.beforeEach((to, from, next) => {
       this.loading = true;
       // setTimeout(next, 1000);

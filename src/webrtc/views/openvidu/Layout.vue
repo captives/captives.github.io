@@ -1,23 +1,7 @@
 <template>
   <el-container>
     <el-aside width="220px">
-      <el-menu
-        v-if="list.length"
-        :router="true"
-        default-active="m1"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-      >
-        <el-menu-item
-          v-for="(item, index) in list"
-          :key="index"
-          :index="'m' + (index + 1)"
-          :route="'/openvidu' + item.to"
-        >
-          <i :class="item.icon"></i>{{item.label}}
-        </el-menu-item>
-      </el-menu>
+      <nav-menu class="nav-menu" :list="list" :prefix="prefix"></nav-menu>
     </el-aside>
 
     <el-container>
@@ -34,10 +18,11 @@ export default {
   name: "webrtc",
   data() {
     return {
+      prefix: "/openvidu",
       list: [
-        { label: "关键知识", to: '/index', icon: 'el-icon-menu' },
-        { label: "Hello World", to: '/hello', icon: 'el-icon-menu' },
-        { label: "AudioVideoCall", to: '/avcall', icon: 'el-icon-menu' },
+        { name: "关键知识", path: '/index', icon: 'el-icon-menu' },
+        { name: "Hello World", path: '/hello', icon: 'el-icon-menu' },
+        { name: "AudioVideoCall", path: '/avcall', icon: 'el-icon-menu' },
       ]
     }
   },

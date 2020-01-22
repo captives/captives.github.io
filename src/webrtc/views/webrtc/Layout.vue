@@ -1,24 +1,7 @@
 <template>
   <el-container>
     <el-aside width="220px">
-      <el-menu
-        v-if="list.length"
-        :router="true"
-        :default-active="selectIndex"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-      >
-        <el-menu-item
-          v-for="(item, index) in list"
-          :key="index"
-          :index="'m' + (index + 1)"
-          :route="'/webrtc' + item.to"
-        >
-          <i :class="item.icon"></i>
-          {{item.label}}
-        </el-menu-item>
-      </el-menu>
+      <nav-menu class="nav-menu" :list="list" :prefix="prefix"></nav-menu>
     </el-aside>
 
     <el-container>
@@ -42,34 +25,30 @@ export default {
   name: "webrtc",
   data() {
     return {
-      selectIndex: 'm1',
+      prefix: "/webrtc",
+      selectIndex: "/index",
       list: [
-        { label: "关键知识", to: '/index', icon: 'el-icon-s-flag' },
-        { label: "用户设备列表", to: '/list', icon: 'el-icon-notebook-2' },
-        { label: "视频流来自用户设备", to: '/stream-from-usermedia', icon: 'el-icon-camera' },
-        { label: "视频流来自显示设备", to: '/stream-from-displaymedia', icon: 'el-icon-monitor' },
-        { label: "视频流来自Video", to: '/stream-from-video', icon: 'el-icon-film' },
-        { label: "视频流来自Canvas", to: '/stream-from-canvas', icon: 'el-icon-picture-outline' },
-        { label: "媒体流可视化", to: '/visualizer', icon: 'el-icon-data-line' },
-        { label: "媒体流音量测算", to: '/audio-volume', icon: 'el-icon-odometer' },
-        { label: "媒体流混音", to: '/mixer', icon: 'el-icon-set-up' },
-        { label: "对等连接", to: '/pc', icon: 'el-icon-connection' },
-        { label: "对等连接传输流", to: '/remote', icon: 'el-icon-money' },
-        { label: "用户设备流录制", to: '/recorder', icon: 'el-icon-video-camera' },
-        { label: "显示设备录制流", to: '/display-media-recorder', icon: 'el-icon-video-camera-solid' },
+        { name: "关键知识", path: '/index', icon: 'el-icon-s-flag' },
+        { name: "用户设备列表", path: '/list', icon: 'el-icon-notebook-2' },
+        { name: "视频流来自用户设备", path: '/stream-from-usermedia', icon: 'el-icon-camera' },
+        { name: "视频流来自显示设备", path: '/stream-from-displaymedia', icon: 'el-icon-monitor' },
+        { name: "视频流来自Video", path: '/stream-from-video', icon: 'el-icon-film' },
+        { name: "视频流来自Canvas", path: '/stream-from-canvas', icon: 'el-icon-picture-outline' },
+        { name: "媒体流可视化", path: '/visualizer', icon: 'el-icon-data-line' },
+        { name: "媒体流音量测算", path: '/audio-volume', icon: 'el-icon-odometer' },
+        { name: "媒体流混音", path: '/mixer', icon: 'el-icon-set-up' },
+        { name: "对等连接", path: '/pc', icon: 'el-icon-connection' },
+        { name: "对等连接传输流", path: '/remote', icon: 'el-icon-money' },
+        { name: "用户设备流录制", path: '/recorder', icon: 'el-icon-video-camera' },
+        { name: "显示设备录制流", path: '/display-media-recorder', icon: 'el-icon-video-camera-solid' },
       ]
     }
-  },
-  mounted() {
-    const path = this.$route.path;
-    const item = this.list.find((item, index) => path.indexOf(item.to) != -1);
-    this.selectIndex = 'm' + (this.list.indexOf(item) + 1);
   }
 }
 </script>
 <style lang="stylus" scoped>
 .el-aside {
-  .el-menu {
+  .nav-menu {
     height: 100%;
   }
 }

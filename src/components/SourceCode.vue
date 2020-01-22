@@ -87,7 +87,7 @@ export default {
   font-size: 16px;
 }
 
-.el-dialog__wrapper {
+.el-drawer__wrapper {
   >>> .el-drawer__header {
     padding-top: 20px;
     margin-bottom: 10px;
