@@ -8,7 +8,7 @@
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-    <vue-source src="/webrtc/views/webrtc/MediaDevices.vue" lang="html"></vue-source>
+    <vue-source src="webrtc/views/webrtc/MediaDevices.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

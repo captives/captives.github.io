@@ -51,7 +51,7 @@ export default {
   },
   mounted() {
     if (this.src) {
-      this.fetch("src" + this.src).then(code => this.code = code);
+      this.fetch("src/" + this.src).then(code => this.code = code);
     }
   }
 }

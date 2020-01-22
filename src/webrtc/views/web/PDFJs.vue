@@ -78,7 +78,7 @@ canvas.style.height = viewport.height + 'px';
       <vue-code>
         <pre lang="javascript">page.render({ canvasContext: context, viewport: viewport });</pre>
       </vue-code>
-      <p>4、<source-code :value="[{ value: 'components/SourceCode.vue', lang: 'html' }]">查看源码</source-code>
+      <p>4、<source-code :value="[{ value: 'webrtc/views/web/PDFJs.vue', lang: 'html' }]">查看源码</source-code>
       </p>
     </el-aside>
   </el-container>

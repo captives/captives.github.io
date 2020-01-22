@@ -4,7 +4,7 @@
       <img alt="Vue logo" src="../assets/logo.png" />
     </el-row>
     <el-row class="content">
-      <h1 @click="show({ title:'vue-code', src:'/components/Code.vue' })">vue-code</h1>
+      <h1 @click="show({ title:'vue-code', src:'components/Code.vue' })">vue-code</h1>
       <p>组件及样式引入</p>
       <vue-code>
         <pre lang="javascript">
@@ -78,7 +78,7 @@ Vue.use(global);
     </el-row>
 
     <el-row class="content">
-      <h1 @click="show({ title:'vue-source', src:'/components/Source.vue' })">vue-source</h1>
+      <h1 @click="show({ title:'vue-source', src:'components/Source.vue' })">vue-source</h1>
       <p>组件引入</p>
       <vue-code>
         <pre lang="javascript">
@@ -95,7 +95,7 @@ Vue.component('vue-source', Source);
     </el-row>
 
     <el-row class="content">
-      <h1 @click="show({ title:'vue-source', src:'/components/SourceCode.vue' })">source-code</h1>
+      <h1 @click="show({ title:'vue-source', src:'components/SourceCode.vue' })">source-code</h1>
       <p>代码集合列表展示组件, 组件引入:</p>
       <vue-code>
         <pre lang="javascript">
@@ -132,7 +132,7 @@ list: [
     </el-row>
 
     <el-row class="content">
-      <h1 @click="show({ title:'url-input', src:'/components/URLInput.vue' })">url-input</h1>
+      <h1 @click="show({ title:'url-input', src:'components/URLInput.vue' })">url-input</h1>
       <p>HTML</p>
       <vue-code>
         <pre lang="html">

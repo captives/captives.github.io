@@ -8,7 +8,7 @@
     <!-- <el-row>{{canvas.toJSON()}}</el-row>
     <el-row>{{canvas.toSVG()}}</el-row>-->
 
-    <vue-source src="/webrtc/views/canvas/BaseFabric.vue" lang="html"></vue-source>
+    <vue-source src="webrtc/views/canvas/BaseFabric.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

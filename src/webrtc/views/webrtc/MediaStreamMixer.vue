@@ -39,7 +39,7 @@
       </el-col>
     </el-row>
 
-    <vue-source src="/webrtc/views/webrtc/MediaStreamMixer.vue" lang="html"></vue-source>
+    <vue-source src="webrtc/views/webrtc/MediaStreamMixer.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
