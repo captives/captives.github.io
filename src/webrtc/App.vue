@@ -2,6 +2,7 @@
   <el-container id="app" class="fill">
     <el-header>
       <el-menu
+        class="nav"
         :router="true"
         mode="horizontal"
         background-color="#545c64"

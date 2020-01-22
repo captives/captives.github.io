@@ -1,10 +1,12 @@
 <template>
   <el-container id="app" class="fill">
     <el-header>
-      <a href="/">Home</a>
-      <router-link to="/" name="Home">目录</router-link>
-      <router-link to="/e-charts" name="echarts">E-Charts</router-link>
-      <router-link to="/about" name="About">About</router-link>
+      <el-row class="nav">
+        <a href="/">Home</a>
+        <router-link to="/" name="Home">目录</router-link>
+        <router-link to="/e-charts" name="echarts">E-Charts</router-link>
+        <router-link to="/about" name="About">About</router-link>
+      </el-row>
     </el-header>
     <router-view></router-view>
   </el-container>
