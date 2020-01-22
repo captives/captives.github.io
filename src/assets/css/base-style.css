@@ -29,6 +29,6 @@ li {
 .el-header .nav {
     width: 100%;
     display: flex;
-    text-align: center;
+    justify-content: center;
     overflow-x: auto;
 }
