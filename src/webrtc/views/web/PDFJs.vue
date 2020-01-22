@@ -14,11 +14,7 @@
           ></el-pagination>
         </el-col>
         <el-col :span="4">
-          <el-button
-            size="mini"
-            type="success"
-            @click="openHandler"
-          >新页面打开</el-button>
+          <el-button size="mini" type="success" @click="openHandler">新页面打开</el-button>
         </el-col>
       </el-row>
     </el-main>
@@ -82,19 +78,7 @@ canvas.style.height = viewport.height + 'px';
       <vue-code>
         <pre lang="javascript">page.render({ canvasContext: context, viewport: viewport });</pre>
       </vue-code>
-      <p>
-        5、
-        <source-code :value="[{ value: 'components/SourceCode.vue', lang: 'html' }]">
-          <template slot-scope="data">
-            <span>完整源码</span>
-            <el-row v-for="item in data" :key="item.value">
-              <vue-code v-if="item.code">
-                <p>{{item.value}}</p>
-                <pre :lang="item.lang">{{item.code}}</pre>
-              </vue-code>
-            </el-row>
-          </template>
-        </source-code>
+      <p>4、<source-code :value="[{ value: 'components/SourceCode.vue', lang: 'html' }]">查看源码</source-code>
       </p>
     </el-aside>
   </el-container>
@@ -144,7 +128,7 @@ export default {
 
       page.render({ canvasContext: context, viewport: viewport });
     },
-    openHandler(){
+    openHandler() {
       window.open('/pdfview/index.html?file=' + this.url);
     }
   },

@@ -95,6 +95,43 @@ Vue.component('vue-source', Source);
     </el-row>
 
     <el-row class="content">
+      <h1 @click="show({ title:'vue-source', src:'/components/SourceCode.vue' })">source-code</h1>
+      <p>代码集合列表展示组件, 组件引入:</p>
+      <vue-code>
+        <pre lang="javascript">
+import SourceCode from './../components/SourceCode';
+Vue.component('source-code', SourceCode);
+
+....
+//数据源
+list: [
+  { value: 'components/SourceCode.vue', lang: "html" },
+  { value: 'plugins/global.js', lang: "javascript" },
+  { value: 'assets/css/code-style.css', lang: "css" },
+]
+</pre>
+      </vue-code>
+      <p>组件使用, 抽屉式弹出</p>
+      <vue-code>
+        <pre lang="html">
+&lt;source-code :value=&quot;list&quot;&gt;查看源码&lt;/source-code&gt;
+</pre>
+      </vue-code>
+      <p>或自定义代码渲染</p>
+      <vue-code>
+        <pre lang="html">
+&lt;source-code v-model=&quot;list&quot; :drawed=&quot;false&quot;&gt;&lt;/source-code&gt;
+&lt;el-row v-for=&quot;item in list&quot; :key=&quot;item.value&quot;&gt;
+  &lt;vue-code v-if=&quot;item.code&quot;&gt;
+    &lt;p&gt;{ { item.value } }&lt;/p&gt;
+    &lt;pre :lang=&quot;item.lang&quot;&gt;{ { item.code } }&lt;/pre&gt;
+  &lt;/vue-code&gt;
+&lt;/el-row&gt;
+</pre>
+      </vue-code>
+    </el-row>
+
+    <el-row class="content">
       <h1 @click="show({ title:'url-input', src:'/components/URLInput.vue' })">url-input</h1>
       <p>HTML</p>
       <vue-code>
@@ -160,6 +197,12 @@ export default {
     display: block;
     margin: 0 auto;
     padding-bottom: 20px;
+  }
+
+  .el-dialog {
+    >>> .el-dialog__body {
+      padding-top: 0px;
+    }
   }
 }
 </style>

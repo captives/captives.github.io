@@ -18,10 +18,8 @@
       </el-row>
     </el-aside>
     <el-main>
-      <source-code v-model="list"></source-code>
-
+      <source-code v-model="list" :drawed="false"></source-code>
       <el-row v-for="item in list" :key="item.value">
-        <!-- <vue-source :src="item.value" :lang="item.lang"></vue-source> -->
         <vue-code v-if="item.code">
           <p>{{item.value}}</p>
           <pre :lang="item.lang">{{item.code}}</pre>

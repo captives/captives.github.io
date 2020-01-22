@@ -2,14 +2,14 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/home/main.js',
-      title: 'index',
+      title: 'loading...',
       template: 'public/index.html',
       filename: 'index.html',
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
     },
     live: {
       entry: 'src/live/main.js',
-      title: 'Live Home',
+      title: 'loading...',
       template: 'public/index.html',
       filename: 'live.html',
       chunks: ['chunk-vendors', 'chunk-common', 'live'],
@@ -23,7 +23,7 @@ module.exports = {
     },
     charts: {
       entry: 'src/charts/main.js',
-      title: '图表',
+      title: 'loading...',
       template: 'public/index.html',
       filename: 'charts.html',
       chunks: ['chunk-vendors', 'chunk-common', 'charts'],

@@ -5,11 +5,11 @@
   </vue-code>
 </template>
 <script>
-import code from './Code'
+import Code from './Code'
 export default {
   name: "Source",
   components: {
-    'vue-code': code
+    'vue-code': Code
   },
   props: {
     src: {
