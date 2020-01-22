@@ -7,6 +7,8 @@
       <a href="/live.html">LIVE</a>
       <a href="/webrtc.html">WEB RTC</a>
       <a href="/charts.html">图表</a>
+      <a href="/sprite/index.html">雪碧图</a>
+      <a href="/list.html">收藏夹</a>
       <router-link to="/about">处理中心</router-link>
     </el-header>
     <router-view />
