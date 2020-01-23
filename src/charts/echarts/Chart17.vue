@@ -166,6 +166,11 @@ export default {
       }]
     };
     chart.setOption(option);
+    window.onresize = chart.resize;
+
+
+
+
     setInterval(() => {
       option.series.forEach((item, index) => {
         item.data.push(Math.floor(Math.random() * 1000));
@@ -184,8 +189,6 @@ export default {
       chart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataIndex: index });
       chart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: index });
     }, 5000);
-
-
   }
 }
 </script>

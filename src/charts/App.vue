@@ -1,34 +1,34 @@
 <template>
   <el-container id="app" class="fill">
     <el-header>
-      <el-row class="nav">
-        <a href="/">Home</a>
-        <router-link to="/" name="Home">目录</router-link>
-        <router-link to="/e-charts" name="echarts">E-Charts</router-link>
-        <router-link to="/about" name="About">About</router-link>
-      </el-row>
+      <NavMenu :list="list" mode="horizontal" class="nav"></NavMenu>
     </el-header>
     <router-view></router-view>
   </el-container>
 </template>
 <script>
+import NavMenu from '@/components/NavMenu';
 export default {
   name: "App",
+  components: {
+    NavMenu
+  },
+  data() {
+    return {
+      list: [
+        { name: "Home", path: "/index.html" },
+        { name: "目录", path: "/" },
+        { name: "E-Charts", path: "/e-charts" },
+        { name: "About", path: "/about" },
+      ]
+    }
+  },
 }
 </script>
 <style lang="stylus" scoped>
 .el-header {
   text-align: center;
-  background-color: rgb(84, 92, 100);
-
-  a {
-    color: #FFF;
-    display: inline-block;
-    padding: 0 10px;
-    margin: 0 10px;
-    line-height: 60px;
-    text-decoration: none;
-  }
+  padding: 0;
 }
 
 .chart {

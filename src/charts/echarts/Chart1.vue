@@ -70,7 +70,7 @@ export default {
           }
         },
 
-        grid:{
+        grid: {
           height: '65%'
         },
         data: [
@@ -89,8 +89,10 @@ export default {
       });
 
       chart.setOption(option);
+
     }, 20000);
     chart.setOption(option);
+    window.onresize = chart.resize;
 
     setInterval(() => {
       chart.dispatchAction({ type: 'downplay', seriesIndex: 0, dataIndex: that.index });

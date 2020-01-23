@@ -2,6 +2,7 @@
   <el-menu
     v-if="list.length"
     :router="true"
+    :mode="mode"
     :default-active="selectIndex"
     background-color="#545c64"
     text-color="#fff"
@@ -30,6 +31,9 @@
 export default {
   name: "NavMenu",
   props: {
+    mode: {
+      type: String, default: "vertical"
+    },
     prefix: {
       type: String, default: ""
     },
@@ -58,9 +62,7 @@ export default {
     searchPath(path) {
       // let list = this.prefix.split('/');
       // this.routes.map(route => {
-
       // });
-
     },
     menuChangeHandler(key, keyPath) {
       console.log(this.prefix, key, keyPath);
@@ -75,6 +77,8 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .el-menu {
+  border: none;
+
   .el-link {
     color: #FFF;
   }

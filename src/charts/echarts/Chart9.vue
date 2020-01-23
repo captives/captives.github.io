@@ -84,6 +84,7 @@ export default {
     }, 5000);
 
     chart.setOption(option);
+    window.onresize = chart.resize;
   }
 }
 </script>

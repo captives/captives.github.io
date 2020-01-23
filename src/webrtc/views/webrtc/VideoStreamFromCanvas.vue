@@ -51,6 +51,7 @@ export default {
       };
 
       this.chart.setOption(option);
+window.onresize = this.chart.resize;
     },
     oncanplay(dom) {
       const player = this.$refs.playVideo;

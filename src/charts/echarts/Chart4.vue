@@ -142,8 +142,8 @@ export default {
       chart.setOption(option);
     }, 3000);
 
-
     chart.setOption(option);
+    window.onresize = chart.resize;
   }
 }
 </script>

@@ -13,126 +13,30 @@ export default {
   data() {
     return {
       data: [
-        [{
-          name: "尼日利亚",
-          value: 9100
-        }, {
-          name: "香港邦泰"
-        }], [{
-          name: "美国洛杉矶",
-          value: 2370
-        }, {
-          name: "香港邦泰"
-        }], [{
-          name: "香港邦泰",
-          value: 3130
-        }, {
-          name: "香港邦泰"
-        }], [{
-          name: "美国芝加哥",
-          value: 2350
-        }, {
-          name: "香港邦泰"
-        }], [{
-          name: "加纳库马西",
-          value: 5120
-        }, {
-          name: "香港邦泰"
-        }], [{
-          name: "英国曼彻斯特",
-          value: 3110
-        }, {
-          name: "香港邦泰"
-        }], [{
-          name: "德国汉堡",
-          value: 6280
-        }, {
-          name: "上海"
-        }], [{
-          name: "哈萨克斯坦阿拉木图",
-          value: 7255
-        }, {
-          name: "上海"
-        }], [{
-          name: "俄罗斯伊尔库茨克",
-          value: 8125
-        }, {
-          name: "上海"
-        }], [{
-          name: "巴西",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "埃及达米埃塔",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "西班牙巴塞罗纳",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "柬埔寨金边",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "意大利米兰",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "乌拉圭蒙得维的亚",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "莫桑比克马普托",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "阿尔及利亚阿尔及尔",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "阿联酋迪拜",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "匈牙利布达佩斯",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "澳大利亚悉尼",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "美国加州",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "澳大利亚墨尔本",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "墨西哥",
-          value: 3590
-        }, {
-          name: "上海"
-        }], [{
-          name: "加拿大温哥华",
-          value: 3590
-        }, {
-          name: "上海"
+        [{ name: "尼日利亚", value: 9100 }, { name: "香港邦泰" }],
+        [{ name: "美国洛杉矶", value: 2370 }, { name: "香港邦泰" }],
+        [{ name: "香港邦泰", value: 3130 }, { name: "香港邦泰" }],
+        [{ name: "美国芝加哥", value: 2350 }, { name: "香港邦泰" }],
+        [{ name: "加纳库马西", value: 5120 }, { name: "香港邦泰" }],
+        [{ name: "英国曼彻斯特", value: 3110 }, { name: "香港邦泰" }],
+        [{ name: "德国汉堡", value: 6280 }, { name: "上海" }],
+        [{ name: "哈萨克斯坦阿拉木图", value: 7255 }, { name: "上海" }],
+        [{ name: "俄罗斯伊尔库茨克", value: 8125 }, { name: "上海" }],
+        [{ name: "巴西", value: 3590 }, { name: "上海" }],
+        [{ name: "埃及达米埃塔", value: 3590 }, { name: "上海" }],
+        [{ name: "西班牙巴塞罗纳", value: 3590 }, { name: "上海" }],
+        [{ name: "柬埔寨金边", value: 3590 }, { name: "上海" }],
+        [{ name: "意大利米兰", value: 3590 }, { name: "上海" }],
+        [{ name: "乌拉圭蒙得维的亚", value: 3590 }, { name: "上海" }],
+        [{ name: "莫桑比克马普托", value: 3590 }, { name: "上海" }],
+        [{ name: "阿尔及利亚阿尔及尔", value: 3590 }, { name: "上海" }],
+        [{ name: "阿联酋迪拜", value: 3590 }, { name: "上海" }],
+        [{ name: "匈牙利布达佩斯", value: 3590 }, { name: "上海" }],
+        [{ name: "澳大利亚悉尼", value: 3590 }, { name: "上海" }],
+        [{ name: "美国加州", value: 3590 }, { name: "上海" }],
+        [{ name: "澳大利亚墨尔本", value: 3590 }, { name: "上海" }],
+        [{ name: "墨西哥", value: 3590 }, { name: "上海" }],
+        [{ name: "加拿大温哥华", value: 3590 }, {          name: "上海"
         }]
       ]
     }
@@ -153,7 +57,6 @@ export default {
   },
   mounted() {
     this.chart = this.$echarts.init(this.$refs.chart);
-    window.onresize = this.chart.resize;
     var series = [];
     [["上海", this.data]].forEach((item, i) => {
       series.push({
@@ -169,19 +72,16 @@ export default {
         lineStyle: {
           //增加渐变
           normal: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: '#58B3CC'
-            }, {
-              offset: 1,
-              color: '#F58158'
-            }], false),
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1,
+              [
+                { offset: 0, color: '#58B3CC' },
+                { offset: 1, color: '#F58158' }
+              ], false),
             width: 1,
             opacity: 0.03,
             curveness: 0.1
           }
         },
-
         data: this.convertData(item[1])
       }, {
         type: "effectScatter",
@@ -219,45 +119,42 @@ export default {
             value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value])
           };
         })
-      },
-        //被攻击点
-        {
-          type: "scatter",
-          coordinateSystem: "geo",
-          zlevel: 2,
-          rippleEffect: {
-            period: 4,
-            brushType: "stroke",
-            scale: 4
-          },
-          label: {
-            normal: {
-              show: true,
-              position: "right",
-              color: "#00ffff",
-              formatter: "{b}",
-              textStyle: {
-                color: "#0bc7f3"
-              }
-            },
-            emphasis: {
-              show: true
+      }, {//被攻击点
+        type: "scatter",
+        coordinateSystem: "geo",
+        zlevel: 2,
+        rippleEffect: {
+          period: 4,
+          brushType: "stroke",
+          scale: 4
+        },
+        label: {
+          normal: {
+            show: true,
+            position: "right",
+            color: "#00ffff",
+            formatter: "{b}",
+            textStyle: {
+              color: "#0bc7f3"
             }
           },
-          symbol: "pin",
-          symbolSize: 30,
-          itemStyle: {
-            normal: {
-              show: true,
-              color: "#9966cc"
-            }
-          },
-          data: [{
-            name: item[0],
-            value: geoCoordMap[item[0]].concat([100])
-          }]
-        }
-      );
+          emphasis: {
+            show: true
+          }
+        },
+        symbol: "pin",
+        symbolSize: 30,
+        itemStyle: {
+          normal: {
+            show: true,
+            color: "#9966cc"
+          }
+        },
+        data: [{
+          name: item[0],
+          value: geoCoordMap[item[0]].concat([100])
+        }]
+      });
     });
 
     let option = {
@@ -321,6 +218,14 @@ export default {
     };
 
     this.chart.setOption(option);
+    window.onresize = this.chart.resize;
   },
 }
 </script>
+<style lang="stylus" scoped>
+.chart-view {
+  width: 100%;
+  height: 100%;
+  background: red;
+}
+</style>

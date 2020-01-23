@@ -37,6 +37,7 @@ export default {
     };
 
     chart.setOption(option);
+    window.onresize = chart.resize;
   }
 }
 </script>

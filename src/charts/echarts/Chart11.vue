@@ -293,6 +293,8 @@ export default {
       option.series[3].data[0].value = (Math.random() * 2).toFixed(2) - 0;
       chart.setOption(option, true);
     }, 2000);
+
+     window.onresize = chart.resize;
   }
 }
 </script>

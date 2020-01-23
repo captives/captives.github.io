@@ -56,6 +56,7 @@ export default {
     }, 3000);
 
     chart.setOption(option);
+    window.onresize = chart.resize;
   }
 }
 </script>

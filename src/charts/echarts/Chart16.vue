@@ -77,9 +77,9 @@ export default {
       //     item = Math.floor(Math.random() * 1000);
       //   });
       // });
-       option.series.forEach((item) => {
-         option.xAxis.data.map((axis, index) => {
-           item.data[index] = Math.floor(Math.random() * 1000 * index);
+      option.series.forEach((item) => {
+        option.xAxis.data.map((axis, index) => {
+          item.data[index] = Math.floor(Math.random() * 1000 * index);
         });
       });
 
@@ -87,6 +87,7 @@ export default {
     }, 3000);
 
     chart.setOption(option);
+    window.onresize = chart.resize;
   }
 }
 </script>

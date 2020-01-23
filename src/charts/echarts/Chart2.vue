@@ -71,6 +71,7 @@ export default {
       chart.setOption(option);
     }, 30000);
     chart.setOption(option);
+    window.onresize = chart.resize;
 
     setInterval(() => {
       const index = Math.floor(Math.random() * option.series[0].data.length);

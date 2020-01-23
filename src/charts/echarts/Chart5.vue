@@ -90,6 +90,7 @@ export default {
       series: seriesArr
     }
     chart.setOption(option);
+    window.onresize = chart.resize;
   }
 }
 </script>
