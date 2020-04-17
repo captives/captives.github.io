@@ -1,15 +1,22 @@
 <template>
-  <el-main>
-    <el-row v-if="canvas">
-      <el-button @click="clear" type="danger">清屏</el-button>
-      <el-button @click="reset" type="primary">重置</el-button>
-    </el-row>
-    <canvas ref="draw" class="panel" width="1360px" height="720px"></canvas>
+  <el-container>
+    <el-main>
+      <canvas ref="draw" class="panel" width="1360px" height="720px"></canvas>
+    </el-main>
     <!-- <el-row>{{canvas.toJSON()}}</el-row>
     <el-row>{{canvas.toSVG()}}</el-row>-->
 
-    <vue-source src="webrtc/views/canvas/BaseFabric.vue" lang="html"></vue-source>
-  </el-main>
+    <ul>
+      <li>
+        <el-button @click="clear" type="danger">清屏</el-button>
+      </li>
+      <li>
+        <el-button @click="reset" type="primary">重置</el-button>
+      </li>
+    </ul>
+
+    <!-- <vue-source src="webrtc/views/canvas/BaseFabric.vue" lang="html"></vue-source> -->
+  </el-container>
 </template>
 <script>
 import { fabric } from 'fabric'
@@ -23,7 +30,7 @@ export default {
   methods: {
     init() {
       let canvas = this.canvas = new fabric.Canvas(this.$refs.draw, {
-        isDrawingMode: false
+        isDrawingMode: true,
       });
 
       fabric.Object.prototype.transparentCorners = false;
@@ -137,5 +144,13 @@ export default {
   width: 100%;
   height: 100%;
   background: orange;
+}
+
+ul {
+  position: absolute;
+
+  li {
+    margin: 10px 0;
+  }
 }
 </style>

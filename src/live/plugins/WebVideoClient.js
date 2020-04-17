@@ -28,7 +28,7 @@ class VideoStream extends BaseEvent {
         var data = {
             streamID: parseInt(this.streamID),
             screen: false,
-            video: true,
+            video: false,
             audio: false,
         };
 
@@ -36,14 +36,22 @@ class VideoStream extends BaseEvent {
             data.video = true;
             data.cameraId = this.cameraId;
         } else {
-            console.warn('没有视频设备, 无视频信号');
+            if (this.cameras.length) {
+                data.video = true; //使用默认设备
+            } else {
+                console.warn('没有视频设备, 无视频信号');
+            }
         }
 
         if (this.microphoneId) {
             data.audio = true;
             data.microphoneId = this.microphoneId;
         } else {
-            console.warn('没有麦克风设备, 无音频信号');
+            if (this.microphones.length) {
+                data.audio = true;
+            } else {
+                console.warn('没有麦克风设备, 无音频信号');
+            }
         }
 
         return data;
@@ -90,7 +98,8 @@ class VideoStream extends BaseEvent {
         }
 
         if (this.cameras.length > 0) {
-            return this.cameras[0].deviceId;
+            this.camera = this.cameras[0];
+            return this.camera.deviceId;
         }
 
         return null;
@@ -108,7 +117,8 @@ class VideoStream extends BaseEvent {
         }
 
         if (this.microphones.length > 0) {
-            return this.microphones[0].deviceId;
+            this.microphone = this.microphones[0];
+            return this.microphone.deviceId;
         }
 
         return null;

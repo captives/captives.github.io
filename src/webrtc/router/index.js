@@ -20,6 +20,7 @@ const routes = [{
     { path: '/canvas/video-splicing', name: "拼接", component: () => import('../views/canvas/DrawVideoSplicing.vue') },
     { path: '/canvas/video-green-screen', name: "拼接绿屏幕抠图", component: () => import('../views/canvas/DrawVideoGreenScreen.vue') },
     { path: '/canvas/video-split-copy', name: "分割拷贝", component: () => import('../views/canvas/DrawVideoSplitCopy.vue') },
+    { path: '/canvas/drawboard', name: "drawboard", component: () => import('../views/canvas/DrawBoardFabric.vue') },
     { path: '/canvas/video-for-fabric', name: "Draw video for fabric", component: () => import('../views/canvas/DrawVideoForFabric.vue') },
   ]
 }, {
@@ -37,6 +38,7 @@ const routes = [{
     { path: '/web/cropperjs', name: 'cropper', component: () => import('../views/web/VueCropperjs.vue') },
     { path: '/web/vue-cropper', name: 'vue cropper', component: () => import('../views/web/VueCropper.vue') },
     { path: '/web/pdf-js', name: 'PDF Js', component: () => import('../views/web/PDFJs.vue') },
+    { path: '/web/websql', name: 'Web SQL', component: () => import('../views/web/WebSQL.vue') },
   ]
 }, {
   path: '/webrtc',
@@ -82,14 +84,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
-router.beforeEach((to, from, next) => {
-  if (to.path.lastIndexOf('.html') != -1) {
-    window.location.href = to.path;
-  } else {
-    document.title = to.name;
-    next();
-  }
-});
 
 export default router

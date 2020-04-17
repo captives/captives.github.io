@@ -32,6 +32,5 @@
   },
   "_source": "https://github.com/webrtc/adapter.git",
   "_target": "^7.4.0",
-  "_originalSource": "webrtc-adapter",
-  "_direct": true
+  "_originalSource": "webrtc-adapter"
 }

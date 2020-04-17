@@ -30,6 +30,7 @@ export default {
         { name: "cropperjs", path: '/cropperjs', icon: 'el-icon-notebook-2' },
         { name: "vue cropper", path: '/vue-cropper', icon: 'el-icon-notebook-2' },
         { name: "PDF 在线阅读器", path: '/pdf-js', icon: 'el-icon-notebook-2' },
+        { name: "Web SQL", path: '/websql', icon: 'el-icon-notebook-2' },
       ]
     }
   }

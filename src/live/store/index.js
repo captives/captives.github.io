@@ -3,10 +3,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import user from './user';
-import subject from './subject';
+import UserData from './UserData';
+import SubjectData from './SubjectData';
+import VideoData from './VideoData';
 export default new Vuex.Store({
     modules: {
-        user, subject
+        UserData, SubjectData, VideoData
     }
 });

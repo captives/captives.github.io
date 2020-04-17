@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.6.3]
+
+- fix(Object): ISSUE 6196 use set('canvas') to restore canvas #6216
+- fix(fabric.IText): exitEditing won't error on missing hiddenTextarea. #6138
+- fix(fabric.Object): getObjectScaling takes in account rotation of objects inside groups. #6118
+- fix(fabric.Group): will draw shadow will call parent method. #6116
+- fix(svg_parsers): Add support for empty <style/> tags (#6169)
+- fix(SVG_export, text): Check font faces markup for objects within groups (#6195)
+- fix(svg_export): remove extra space from svg export (#6209)
+- fix(svg_import): ISSUE-6170 do not try to create missing clippath (#6210)
+- fix(fabric.Object) Adding existence check for this.canvas on object stacking mixins (#6207)
+
+## [3.6.2]
+- fix fabric.Object.toDataURL blurriness on images with odd pixel number [#6131](https://github.com/fabricjs/fabric.js/pull/6131)
+
+## [3.6.1]
+- fix(gradient, text): ISSUE-6014 ISSUE-6077 support percentage gradient in text [#6090](https://github.com/fabricjs/fabric.js/pull/6090)
+- fix(filters): ISSUE-6072 convolution filter is off by one [#6088](https://github.com/fabricjs/fabric.js/pull/6088)
+- fix(transform): Fix a bug in the skewing logic [#6082](https://github.com/fabricjs/fabric.js/pull/6088)
+
 ## [3.6.0]
 - fix: ISSUE-5512 better Clippath transform parsing in SVG [#5983](https://github.com/fabricjs/fabric.js/pull/5983)
 - fix: ISSUE-5984 Avoid enter editing in non selectable object [#5989](https://github.com/fabricjs/fabric.js/pull/5989)

@@ -43,6 +43,7 @@ export default {
 <style lang="stylus" scoped>
 .el-header {
   padding: 0;
+  text-align center;
 
   .el-menu {
     width: cacl(100% -220px);

@@ -12,6 +12,12 @@
       </el-select>
     </el-form-item>
 
+    <el-form-item label="角色: ">
+      <el-select v-model="user.classType" placeholder="请选择橘色">
+        <el-option v-for="{label, value} in classTypes" :key="value" :label="label" :value="value"></el-option>
+      </el-select>
+    </el-form-item>
+
     <el-form-item label="昵称">
       <el-input v-model="user.name" placeholder="请输入昵称"></el-input>
     </el-form-item>
@@ -49,9 +55,15 @@ export default {
         { label: '冰淇淋班', td: 1007 },
         { label: '可爱猪班', td: 1008 }
       ],
+      classTypes: [
+        { label: '直播', value: 1 },
+        { label: '一对一', value: 2 },
+        { label: '一对多', value: 3 },
+      ],
       user: {
         td: 1002,
         id: 1001,
+        classType: 1,
         name: '希西',
         label: '甘露班',
         role: 0
@@ -59,10 +71,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions("user", ["setUser", "initUsers", "pushUser", "removeUser"]),
+    ...mapActions("UserData", ["setUser", "initUsers", "pushUser", "removeUser"]),
     connected() {
       this.logined = false;
-      const us = null; //sessionStorage.getItem("live_user");
+      const us = sessionStorage.getItem("live_user");
       if (us) {
         const user = JSON.parse(us);
         this.user.name = user.name;
@@ -93,7 +105,7 @@ export default {
     }
   },
   mounted() {
-    this.client.init("ws://" + window.location.hostname + ":3000", '/live');
+    this.client.init("wss://" + window.location.hostname + ":3000", '/live');
     this.client.on('connected', this.connected);
     this.client.on('entry', this.pushUser);
     this.client.on('list', this.initUsers);
@@ -105,8 +117,8 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .el-form {
-  >>> .el-form-item__label{
-    color #FFF;
+  >>> .el-form-item__label {
+    color: #FFF;
   }
 }
 </style>

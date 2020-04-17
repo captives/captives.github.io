@@ -1,6 +1,53 @@
 <template>
   <div class="container">
     <div id="video_display" class="fill" v-loading="loading"></div>
+    <el-button
+      class="setting"
+      type="danger"
+      icon="el-icon-setting"
+      circle
+      @click="dialog.visible=true"
+    ></el-button>]
+
+
+    <el-dialog
+      title="设置"
+      :visible.sync="dialog.visible"
+      :append-to-body="true"
+      :show-close="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="600px"
+    >
+      <div class="pre-video"></div>
+      <el-form ref="form" :model="form" label-width="100px">
+        <el-form-item label="摄像头">
+          <el-select v-model="form.cameraId" placeholder="请选择摄像头">
+            <el-option
+              v-for="(item,index) in videoStream.cameras"
+              :key="index"
+              :label="item.label"
+              :value="item.deviceId"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="麦克风">
+          <el-select v-model="form.microphoneId" placeholder="请选择麦克风">
+            <el-option
+              v-for="(item,index) in videoStream.microphones"
+              :key="index"
+              :label="item.label"
+              :value="item.deviceId"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialog.visible=false">取 消</el-button>
+        <el-button type="primary">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -24,6 +71,13 @@ export default {
     return {
       loading: false,
       videoProfile: "480P_4",
+      form: {
+        cameraId: null,
+        microphoneId: null,
+      },
+      dialog: {
+        visible: false
+      }
     }
   },
   computed: {
@@ -39,10 +93,13 @@ export default {
         this.videoStream.videoProfile = this.videoProfile;
         this.videoStream.streamID = this.user.id;
         this.videoStream.createStream().then(localStream => {
+          this.form.cameraId = this.videoStream.cameraId;
+          this.form.microphoneId = this.videoStream.microphoneId;
           this.videoStream.display();
           this.connect();
         }).catch(err => {
           console.log('localStream play err', err);
+          this.$message({ type: "error", message: err });
         });
       });
     },
@@ -100,6 +157,34 @@ export default {
     padding: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .el-button.setting {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 17px;
+    padding: 5px 6px 5px 5px;
+  }
+}
+
+.el-dialog__wrapper {
+  >>> .el-dialog__body {
+    display: flex;
+  }
+
+  .pre-video {
+    width: 240px;
+    height: 160px;
+    background: red;
+  }
+
+  .el-form {
+    width: calc(100% - 240px);
+
+    .el-form-item {
+      margin: 20px 0;
+    }
   }
 }
 </style>

@@ -71,9 +71,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("user", ["getUserById"]),
-    ...mapGetters("subject", ["getResultById"]),
-    ...mapState("subject", {
+    ...mapGetters("UserData", ["getUserById"]),
+    ...mapGetters("SubjectData", ["getResultById"]),
+    ...mapState("SubjectData", {
       subject: state => state
     }),
     publisher() {
@@ -84,7 +84,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("subject", ["initResults", "addResult", "addRankingList"]),
+    ...mapActions("SubjectData", ["initResults", "addResult", "addRankingList"]),
     selectHandler(index) {
       this.selectValue = index;
     },

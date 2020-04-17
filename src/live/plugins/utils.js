@@ -1,5 +1,9 @@
 export default {}
 
+export const UserType = {
+    PRESIDE: 1,  //主持者
+}
+
 export const RoleType = { PUBLISHER: 1, SUBSCRIBER: 2, 1: "PUBLISHER", 2: "SUBSCRIBER" };
 export const localTime = time => {
     const date = new Date(time);

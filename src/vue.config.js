@@ -50,7 +50,7 @@ module.exports = {
   //   sourceMap: false
   // },
   devServer: {
-    port: 8081,
+    port: 8080,
     proxy: 'https://local.uuabc.com:4443/',
     allowedHosts: [
       'localhost',

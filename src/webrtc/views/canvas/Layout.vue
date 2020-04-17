@@ -6,7 +6,6 @@
 
     <el-container>
       <router-view />
-      <el-footer></el-footer>
     </el-container>
   </el-container>
 </template>
@@ -28,6 +27,7 @@ export default {
         { name: "视频画面分割拷贝", path: '/video-split-copy', icon: 'el-icon-printer' },
 
         { name: "fabric 基础", path: '/base', icon: 'el-icon-printer' },
+        { name: "fabric 画板", path: '/drawboard', icon: 'el-icon-printer' },
         { name: "视频绘图fabric", path: '/video-for-fabric', icon: 'el-icon-printer' },
       ]
     }
