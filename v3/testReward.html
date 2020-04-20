@@ -18,7 +18,11 @@
     </style>
 </head>
 <body style="background: red;">
-    页面内跳转::::这是窗体页面(此处模拟的是百家云教室加载压缩包)
-   <iframe src="/v3/test.html" allow="autoplay"></iframe>
+    跳转到中间页::::这是窗体内页面(此处模拟的是百家云教室加载压缩包)
+   <script>
+        setTimeout(()=>{
+            window.location.href="https://captive.uuabc.com/v3/test.html";
+        }, 3000);
+   </script>
 </body>
 </html>

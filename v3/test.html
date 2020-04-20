@@ -4,19 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        iframe{
+            border: none;
+            overflow: hidden;
+            position: absolute;
+            margin-top: 10%;
+            left: 0;
+            top: 0;
+            width: 70%;
+            height: 70%;
+        }
+    </style>
 </head>
-<body>
-
+<body style="background:blue">
     <p></p>
     <p></p>
     <p><h3>
-        3秒后跳转到 模拟课件页面(此处模拟压缩包内的页面跳转)
+        跳转结束: 模拟课件   (此处模拟压缩包内的页面跳转)
     </h3></p>
+
+    <iframe allow="autoplay"></iframe>
     <script>
-        setTimeout(()=>{
-            // window.location.href = "https://captive.uuabc.com/v3/index.html";
-            window.location.href = "https://img.baijiayun.com/0baijiatools/a204a26461e6a450b0151abd9d87d050/testVideo.html";
-        }, 3000);
+        window.onload = function(){
+            document.querySelector('iframe').src="https://img.baijiayun.com/0baijiatools/a204a26461e6a450b0151abd9d87d050/testVideo.html";
+        }
     </script>
 </body>
 </html>
