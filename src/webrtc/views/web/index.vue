@@ -1,12 +1,22 @@
 <template>
   <el-main>
-    <el-tabs type="border-card">
+    <el-row v-for="(item, index) in list" :key="item.label" :label="item.label">
+      <el-button :type="index%2 ==0 ?'danger':'success'" @click="loadURL(item.url)">{{item.label}}</el-button>
+    </el-row>
+    <el-main style="height: 80%">
+      <iframe :src="url" allow="autoplay" frameborder="0" scrolling="no"></iframe>
+    </el-main>
+
+    <!-- <iframe :src="item.url" allow="autoplay" frameborder="0" scrolling="no"></iframe>
+    <canvas style="position:absolute; width:100%;height:100%;top:0;left:0"></canvas>-->
+
+    <!--  <el-tabs type="border-card">
       <el-tab-pane v-for="item in list" :key="item.label" :label="item.label">
         <p v-if="item.desc">{{item.desc}}</p>
         <iframe :src="item.url" allow="autoplay" frameborder="0" scrolling="no"></iframe>
         <canvas style="position:absolute; width:100%;height:100%;top:0;left:0"></canvas>
       </el-tab-pane>
-    </el-tabs>
+    </el-tabs>-->
   </el-main>
 </template>
 <script>
@@ -14,6 +24,7 @@ export default {
   name: "index",
   data() {
     return {
+      url: null,
       list: [
         // { label: '自动播放策略', url: "https://dev.redis.server/testIframe.html" },
         // { label: '淘宝镜像', url: "//npm.taobao.org/" },
@@ -23,10 +34,16 @@ export default {
       ]
     }
   },
+  methods: {
+    loadURL(url) {
+      this.url = url;
+      console.log('加载页面', url);
+
+    }
+  },
   mounted() {
-    setTimeout(() => {
-      this.list.push({ label: '自动播放策略', url: "/v3/testIframe.html", desc:"这里模拟百家云教室加载课件" });
-    }, 5000);
+    this.list.push({ label: '自动播放策略,直接加载', url: "/v3/testIframe.html", desc: "这里模拟百家云教室加载课件" });
+    this.list.push({ label: '自动播放+自动跳转', url: "/v3/testReward.html", desc: "这里模拟百家云教室加载课件" });
   }
 }
 </script>
@@ -46,11 +63,13 @@ export default {
       }
     }
 
-    iframe {
+    
+  }
+
+  iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
-  }
 }
 </style>
