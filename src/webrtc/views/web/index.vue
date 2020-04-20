@@ -2,6 +2,7 @@
   <el-main>
     <el-tabs type="border-card">
       <el-tab-pane v-for="item in list" :key="item.label" :label="item.label">
+        <p v-if="item.desc">{{item.desc}}</p>
         <iframe :src="item.url" allow="autoplay" frameborder="0" scrolling="no"></iframe>
         <canvas style="position:absolute; width:100%;height:100%;top:0;left:0"></canvas>
       </el-tab-pane>
@@ -22,9 +23,9 @@ export default {
       ]
     }
   },
-  mounted(){
-    setTimeout(()=>{
-      this.list.push({ label: '自动播放策略', url: "/v3/testIframe.html"});
+  mounted() {
+    setTimeout(() => {
+      this.list.push({ label: '自动播放策略', url: "/v3/testIframe.html", desc:"这里模拟百家云教室加载课件" });
     }, 5000);
   }
 }
