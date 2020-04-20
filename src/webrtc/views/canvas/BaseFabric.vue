@@ -136,6 +136,12 @@ export default {
   mounted() {
     this.init();
     this.reset();
+    document.addEventListener('keydown', (event) => {
+      const code = window.event ? event.keyCode : event.which;
+      if (code == 8) {//删除选中
+        this.canvas.remove(this.canvas.getActiveObject());
+      }
+    });
   },
 }
 </script>

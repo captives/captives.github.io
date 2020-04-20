@@ -4,6 +4,7 @@
       <canvas ref="canvasElement" class="canvas" width="1360px" height="720px"></canvas>
     </el-main>
     <ul>
+      <li :class="{active: selected(DrawType.SELECT)}" @click="drawTypeChange(DrawType.SELECT)">选中</li>
       <li :class="{active: selected(DrawType.PEN)}" @click="drawTypeChange(DrawType.PEN)">画笔</li>
       <li :class="{active: selected(DrawType.ARROW)}" @click="drawTypeChange(DrawType.ARROW)">箭头</li>
       <li :class="{active: selected(DrawType.LINE)}" @click="drawTypeChange(DrawType.LINE)">直线</li>
@@ -23,7 +24,6 @@
         @click="drawTypeChange(DrawType.EQUILATERAL)"
       >等边三角</li>
       <li :class="{active: selected(DrawType.TEXT)}" @click="drawTypeChange(DrawType.TEXT)">文字</li>
-      <li :class="{active: selected(DrawType.SELECT)}" @click="drawTypeChange(DrawType.SELECT)">选中</li>
 
       <li @click="clear">
         <el-color-picker
@@ -34,7 +34,7 @@
         ></el-color-picker>
       </li>
       <li @click="clear">
-        <el-popover placement="left" width="200" trigger="click">
+        <el-popover placement="left" width="200" trigger="hover">
           <el-slider v-model="selecteWidth" @change="widthSliderChangeHandler"></el-slider>
           <span slot="reference">
             宽度
@@ -43,7 +43,6 @@
         </el-popover>
       </li>
       <li @click="clear">清屏</li>
-      <li @click="reset">重置</li>
     </ul>
     <!-- <vue-source src="webrtc/views/canvas/DrawBoardFabric.vue" lang="html"></vue-source> -->
   </el-container>
@@ -254,11 +253,12 @@ export default {
       if (this.canvasObject) {
         this.canvas.add(this.canvasObject);
         this.canvasObject.drawType = this.drawType;
-      }
-      if (this.selected(this.DrawType.TEXT)) {
-        //设定为活动对象 
-        this.canvasObject.enterEditing();
-        this.canvasObject.setActiveObject(this.canvasObject);
+        if (this.canvasObject.drawType === this.DrawType.TEXT) {
+          this.canvasObject.enterEditing();
+          // this.canvasObject.hiddenTextarea.focus();
+          //设定为活动对象 
+          this.canvasObject.setActiveObject(this.canvasObject);
+        }
       }
     },
     drawArrow(fromX, fromY, toX, toY, theta, headlen) {
@@ -287,9 +287,6 @@ export default {
     },
     drawTypeChange(type) {
       this.drawType = type;
-      this.canvasObject = null;
-      // this.canvas.isDrawingMode = this.DrawType.PEN == type;
-
       switch (type) {
         case this.DrawType.PEN:
           this.canvas.isDrawingMode = true;
@@ -307,17 +304,18 @@ export default {
           break;
       }
 
-      this.startDrawing();
+      if (this.canvasObject && this.canvasObject.drawType == this.DrawType.TEXT) {
+        this.canvasObject.exitEditing();
+      }
 
+      this.canvasObject = null;
+      this.startDrawing();
     },
     colorPickerChangeHandler(value) {
       this.canvas.freeDrawingBrush.color = this.selectColor;
     },
     widthSliderChangeHandler(value) {
       this.canvas.freeDrawingBrush.width = this.selecteWidth;
-    },
-    reset() {
-      this.clear();
     },
     clear() {
       this.canvas.clear();
@@ -327,8 +325,7 @@ export default {
     this.init();
     document.addEventListener('keydown', (event) => {
       const code = window.event ? event.keyCode : event.which;
-      if (code == 8) {
-        //删除选中
+      if (code == 8) {//删除选中
         this.canvas.remove(this.canvas.getActiveObject());
       }
     });

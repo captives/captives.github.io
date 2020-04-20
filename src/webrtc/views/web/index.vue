@@ -24,7 +24,7 @@ export default {
   },
   mounted(){
     setTimeout(()=>{
-      this.list.push({ label: '自动播放策略', url: "https://captive.uuabc.com/v3/testIframe.html"});
+      this.list.push({ label: '自动播放策略', url: "/v3/testIframe.html"});
     }, 5000);
   }
 }
