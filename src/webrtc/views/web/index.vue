@@ -42,6 +42,7 @@ export default {
     }
   },
   mounted() {
+    //媒体参与度查询 chrome://media-engagement/
     this.list.push({ label: '自动播放策略,直接加载', url: "/v3/testIframe.html", desc: "这里模拟百家云教室加载课件" });
     this.list.push({ label: '自动播放+自动跳转', url: "/v3/testReward.html", desc: "这里模拟百家云教室加载课件" });
   }

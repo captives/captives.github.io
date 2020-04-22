@@ -2,48 +2,63 @@
   <el-container>
     <el-main>
       <canvas ref="canvasElement" class="canvas" width="1360px" height="720px"></canvas>
-    </el-main>
-    <ul>
-      <li :class="{active: selected(DrawType.SELECT)}" @click="drawTypeChange(DrawType.SELECT)">选中</li>
-      <li :class="{active: selected(DrawType.PEN)}" @click="drawTypeChange(DrawType.PEN)">画笔</li>
-      <li :class="{active: selected(DrawType.ARROW)}" @click="drawTypeChange(DrawType.ARROW)">箭头</li>
-      <li :class="{active: selected(DrawType.LINE)}" @click="drawTypeChange(DrawType.LINE)">直线</li>
-      <li
-        :class="{active: selected(DrawType.DOTTEDLINE)}"
-        @click="drawTypeChange(DrawType.DOTTEDLINE)"
-      >虚线</li>
-      <li :class="{active: selected(DrawType.CIRCLE)}" @click="drawTypeChange(DrawType.CIRCLE)">圆</li>
-      <li :class="{active: selected(DrawType.ELLIPSE)}" @click="drawTypeChange(DrawType.ELLIPSE)">椭圆</li>
-      <li :class="{active: selected(DrawType.SQUARE)}" @click="drawTypeChange(DrawType.SQUARE)">矩形</li>
-      <li
-        :class="{active: selected(DrawType.RIGHTANGLE)}"
-        @click="drawTypeChange(DrawType.RIGHTANGLE)"
-      >直角三角</li>
-      <li
-        :class="{active: selected(DrawType.EQUILATERAL)}"
-        @click="drawTypeChange(DrawType.EQUILATERAL)"
-      >等边三角</li>
-      <li :class="{active: selected(DrawType.TEXT)}" @click="drawTypeChange(DrawType.TEXT)">文字</li>
+      <ul>
+        <li :class="{active: selected(DrawType.SELECT)}" @click="drawTypeChange(DrawType.SELECT)">选中</li>
+        <li :class="{active: selected(DrawType.PEN)}" @click="drawTypeChange(DrawType.PEN)">画笔</li>
+        <li :class="{active: selected(DrawType.ARROW)}" @click="drawTypeChange(DrawType.ARROW)">箭头</li>
+        <li :class="{active: selected(DrawType.LINE)}" @click="drawTypeChange(DrawType.LINE)">直线</li>
+        <li
+          :class="{active: selected(DrawType.DOTTEDLINE)}"
+          @click="drawTypeChange(DrawType.DOTTEDLINE)"
+        >虚线</li>
+        <li :class="{active: selected(DrawType.CIRCLE)}" @click="drawTypeChange(DrawType.CIRCLE)">圆</li>
+        <li
+          :class="{active: selected(DrawType.ELLIPSE)}"
+          @click="drawTypeChange(DrawType.ELLIPSE)"
+        >椭圆</li>
+        <li :class="{active: selected(DrawType.SQUARE)}" @click="drawTypeChange(DrawType.SQUARE)">矩形</li>
+        <li
+          :class="{active: selected(DrawType.RIGHTANGLE)}"
+          @click="drawTypeChange(DrawType.RIGHTANGLE)"
+        >直角三角</li>
+        <li
+          :class="{active: selected(DrawType.EQUILATERAL)}"
+          @click="drawTypeChange(DrawType.EQUILATERAL)"
+        >等边三角</li>
+        <li :class="{active: selected(DrawType.TEXT)}" @click="drawTypeChange(DrawType.TEXT)">文字</li>
 
-      <li @click="clear">
-        <el-color-picker
-          v-model="selectColor"
-          show-alpha
-          :predefine="predefineColors"
-          @change="colorPickerChangeHandler"
-        ></el-color-picker>
-      </li>
-      <li @click="clear">
-        <el-popover placement="left" width="200" trigger="hover">
-          <el-slider v-model="selecteWidth" @change="widthSliderChangeHandler"></el-slider>
-          <span slot="reference">
-            宽度
-            <small>{{selecteWidth}}</small>
-          </span>
-        </el-popover>
-      </li>
-      <li @click="clear">清屏</li>
-    </ul>
+        <li @click="clear">
+          <el-color-picker
+            v-model="selectColor"
+            show-alpha
+            :predefine="predefineColors"
+            @change="colorPickerChangeHandler"
+          ></el-color-picker>
+        </li>
+        <li @click="clear">
+          <el-popover placement="left" width="200" trigger="hover">
+            <el-slider v-model="selecteWidth" @change="widthSliderChangeHandler"></el-slider>
+            <span slot="reference">
+              宽度
+              <small>{{selecteWidth}}</small>
+            </span>
+          </el-popover>
+        </li>
+        <li @click="clear">清屏</li>
+      </ul>
+    </el-main>
+    <el-aside width="300px">
+      <el-collapse v-model="activeNames">
+        <el-collapse-item title="基本" name="1">
+          <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+          <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+        </el-collapse-item>
+        <el-collapse-item title="样式" name="2">
+          <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+          <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+        </el-collapse-item>
+      </el-collapse>
+    </el-aside>
     <!-- <vue-source src="webrtc/views/canvas/DrawBoardFabric.vue" lang="html"></vue-source> -->
   </el-container>
 </template>
@@ -77,6 +92,7 @@ export default {
       },
       selectColor: 'rgba(255, 69, 0, 0.68)',
       selecteWidth: 5,
+      activeNames: "1",
       predefineColors: [
         '#ff4500',
         '#ff8c00',
@@ -178,8 +194,7 @@ export default {
           });
           break;
         case this.DrawType.CIRCLE:
-          const radius = Math.sqrt((this.mouseTo.x - this.mouseFrom.x) * (this.mouseTo.x - this.mouseFrom.x)
-            + (this.mouseTo.y - this.mouseFrom.y) * (this.mouseTo.y - this.mouseFrom.y)) / 2;
+          let radius = Math.sqrt((this.mouseTo.x - this.mouseFrom.x) * (this.mouseTo.x - this.mouseFrom.x) + (this.mouseTo.y - this.mouseFrom.y) * (this.mouseTo.y - this.mouseFrom.y)) / 2;
           this.canvasObject = new fabric.Circle({
             left: this.mouseFrom.x,
             top: this.mouseFrom.y,
@@ -337,48 +352,52 @@ export default {
   position: relative;
 }
 
-.canvas {
-  width: 100%;
-  height: 100%;
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==');
-  background-size: 20px 20px;
-}
+.el-main {
+  position: relative;
 
-ul {
-  color: #FFF;
-  right: 10px;
-  top: 10px;
-  position: absolute;
+  .canvas {
+    width: 100%;
+    height: 100%;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==');
+    background-size: 20px 20px;
+  }
 
-  li {
-    margin: 2px 0;
-    height: 40px;
-    line-height: 40px;
-    width: 60px;
-    font-size: 15px;
-    text-align: center;
-    background: #409EFF;
-    cursor: pointer;
+  ul {
+    color: #FFF;
+    right: 10px;
+    top: 10px;
+    position: absolute;
 
-    &:hover {
-      background: #F56C6C;
-    }
+    li {
+      margin: 2px 0;
+      height: 40px;
+      line-height: 40px;
+      width: 60px;
+      font-size: 15px;
+      text-align: center;
+      background: #409EFF;
+      cursor: pointer;
 
-    &.active {
-      background: #F56C6C;
-    }
+      &:hover {
+        background: #F56C6C;
+      }
 
-    .el-color-picker {
-      width: 100%;
+      &.active {
+        background: #F56C6C;
+      }
 
-      >>> .el-color-picker__trigger {
+      .el-color-picker {
         width: 100%;
-        padding: 0;
-        border: none;
 
-        .el-color-picker__icon:before {
-          content: '颜色';
-          font-size: 15px;
+        >>> .el-color-picker__trigger {
+          width: 100%;
+          padding: 0;
+          border: none;
+
+          .el-color-picker__icon:before {
+            content: '颜色';
+            font-size: 15px;
+          }
         }
       }
     }
