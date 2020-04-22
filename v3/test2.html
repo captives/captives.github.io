@@ -5,26 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        .item{
+            width: 800px;
+            height: 600px;
+        }
+
         iframe{
             border: none;
             overflow: hidden;
-            position: absolute;
-            margin-top: 10%;
             left: 0;
             top: 0;
-            width: 90%;
-            height: 90%;
+            width: 800px;
+            height: 600px;
+            background: orange;
         }
     </style>
 </head>
-<body style="background: red;">
-    <p>------</p>
-    <div id="videoComponentBox"></div>
-    <h2>模拟百家云教室上传的课件</h2>
-    <p class="title"></p>
-   <script>
-        document.querySelector('p.title').innerText = window.location.href;
-          window.onload = function(){
+<body style="background:blue; display: flex;flex-direction: row;">
+    <div class="item" style="display:block">
+        <span>模拟中间页,选择课件的页面</span>
+        <div id="videoComponentBox"></div>
+        <p></p>
+        <p class="title"></p>
+    </div>
+  
+
+    <iframe class="item" allow="autoplay"></iframe>
+    <script>
+         document.querySelector('p.title').innerText = window.location.href;
+        window.onload = function(){
             var video = document.createElement('video');
             video.src = "/medias/Piper_720P.mp4";
             video.setAttribute('id',"videoComponent");
@@ -38,11 +47,11 @@
             }).catch(err =>{
                 document.querySelector('p').innerText = "播放失败";
             });
-        }
 
-        setTimeout(()=>{
-            window.location.href="https://ceshi.51uuabc.com/v3/test.html";
-        }, 5000);
-   </script>
+            setTimeout(()=>{
+                document.querySelector('iframe').src="/v3/video.html";
+            }, 2000);
+        }
+    </script>
 </body>
 </html>

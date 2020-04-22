@@ -20,10 +20,13 @@
 <body style="background: red;">
     模拟选择课件的页面
     <p class="title"></p>
-   <iframe src="https://ceshi.51uuabc.com/v3/test3.html" allow="autoplay"></iframe>
+   <iframe allow="autoplay"></iframe>
 
    <script>
- document.querySelector('p.title').innerText = window.location.href;
+       document.querySelector('p.title').innerText = window.location.href;
+       setTimeout(()=>{
+           document.querySelector('iframe').src = 'https://ceshi.51uuabc.com/v3/test3.html';
+       }, 2000);
    </script>
 </body>
 </html>

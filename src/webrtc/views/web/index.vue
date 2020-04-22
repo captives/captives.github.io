@@ -51,7 +51,10 @@ export default {
   mounted() {
     //媒体参与度查询 chrome://media-engagement/
     this.list.push({ label: '自动播放 - 直接加载', url: "/v3/testIframe.html", desc: "这里模拟百家云教室加载课件" });
+    this.list.push({ label: '自动播放 - 直接加载(跨域)', url: "/v3/testIframe2.html", desc: "这里模拟百家云教室加载课件" });
     this.list.push({ label: '自动播放 + 自动跳转', url: "/v3/testReward.html", desc: "这里模拟百家云教室加载课件" });
+    this.list.push({ label: '自动播放 + 自动跳转(同域)', url: "/v3/testReward2.html", desc: "这里模拟百家云教室加载课件" });
+    this.list.push({ label: '自动播放 + 自动跳转(跳转后同域)', url: "/v3/testReward3.html", desc: "这里模拟百家云教室加载课件" });
   }
 }
 </script>
