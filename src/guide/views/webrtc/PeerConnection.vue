@@ -12,7 +12,7 @@
   </el-row>
   <el-tag class="error">左侧输入信息，右侧同步显示</el-tag>
 
-  <vue-source src="webrtc/views/webrtc/PeerConnection.vue" lang="html"></vue-source>
+  <vue-source src="guide/views/webrtc/PeerConnection.vue" lang="html"></vue-source>
 </el-main>
 </template>
 

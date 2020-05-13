@@ -14,7 +14,7 @@
 
     <StreamTracks v-model="stream"></StreamTracks>
 
-    <vue-source src="webrtc/views/webrtc/VideoStreamFromVideo.vue" lang="html"></vue-source>
+    <vue-source src="guide/views/webrtc/VideoStreamFromVideo.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

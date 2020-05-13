@@ -13,7 +13,7 @@
       </el-col>
     </el-row>
     <el-row>通过将video元素的功能与结合使用canvas，您可以实时处理视频数据，</el-row>
-    <vue-source src="webrtc/views/canvas/DrawVideo.vue" lang="html"></vue-source>
+    <vue-source src="guide/views/canvas/DrawVideo.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

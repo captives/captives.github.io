@@ -27,7 +27,7 @@
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-    <vue-source src="webrtc/views/webrtc/UserMediaRecorder.vue" lang="html"></vue-source>
+    <vue-source src="guide/views/webrtc/UserMediaRecorder.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

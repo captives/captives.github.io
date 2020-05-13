@@ -36,7 +36,7 @@
     </el-row>
     <StreamTracks v-model="localStream"></StreamTracks>
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
-    <vue-source src="webrtc/views/webrtc/AudioStreamVolume.vue" lang="html"></vue-source>
+    <vue-source src="guide/views/webrtc/AudioStreamVolume.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>

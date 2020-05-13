@@ -15,7 +15,7 @@
       </li>
     </ul>
 
-    <!-- <vue-source src="webrtc/views/canvas/BaseFabric.vue" lang="html"></vue-source> -->
+    <!-- <vue-source src="guide/views/canvas/BaseFabric.vue" lang="html"></vue-source> -->
   </el-container>
 </template>
 <script>
