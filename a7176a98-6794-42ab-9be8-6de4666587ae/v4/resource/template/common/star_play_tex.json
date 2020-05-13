@@ -1,0 +1,125 @@
+{
+    "file": "star_play_tex.png",
+    "frames": {
+        "xingxing1": {
+            "x": 1,
+            "y": 1,
+            "w": 73,
+            "h": 66,
+            "offX":0,
+            "offY":0,
+            "sourceW":73,
+            "sourceH":66
+        },
+        "xingxing2": {
+            "x": 76,
+            "y": 1,
+            "w": 44,
+            "h": 43,
+            "offX":0,
+            "offY":0,
+            "sourceW":44,
+            "sourceH":43
+        },
+        "xingxing3": {
+            "x": 1,
+            "y": 69,
+            "w": 40,
+            "h": 36,
+            "offX":0,
+            "offY":0,
+            "sourceW":40,
+            "sourceH":36
+        },
+        "xingxing4": {
+            "x": 76,
+            "y": 46,
+            "w": 39,
+            "h": 38,
+            "offX":0,
+            "offY":0,
+            "sourceW":39,
+            "sourceH":38
+        },
+        "xingxing5": {
+            "x": 24,
+            "y": 147,
+            "w": 21,
+            "h": 22,
+            "offX":0,
+            "offY":0,
+            "sourceW":21,
+            "sourceH":22
+        },
+        "xingxing6": {
+            "x": 1,
+            "y": 136,
+            "w": 21,
+            "h": 22,
+            "offX":0,
+            "offY":0,
+            "sourceW":21,
+            "sourceH":22
+        },
+        "xingxing7": {
+            "x": 59,
+            "y": 144,
+            "w": 21,
+            "h": 22,
+            "offX":0,
+            "offY":0,
+            "sourceW":21,
+            "sourceH":22
+        },
+        "xingxing8": {
+            "x": 43,
+            "y": 86,
+            "w": 35,
+            "h": 33,
+            "offX":0,
+            "offY":0,
+            "sourceW":35,
+            "sourceH":33
+        },
+        "xingxing9": {
+            "x": 80,
+            "y": 115,
+            "w": 28,
+            "h": 27,
+            "offX":0,
+            "offY":0,
+            "sourceW":28,
+            "sourceH":27
+        },
+        "xingxing10": {
+            "x": 80,
+            "y": 86,
+            "w": 28,
+            "h": 27,
+            "offX":0,
+            "offY":0,
+            "sourceW":28,
+            "sourceH":27
+        },
+        "xingxing11": {
+            "x": 31,
+            "y": 121,
+            "w": 26,
+            "h": 24,
+            "offX":0,
+            "offY":0,
+            "sourceW":26,
+            "sourceH":24
+        },
+        "xingxing12": {
+            "x": 1,
+            "y": 107,
+            "w": 28,
+            "h": 27,
+            "offX":0,
+            "offY":0,
+            "sourceW":28,
+            "sourceH":27
+        }
+    }
+}

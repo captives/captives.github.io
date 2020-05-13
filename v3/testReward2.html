@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        iframe{
+            border: none;
+            overflow: hidden;
+            position: absolute;
+            margin-top: 10%;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="background: red;">
+    <p>------</p>
+    <div id="videoComponentBox"></div>
+    <h2>模拟百家云教室上传的课件</h2>
+    <p class="title"></p>
+   <script>
+        document.querySelector('p.title').innerText = window.location.href;
+          window.onload = function(){
+            var video = document.createElement('video');
+            video.src = "/medias/Piper_720P.mp4";
+            video.setAttribute('id',"videoComponent");
+            video.setAttribute('playsinline', true);
+            video.setAttribute('width',"500");
+            video.setAttribute('height',"300");
+            document.querySelector('#videoComponentBox').appendChild(video);
+
+            video.play().then(function(){
+                document.querySelector('p').innerText = "播放开始";
+            }).catch(err =>{
+                document.querySelector('p').innerText = "播放失败";
+            });
+        }
+
+        setTimeout(()=>{
+            window.location.href="/v3/test2.html";
+        }, 5000);
+   </script>
+</body>
+</html>

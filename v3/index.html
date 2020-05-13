@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background: orange;position: relative;">
+    <p>模拟课件内容页面</p>
+    <p class="title"></p>
+    <div id="videoComponentBox" style="
+        position: absolute;
+        border: 0px;
+        right: 0px;
+        width: 800px;height: 600px;" class="isPc isPlaying">
+    </div>
+</div>
+    <!-- <video width="540" height="360" src="./medias/Piper_720P.mp4"></video> -->
+    <script>
+        document.domain = "uuabc.com";
+        document.querySelector('p.title').innerText = window.location.href;
+        window.onload = function(){
+            var video = document.createElement('video');
+            video.src = "/medias/Piper_720P.mp4";
+            video.setAttribute('id',"videoComponent");
+            video.setAttribute('playsinline', true);
+            video.setAttribute('width',"500");
+            video.setAttribute('height',"300");
+            document.querySelector('#videoComponentBox').appendChild(video);
+
+            setTimeout(()=>{
+                video.play().then(function(){
+                    document.querySelector('p').innerText = "播放开始";
+                }).catch(err =>{
+                    document.querySelector('p').innerText = "播放失败";
+                })
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>UUabc</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <link rel="stylesheet" href="./resource/style/videoComponent.css">
+    <link rel="stylesheet" href="./resource/icon/style.css">
+    <script src="./vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+        // 捕获全局错误并暴露给classroom
+        var uuabc;
+        var callbackSendError;
+        function callbackInSendError(e) {
+            console.log('--> callbackInSendError');
+            console.log(e);
+            if(uuabc && uuabc.callbackSendError) {
+                uuabc.callbackSendError(e);
+            }
+            if(null != callbackSendError) {
+                callbackSendError(e)
+            }
+        }
+        window.addEventListener('error', function(e) {
+            var str = 'message: ' + e.message + '; '
+                        + 'filename: ' + e.filename + '; '
+                        + 'lineno: ' + e.lineno + '; '
+                        + 'colno: ' + e.colno + '; '
+                        + 'error: ' + e.error + '.'
+            callbackInSendError && callbackInSendError(str);
+        }, true);
+    </script>
+    <!-- Apm 依赖 -->
+    <script src="https://static.uuabc.com/tracking/apm/loader.js"></script> 
+
+    <style>
+        html,body, #preloading, #box, .fill{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: palevioletred;
+        }
+
+        .top{
+            z-index: 9999;
+        }
+          .vc-switch{
+            top: 50px;
+            right: 50px !important;
+            bottom: auto !important;
+            z-index: 999999999;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloading">
+        <figure class="main">
+            <img class="bg" src="resource/images/loading/bj.png" alt="" srcset="">
+            <img class="logo" src="resource/images/loading/logo.png" alt="">
+        </figure>
+        <div id="msgCover" class="msgCover">
+            <!-- 网络环境配置中 -->
+        </div>
+        <div class="progress">
+            <div id="progress" class="item"></div>
+        </div>
+    </div>
+    <div id="box" style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+            data-entry-class="Main"
+            data-orientation="auto"
+            data-scale-mode="showAll"
+            data-frame-rate="30"
+            data-content-width="1024"
+            data-content-height="768"
+            data-show-paint-rect="false"
+            data-multi-fingered="2"
+            data-show-fps="false" data-show-log="false"
+            data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,fontFamily:'Muli',bgAlpha:0.9">
+    </div>
+    <div id="egretDomRoot" style="position: absolute; border: 0px; left: 0px; top: 0px; transform-origin: 0% 0% 0px; transform: rotate(0deg) scale(1, 1);"></div>
+    <div id="lottie" style="position: absolute; border: 0px; left: 0px; top: 0px;width: 100%;height: 100%;display: none;"></div>
+    <!-- <div class="btnBox">
+        <button class="preBtn" onclick="PageMgr.prevPage()">上一页</button>
+        <button class="nextBtn" onclick="PageMgr.nextPage()">下一页</button>
+    </div> -->
+    <script src="./js/msgCover/msgCover.js"></script>
+    <ul id="console" class="fill top">
+        日志
+    </ul>
+<script>
+
+    // console.log = function(){
+    //     var list = Array.prototype.slice.call(arguments);
+
+    //     document.getElementById('console').innerHTML += '<li>'+list.join(' ')+'</li>';
+    // }
+
+    (function() {
+        var msgCoverDom = document.getElementById('msgCover')
+        init();
+        function init(){
+            //设置鼠标右键
+            document.oncontextmenu=function(){
+                return false;
+            }
+            //跨域设置
+            document.domain = getCurrentDomain(document.location.host)
+            // document.domain = 'localhost';
+        }
+
+        function getCurrentDomain(host) {
+            var VALID_DOMAINS = ['uuabc.com', '51uuabc.com'];
+            var occurrences = [];
+            var index = host.indexOf('.');
+            while(index != -1) {
+                occurrences.push(index);
+                index = host.indexOf('.', index + 1);
+            }
+            if (occurrences.length != 2) {
+                throw "host format is not supported";
+            }
+            domain = host.substring(occurrences[0] + 1).toLowerCase();
+            if (VALID_DOMAINS.indexOf(domain) === -1) {
+                throw "invalid domain";
+            }
+            return domain;
+        }
+
+        var loadScript = function (list, callback) {
+            var loaded = 0;
+            var loadNext = function () {
+                ShowLoadMsg(msgCoverDom, MsgCover('js') + (loaded+1) + '/' +list.length)
+                loadSingleScript(list[loaded], function () {
+                    loaded++;
+                    if (loaded >= list.length) {
+                        ShowLoadMsg(msgCoverDom, MsgCover('jsEnd'))
+                        callback();
+                    }
+                    else {
+                        loadNext();
+                    }
+                })
+            };
+            loadNext();
+        };
+        var loadSingleScript = function (src, callback) {
+            var s = document.createElement('script');
+            s.async = false;
+            s.src = src;
+            s.addEventListener('load', function () {
+                s.parentNode.removeChild(s);
+                s.removeEventListener('load', arguments.callee, false);
+                callback();
+            }, false);
+            document.body.appendChild(s);
+        };
+        ShowLoadMsg(msgCoverDom, MsgCover('jsonData'))
+        var xhrJsonData = new XMLHttpRequest();
+        xhrJsonData.open('GET', './data/jsonData.json?v=' + Math.random(), true);
+        xhrJsonData.addEventListener('load', function() {
+            var jsonData = JSON.parse(xhrJsonData.response);
+            window.previewData = jsonData;
+            ShowLoadMsg(msgCoverDom, MsgCover('jsonDataEnd'))
+            startRunEgret();
+        });
+        xhrJsonData.send(null);
+
+        var xhr = new XMLHttpRequest();
+        ShowLoadMsg(msgCoverDom, MsgCover('manifest'))
+        xhr.open('GET', './data/manifest.json?v=' + Math.random(), true);
+        xhr.addEventListener("load", function () {
+            var manifest = JSON.parse(xhr.response);
+            var list = manifest.initial.concat(manifest.game);
+            ShowLoadMsg(msgCoverDom, MsgCover('manifestEnd'))
+            loadScript(list, function () {
+                startRunEgret();
+            });
+        });
+        xhr.send(null);
+        
+        function runEgret() {
+            /**
+             * {
+             * "renderMode":, //Engine rendering mode, "canvas" or "webgl"
+             * "audioType": 0 //Use the audio type, 0: default, 2: web audio, 3: audio
+             * "antialias": //Whether the anti-aliasing is enabled in WebGL mode, true: on, false: off, defaults to false
+             * "calculateCanvasScaleFactor": //a function return canvas scale factor
+             * }
+             **/
+                egret.runEgret({ renderMode: "webgl", audioType: 0, calculateCanvasScaleFactor:function(context) {
+                var backingStore = context.backingStorePixelRatio ||
+                    context.webkitBackingStorePixelRatio ||
+                    context.mozBackingStorePixelRatio ||
+                    context.msBackingStorePixelRatio ||
+                    context.oBackingStorePixelRatio ||
+                    context.backingStorePixelRatio || 1;
+                return (window.devicePixelRatio || 1) / backingStore;
+            }});
+        }
+
+        var oneResourceIsLoad = false;
+        function startRunEgret() {
+            if(!oneResourceIsLoad) {
+                oneResourceIsLoad = true;
+                return;
+            };
+            runEgret();
+        }
+
+    }());
+
+    var PageMgr;
+    function loadingBegin(){
+        document.getElementById("preloading").style.display = "none";
+    }
+    function GoProgress(current, total){
+        var progress = document.getElementById('progress');
+        console.log(progress.parentElement);
+
+        const parentWidth = progress.parentElement.clientWidth;
+        console.log('width', parentWidth)
+        progress.style.width = (current/total * parentWidth)+'px'
+    }
+
+</script>
+<!-- Apm 开始 -->
+<script>  
+        try {  
+            // 启node时根据环境动态生成
+            var appId = 'bkmtbYM1562331834144';
+            console.log('appId = ' + appId);
+            Performance({  
+                domain: '//tr.uuabc.com/apm/report', // 上报api接口
+                outtime: 5000,  // 上报延迟时间，保证异步数据的加载 （默认：300ms）
+                add: {  
+                    appId: appId  
+                }  
+            })  
+        } catch (e) {
+            
+        }  
+</script>
+<!-- Apm 结束 -->
+</body>
+</body>
+
+</html>

@@ -5,8 +5,8 @@
         <router-link to="/">Home</router-link>
         <router-link to="/element">ElementUI</router-link>
         <router-link to="/url-format">URL编解码</router-link>
-        <a href="/live.html">LIVE</a>
-        <a href="/guide.html">Guide</a>
+        <a href="/live.html">会议室</a>
+        <a href="/guide.html">指南</a>
         <a href="/charts.html">图表</a>
         <a href="/sprite/index.html">雪碧图</a>
         <a href="/list.html">收藏夹</a>

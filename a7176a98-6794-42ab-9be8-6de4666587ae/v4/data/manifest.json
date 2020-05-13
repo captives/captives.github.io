@@ -1,0 +1,17 @@
+{
+	"initial": [
+		"js/egret/egret/egret.min.js",
+		"js/egret/egret/egret.web.min.js",
+		"js/egret/eui/eui.min.js",
+		"js/egret/assetsmanager/assetsmanager.min.js",
+		"js/egret/tween/tween.min.js",
+		"js/egret/mouse/mouse.min.js",
+		"js/egret/promise/promise.min.js"
+	],
+	"game": [
+		"js/self/main.min.js",
+		"js/classroom/UCPlugin-adapter.js",
+		"js/classroom/index.js",
+		"js/plugins/lottie_canvas.min.js"
+	]
+}
