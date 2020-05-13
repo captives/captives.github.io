@@ -6,7 +6,7 @@
         <router-link to="/element">ElementUI</router-link>
         <router-link to="/url-format">URL编解码</router-link>
         <a href="/live.html">LIVE</a>
-        <a href="/webrtc.html">WEB RTC</a>
+        <a href="/guide.html">Guide</a>
         <a href="/charts.html">图表</a>
         <a href="/sprite/index.html">雪碧图</a>
         <a href="/list.html">收藏夹</a>

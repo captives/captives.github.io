@@ -14,12 +14,12 @@ module.exports = {
       filename: 'live.html',
       chunks: ['chunk-vendors', 'chunk-common', 'live'],
     },
-    webrtc: {
-      entry: 'src/webrtc/main.js',
+    guide: {
+      entry: 'src/guide/main.js',
       title: 'loading...',
       template: 'public/video.html',
-      filename: 'webrtc.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'webrtc'],
+      filename: 'guide.html',
+      chunks: ['chunk-vendors', 'chunk-common', 'guide'],
     },
     charts: {
       entry: 'src/charts/main.js',
@@ -50,7 +50,7 @@ module.exports = {
   //   sourceMap: false
   // },
   devServer: {
-    port: 8080,
+    port: 2000,
     proxy: 'https://local.uuabc.com:4443/',
     allowedHosts: [
       'localhost',
