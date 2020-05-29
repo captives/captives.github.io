@@ -16,11 +16,6 @@
           <el-link href="https://github.com/wangweianger/web-report-sdk">浏览器端页面性能监控平台</el-link>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col>
-          https://www.webrtc-experiment.com/Canvas-Designer/
-        </el-col>
-      </el-row>
     </el-aside>
     <el-main>
       <source-code v-model="list" :drawed="false"></source-code>

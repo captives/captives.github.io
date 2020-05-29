@@ -8,18 +8,19 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('../views/Home.vue')
-  }, {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/About.vue')
-  }, {
-    path: '/element',
-    name: 'element UI',
-    component: () => import('../elements/VElInput.vue')
-  }, {
-    path: '/url-format',
-    name: 'URL编解码',
-    component: () => import('../views/URLFormat.vue')
+  },
+  {
+    path: '/tools',
+    name: 'Tools',
+    component: () => import('../views/Layout.vue'),
+    redirect: '/tools/dashboard',
+    children: [{
+      path: '/tools/dashboard', name: 'DashBoard', component: () => import('../views/index.vue')
+    }, {
+      path: '/tools/element', name: 'element UI', component: () => import('../elements/VElInput.vue')
+    }, {
+      path: '/tools/url-format', name: 'URL编解码', component: () => import('../elements/URLFormat.vue')
+    }]
   }
 ]
 

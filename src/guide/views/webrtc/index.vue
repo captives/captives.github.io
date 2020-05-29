@@ -5,7 +5,7 @@
         <router-link to="/webrtc/stream-from-usermedia">Stream from UserMedia</router-link>
       </h3>
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 navigator.mediaDevices.getUserMedia({ video:true, audio:true }).then((stream) => {
   stream.oninactive = function () {
     console.log('Stream inactive - stop!');
@@ -24,7 +24,7 @@ navigator.mediaDevices.getUserMedia({ video:true, audio:true }).then((stream) =>
       </h3>
 
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 getDisplayMedia() {
     if (navigator.getDisplayMedia) {
         return navigator.getDisplayMedia({ video: true });
@@ -52,7 +52,7 @@ getDisplayMedia().then((stream) => {
         <router-link to="/webrtc/stream-from-video">Stream from video element</router-link>
       </h3>
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 const video = this.$refs.localVideo;
 video.addEventListener('canplay', () => {
   const fps = 0;
@@ -76,7 +76,7 @@ video.addEventListener('canplay', () => {
         <router-link to="/webrtc/stream-from-canvas">Stream from canvas element</router-link>
       </h3>
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 const stream = canvas.captureStream();
 video.srcObject = stream;
 </pre>
@@ -88,7 +88,7 @@ video.srcObject = stream;
         <router-link to="/webrtc/stream-from-displaymedia">Close video stream</router-link>
       </h3>
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 stream.getTracks().forEach(track => track.stop());
 </pre>
       </vue-code>
@@ -99,7 +99,7 @@ stream.getTracks().forEach(track => track.stop());
         <router-link to="/webrtc/recorder">Recording media streaming to blob</router-link>
       </h3>
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 data() {
     return {
         recordBlobs: [],
@@ -168,7 +168,7 @@ stopRecoder() {
         <router-link to="/webrtc/recorder">Play blob media stream</router-link>
       </h3>
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 data() {
     return {
         recordBlobs: [],
@@ -205,7 +205,7 @@ playStream() {
         <router-link to="/webrtc/recorder">Download blob media stream</router-link>
       </h3>
       <vue-code>
-<pre lang="javascript">
+        <pre lang="javascript">
 data() {
     return {
         recordBlobs: [],
@@ -230,6 +230,13 @@ downloadfile() {
 }
 </pre>
       </vue-code>
+    </el-row>
+
+    <el-row>
+      <h3>资料</h3>
+      <ul>
+        <li> <el-link href="https://www.webrtc-experiment.com/">WebRTC Experiment</el-link></li>
+      </ul>
     </el-row>
   </el-main>
 </template>
