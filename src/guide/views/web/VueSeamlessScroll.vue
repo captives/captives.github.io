@@ -12,13 +12,13 @@
       </VueScroller>
     </el-row>
 
-    <div style="width:227px; height: 680px; overflow: hidden; position:absolute; top:20px; left:50px">
+    <div style="width:227px; height: 602px; overflow: hidden; position:absolute; top:40px; left: 0px">
       <VueScroller :data="list" :class-option="{ direction: 0 }">
         <Hotel :list="list" style="flex-direction: column; "></Hotel>
       </VueScroller>
     </div>
 
-    <div style="width:227px; height: 100%; overflow: hidden; position:absolute; top:20px; right:50px">
+    <div style="width:227px; height: 100%; overflow: hidden; position:absolute; top:40px; right:15px">
       <VueScroller :data="list" :class-option="{ direction: 1 }">
         <Hotel :list="list" style="flex-direction: column; "></Hotel>
       </VueScroller>
@@ -51,7 +51,7 @@ export default {
   position: relative;
 
   .el-row {
-    margin: 30px 0;
+    margin: 10px 0;
   }
 }
 </style>

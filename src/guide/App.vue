@@ -30,12 +30,12 @@ export default {
   created() {
     this.$router.beforeEach((to, from, next) => {
       this.loading = true;
-      // setTimeout(next, 1000);
       next();
     });
 
     this.$router.afterEach(() => {
       this.loading = false;
+      document.title = this.$route.name;
     });
   }
 }

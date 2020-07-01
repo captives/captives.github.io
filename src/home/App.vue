@@ -15,6 +15,15 @@
     <!-- <el-footer>Footer</el-footer> -->
   </el-container>
 </template>
+<script>
+export default {
+  created() {
+    this.$router.afterEach(() => {
+      document.title = this.$route.name;
+    });
+  }
+}
+</script>
 <style lang="stylus" scoped>
 .el-header {
   .nav {

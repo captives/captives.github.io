@@ -24,8 +24,7 @@ ul {
     width: 227px;
     height: 301px;
     background: #f7f7f7;
-    margin-right: 16px;
-    margin-top: 16px;
+    margin: 10px;
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: auto 100%;
@@ -33,7 +32,7 @@ ul {
     span {
       color: #FFF;
       display: inline-block;
-      padding: 16px;
+      padding: 15px;
       width: calc(100% - 32px);
       height: 120px;
     }

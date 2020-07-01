@@ -7,7 +7,20 @@
     <router-view></router-view>
   </div>
 </template>
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+@Component({ name: "App" })
+export default class App extends Vue {
+  private created() {
+    //@ts-ignore
+    this.$router.afterEach(() => {
+      //@ts-ignore
+      document.title = this.$route.name;
+    });
+  }
+}
 
+</script>
 <style lang="stylus">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
