@@ -12,7 +12,7 @@
       </VueScroller>
     </el-row>
 
-    <div style="width:227px; height: 680px; overflow: hidden; position:absolute;top:0; left:50px">
+    <div style="width:227px; height: 670px; overflow: hidden; position:absolute;top:0; left:50px">
       <VueScroller :data="list" :class-option="{ direction: 0 }">
         <Hotel :list="list" style="flex-direction: column; "></Hotel>
       </VueScroller>
@@ -25,6 +25,7 @@
     </div>
 
     <vue-source src="guide/views/web/VueSeamlessScroll.vue" lang="html"></vue-source>
+    <vue-source src="guide/views/web/Hotel.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
@@ -52,7 +53,7 @@ export default {
   position: relative;
 
   .el-row {
-    margin: 20px 0;
+    margin: 30px 0;
   }
 }
 </style>
