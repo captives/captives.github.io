@@ -1,19 +1,29 @@
 <template>
   <el-main>
-    <el-row style="height: 301px; overflow: hidden;">
-      <VueScroller :data="list" :class-option="classHOption">
-        <Hotel :list="list"></Hotel>
+    <el-row style="width:100%; height: 301px; overflow: hidden;">
+      <VueScroller :data="list" :class-option="{limitMoveNum: 4, direction: 2}">
         <Hotel :list="list"></Hotel>
       </VueScroller>
     </el-row>
 
-    <el-row style="height: 200px; overflow: hidden;">
-      <VueScroller :data="list" :class-option="classOption">
-        <ul>
-          <li v-for="item in list" :key="item.id">{{item.title}} - {{item.grassCount}}</li>
-        </ul>
+    <el-row style="width:100%; height: 301px; overflow: hidden;">
+      <VueScroller :data="list" :class-option="{limitMoveNum: 4, direction: 3, hoverStop:false }">
+        <Hotel :list="list"></Hotel>
       </VueScroller>
     </el-row>
+
+    <div style="width:227px; height: 100%; overflow: hidden; position:absolute;top:0; left:50px">
+      <VueScroller :data="list" :class-option="{ direction: 0 }">
+        <Hotel :list="list" style="flex-direction: column; "></Hotel>
+      </VueScroller>
+    </div>
+
+    <div style="width:227px; height: 100%; overflow: hidden; position:absolute;top:0; right:50px">
+      <VueScroller :data="list" :class-option="{ direction: 1 }">
+        <Hotel :list="list" style="flex-direction: column; "></Hotel>
+      </VueScroller>
+    </div>
+
     <vue-source src="guide/views/web/VueSeamlessScroll.vue" lang="html"></vue-source>
   </el-main>
 </template>
@@ -28,15 +38,6 @@ export default {
   data() {
     return {
       list: [],
-      classHOption: {
-        limitMoveNum: 2,
-        direction: 3,
-        singleWidth: 227
-      },
-      classOption: {
-        step: 0.5,
-        limitMoveNum: 5
-      }
     }
   },
   created() {
@@ -46,4 +47,12 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.el-main {
+  position: relative;
+
+  .el-row {
+    margin: 20px 0;
+  }
+}
+</style>
