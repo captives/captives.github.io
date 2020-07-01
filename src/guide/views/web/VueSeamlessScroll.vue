@@ -12,7 +12,7 @@
       </VueScroller>
     </el-row>
 
-    <div style="width:227px; height: 670px; overflow: hidden; position:absolute;top:0; left:50px">
+    <div style="width:227px; height: 680px; overflow: hidden; position:absolute;top:0; left:50px">
       <VueScroller :data="list" :class-option="{ direction: 0 }">
         <Hotel :list="list" style="flex-direction: column; "></Hotel>
       </VueScroller>
@@ -37,9 +37,7 @@ export default {
   name: "VueSeamlessScroll",
   components: { VueScroller: scroll, Hotel },
   data() {
-    return {
-      list: [],
-    }
+    return { list: [] }
   },
   created() {
     this.$fetch('/assets/hotel.json').then((res) => {
