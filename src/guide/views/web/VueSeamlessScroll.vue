@@ -12,13 +12,13 @@
       </VueScroller>
     </el-row>
 
-    <div style="width:227px; height: 680px; overflow: hidden; position:absolute;top:0; left:50px">
+    <div style="width:227px; height: 680px; overflow: hidden; position:absolute; top:20px; left:50px">
       <VueScroller :data="list" :class-option="{ direction: 0 }">
         <Hotel :list="list" style="flex-direction: column; "></Hotel>
       </VueScroller>
     </div>
 
-    <div style="width:227px; height: 100%; overflow: hidden; position:absolute;top:0; right:50px">
+    <div style="width:227px; height: 100%; overflow: hidden; position:absolute; top:20px; right:50px">
       <VueScroller :data="list" :class-option="{ direction: 1 }">
         <Hotel :list="list" style="flex-direction: column; "></Hotel>
       </VueScroller>
