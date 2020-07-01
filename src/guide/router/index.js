@@ -39,6 +39,9 @@ const routes = [{
     { path: '/web/vue-cropper', name: 'vue cropper', component: () => import('../views/web/VueCropper.vue') },
     { path: '/web/pdf-js', name: 'PDF Js', component: () => import('../views/web/PDFJs.vue') },
     { path: '/web/websql', name: 'Web SQL', component: () => import('../views/web/WebSQL.vue') },
+    { path: '/web/vue-apollo-client', name: 'VueApolloClient', component: () => import('../views/web/VueApolloClient.vue') },
+    { path: '/web/math-jax', name: 'MathJax', component: () => import('../views/web/MathJax.vue') },
+    { path: '/web/vue-scroller', name: '无限滚动', component: () => import('../views/web/VueSeamlessScroll.vue') },
   ]
 }, {
   path: '/webrtc',
@@ -49,6 +52,8 @@ const routes = [{
     { path: "/webrtc/index", name: "WebRTC Tutorials", component: () => import('../views/webrtc/index.vue') },
     { path: "/webrtc/list", name: "Enumerate Devices", component: () => import('../views/webrtc/MediaDevices.vue') },
     { path: "/webrtc/stream-from-usermedia", name: "Video Stream from UserMedia", component: () => import('../views/webrtc/VideoStreamFromUserMedia.vue') },
+    { path: "/webrtc/audiooutput", name: "选择音频输出设备", component: () => import('../views/webrtc/AudioOutput.vue') },
+    { path: "/webrtc/dynamic-selection-usermedia", name: "Dynamic selection of devices", component: () => import('../views/webrtc/ChooseUserMedia.vue') },
     { path: "/webrtc/stream-from-displaymedia", name: "Video Stream from DisplayMedia", component: () => import('../views/webrtc/VideoStreamFromDisplayMedia.vue') },
     { path: "/webrtc/stream-from-video", name: "Video Stream from video", component: () => import('../views/webrtc/VideoStreamFromVideo.vue') },
     { path: "/webrtc/stream-from-canvas", name: "Video Stream from Canvas", component: () => import('../views/webrtc/VideoStreamFromCanvas.vue') },

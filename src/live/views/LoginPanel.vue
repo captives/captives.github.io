@@ -105,7 +105,7 @@ export default {
     }
   },
   mounted() {
-    this.client.init("wss://" + window.location.hostname + ":3000", '/live');
+    this.client.init("wss://" + window.location.hostname + ":777", '/live');
     this.client.on('connected', this.connected);
     this.client.on('entry', this.pushUser);
     this.client.on('list', this.initUsers);

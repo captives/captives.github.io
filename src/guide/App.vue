@@ -40,10 +40,51 @@ export default {
   }
 }
 </script>
+
+<style>
+.scroll::-webkit-scrollbar {
+  /* 滚动条整体样式 */
+  width: 6px;
+  height: 6px;
+  margin-right: 20px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  /* 滚动条里面小方块 */
+  border-radius: 10px;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
+  background: #ccc;
+}
+
+.scroll::-webkit-scrollbar-track {
+  /* 滚动条里面轨道 */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0);
+}
+</style>
+
+<style lang="stylus">
+video, audio {
+  outline: none;
+}
+
+ve {
+  display: inline;
+  color: #fff;
+  background: #3d7e9a;
+  border-radius: 4px;
+  padding: 3px 9px;
+  font-size: 10px;
+  margin: 0 5px;
+}
+</style>
+
 <style lang="stylus" scoped>
 .el-header {
   padding: 0;
-  text-align center;
+  text-align: center;
 
   .el-menu {
     width: cacl(100% -220px);

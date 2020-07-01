@@ -28,6 +28,13 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+
+    <h3>TypeScript</h3>
+    <ul>
+      <li><a href="https://www.tslang.cn/index.html">TypeScript 中文网</a></li>
+      <li><a href="https://basarat.gitbook.io/typescript/">TypeScript深入研究</a></li>
+      <li><a href="https://gyufei.github.io/2018/07/23/vue-with-typescript/" target="_blank" rel="noopener">使用 TypeScript 构建 Vue 项目</a></li>
+    </ul>
   </div>
 </template>
 

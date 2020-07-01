@@ -2,6 +2,20 @@
   <el-main>
     <el-row>
       <h3>
+        <router-link to="/webrtc/list">Enumerate devices</router-link>
+      </h3>
+      <vue-code>
+        <pre lang="javascript">
+navigator.mediaDevices.enumerateDevices().then(deviceInfos =>{
+  console.log(deviceInfos);
+}).catch(error => {
+  ...
+});
+        </pre>
+      </vue-code>
+    </el-row>
+    <el-row>
+      <h3>
         <router-link to="/webrtc/stream-from-usermedia">Stream from UserMedia</router-link>
       </h3>
       <vue-code>
@@ -79,6 +93,35 @@ video.addEventListener('canplay', () => {
         <pre lang="javascript">
 const stream = canvas.captureStream();
 video.srcObject = stream;
+</pre>
+      </vue-code>
+    </el-row>
+
+    <el-row>
+      <h3>
+        <router-link to="/webrtc/audiooutput">Choose media source and audio output</router-link>
+      </h3>
+      <el-row>
+        该<ve>HTMLMediaElement.setSinkId()</ve>方法设置用于输出的音频设备的ID，并返回  Promise。仅当授权该应用程序使用指定设备时，此方法才有效。
+      </el-row>
+      <vue-code>
+        <pre lang="javascript">
+playback(videoElement, deviceId) {
+  if (typeof videoElement.sinkId !== 'undefined') {
+    videoElement.setSinkId(deviceId).then(() => {
+      console.log(`Success, audio output device attached: ${deviceId}`);
+    }).catch(error => {
+      let errorMessage = error;
+      if (error.name === 'SecurityError') {
+        errorMessage = `You need to use HTTPS for selecting audio output device: ${error}`;
+      }
+      console.error(errorMessage);
+      // Use default device
+    });
+  } else {
+    console.warn('Browser does not support output device selection.');
+  }
+}
 </pre>
       </vue-code>
     </el-row>
@@ -235,7 +278,15 @@ downloadfile() {
     <el-row>
       <h3>资料</h3>
       <ul>
-        <li> <el-link href="https://www.webrtc-experiment.com/">WebRTC Experiment</el-link></li>
+        <li>
+          <el-link href="https://www.webrtc-experiment.com/">WebRTC Experiment</el-link>
+        </li>
+        <li>
+          <el-link href="https://www.webrtc-experiment.com/RecordRTC/">RecordRTC</el-link>
+        </li>
+        <li>
+          <el-link href="https://quickblox.com/developers/Sample-videochat-web">Sample Webrtc Web</el-link>
+        </li>
       </ul>
     </el-row>
   </el-main>

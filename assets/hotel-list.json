@@ -1,0 +1,148 @@
+[
+    {
+        "name": "上海盛庭国际公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/201812/12/C._M0DCif_REv4iuRhi480.webp",
+        "tradeArea": "淮海路商业区",
+        "score": "4.6",
+        "locationInfo": "距市中心直线1.4公里 · 淮海路/新天地",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海雅诗阁淮海路服务公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/201812/12/C._M0DCif_RK6O3dsFi480.webp",
+        "tradeArea": "淮海路商业区",
+        "score": "4.2",
+        "locationInfo": "距市中心直线1.5公里 · 淮海路/新天地",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海协信莎玛长风服务式公寓",
+        "image": "https://userimg.qunarzz.com/imgs/201907/02/C.NgXhaHHMCVkfahcHH480.webp",
+        "tradeArea": "虹桥地区|奉贤开发区",
+        "score": "4.7",
+        "locationInfo": "距市中心直线8.3公里 · 长风公园",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海馨乐庭陆家嘴公寓酒店",
+        "image": "https://userimg.qunarzz.com/imgs/202002/07/C.AIXeErALrWYUTrqPr480.webp",
+        "tradeArea": "金桥|浦东陆家嘴",
+        "score": "4.8",
+        "locationInfo": "距市中心直线7.3公里 · 浦东金桥",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海奥克伍德华庭酒店公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/202003/24/C.k8SQebisiVxz8asyO480.webp",
+        "tradeArea": "曹杨真如",
+        "score": "4.3",
+        "locationInfo": "距市中心直线5.5公里 · 中山公园",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海虹桥绿地铂瑞公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/201710/26/C._M0DCi9qI5BcJiqli480.webp",
+        "tradeArea": "虹桥枢纽地区",
+        "score": "4.8",
+        "locationInfo": "虹桥机场/国家会展中心 · 徐泾东地铁站5号口附近",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海金桥博乐诗酒店公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/201801/10/C._M0DCi9CYYnDTovpi480.webp",
+        "tradeArea": "金桥",
+        "score": "4.6",
+        "locationInfo": "浦东金桥 · 金桥地铁站附近",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海阳光城睿湾碧云服务公寓",
+        "image": "https://userimg.qunarzz.com/imgs/201904/27/C.minrLrcECmeieK-hc480.webp",
+        "tradeArea": "金桥",
+        "score": "4.6",
+        "locationInfo": "浦东金桥",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海富豪会展公寓酒店",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/201812/13/C._M0DCif_HcUB-Qb3i480.webp",
+        "tradeArea": "",
+        "score": "4.5",
+        "locationInfo": "浦东外高桥 · 高桥镇小学附近",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海雅客瑞园行政公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/201812/12/C._M0DCii9WEJhflQTi480.webp",
+        "tradeArea": "浦东陆家嘴|世纪大道",
+        "score": "4.2",
+        "locationInfo": "距市中心直线2.9公里 · 陆家嘴",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "斯维登精品公寓(上海南京路步行街店)",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/202005/27/C.OTS0-NHK-yukvDP6N480.webp",
+        "tradeArea": "南京东路",
+        "score": "4.6",
+        "locationInfo": "距市中心直线0.1公里 · 人民广场",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海徐汇盛捷服务公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/202003/27/C.kY38QaYakXyNIVT9v480.webp",
+        "tradeArea": "徐家汇",
+        "score": "4.6",
+        "locationInfo": "距市中心直线4.0公里 · 打浦桥",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海奕邻66酒店",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/202002/24/C.ifo6vFj30Gij3ypoF480.webp",
+        "tradeArea": "延安西路|徐家汇",
+        "score": "4.6",
+        "locationInfo": "距市中心直线5.4公里 · 静安寺/南京西路",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海伦蒂诺中锦国际酒店公寓",
+        "icon": "http://s.qunarzz.com/hotel_rn_source/images/hotelList/videoPlayBtn@2x.png",
+        "image": "https://userimg.qunarzz.com/imgs/201904/13/C.Jn99AZd1jydOeBOPd480.webp",
+        "tradeArea": "",
+        "score": "4.4",
+        "locationInfo": "距市中心直线4.6公里 · 陆家嘴",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    },
+    {
+        "name": "上海协信莎玛虹桥服务式公寓",
+        "image": "https://userimg.qunarzz.com/imgs/201909/29/C.1yl-n4c35PLKbZSWG480.webp",
+        "tradeArea": "虹桥枢纽地区",
+        "score": "4.7",
+        "locationInfo": "虹桥机场/国家会展中心 · 上海虹桥站附近",
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00"
+    }
+]

@@ -9,6 +9,9 @@ Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 
+import global from './../plugins/global';
+Vue.use(global);
+
 new Vue({
   router,
   render: h => h(App)

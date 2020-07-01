@@ -24,7 +24,11 @@ export default {
       list: [
         { name: "DashBoard", path: '/dashboard', icon: 'el-icon-s-flag' },
         { name: "Element UI", path: '/element', icon: 'el-icon-s-flag' },
+        { name: "Element Tree", path: '/vetree', icon: 'el-icon-s-flag' },
         { name: "URL编解码", path: '/url-format', icon: 'el-icon-s-flag' },
+        { name: "水平尺", path: '/ruler', icon: 'el-icon-s-flag' },
+        { name: "拖放", path: '/drop', icon: 'el-icon-s-flag' },
+        { name: "Vue Mixins", path: '/vue-mixins', icon: 'el-icon-s-flag' },
       ]
     }
   }

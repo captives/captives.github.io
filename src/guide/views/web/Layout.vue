@@ -31,6 +31,9 @@ export default {
         { name: "vue cropper", path: '/vue-cropper', icon: 'el-icon-notebook-2' },
         { name: "PDF 在线阅读器", path: '/pdf-js', icon: 'el-icon-notebook-2' },
         { name: "Web SQL", path: '/websql', icon: 'el-icon-notebook-2' },
+        { name: "Vue Apollo Client", path: '/vue-apollo-client', icon: 'el-icon-notebook-2' },
+        { name: "MathJax", path: '/math-jax', icon: 'el-icon-notebook-2' },
+        { name: "无限滚动", path: '/vue-scroller', icon: 'el-icon-notebook-2' },
       ]
     }
   }

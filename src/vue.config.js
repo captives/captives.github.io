@@ -1,34 +1,5 @@
 module.exports = {
-  pages: {
-    index: {
-      entry: 'src/home/main.js',
-      title: 'loading...',
-      template: 'public/index.html',
-      filename: 'index.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'index'],
-    },
-    live: {
-      entry: 'src/live/main.js',
-      title: 'loading...',
-      template: 'public/index.html',
-      filename: 'live.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'live'],
-    },
-    guide: {
-      entry: 'src/guide/main.js',
-      title: 'loading...',
-      template: 'public/video.html',
-      filename: 'guide.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'guide'],
-    },
-    charts: {
-      entry: 'src/charts/main.js',
-      title: 'loading...',
-      template: 'public/index.html',
-      filename: 'charts.html',
-      chunks: ['chunk-vendors', 'chunk-common', 'charts'],
-    }
-  },
+  pages: require('./src/pages.js'),
   //基本路径
   publicPath: './',
   //输出文件目录

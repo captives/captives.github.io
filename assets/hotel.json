@@ -1,0 +1,199 @@
+[
+    {
+        "id": 42,
+        "title": "试睡员推荐榜",
+        "subTitle": "上海酒店必住榜",
+        "tags": [],
+        "desc": "",
+        "img": "https://himg1.qunarzz.com/imgs/201903/26/C.HFGCaTZKnwps56fLZ720.jpg",
+        "listImg": "https://himg1.qunarzz.com/imgs/201903/26/C.HFGCaTZKnwps56fLZ720.jpg",
+        "listTitle": "试睡员推荐榜",
+        "homeImg": "https://himg1.qunarzz.com/imgs/201903/26/C.HFGCaTZKnwps56fLZ720.jpg",
+        "grassCount": 18584,
+        "shortName": "试睡员推荐榜",
+        "detailImg": "",
+        "sort": 1,
+        "skin": 1,
+        "reasonStyle": 2
+    },
+    {
+        "id": 6,
+        "title": "必住主题酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "别具匠心",
+            "原汁原味"
+        ],
+        "desc": "主题酒店，享受绝佳体验",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/zhutibizhu2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/fangjian.jpg",
+        "listTitle": "必住主题酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/zhutibizhu2x.png",
+        "grassCount": 21239,
+        "shortName": "主题酒店榜",
+        "detailImg": "",
+        "sort": 6,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 16,
+        "title": "必住青旅酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "歇脚港湾",
+            "认识新朋友"
+        ],
+        "desc": "住青旅，遇见你的小确幸",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhuqinglv2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhuqinglv2x.png",
+        "listTitle": "必住青旅酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhuqinglv2x.png",
+        "grassCount": 22006,
+        "shortName": "青旅酒店榜",
+        "detailImg": "",
+        "sort": 16,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 17,
+        "title": "服务至上酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "服务到位",
+            "宾至如归"
+        ],
+        "desc": "宾客至上，怡然自在",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/fuwuzuijia2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/fuwu.jpg",
+        "listTitle": "服务至上酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/fuwuzuijia2x.png",
+        "grassCount": 20768,
+        "shortName": "服务至上酒店榜",
+        "detailImg": "",
+        "sort": 17,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 19,
+        "title": "环境优雅酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "环境优雅",
+            "住的舒心"
+        ],
+        "desc": "最舒适的酒店环境，不容错过",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/huanjingzuijia2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/laoban.jpg",
+        "listTitle": "环境优雅酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/huanjingzuijia2x.png",
+        "grassCount": 20973,
+        "shortName": "环境优雅酒店榜",
+        "detailImg": "",
+        "sort": 19,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 21,
+        "title": "必住商务酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "商旅首选",
+            "宾至如归"
+        ],
+        "desc": "品质商旅，品味随行",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhushangwu2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/shangwu.jpg",
+        "listTitle": "必住商务酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhushangwu2x.png",
+        "grassCount": 22704,
+        "shortName": "商务酒店榜",
+        "detailImg": "",
+        "sort": 21,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 22,
+        "title": "必住客栈酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "特色客栈",
+            "优质假期"
+        ],
+        "desc": "快来享受客栈风情把",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/kezhanda.jpg",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/kezhanxiao.jpg",
+        "listTitle": "必住客栈酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/kezhanzhong.jpg",
+        "grassCount": 21574,
+        "shortName": "客栈酒店榜",
+        "detailImg": "",
+        "sort": 22,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 23,
+        "title": "必住度假酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "休养圣地",
+            "环境优美"
+        ],
+        "desc": "身的休憩，心的享受",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/shanchengdujia2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/dujia.jpg",
+        "listTitle": "必住度假酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/shanchengdujia2x.png",
+        "grassCount": 24075,
+        "shortName": "度假酒店榜",
+        "detailImg": "",
+        "sort": 23,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 24,
+        "title": "必住情侣酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "主题房间",
+            "浴缸水床"
+        ],
+        "desc": "和你的他/她，尽享旅途中的专属私人空间",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/qinglvbizhu2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/huanjing.jpg",
+        "listTitle": "必住情侣酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/qinglvbizhu2x.png",
+        "grassCount": 21998,
+        "shortName": "情侣酒店榜",
+        "detailImg": "",
+        "sort": 24,
+        "skin": 1,
+        "reasonStyle": 1
+    },
+    {
+        "id": 25,
+        "title": "必住民宿酒店榜单",
+        "subTitle": "上海酒店必住榜",
+        "tags": [
+            "家的味道",
+            "安逸舒适"
+        ],
+        "desc": "住民宿，体验纯正城市风情",
+        "img": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhuminsu2x.png",
+        "listImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhuminsu2x.png",
+        "listTitle": "必住民宿酒店榜单",
+        "homeImg": "https://source.qunarzz.com/site/images/zhuanti/huodong/bizhuminsu2x.png",
+        "grassCount": 21002,
+        "shortName": "民宿酒店榜",
+        "detailImg": "",
+        "sort": 25,
+        "skin": 1,
+        "reasonStyle": 1
+    }
+]

@@ -4,6 +4,7 @@ import Source from './../components/Source';
 import SourceCode from './../components/SourceCode';
 import URLInput from './../components/URLInput.vue';
 import NavMenu from './../components/NavMenu';
+import { fetch } from './common';
 
 /**Vue 全局属性、方法*/
 export default {
@@ -14,6 +15,7 @@ export default {
         Vue.component('source-code', SourceCode);
         Vue.component('nav-menu', NavMenu);
 
+        Vue.prototype.$fetch = fetch;
         Vue.prototype.$videoList = [
             { label: "Parkour 720P MP4", value: "/medias/parkour_720P.mp4" },
             { label: "Parkour 720P WEBM", value: "/medias/parkour_720P.webm" },

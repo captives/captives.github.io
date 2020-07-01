@@ -19,6 +19,10 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 Vue.use(VueAxios, axios);
 
+//无限滚动
+import scroll from 'vue-seamless-scroll'
+Vue.use(scroll)
+
 import global from './../plugins/global';
 Vue.use(global);
 

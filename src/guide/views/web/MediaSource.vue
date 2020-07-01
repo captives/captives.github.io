@@ -53,7 +53,7 @@ export default {
         this.mediaSource.addEventListener('sourceopen', () => {
           console.log('2, mediaSource.readyState', that.mediaSource.readyState);
           let sourceBuffer = that.mediaSource.addSourceBuffer(that.mimeCodec);
-          that.fetch('/medias/musicvideo.mp4').then(buf => {
+          that.fetch('/medias/Piper_720P.mp4').then(buf => {
             sourceBuffer.addEventListener('updateend', () => {
               console.log('4, mediaSource.readyState', that.mediaSource.readyState);
               that.mediaSource.endOfStream();
