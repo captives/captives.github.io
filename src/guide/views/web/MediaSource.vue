@@ -9,6 +9,8 @@
     </el-row>
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
+
+     <vue-source src="guide/views/web/MediaSource.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
