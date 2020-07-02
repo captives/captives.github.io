@@ -1,10 +1,17 @@
 <template>
-  <vue-code v-if="code">
-    <p class="title">{{src | label}}</p>
-    <pre :lang="lang">{{code}}</pre>
-  </vue-code>
+  <el-row>
+    <vue-code v-if="code">
+      <p class="title">{{src | label}}</p>
+      <pre :lang="lang">{{code}}</pre>
+    </vue-code>
+
+    <template v-else>
+      <img :src="loading" alt />
+    </template>
+  </el-row>
 </template>
 <script>
+import loading from '@/assets/loading-code.gif';
 import Code from './Code'
 export default {
   name: "Source",
@@ -21,7 +28,8 @@ export default {
   },
   data() {
     return {
-      code: null
+      code: null,
+      loading
     }
   },
   filters: {
@@ -51,13 +59,19 @@ export default {
   },
   mounted() {
     if (this.src) {
-      this.fetch("src/" + this.src).then(code => this.code = code);
+      this.fetch("src/" + this.src).then(code => {
+        this.code = code;
+      });
     }
   }
 }
 </script>
 <style lang="stylus" scoped>
-.el-dropdown {
-  padding: 5px 12px;
+.el-row {
+  img {
+    display: block;
+    margin: 0 auto;
+    pointer-events: none;
+  }
 }
 </style>

@@ -10,17 +10,22 @@ export default {
   props: {
     language: { type: String, default: 'javascrit' },
   },
+  methods: {
+    render() {
+      const list = this.$refs.code.querySelectorAll('pre') || [];
+      list.forEach(preEl => {
+        var codeEl = document.createElement('code');
+        if (preEl.innerHTML) {
+          codeEl.innerHTML = preEl.innerHTML;
+          codeEl.className = 'language-' + preEl.getAttribute('lang');
+        }
+        this.$refs.code.replaceChild(codeEl, preEl);
+      });
+      Prism.highlightAll();
+    }
+  },
   mounted() {
-    const list = this.$refs.code.querySelectorAll('pre') || [];
-    list.forEach(preEl => {
-      var codeEl = document.createElement('code');
-      if (preEl.innerHTML) {
-        codeEl.innerHTML = preEl.innerHTML;
-        codeEl.className = 'language-' + preEl.getAttribute('lang');
-      }
-      this.$refs.code.replaceChild(codeEl, preEl);
-    });
-    Prism.highlightAll();
+    this.render();
   },
 }
 </script>
