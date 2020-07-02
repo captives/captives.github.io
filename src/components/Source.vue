@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <div class="row">
     <vue-code v-if="code">
       <p class="title">{{src | label}}</p>
       <pre :lang="lang">{{code}}</pre>
@@ -8,7 +8,7 @@
     <template v-else>
       <img :src="loading" alt />
     </template>
-  </el-row>
+  </div>
 </template>
 <script>
 import loading from '@/assets/loading-code.gif';
@@ -67,7 +67,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.el-row {
+div.row {
   img {
     display: block;
     margin: 0 auto;
