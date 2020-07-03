@@ -71,7 +71,9 @@ export default {
   created() {
     const path = this.$route.path;
     const item = this.list.find((item, index) => path.indexOf(item.path) != -1);
-    this.selectIndex = item.path;
+    if (item) {
+      this.selectIndex = item.path;
+    }
   }
 }
 </script>

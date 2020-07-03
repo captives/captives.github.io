@@ -75,8 +75,14 @@ function byteConver(limit) {
 }
 
 function fetch(url) {
+    let xhr = new XMLHttpRequest();
+    if ('ActiveXObject' in window) {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    } else if ('XMLHttpRequest' in window) {
+        xhr = new XMLHttpRequest();
+    }
+    
     return new Promise((resolve, reject) => {
-        var xhr = new XMLHttpRequest;
         xhr.open('get', url, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {

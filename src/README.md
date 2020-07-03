@@ -26,3 +26,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+-- 人脸识别 https://trackingjs.com/

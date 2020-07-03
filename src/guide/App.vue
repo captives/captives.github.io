@@ -22,6 +22,7 @@ export default {
         { name: "Canvas", path: '/canvas', logo: null },
         { name: "WebRTC", path: '/webrtc', logo: null },
         { name: "OpenVidu", path: '/openvidu', logo: null },
+        { name: "笔记", path: '/notes', logo: null },
         { name: "图表", path: '/charts.html', logo: null },
         { name: "处理中心", path: '/about', logo: null },
       ]
