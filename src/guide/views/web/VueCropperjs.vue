@@ -3,7 +3,7 @@
     <!-- 在线例子 https://fengyuanchen.github.io/cropperjs/ -->
     <!-- vue版本 https://agontuk.github.io/vue-cropperjs/ -->
     <el-row :gutter="20">
-      <el-col class="center" :xs="24" :sm="24" :md="12">
+      <el-col class="center" :xs="24" :sm="24" :md="12" style="height:480px">
         <el-divider content-position="left">编辑</el-divider>
         <div class="viewport">
           <img ref="imageElement" src="/assets/image.jpg" />
@@ -267,7 +267,7 @@ export default {
 
 .viewport {
   width: 100%;
-  height: 480px;
+  height: 480px !important;
 }
 
 .view-item {
