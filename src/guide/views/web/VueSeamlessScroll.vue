@@ -40,8 +40,8 @@ export default {
     return { list: [] }
   },
   created() {
-    this.$fetch('/assets/hotel.json').then((res) => {
-      this.list = res;
+    this.$fetch('/assets/data/hotel.json').then((res) => {
+      this.list = JSON.parse(res);
     });
   }
 }

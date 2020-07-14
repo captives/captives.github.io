@@ -8,14 +8,19 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('../views/Home.vue')
-  },
-  {
+  },{
+    path: '/favorite',
+    name: '收藏夹',
+    component: () => import('../views/Favorite.vue')
+  },{
     path: '/tools',
     name: 'Tools',
     component: () => import('../views/Layout.vue'),
     redirect: '/tools/dashboard',
     children: [{
       path: '/tools/dashboard', name: 'DashBoard', component: () => import('../views/index.vue')
+    }, {
+      path: '/tools/qr-code', name: 'QR Code', component: () => import('../views/QRCode.vue')
     }, {
       path: '/tools/element', name: 'element UI', component: () => import('../elements/VElInput.vue')
     }, {

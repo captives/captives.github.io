@@ -8,7 +8,7 @@
         <a href="/charts.html">图表</a>
         <router-link to="/tools">工具</router-link>
         <a href="/sprite/index.html">雪碧图</a>
-        <a href="/list.html">收藏夹</a>
+        <router-link to="/favorite">收藏夹</router-link>
       </el-row>
     </el-header>
     <router-view />

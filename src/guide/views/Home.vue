@@ -154,7 +154,7 @@ list: [
           { label: "Piper 1080P", value: "/medias/Piper_1080P.mp4" },
 
           { label: "睡眠钢琴音乐", value: "/medias/Relaxing Piano Music.mp4" },
-          { label: "汽车 绿幕视频", value: "/medias/green-screen-car.mp4" },
+          { label: "汽车 绿幕视频", value: "assets/medias/green-screen-car.mp4" },
       ];
   }
 }

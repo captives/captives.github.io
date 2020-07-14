@@ -1,8 +1,14 @@
+const os = require('os');
 const fs = require('fs');
 const process = require('child_process');
 
 const buildDir = "captives.github.io";
-const buildPath = "/Volumes/DATA/github/" + buildDir;
+let buildPath = null;
+if (os.type().indexOf('Window') != -1) {
+    buildPath = "E:\\github\\" + buildDir;
+} else {
+    buildPath = "/Volumes/DATA/github/" + buildDir;
+}
 
 const dirPath = './';
 const exclude = [

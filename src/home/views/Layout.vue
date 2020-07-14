@@ -23,6 +23,7 @@ export default {
       prefix: '/tools',
       list: [
         { name: "DashBoard", path: '/dashboard', icon: 'el-icon-s-flag' },
+        { name: "QR Code", path: '/qr-code', icon: 'el-icon-s-flag' },
         { name: "Element UI", path: '/element', icon: 'el-icon-s-flag' },
         { name: "Element Tree", path: '/vetree', icon: 'el-icon-s-flag' },
         { name: "URL编解码", path: '/url-format', icon: 'el-icon-s-flag' },
