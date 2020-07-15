@@ -118,6 +118,7 @@
         <el-divider content-position="left">CropBox Data</el-divider>
         <p v-for="(item, key) in cropBoxData" :key="'crop' + key">{{ key }} : {{ item | fixed2 }}</p>
       </el-col>
+      <source-code :value="[{ value: 'guide/views/web/VueCropperjs.vue', lang: 'html' }]">查看源码</source-code>
     </el-row>
   </el-main>
 </template>

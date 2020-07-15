@@ -10,6 +10,8 @@ if (os.type().indexOf('Window') != -1) {
     buildPath = "/Volumes/DATA/github/" + buildDir;
 }
 
+console.log('build output dirctory', os.type(), buildPath);
+
 const dirPath = './';
 const exclude = [
     '.git', '.DS_Store',

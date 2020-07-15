@@ -179,6 +179,9 @@
           <el-form-item label="x倍高清图">
             <el-slider v-model="option.enlarge" show-stops :marks="marks" :min="1" :max="5"></el-slider>
           </el-form-item>
+          <el-form-item label="">
+            <source-code :value="[{ value: 'guide/views/web/VueCropperjs.vue', lang: 'html' }]">查看源码</source-code>
+          </el-form-item>
         </el-form>
       </el-col>
     </el-row>
