@@ -6,6 +6,10 @@
         <el-button type="danger" slot="append" @click="makeCode">生成</el-button>
       </el-input>
     </el-row>
+    <el-row>
+      <h1>文本内容</h1>
+      {{ inputValue }}
+    </el-row>
     <vue-source src="home\views\QRCode.vue"></vue-source>
   </el-main>
 </template>

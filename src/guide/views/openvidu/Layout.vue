@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="220px">
-      <nav-menu class="nav-menu" :list="list" :prefix="prefix"></nav-menu>
+      <nav-menu class="nav-menu" :list="router.children"></nav-menu>
     </el-aside>
 
     <el-container>
@@ -14,16 +14,12 @@
 
 </script>
 <script>
+import router from './../../router/openvidu';
 export default {
-  name: "webrtc",
+  name: router.name,
   data() {
     return {
-      prefix: "/openvidu",
-      list: [
-        { name: "关键知识", path: '/index', icon: 'el-icon-menu' },
-        { name: "Hello World", path: '/hello', icon: 'el-icon-menu' },
-        { name: "AudioVideoCall", path: '/avcall', icon: 'el-icon-menu' },
-      ]
+      router
     }
   },
 }

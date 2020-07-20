@@ -8,13 +8,14 @@ import notes from './notes';
 
 Vue.use(VueRouter);
 
-const routes = [web, canvas, webrtc, openvidu, notes,
+const routes = [
   {
     path: '/',
     name: 'Home',
     component: () => import('../views/Home.vue')
-  }, {
+  }, web, canvas, webrtc, openvidu, notes, {
     path: '/live',
+    name: "会议室",
     redirect: '/live.html'
   }, {
     path: '/about',

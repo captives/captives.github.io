@@ -88,9 +88,17 @@ export default {
 }
 
 .el-drawer__wrapper {
+  >>> .el-drawer:focus {
+    outline: none;
+  }
+
   >>> .el-drawer__header {
     padding-top: 20px;
     margin-bottom: 10px;
+
+    &:focus, button:focus {
+      outline: none;
+    }
   }
 
   >>> .el-drawer__body {

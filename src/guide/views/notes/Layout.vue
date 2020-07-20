@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="220px">
-      <nav-menu class="nav-menu" :list="list"></nav-menu>
+      <nav-menu class="nav-menu" :list="router.children"></nav-menu>
     </el-aside>
 
     <el-container>
@@ -14,20 +14,13 @@
 
 </script>
 <script>
-import data, { prefix } from './../../router/notes';
+import router from './../../router/notes';
 export default {
-  name: data.name,
+  name: router.name,
   data() {
     return {
-      prefix: null,
-      selectIndex: "/index",
-      list: []
+      router
     }
-  },
-  mounted() {
-    this.prefix = "";
-    this.list = data.children || [];
-    console.log(prefix, data);
   }
 }
 </script>
