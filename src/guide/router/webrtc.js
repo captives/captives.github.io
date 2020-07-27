@@ -3,11 +3,11 @@ export { prefix };
 
 export default {
     path: prefix + "",
-    name: 'webrtc',
+    name: 'WebRTC',
     component: () => import('../views/webrtc/Layout.vue'),
     redirect: prefix + "/index",
     children: [
-        { path: prefix + "/index", name: "关键知识", icon: 'el-icon-s-flag', component: () => import('../views/webrtc/index.vue') },
+        { path: prefix + "/index", name: "WebRTC 知识点", icon: 'el-icon-s-flag', component: () => import('../views/webrtc/index.vue') },
         { path: prefix + "/list", name: "用户设备列表", icon: 'el-icon-notebook-2', component: () => import('../views/webrtc/MediaDevices.vue') },
         { path: prefix + "/stream-from-usermedia", name: "视频流来自用户设备", icon: 'el-icon-camera', component: () => import('../views/webrtc/VideoStreamFromUserMedia.vue') },
         { path: prefix + "/dynamic-selection-usermedia", name: "动态选择用户设备", icon: 'el-icon-orange', component: () => import('../views/webrtc/ChooseUserMedia.vue') },

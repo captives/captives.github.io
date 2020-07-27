@@ -14,7 +14,7 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Audio</el-divider>
-        <audio ref="localAudio" src="/medias/jinli.mp3" controls></audio>
+        <audio ref="localAudio" src="/assets/medias/jinli.mp3" controls></audio>
         <el-row style="padding-top: 20px">
           <el-checkbox v-model="mixing">{{mixing ? '替换声道' : '原声道'}}</el-checkbox>
           <el-button type="success" size="mini" @click="videoPlayer">播放</el-button>

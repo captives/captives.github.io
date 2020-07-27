@@ -3,12 +3,12 @@ export { prefix };
 
 export default {
     path: prefix,
-    name: 'canvas',
+    name: 'Canvas',
     component: () => import('../views/canvas/Layout.vue'),
     redirect: prefix + '/index',
     children: [{
         path: prefix + '/index',
-        name: "API",
+        name: "Canvas API",
         icon: 'el-icon-printer',
         component: () => import('../views/canvas/index.vue')
     },

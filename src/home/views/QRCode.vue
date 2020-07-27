@@ -46,7 +46,7 @@ export default {
       let script = document.createElement('script');
       script.setAttribute('type', 'text/javascript');
       script.innerText = res;
-      document.querySelector('body').appendChild(script);
+      document.body.appendChild(script);
       this.init();
     });
   }

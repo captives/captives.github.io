@@ -3,10 +3,10 @@ export { prefix };
 
 export default {
     path: prefix,
-    name: 'notes',
+    name: '记事本',
     component: () => import('../views/notes/Layout.vue'),
     redirect: prefix + "/index",
     children: [
-        { path: prefix + "/index", name: "关键知识", component: () => import('../views/notes/index.vue') },
+        { path: prefix + "/index", name: "记事本 知识点", component: () => import('../views/notes/index.vue') },
     ]
 }

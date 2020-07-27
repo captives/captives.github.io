@@ -11,11 +11,11 @@
       @remove="optionRemoveHandler(item, index)"
     ></PictureCardItem>
 
-    <li class="upload-picture_card upload" v-if="list.length < 5">
+    <li class="upload-picture_card upload">
       <el-upload
         class="el-upload"
         action="#"
-        :limit="10"
+        :limit="50"
         :show-file-list="false"
         :auto-upload="false"
         accept=".png, .jpg, .jpeg, .bmp"

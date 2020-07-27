@@ -26,11 +26,11 @@
       </el-row>
 
       <el-row class="nav">
-        <el-tree :data="routes" :props="{ label: 'name'}" @node-click="handleNodeClick">
+        <!-- <el-tree :data="routes" :props="{ label: 'name'}" @node-click="handleNodeClick">
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <router-link :to="data.path">{{data.name}}</router-link>
           </span>
-        </el-tree>
+        </el-tree> -->
       </el-row>
     </el-aside>
     <el-main>
@@ -42,6 +42,7 @@
 <script>
 import { routes } from './../router/index';
 export default {
+  name:"About",
   data() {
     return {
       routes,

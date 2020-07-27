@@ -8,7 +8,7 @@ export default
         component: () => import('../views/web/Layout.vue'),
         redirect: prefix + '/index',
         children: [
-            { path: prefix + '/index', name: '关键知识', icon: 'el-icon-s-flag', component: () => import('../views/web/index.vue') },
+            { path: prefix + '/index', name: 'HTML5 知识点', icon: 'el-icon-s-flag', component: () => import('../views/web/index.vue') },
             { path: prefix + '/video-js', name: 'VideoJs', icon: 'el-icon-notebook-2', component: () => import('../views/web/VideoJs.vue') },
             { path: prefix + '/xgvideo', name: '西瓜视频', icon: 'el-icon-notebook-2', component: () => import('../views/web/XGVideo.vue') },
             { path: prefix + '/audio-lrc', name: '简单LRC播放器', icon: 'el-icon-notebook-2', component: () => import('../views/web/AudioLRC.vue') },
