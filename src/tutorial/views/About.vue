@@ -6,6 +6,7 @@
         <FileUploader />
       </div>
 
+      <ResultInput></ResultInput>
       <VariableValueExchange></VariableValueExchange>
     </el-main>
 
@@ -22,10 +23,11 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import FileUploader from './../components/FileUploader.vue';
+import ResultInput from './../components/ResultInput.vue';
 import VariableValueExchange from './../components/VariableValueExchange.vue';
 @Component({
   name: "About",
-  components: { FileUploader, VariableValueExchange }
+  components: { FileUploader, VariableValueExchange, ResultInput }
 })
 export default class About extends Vue {
 

@@ -73,6 +73,7 @@ export default class PictureCardItem extends Vue {
       this.item.percentage = 0;
       //@ts-ignore
       this.$message({ type: "error", message: "执行上传逻辑" });
+      delete this.item.raw;
     }
   }
 
