@@ -2,7 +2,7 @@
   <el-container>
     <el-main>
       <h1>This is an about page</h1>
-      <div style="width: 50%; margin: 0 auto; height: 300px; overflow-y: auto; background: #EEE;">
+      <div style="width: 80%; margin: 0 auto; height: 300px; overflow-y: auto; background: #EEE;">
         <FileUploader />
       </div>
 
