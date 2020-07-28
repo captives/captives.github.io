@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: "首页",
     component: () => import('../views/Home.vue')
   },{
     path: '/favorite',
@@ -14,7 +14,7 @@ const routes = [
     component: () => import('../views/Favorite.vue')
   },{
     path: '/tools',
-    name: 'Tools',
+    name: '工具箱',
     component: () => import('../views/Layout.vue'),
     redirect: '/tools/dashboard',
     children: [{

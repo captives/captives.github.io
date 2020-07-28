@@ -7,15 +7,15 @@
       </div>
 
       <ResultInput></ResultInput>
-      <VariableValueExchange></VariableValueExchange>
+      <VariableValueExchange style="display:none"></VariableValueExchange>
     </el-main>
 
-    <el-footer>
-      <a href="https://segmentfault.com/a/1190000005764629">JavaScript 类数组对象</a>
+    <el-footer style="display:none">
+      <a href="https://segmentfault.com/a/1190000005764629">JavaScript 类数组对象</a><br/>
 
-      <a href="https://segmentfault.com/a/1190000017790888">JS判断数组的六种方法详解</a>
+      <a href="https://segmentfault.com/a/1190000017790888">JS判断数组的六种方法详解</a><br/>
 
-      <a href="https://www.cnblogs.com/onepixel/articles/7674659.html">十大经典排序算法（动图演示）</a>
+      <a href="https://www.cnblogs.com/onepixel/articles/7674659.html">十大经典排序算法（动图演示）</a><br/>
     </el-footer>
   </el-container>
 </template>
