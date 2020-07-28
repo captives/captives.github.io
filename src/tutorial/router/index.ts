@@ -10,7 +10,7 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   }, {
-    path: '/websit',
+    path: '/website',
     name: 'WebSite',
     component: () => import('../views/WebSite.vue')
   }, {
