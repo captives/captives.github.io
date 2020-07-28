@@ -8,7 +8,7 @@ console.log(guide.options, tutorial.options);
 const router = [
     {
         name: "首页",
-        path: "/",
+        path: "/index.html",
         children: home.options.routes
     }, {
         path: '/live.html',
@@ -16,17 +16,17 @@ const router = [
         children: live.options.routes
     }, {
         name: "指南",
-        path: "/guide",
+        path: "/guide.html",
         children: guide.options.routes
     }, {
         name: "教程",
-        path: "/main",
+        path: "/main.html",
         children: tutorial.options.routes
     }, {
         path: '/sprite/index.html',
         name: '雪碧图',
     }, {
-        path: '/charts',
+        path: '/charts.html',
         name: '图表',
         children: charts.options.routes
     }

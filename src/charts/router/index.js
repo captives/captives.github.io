@@ -43,10 +43,9 @@ const routes = [{
     { path: "/e-charts/world-money", name: "全球数字货币交易", component: () => import('../echarts/WorldMoney.vue') },
   ]
 }, {
-  path: '/live',
-  redirect: '/live.html'
-}
-]
+  path: '/live.html',
+  name: '会议室',
+}]
 
 const router = new VueRouter({
   // mode: 'history',
