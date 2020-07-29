@@ -10,7 +10,7 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   }, {
-    path: '/website',
+    path: '/nav',
     name: 'WebSite',
     component: () => import('../views/WebSite.vue')
   }, {
@@ -20,8 +20,12 @@ const routes: Array<RouteConfig> = [
   }
 ]
 
-const router = new VueRouter({
-  routes
-})
-export { routes };
+//屏蔽重复导航,控制台报错
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location:any) {
+  //@ts-ignore
+  return originalPush.call(this, location).catch((err:any) => err)
+}
+
+const router = new VueRouter({ routes })
 export default router

@@ -1,5 +1,5 @@
 <template>
-  <el-container id="app">
+  <el-container>
     <el-header>
       <el-menu
         mode="horizontal"

@@ -53,22 +53,23 @@
   </el-main>
 </template>
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
-import list from './../../router';
+import { Vue, Component } from "vue-property-decorator";
+import list from "./../../router";
 
-import NavMenu from '@/components/NavMenu.vue';
+import NavMenu from "@/components/NavMenu.vue";
 
 // @ts-ignore
 @Component({
-  name: "WebSite", components: { NavMenu }
+  name: "WebSite",
+  components: { NavMenu }
 })
 export default class WebSite extends Vue {
   private isCollapse: boolean = false;
-  private selectActive: any | string = '';
+  private selectActive: any | string = "";
   private list: Array<any> = list;
 
-  private handleNodeClick(data: any) { }
-  private handleChange(data: any) { }
+  private handleNodeClick(data: any) {}
+  private handleChange(data: any) {}
 
   private searchPath() {
     const path = window.location.hash.substr(1, window.location.hash.length);
@@ -76,12 +77,12 @@ export default class WebSite extends Vue {
   }
 
   private navSelectHandler(path: string, list: any, el: any) {
-    console.log('nav', path, list, el);
+    console.log("nav", path, list, el);
     const str = list[0] + "#" + path;
 
-    if (path.indexOf('.') != -1) {
+    if (path.indexOf(".") != -1) {
       window.location.href = path;
-    }else{
+    } else {
       window.location.href = list[0] + "#" + path;
     }
 
@@ -93,7 +94,6 @@ export default class WebSite extends Vue {
     // }
   }
 }
-
 </script>
 <style lang="stylus" scoped>
 .el-header {
@@ -102,5 +102,6 @@ export default class WebSite extends Vue {
   left: 0;
   width: 100%;
   padding: 0;
+  text-align: left;
 }
 </style>

@@ -94,7 +94,7 @@ function fetch(url) {
         };
 
         xhr.onerror = (e) => {
-            console.log('featch Error', url, e);
+            console.log('Fetch Error', url, e);
             resolve();
         };
         xhr.send();

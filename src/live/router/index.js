@@ -5,11 +5,23 @@ Vue.use(VueRouter);
 
 const routes = [{
   path: '/',
-  name: 'Home',
+  name: '登入',
   component: () => import('./../views/Home.vue'),
 },{
-  path: '/about',
-  name: 'About',
+  path: '/one',
+  name: '一对一',
+  component: () => import('./../views/About.vue')
+},{
+  path: '/many',
+  name: '一对多',
+  component: () => import('./../views/About.vue')
+},{
+  path: '/live',
+  name: '直播',
+  component: () => import('./../views/About.vue')
+},{
+  path: '/desc',
+  name: '说明',
   component: () => import('./../views/About.vue')
 }]
 

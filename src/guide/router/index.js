@@ -11,7 +11,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: '组件说明',
     component: () => import('../views/Home.vue')
   }, web, canvas, webrtc, openvidu, notes, {
     path: '/live.html',
