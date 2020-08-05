@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="220px">
-      <nav-menu class="nav-menu" :list="list" :prefix="prefix"></nav-menu>
+      <nav-menu class="nav-menu" :list="list"></nav-menu>
     </el-aside>
     <el-main>
       <keep-alive>
@@ -15,22 +15,13 @@
 </script>
 <script>
 import NavMenu from './../../components/NavMenu';
+import router from './../router/tools' 
 export default {
-  name: "Web",
+  name: "Layout",
   components: { NavMenu },
   data() {
     return {
-      prefix: '/tools',
-      list: [
-        { name: "DashBoard", path: '/dashboard', icon: 'el-icon-s-flag' },
-        { name: "QR Code", path: '/qr-code', icon: 'el-icon-s-flag' },
-        { name: "Element UI", path: '/element', icon: 'el-icon-s-flag' },
-        { name: "Element Tree", path: '/vetree', icon: 'el-icon-s-flag' },
-        { name: "URL编解码", path: '/url-format', icon: 'el-icon-s-flag' },
-        { name: "水平尺", path: '/ruler', icon: 'el-icon-s-flag' },
-        { name: "拖放", path: '/drop', icon: 'el-icon-s-flag' },
-        { name: "Vue Mixins", path: '/vue-mixins', icon: 'el-icon-s-flag' },
-      ]
+      list: router.children
     }
   }
 }

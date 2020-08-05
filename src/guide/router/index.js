@@ -21,6 +21,10 @@ const routes = [
     path: '/about',
     name: '处理中心',
     component: () => import('../views/About.vue'),
+  }, {
+    path: '/VideoMixing',
+    name: '视频混音',
+    component: () => import('../views/web/VideoMixing.vue'),
   }];
 
 //屏蔽重复导航,控制台报错
