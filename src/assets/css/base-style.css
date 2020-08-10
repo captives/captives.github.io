@@ -14,6 +14,23 @@ li {
     list-style: none;
 }
 
+video,
+audio {
+    outline: none;
+}
+
+em {
+    display: inline;
+    color: #fff;
+    background: #3d7e9a;
+    border-radius: 4px;
+    padding: 3px 9px;
+    font-size: 10px;
+    margin: 0 5px;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
 .fill {
     position: absolute;
     width: 100%;

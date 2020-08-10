@@ -94,24 +94,6 @@ export default {
 }
 </style>
 
-<style lang="stylus">
-video, audio {
-  outline: none;
-}
-
-sub {
-  display: inline;
-  color: #fff;
-  background: #3d7e9a;
-  border-radius: 4px;
-  padding: 3px 9px;
-  font-size: 10px;
-  margin: 0 5px;
-  letter-spacing: 0.5px;
-  vertical-align: middle;
-}
-</style>
-
 <style lang="stylus" scoped>
 .el-header {
   padding: 0;

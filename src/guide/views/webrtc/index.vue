@@ -102,7 +102,7 @@ video.srcObject = stream;
         <router-link to="/webrtc/audiooutput">Choose media source and audio output</router-link>
       </h3>
       <el-row>
-        该<sub>HTMLMediaElement.setSinkId()</sub>方法设置用于输出的音频设备的ID，并返回  Promise。仅当授权该应用程序使用指定设备时，此方法才有效。
+        该<em>HTMLMediaElement.setSinkId()</em>方法设置用于输出的音频设备的ID，并返回  Promise。仅当授权该应用程序使用指定设备时，此方法才有效。
       </el-row>
       <vue-code>
         <pre lang="javascript">

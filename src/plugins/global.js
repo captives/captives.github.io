@@ -6,8 +6,8 @@ import URLInput from './../components/URLInput.vue';
 import NavMenu from './../components/NavMenu';
 import { fetch } from './common';
 
-/**Vue 全局属性、方法*/
-export default {
+
+const global = {
     install(Vue) {
         Vue.component('vue-code', Code);
         Vue.component('url-input', URLInput);
@@ -28,4 +28,6 @@ export default {
             { label: "汽车 绿幕视频", value: "/assets/medias/green-screen-car.mp4" },
         ];
     }
-}
+};
+/**Vue 全局属性、方法*/
+export default global

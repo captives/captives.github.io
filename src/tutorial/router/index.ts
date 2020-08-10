@@ -14,6 +14,10 @@ const routes: Array<RouteConfig> = [
     name: 'WebSite',
     component: () => import('../views/WebSite.vue')
   }, {
+    path: '/node',
+    name: 'Nodejs 安装',
+    component: () => import('../views/articles/NodejsInstall.vue')
+  }, {
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue')

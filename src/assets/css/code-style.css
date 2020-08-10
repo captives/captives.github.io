@@ -15,16 +15,17 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
     background: #405261;
     overflow-y: auto;
     border-radius: 2px;
+    padding: 10px;
 }
 
 code[class*=language-],
 pre[class*=language-] {
-    padding: 2em 2em;
+    padding: 2em;
     color: #eceef4;
     direction: ltr;
     text-align: left;
     white-space: pre;
-    display: inline-block;
+    display: block;
     word-spacing: normal;
     word-break: normal;
     -moz-tab-size: 4;
@@ -62,11 +63,11 @@ pre[class*=language-]::selection {
 
 pre[class*=language-] {
     padding: 0;
-    margin: 0
+    margin: 0;
 }
 
 :not(pre)>code[class*=language-] {
-    padding: 1em;
+    padding: 0.2em;
     border-radius: .3em
 }
 
