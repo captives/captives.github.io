@@ -4,6 +4,7 @@
       <url-input v-model="url" :list="$videoList"></url-input>
       <el-divider content-position="left">Video</el-divider>
       <video ref="localVideo" class="video-item" :src="url" muted controls loop autoplay></video>
+      
       <el-col :span="24">
         <audio ref="localAudio" src="/assets/medias/jinli.mp3" muted controls autoplay></audio>
         <el-button type="primary" @click="startMixing">开始混音</el-button>
@@ -57,10 +58,10 @@ export default {
       return stream;
     },
     startMixing() {
-      //   this.audioStream.getAudioTracks().forEach((track) => {
-      //     console.log('音频轨道添加');
-      //     this.videoStream.addTrack(track.clone());
-      //   });
+//   this.audioStream.getAudioTracks().forEach((track) => {
+//     console.log('音频轨道添加');
+//     this.videoStream.addTrack(track.clone());
+//   });
 
       this.remixStream = new MediaStream();
       this.videoStream.getVideoTracks().forEach((track) => {
@@ -69,10 +70,12 @@ export default {
 
       this.audioStream.getAudioTracks().forEach((track) => {
         this.remixStream.addTrack(track.clone());
+        track.enabled = false;
       });
 
       this.videoStream.getAudioTracks().forEach((track) => {
         this.remixStream.addTrack(track.clone());
+        track.enabled = false;
       });
 
       console.log(this.remixStream.audioTracks);

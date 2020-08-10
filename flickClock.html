@@ -1,0 +1,150 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+
+    <style type="text/css">
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        .stage-content {
+            width: 700px;
+            height: 630px;
+            margin: 60px auto 0 auto;
+        }
+
+        .stage-icon {
+            width: 204px;
+            height: 289px;
+            margin: 0 auto 68px;
+            position: relative;
+            perspective: 900px;
+        }
+
+        .stage-icon li {
+            font-family: Arial, Helvetica, sans-serif;
+            border: 1px solid blue;
+            width: 200px;
+            height: 288px;
+            display: block;
+            position: absolute;
+            overflow: hidden;
+        }
+
+        .stage-icon li span {
+            font-size: 8cm;
+            text-align: center;
+        }
+
+        .stage-icon-top,
+        .stage-icon-bottom {
+            width: 200px;
+            position: absolute;
+            left: 0;
+            background-color:crimson;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        .stage-icon-top {
+            height: 144px;
+            padding: 0;
+            top: 0;
+            background-position: center 10px;
+            transform-origin: center bottom;
+            line-height: 288px;
+        }
+
+        .stage-icon-bottom {
+            height: 144px;
+            top: 144px;
+            padding: 0;
+            background-position: center -134px;
+            transform-origin: center top;
+            background: orange;
+            line-height: 0;
+        }
+
+
+        @keyframes flipover-top {
+            0% {
+                z-index: 1;
+                transform: rotateX(0);
+            }
+
+            50% {
+                z-index: 1;
+                transform: rotateX(-90deg);
+            }
+
+            51% {
+                z-index: 0;
+                opacity: 1;
+            }
+
+            100% {
+                z-index: 0;
+                opacity: 0;
+                transform: rotateX(-180deg);
+            }
+        }
+
+        @keyframes flipover-bottom {
+            0% {
+                z-index: 0;
+                transform: rotateX(180deg);
+            }
+
+            50% {
+                z-index: 0;
+                transform: rotateX(90deg);
+            }
+
+            51% {
+                z-index: 1;
+            }
+
+            100% {
+                z-index: 1;
+                transform: rotateX(0);
+            }
+        }
+
+        /*  .stage-icon-1 .stage-icon-top {
+            animation: flipover-top 5s linear 1.3s 1 normal forwards
+        }
+
+         .stage-icon-2 .stage-icon-bottom {
+            animation: flipover-bottom 5s linear 1.3s 1 normal forwards
+        } */
+
+        .stage-icon-2 .stage-icon-top {
+            animation: flipover-top 5s linear 1.3s 1 normal forwards;
+        }
+
+        .stage-icon-3 .stage-icon-bottom {
+            animation: flipover-bottom 5s linear 1.3s 1 normal forwards
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stage-content">
+        <ul class="stage-icon">
+            <li class="stage-icon-3">
+                <span class="stage-icon-top">3</span>
+                <span class="stage-icon-bottom">3</span>
+            </li>
+            <li class="stage-icon-2">
+                <span class="stage-icon-top">2</span>
+                <span class="stage-icon-bottom">2</span>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

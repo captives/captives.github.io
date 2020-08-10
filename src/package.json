@@ -52,6 +52,7 @@
     "pdfjs-dist": "^2.2.228",
     "prismjs": "^1.17.1",
     "socket.io-client": "^2.3.0",
+    "tween.js": "^16.6.0",
     "video.js": "^7.6.6",
     "vue-cropper": "^0.4.9",
     "vue-seamless-scroll": "^1.1.21",

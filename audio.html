@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="/libs/vconsole.min.js"></script>
+        <script>
+            var vConsole = new VConsole();
+        </script>
+
+        <style>
+            video,
+            audio,
+            .row {
+                width: 480px;
+                display: block;
+                margin: 0 auto;
+            }
+
+            audio {
+                display: none;
+            }
+
+            button {
+                transform: scale(2);
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <video id="playVideoTrack" preload autoplay playsinline x5-video-orientation="portraint"
+               x5-video-player-type="h5"></video>
+        <audio id="videoTrack" preload controls muted></audio>
+        <audio id="audioTrack" preload controls muted></audio>
+        <div class="row">
+            <button onclick="mediaPlay()">播放</button>
+        </div>
+
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <script>
+            function getMediaStream(video) {
+                const fps = 0;
+                var stream = null;
+                if (video.captureStream) {
+                    stream = video.captureStream(fps);
+                } else if (video.mozCaptureStream) {
+                    stream = video.mozCaptureStream(fps);
+                } else {
+                    alert("不支持流捕获");
+                    console.error('不支持流捕获');
+                    stream = null;
+                }
+                stream.onaddtrack = (event) => {
+                    console.log('track add', event);
+                }
+
+                stream.onremovetrack = (event) => {
+                    console.log('track remove', event);
+                }
+
+                stream.onended = () => {
+                    console.log('stream on end');
+                }
+                return stream;
+            }
+
+            const video = document.querySelector('#videoTrack');
+            const audio = document.querySelector('#audioTrack');
+            video.src = "assets/medias/o_1cqcodgg718er19bg5v8fhv1ovv11.mp4";
+            audio.src = "assets/medias/ffc6f77e31e1b431257152bde6ac553d.mp3"
+
+
+            var remixStream = new MediaStream();
+
+            video.addEventListener('canplay', () => {
+                console.log('----- video  canplay');
+                const stream = getMediaStream(video);
+                stream.getVideoTracks().forEach((track) => {
+                    console.log('video getVideoTracks', track);
+                    remixStream.addTrack(track.clone());
+                });
+                stream.getAudioTracks().forEach(function (track) {
+                    console.log('video getAudioTracks', track);
+                    remixStream.addTrack(track.clone());
+                });
+            });
+
+            audio.addEventListener('canplay', () => {
+                console.log('----- audio  canplay');
+                const stream = getMediaStream(audio);
+                stream.getAudioTracks().forEach(function (track) {
+                    console.log('audio getAudioTracks', track);
+                    remixStream.addTrack(track.clone());
+                });
+            });
+
+            const playVideo = document.getElementById('playVideoTrack');
+
+            playVideo.addEventListener('canplay', () => {
+                console.log('----- video  canplay');
+                const stream = getMediaStream(playVideo);
+
+                stream.getVideoTracks().forEach((track) => {
+                    console.log('> playVideo getVideoTracks', track);
+                });
+                stream.getAudioTracks().forEach(function (track) {
+                    console.log('> playVideo getAudioTracks', track);
+                });
+            });
+            playVideo.srcObject = remixStream;
+
+            function mediaPlay() {
+                video.play();
+                audio.play();
+                playVideo.play();
+            }
+
+        </script>
+    </body>
+
+</html>
