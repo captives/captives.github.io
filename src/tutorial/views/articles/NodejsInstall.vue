@@ -14,7 +14,7 @@
       <em>/opt/</em>下
     </p>
     <vue-code>
-      <pre lang="sh">tar –zxvf node-v4.2.1-linux-x64.tar.gz</pre>
+      <pre lang="sh">sudo cp -r node-v4.2.1-linux-x64/ /opt/</pre>
     </vue-code>
     <p>设置全局软连接</p>
     <vue-code>
