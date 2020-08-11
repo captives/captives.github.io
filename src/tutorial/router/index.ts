@@ -18,6 +18,10 @@ const routes: Array<RouteConfig> = [
     name: 'Nodejs 安装',
     component: () => import('../views/articles/NodejsInstall.vue')
   }, {
+    path: '/editor',
+    name: '编辑器',
+    component: () => import('../views/VueEditor.vue')
+  }, {
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue')

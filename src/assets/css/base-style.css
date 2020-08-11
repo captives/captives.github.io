@@ -24,11 +24,12 @@ em {
     color: #fff;
     background: #3d7e9a;
     border-radius: 4px;
-    padding: 3px 9px;
-    font-size: 10px;
-    margin: 0 5px;
+    padding: 3px 10px;
+    font-style: normal;
+    font-size: 15px;
+    margin: 0 4px;
     letter-spacing: 0.5px;
-    vertical-align: middle;
+    vertical-align: inherit;
 }
 
 .fill {
