@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="220px">
-      <nav-menu class="nav-menu" :list="list"></nav-menu>
+      <vue-menu class="nav-menu" :list="list"></vue-menu>
     </el-aside>
     <el-main>
       <keep-alive>

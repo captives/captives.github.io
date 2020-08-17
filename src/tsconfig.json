@@ -28,14 +28,15 @@
     ]
   },
   "include": [
-    "src/tutorial/**/*.ts",
-    "src/tutorial/**/*.tsx",
-    "src/tutorial/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
-    "src/components/NavMenu.vue"
+    "src/components/NavMenu.vue",
+    "src/components/ImageCropper.vue"
   ]
 }

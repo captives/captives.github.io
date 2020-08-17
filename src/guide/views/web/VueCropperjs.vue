@@ -123,6 +123,7 @@
   </el-main>
 </template>
 <script>
+//另参见 https://github.com/Agontuk/vue-cropperjs
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 

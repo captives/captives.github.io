@@ -4,16 +4,18 @@ import Source from './../components/Source';
 import SourceCode from './../components/SourceCode';
 import URLInput from './../components/URLInput.vue';
 import NavMenu from './../components/NavMenu';
+import Lottie from './../components/Lottie';
 import { fetch } from './common';
 
 
 const global = {
     install(Vue) {
-        Vue.component('vue-code', Code);
         Vue.component('url-input', URLInput);
+        Vue.component('vue-code', Code);
         Vue.component('vue-source', Source);
+        Vue.component('vue-lottie', Lottie);
+        Vue.component('vue-menu', NavMenu);
         Vue.component('source-code', SourceCode);
-        Vue.component('nav-menu', NavMenu);
 
         Vue.prototype.$fetch = fetch;
         Vue.prototype.$videoList = [

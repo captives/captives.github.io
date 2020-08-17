@@ -1,17 +1,23 @@
 <template>
   <el-container>
     <el-header id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+      <router-link :to="prefix">Home</router-link>|
+      <router-link :to="prefix + '/nav'">导航组件</router-link>|
+      <router-link :to="prefix + '/editor'">编辑器</router-link>|
+      <router-link :to="prefix + '/about'">About</router-link>
     </el-header>
     <router-view></router-view>
   </el-container>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import { prefix } from './../router';
 @Component({ name: "App" })
 export default class App extends Vue {
+  private prefix: string;
+
   private created() {
+    this.prefix = prefix;
     //@ts-ignore
     this.$router.afterEach(() => {
       //@ts-ignore
@@ -31,6 +37,6 @@ body {
 </style>
 <style lang="stylus" scoped>
 .el-container {
-  text-align center;
+  text-align: center;
 }
 </style>

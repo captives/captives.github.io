@@ -6,11 +6,7 @@ env:
 extends: 
   - 'eslint:recommended'
   - 'plugin:vue/recommended'
-parser: "vue-eslint-parser"
-parserOptions:
-  parser: "babel-eslint"
-  ecmaFeatures: 
-    legacyDecorators: true
+parser: "babel-eslint"
 rules:
   indent: "off" #缩进风格
   no-console: "off"

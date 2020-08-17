@@ -6,12 +6,11 @@
     </vue-code>
 
     <template v-else>
-      <img :src="loading" alt />
+      <vue-lottie class="lottie" value="assets/lottie/lf20_0H52jw.json"></vue-lottie>
     </template>
   </div>
 </template>
 <script>
-import loading from '@/assets/loading-code.gif';
 import Code from './Code'
 export default {
   name: "Source",
@@ -29,7 +28,6 @@ export default {
   data() {
     return {
       code: null,
-      loading
     }
   },
   filters: {
@@ -72,6 +70,12 @@ div.row {
     display: block;
     margin: 0 auto;
     pointer-events: none;
+  }
+
+  .lottie {
+    width: 200px;
+    height: 200px;
+    margin: 100px auto 0 auto;
   }
 }
 </style>

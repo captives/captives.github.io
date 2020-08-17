@@ -7,7 +7,7 @@ module.exports = {
         chunks: ['chunk-vendors', 'chunk-common', 'index'],
     },
     live: {
-        entry: 'src/live/main.js',
+        entry: 'src/live/main.ts',
         title: 'loading...',
         template: 'public/index.html',
         filename: 'live.html',

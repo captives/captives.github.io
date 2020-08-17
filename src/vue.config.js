@@ -21,8 +21,10 @@ module.exports = {
   //   sourceMap: false
   // },
   devServer: {
+    https: true,
     port: 2000,
     proxy: 'https://local.uuabc.com:4443/',
+    public: 'local.uuabc.com:8080',
     allowedHosts: [
       'localhost',
       'local.uuabc.com'

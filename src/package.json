@@ -9,16 +9,17 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vuex": "^3.4.0",
-    "vue-router": "^3.2.0",
-    "vue-axios": "^2.1.5",
-    "vue-template-compiler": "^2.6.10",
-    "vue-class-component": "^7.2.3",
-    "vue-property-decorator": "^8.4.2",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "typescript": "~3.9.3"
+    "typescript": "~3.9.3",
+    "vue": "^2.6.11",
+    "vue-axios": "^2.1.5",
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.4.2",
+    "vue-router": "^3.2.0",
+    "vue-template-compiler": "^2.6.10",
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^3.1.0"
   },
   "devDependencies": {
     "@tinymce/tinymce-vue": "^3.2.2",

@@ -12,15 +12,13 @@
     <el-divider content-position="left">内容</el-divider>
     <div>{{content}}</div>
 
-    <el-divider content-position="left">动效图</el-divider>
-    <div style="width:500px;height:500px" ref="lottieDiv"></div>
+    <vue-source src="tutorial/views/VueEditor.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Editor from '@tinymce/tinymce-vue';
-import lottie from 'lottie-web';
-// import jsoin from './../assets/lottie/data.json'
+import EditorTemplate from './../template/EditorTemplate';
 @Component({
   name: 'VueEditor',
   components: { Editor }
@@ -30,27 +28,51 @@ export default class VueEditor extends Vue {
   private options: any = {
     height: 600,
     language: "zh_CN",
-    //  content_css: 'css/content.css',
-    // menu: {
-    //   file: { title: 'File', items: 'newdocument restoredraft | preview | print ' },
-    //   edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
-    //   view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | preview fullscreen' },
-    //   insert: { title: 'Insert', items: 'image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime' },
-    //   format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align | forecolor backcolor | removeformat' },
-    //   tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | code wordcount' },
-    //   table: { title: 'Table', items: 'inserttable | cell row column | tableprops deletetable' },
-    //   help: { title: 'Help', items: 'help' }
-    // }
-  };
-  private mounted() {
-    let element: any = this.$refs.lottieDiv;
-    lottie.loadAnimation({
-      container: element,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: 'assets/lottie/data.json'
-    });
+    branding: false,//去除右下角水印
+    elementpath: false,  //禁用编辑器底部的状态栏
+    statusbar: false, // 隐藏编辑器底部的状态栏
+    browser_spellcheck: true, // 启用拼写检查
+    plugins: [
+      'advcode advlist anchor autolink paste imagetools',
+      'codesample template fullscreen preview',
+      'lists link image media searchreplace print help'
+    ],
+    templates: EditorTemplate,//只能添加HTML片段
+    content_css: '//www.tiny.cloud/css/codepen.min.css',
+    // 自定义菜单分组
+    menubar: false,
+    fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+    toolbar: `
+    template | undo redo | 
+    bold italic underline strikethrough | 
+    fontsizeselect forecolor backcolor | 
+    alignleft aligncenter alignright | 
+    image media link | 
+    codeformat codesample code preview publishButton | searchreplace help`,
+    setup: (editor: any) => {
+      //自定义工具
+      editor.ui.registry.addButton('publishButton', {
+        tooltip: '发布',
+        icon: 'save',
+        onAction: () => {
+          alert('发布内容');
+          editor.insertContent('&nbsp;<strong>It\'s 内容已经发布!</strong>&nbsp;');
+        }
+      });
+    },
+    codesample_languages: [
+      { text: 'HTML/XML', value: 'markup' },
+      { text: 'CSS', value: 'css' },
+      { text: 'Less', value: 'less' },
+      { text: 'Stylus', value: 'stylus' },
+      { text: 'JavaScript', value: 'javascript' },
+      { text: 'TypeScript', value: 'typescript' },
+      { text: 'SQL', value: 'sql' },
+      { text: 'GraphQL', value: 'graphql' },
+      { text: 'PowerShell', value: 'powershell' },
+      { text: 'Markdown', value: 'markdown' },
+    ],
+    help_tabs: ["shortcuts", "keyboardnav", "plugins"]
   }
 }
 </script>

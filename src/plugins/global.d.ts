@@ -1,2 +1,3 @@
-declare const global: any;
+
+declare const global:any
 export default global
