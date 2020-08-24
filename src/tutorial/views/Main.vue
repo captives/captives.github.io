@@ -1,23 +1,21 @@
 <template>
   <el-container>
     <el-header id="nav">
-      <router-link :to="prefix">Home</router-link>|
-      <router-link :to="prefix + '/nav'">导航组件</router-link>|
-      <router-link :to="prefix + '/editor'">编辑器</router-link>|
-      <router-link :to="prefix + '/about'">About</router-link>
+      <router-link v-for="item in routes" :key="item.path" :to="item.path">{{item.name}}</router-link>
     </el-header>
     <router-view></router-view>
   </el-container>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { prefix } from './../router';
+import router from './../router';
 @Component({ name: "App" })
 export default class App extends Vue {
-  private prefix: string;
+  private routes: Array<any> = [];
 
   private created() {
-    this.prefix = prefix;
+    //@ts-ignore
+    this.routes = router.options.routes;
     //@ts-ignore
     this.$router.afterEach(() => {
       //@ts-ignore
@@ -34,9 +32,45 @@ body {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.el-drawer__wrapper {
+  >>> .el-drawer:focus {
+    outline: none;
+  }
+
+  >>> .el-drawer__header {
+    padding-top: 20px;
+    margin-bottom: 10px;
+
+    &:focus, button:focus {
+      outline: none;
+    }
+  }
+
+  >>> .el-drawer__body {
+    position: relative;
+
+    .code {
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      margin: 0;
+    }
+  }
+}
 </style>
 <style lang="stylus" scoped>
 .el-container {
-  text-align: center;
+  .el-header {
+    text-align: center;
+
+    a {
+      display: inline-block;
+      margin: 10px;
+      text-decoration: none;
+    }
+  }
 }
 </style>

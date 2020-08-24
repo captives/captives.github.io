@@ -3,10 +3,16 @@ env:
   node: true
   browser: true
   amd: true
+parser: 'vue-eslint-parser'
 extends: 
   - 'eslint:recommended'
   - 'plugin:vue/recommended'
-parser: "babel-eslint"
+parserOptions:
+  parser: 'babel-eslint'
+  ecmaFeatures:
+    legacyDecorators: true
+  ecmaVersion: 2018
+  sourceType: 'module'
 rules:
   indent: "off" #缩进风格
   no-console: "off"

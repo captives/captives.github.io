@@ -86,32 +86,4 @@ export default {
   cursor: pointer;
   font-size: 16px;
 }
-
-.el-drawer__wrapper {
-  >>> .el-drawer:focus {
-    outline: none;
-  }
-
-  >>> .el-drawer__header {
-    padding-top: 20px;
-    margin-bottom: 10px;
-
-    &:focus, button:focus {
-      outline: none;
-    }
-  }
-
-  >>> .el-drawer__body {
-    position: relative;
-
-    .code {
-      position: absolute;
-      top: 0;
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
-      margin: 0;
-    }
-  }
-}
 </style>

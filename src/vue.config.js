@@ -9,7 +9,7 @@ module.exports = {
   //是否使用包含运行时编译器的 Vue 构建版本
   runtimeCompiler: false,
   //生产环境是否生成 sourceMap 文件，一般情况不建议打开
-  productionSourceMap: false,
+  productionSourceMap: process.env.NODE_ENV !== 'production',
   //是否在保存的时候检查
   lintOnSave: process.env.NODE_ENV !== 'production',
   // css: {
@@ -24,7 +24,7 @@ module.exports = {
     https: true,
     port: 2000,
     proxy: 'https://local.uuabc.com:4443/',
-    public: 'local.uuabc.com:8080',
+    public: 'https://local.uuabc.com:8080/',
     allowedHosts: [
       'localhost',
       'local.uuabc.com'

@@ -21,3 +21,8 @@ export default class Home extends Vue {
   //:title.sync="title"
 }
 </script>
+<style lang="stylus" scoped>
+.home{
+  text-align center;
+}
+</style>

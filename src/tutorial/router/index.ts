@@ -23,6 +23,10 @@ const routes: Array<RouteConfig> = [
     name: '编辑器',
     component: () => import('../views/VueEditor.vue')
   }, {
+    path: prefix + '/matrix',
+    name: '矩阵',
+    component: () => import('../views/matrix/index.vue')
+  }, {
     path: prefix + '/about',
     name: 'About',
     component: () => import('../views/About.vue')
@@ -37,6 +41,6 @@ VueRouter.prototype.push = function push(location: any) {
 }
 
 // mode: "history"
-const router = new VueRouter({  routes })
+const router = new VueRouter({ routes })
 export default router
 export { prefix };

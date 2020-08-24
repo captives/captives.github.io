@@ -10,18 +10,6 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   }, {
-    path: prefix + '/nav',
-    name: 'WebSite',
-    component: () => import('../views/WebSite.vue')
-  }, {
-    path: prefix + '/node',
-    name: 'Nodejs 安装',
-    component: () => import('../views/articles/NodejsInstall.vue')
-  }, {
-    path: prefix + '/editor',
-    name: '编辑器',
-    component: () => import('../views/VueEditor.vue')
-  }, {
     path: prefix + '/about',
     name: 'About',
     component: () => import('../views/About.vue')
@@ -35,6 +23,7 @@ VueRouter.prototype.push = function push(location: any) {
   return originalPush.call(this, location).catch((err: any) => err)
 }
 
-const router = new VueRouter({ mode: 'history', routes });
+// mode: 'history',
+const router = new VueRouter({ routes });
 export default router;
 export { prefix };
