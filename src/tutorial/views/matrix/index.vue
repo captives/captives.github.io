@@ -297,7 +297,7 @@ export default class index extends Vue {
   private sources: Array<any> = [
     { value: "tutorial/views/matrix/CSSMatrix.vue", lang: "html" },
     { value: "tutorial/views/matrix/Sidebar.vue", lang: "html" },
-    { value: "tutorial/views/matrix/Matrix.ts", lang: "ts" }
+    { value: "tutorial/views/matrix/Matrix.ts", lang: "js" }
   ];
 }
 </script>

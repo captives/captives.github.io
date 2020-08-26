@@ -23,8 +23,8 @@ module.exports = {
   devServer: {
     https: true,
     port: 2000,
-    proxy: 'https://local.uuabc.com:4443/',
-    public: 'https://local.uuabc.com:8080/',
+    proxy: 'https://local.uuabc.com:2020/', //live -> source-server
+    // public: 'https://local.uuabc.com:8080/',
     allowedHosts: [
       'localhost',
       'local.uuabc.com'

@@ -16,7 +16,9 @@
     <el-drawer
       :title="selectItem.value"
       :visible.sync="drawerVisible"
+      :modal="false"
       :destroy-on-close="true"
+      :modal-append-to-body="false"
       direction="rtl"
       size="40%"
     >

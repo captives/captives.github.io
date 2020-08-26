@@ -1,19 +1,23 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
-const prefix: string = "/live";
-const routes: Array<RouteConfig> = [
-  {
-    path: prefix,
-    name: 'Home',
-    component: Home
-  }, {
-    path: prefix + '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  }
+const prefix: string = "";
+
+const routes: Array<RouteConfig> = [{
+  path: prefix,
+  name: 'Home',
+  component: () => import('../views/Home.vue'),
+  redirect:prefix + "/login"
+}, {
+  path: prefix + "/login",
+  name: '登入',
+  component: () => import('../views/Login.vue')
+}, {
+  path: prefix + '/room',
+  name: '会议室',
+  component: () => import('../views/Room.vue')
+}
 ]
 
 //屏蔽重复导航,控制台报错
@@ -24,6 +28,7 @@ VueRouter.prototype.push = function push(location: any) {
 }
 
 // mode: 'history',
-const router = new VueRouter({ routes });
+const router = new VueRouter({
+  routes
+});
 export default router;
-export { prefix };

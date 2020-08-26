@@ -1,7 +1,9 @@
 <template>
-  <el-container>
-    <router-view></router-view>
-  </el-container>
+  <body>
+    <el-container>
+      <router-view></router-view>
+    </el-container>
+  </body>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
@@ -12,6 +14,10 @@ export default class Main extends Vue {
 </script>
 <style lang="stylus" scoped>
 .el-container {
-  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 }
 </style>
