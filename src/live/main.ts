@@ -8,8 +8,20 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-Vue.config.productionTip = false
+import VueSocketIO from 'vue-socket.io'
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'https://local.uuabc.com:2020',
+  vuex: {
+    store,
+    actionPrefix: 'SOCKET_',
+    mutationPrefix: 'SOCKET_'
+  },
+  //@ts-ignore
+  options: { path: "/metting" } //Optional options
+}))
 
+Vue.config.productionTip = false
 new Vue({
   router,
   store,

@@ -16,7 +16,7 @@
           </VideoPanel>
 
           <VideoPanel v-for="user in streamList" :key="user.id" :stream="user.stream">
-            <VideoPlayer :title="user.name" :stream="user.stream" :range="stageRange"></VideoPlayer>
+            <VideoPlayer :title="user.name" :stream="user.stream" :muted="true" :range="stageRange"></VideoPlayer>
           </VideoPanel>
         </el-aside>
         <el-main ref="stage">主面板</el-main>
@@ -129,6 +129,8 @@ export default class Room extends Vue {
       if (success) {
         this.user.name = user.name;
         this.user.uid = user.time;
+        //@ts-ignore
+        this.$socket.emit('register', { role: 1, td: this.$route.params.td, name: user.name });
       }
     })
   }

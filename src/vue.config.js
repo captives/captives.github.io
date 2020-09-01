@@ -12,6 +12,9 @@ module.exports = {
   productionSourceMap: process.env.NODE_ENV !== 'production',
   //是否在保存的时候检查
   lintOnSave: process.env.NODE_ENV !== 'production',
+  chainWebpack: config => {
+    config.optimization.delete('splitChunks')
+  },
   // css: {
   //   // 启用 CSS modules
   //   modules: false,

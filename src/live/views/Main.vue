@@ -1,9 +1,7 @@
 <template>
-  <body>
-    <el-container>
-      <router-view></router-view>
-    </el-container>
-  </body>
+<body>
+  <router-view></router-view>
+</body>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";

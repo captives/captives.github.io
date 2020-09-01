@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+//每次向后端请求都带上cookie，后端就不会被认为是不同用户导致session丢失
+axios.defaults.withCredentials = true;
+
 class BaseApiService {
     constructor() {
         this.prefix = ''

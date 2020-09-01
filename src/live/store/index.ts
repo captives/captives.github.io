@@ -11,7 +11,15 @@ export default new Vuex.Store({
       storage: window.sessionStorage
     })
   ],
-  mutations: {},
-  actions: {},
+  mutations: {
+    SOCKET_list(state, data) {
+      console.log('mutations----SOCKET_list', data);
+    }
+  },
+  actions: {
+    SOCKET_list({ commit }, data) {
+      console.log('actions----SOCKET_list', data);
+    }
+  },
   modules: {}
 })
