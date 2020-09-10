@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SharedWorker</title>
+        <style>
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <h1>页面测试</h1>
+        <h3>-------</h3>
+        <button onclick="sendBubblesHandler()">向容器发送消息</button>
+
+        <script>
+            var worker2 = null, error = null;
+            if ('SharedWorker' in window) {
+                worker2 = new SharedWorker('js/shareworker.js?time=' + Date.now());
+                worker2.port.onmessage = function (data) {
+                    console.log('0-----4444', data);
+                };
+
+                worker2.port.addEventListener('message', function (data) {
+                    console.log('------4442224', data);
+                });
+
+                worker2.port.postMessage({ text: '说屁呀, 不说不行啊' });
+                worker2.port.start();
+                console.log('SharedWorker.....');
+            } else {
+                error = "当前浏览器不支持 SharedWorker";
+            }
+        </script>
+        <script>
+            var broker = null;
+            if ('SharedWorker' in window) {
+                broker = new Worker('js/webworker.js');
+                broker.onmessage = function (e) {
+                    console.log(e.data);
+                }
+                broker.postMessage('Hello World');
+            } else {
+                error = "当前浏览器不支持 Worker";
+            }
+        </script>
+        <script>
+            function sendBubblesHandler(e) {
+                console.log('点我我打你', window.frameElement.title)
+                top.postMessage({ event: 'actived', id: window.frameElement.id, value: "测试" });
+            }
+
+            function command(str) {
+                document.querySelector('h3').innerText = str;
+            }
+
+            window.onload = function () {
+                console.log(window, document);
+                document.querySelector('body').style.background = 0xFFFFFF * Math.random();
+            }
+
+
+        </script>
+    </body>
+
+</html>

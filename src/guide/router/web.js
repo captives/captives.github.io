@@ -21,5 +21,8 @@ export default
             { path: prefix + '/vue-apollo-client', name: 'Vue Apollo Client"', icon: 'el-icon-notebook-2', component: () => import('../views/web/VueApolloClient.vue') },
             { path: prefix + '/math-jax', name: 'MathJax', icon: 'el-icon-notebook-2', component: () => import('../views/web/MathJax.vue') },
             { path: prefix + '/vue-scroller', name: '无限滚动', icon: 'el-icon-notebook-2', component: () => import('../views/web/VueSeamlessScroll.vue') },
+            { path: prefix + '/vue-poster', name: 'Vue Canvas Poster', icon: 'el-icon-notebook-2', component: () => import('../views/web/VuePoster.vue') },
+            { path: prefix + '/dom-capture', name: 'DOM Capture', icon: 'el-icon-notebook-2', component: () => import('../views/web/DOMCapture.vue') },
+            { path: prefix + '/iframe-deliver', name: '动态添加Iframe数据交互', icon: 'el-icon-notebook-2', component: () => import('../views/web/DynamicIframeDeliver.vue') },
         ]
     }

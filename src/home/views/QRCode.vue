@@ -42,7 +42,7 @@ export default {
     }
   },
   mounted() {
-    this.$fetch('./libs/qrcode.min.js').then(res => {
+    this.$fetch('./js/libs/qrcode.min.js').then(res => {
       let script = document.createElement('script');
       script.setAttribute('type', 'text/javascript');
       script.innerText = res;

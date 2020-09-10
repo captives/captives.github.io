@@ -1,5 +1,6 @@
 <template>
   <el-main>
+    <VueShareWorker></VueShareWorker>
     <el-row :gutter="20">
       <el-col
         v-for="(item, index) in list"
@@ -27,8 +28,10 @@
   </el-main>
 </template>
 <script>
+import VueShareWorker from './../../components/VueShareWorker';
 export default {
   name: "index",
+  components: { VueShareWorker },
   data() {
     return {
       url: null,

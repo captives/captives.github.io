@@ -7,7 +7,7 @@
       <iframe src="//html2canvas.hertzen.com/" frameborder="0"></iframe>
     </el-main>
     <el-dialog title="截图" width="80%" :visible.sync="dialogVisible">
-      <div ref="image" class="image"></div>
+      <el-image ref="image" :src="src"></el-image> 
     </el-dialog>
   </el-container>
 </template>
@@ -17,7 +17,8 @@ export default {
   name: "Html2Canvas",
   data() {
     return {
-      dialogVisible: false
+      dialogVisible: false,
+      src:""
     }
   },
   methods: {
@@ -28,10 +29,9 @@ export default {
         console.log(canvas);
         // canvas.style.width = '80%';
         // canvas.style.height = '640px';
-        this.$$nextTick(()=>{
-            this.$refs.image.appendChild(canvas);
-        });
-
+        if(canvas){
+         this.src = canvas.toDataURL("image/png");
+        }
       });
     }
   },
