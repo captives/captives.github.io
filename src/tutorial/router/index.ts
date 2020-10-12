@@ -27,6 +27,10 @@ const routes: Array<RouteConfig> = [
     name: '矩阵',
     component: () => import('../views/matrix/index.vue')
   }, {
+    path: prefix + '/webrtc-recorder',
+    name: 'WebRTC录制',
+    component: () => import('../views/articles/WebRTCRecorder.vue')
+  }, {
     path: prefix + '/about',
     name: 'About',
     component: () => import('../views/About.vue')

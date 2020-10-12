@@ -25,7 +25,11 @@ navigator.mediaDevices.getUserMedia({ video:true, audio:true }).then((stream) =>
     console.log('Stream inactive - stop!');
   };
 
-  video.srcObject = stream;
+  if ('srcObject' in video) {
+      video.srcObject = stream;
+  } else {
+      video.src = URL.createObjectURL(stream);
+  }
 }).catch(function (error) {
   console.log('navigator.getUserMedia error: ', error);
 });
@@ -54,7 +58,11 @@ getDisplayMedia().then((stream) => {
       console.log('Capture stream inactive - stop recording!');
     };
 
-    video.srcObject = stream;
+    if ('srcObject' in video) {
+        video.srcObject = stream;
+    } else {
+        video.src = URL.createObjectURL(stream);
+    }
   }).catch(function (error) {
     console.log('navigator.getUserMedia error: ', error);
   });
@@ -80,7 +88,11 @@ video.addEventListener('canplay', () => {
     this.stream = null;
   }
 
-  player.srcObject = this.stream;
+  if ('srcObject' in video) {
+      player.srcObject = this.stream;
+  } else {
+      player.src = URL.createObjectURL(this.stream);
+  }
 });
 </pre>
       </vue-code>
@@ -92,7 +104,22 @@ video.addEventListener('canplay', () => {
       <vue-code>
         <pre lang="javascript">
 const stream = canvas.captureStream();
-video.srcObject = stream;
+if ('srcObject' in video) {
+    video.srcObject = stream;
+} else {
+    video.src = URL.createObjectURL(stream);
+}
+</pre>
+      </vue-code>
+    </el-row>
+
+    <el-row>
+      <h3>
+        <router-link to="/webrtc/remote">Vue use MediaStream</router-link>
+      </h3>
+      <vue-code>
+        <pre lang="html">
+&lt;video :srcObject.prop=&quot;localStream&quot; autoplay&gt;&lt;/video&gt;
 </pre>
       </vue-code>
     </el-row>
@@ -274,6 +301,51 @@ downloadfile() {
 </pre>
       </vue-code>
     </el-row>
+
+    <h3>多路音频流混合</h3>
+    <p></p>
+    <vue-code>
+      <pre lang='javascript'>let videos = [];
+let audioSources = [];
+
+// WebAudio API representer
+var AudioContext = window.AudioContext;
+if (typeof AudioContext === 'undefined') {
+    if (typeof webkitAudioContext !== 'undefined') {
+        /*global AudioContext:true */
+        AudioContext = webkitAudioContext;
+    }
+
+    if (typeof mozAudioContext !== 'undefined') {
+        /*global AudioContext:true */
+        AudioContext = mozAudioContext;
+    }
+}
+
+let audioContext = new AudioContext();
+let audioDestination = audioContext.createMediaStreamDestination()
+streams.forEach(function(stream) {
+    if (stream.getVideoTracks().length) {
+        var video = getVideo(stream);
+        video.stream = stream;
+        videos.push(video);
+    }
+
+    if (stream.getAudioTracks().length && audioContext) {
+        var audioSource = audioContext.createMediaStreamSource(stream);
+        audioSource.connect(audioDestination);
+        audioSources.push(audioSource);
+    }
+});
+
+//获取合并后的音频流
+let audioDestination = audioContext.createMediaStreamDestination();
+audioSources.forEach(function(audioSource) {
+    audioSource.connect(audioDestination);
+});
+let stream:MediaStream = audioDestination.stream;
+      </pre>
+    </vue-code>
 
     <el-row>
       <h3>资料</h3>

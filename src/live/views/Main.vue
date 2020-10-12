@@ -1,6 +1,9 @@
 <template>
 <body>
-  <router-view></router-view>
+  <el-container>
+    <el-header>Header</el-header>
+    <router-view></router-view>
+  </el-container>
 </body>
 </template>
 <script lang="ts">
@@ -17,5 +20,8 @@ export default class Main extends Vue {
   height: 100%;
   left: 0;
   top: 0;
+  .el-header{
+    background:#FF0000;
+  }
 }
 </style>

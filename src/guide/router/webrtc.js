@@ -22,5 +22,6 @@ export default {
         { path: prefix + "/remote", name: "对等连接传输流", icon: 'el-icon-money', component: () => import('../views/webrtc/AudioVideoCall.vue') },
         { path: prefix + "/recorder", name: "用户设备流录制", icon: 'el-icon-video-camera', component: () => import('../views/webrtc/UserMediaRecorder.vue') },
         { path: prefix + "/display-media-recorder", name: "显示设备录制流", icon: 'el-icon-video-camera-solid', component: () => import('../views/webrtc/DisplayMediaRecorder.vue') },
+        { path: prefix + "/display-media-recorder-to-file", name: "显示设备录制流到文件", icon: 'el-icon-video-camera-solid', component: () => import('../views/webrtc/DisplayMediaRecorderToFile.vue') },
     ]
 }

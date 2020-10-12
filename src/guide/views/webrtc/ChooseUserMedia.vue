@@ -1,6 +1,6 @@
 <template>
   <el-main class="center">
-    <video ref="localVideo" class="video-item" autoplay></video>
+    <video ref="localVideo" class="video-item" :srcObject.prop="localStream" autoplay></video>
 
     <!-- 媒体设备列表 -->
     <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
@@ -99,8 +99,7 @@ export default {
           console.log("AudioTracks", stream.getAudioTracks());
           console.log("VideoTracks", stream.getVideoTracks());
         });
-
-        videoElement.srcObject = stream;
+        
       }).catch(function (error) {
         that.error = error;
         console.log("navigator.getUserMedia error: ", error);

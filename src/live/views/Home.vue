@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main>
-      <article v-show="false" class="card" v-for="(item, index) in list" :key="index">
+      <article  class="card" v-for="(item, index) in list" :key="index">
         <header class="card__header">
           <img :src="thumbs[index]" alt />
         </header>
@@ -22,7 +22,7 @@
         <footer class="card__footer"></footer>
       </article>
     </el-main>
-    <el-footer>
+    <el-footer v-show="false">
       <el-row class="card__description" :gutter="10">
         <el-col :span="12">
           <el-input placeholder="请输入房间号" v-model="tdvalue" />
@@ -53,6 +53,7 @@ import card_4 from './../assets/card-4.jpg';
 @Component({ name: "Home" })
 export default class Home extends Vue {
   private tdvalue: number | null = null;
+  
   private list: Array<any> = [{
     label: "聊天会议室",
     title: "人闲桂花落，夜静春山空。",

@@ -3,13 +3,13 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Publisher</el-divider>
-        <video ref="localVideo" class="video-item" autoplay></video>
+        <video ref="localVideo" class="video-item" :srcObject.prop="localStream" autoplay></video>
 
         <StreamTracks v-model="localStream"></StreamTracks>
       </el-col>
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Subscriber</el-divider>
-        <video ref="remoteVideo" class="video-item" autoplay></video>
+        <video ref="remoteVideo" class="video-item" :srcObject.prop="remoteStream" autoplay></video>
 
         <StreamTracks v-model="remoteStream"></StreamTracks>
       </el-col>
@@ -64,7 +64,7 @@ export default {
             console.log("AudioTracks", stream.getAudioTracks());
             console.log("VideoTracks", stream.getVideoTracks());
           });
-          video.srcObject = stream;
+
           resolve(stream);
         }).catch(function (error) {
           that.error = error;
@@ -121,8 +121,7 @@ export default {
       console.log(prefix + 'New ' + type + ' ICE candidate: ' + (candidate ? candidate.candidate : '(null)'));
     },
     subscriberPeerTrackHandler(event) {
-      const video = this.$refs.remoteVideo;
-      video.srcObject = this.remoteStream = event.streams[0];
+      this.remoteStream = event.streams[0];
       console.log('received remote stream', event);
     }
   },

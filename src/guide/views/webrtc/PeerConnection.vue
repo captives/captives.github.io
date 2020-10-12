@@ -1,19 +1,19 @@
 <template>
-<el-main>
-  <el-row :gutter="50">
-    <el-col class="center" :xs="24" :sm="24" :md="12">
-      <el-divider content-position="left">Publisher</el-divider>
-      <div class="textarea" contenteditable @input="inputHandler"></div>
-    </el-col>
-    <el-col class="center" :xs="24" :sm="24" :md="12">
-      <el-divider content-position="left">Subscriber</el-divider>
-      <div class="textarea">{{ outputText }}</div>
-    </el-col>
-  </el-row>
-  <el-tag class="error">左侧输入信息，右侧同步显示</el-tag>
+  <el-main>
+    <el-row :gutter="50">
+      <el-col class="center" :xs="24" :sm="24" :md="12">
+        <el-divider content-position="left">Publisher</el-divider>
+        <div class="textarea" contenteditable @input="inputHandler"></div>
+      </el-col>
+      <el-col class="center" :xs="24" :sm="24" :md="12">
+        <el-divider content-position="left">Subscriber</el-divider>
+        <div class="textarea">{{ outputText }}</div>
+      </el-col>
+    </el-row>
+    <el-tag class="error">左侧输入信息，右侧同步显示</el-tag>
 
-  <vue-source src="guide/views/webrtc/PeerConnection.vue" lang="html"></vue-source>
-</el-main>
+    <vue-source src="guide/views/webrtc/PeerConnection.vue" lang="html"></vue-source>
+  </el-main>
 </template>
 
 <script>
