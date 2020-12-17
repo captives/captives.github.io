@@ -5,9 +5,9 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop } from "vue-property-decorator";
 @Component({
-  name: "VideoPanel"
+  name: "VideoPanel",
 })
 export default class VideoPanel extends Vue {
   @Prop({ type: MediaStream, default: null }) readonly stream?: MediaStream;

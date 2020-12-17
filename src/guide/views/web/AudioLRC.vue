@@ -5,13 +5,19 @@
   </el-main>
 </template>
 <script>
-import LRC from './../../plugins/SimpleLRC'
+import LRC from "./../../plugins/SimpleLRC";
 export default {
   name: "AudioLRC",
   data() {
     return {
-      lrc: null
-    }
+      lrc: null,
+    };
+  },
+  mounted() {
+    this.init({
+      url: "/medias/xnbsw.mp3",
+      lrc: "/medias/xnbsw.lrc",
+    });
   },
   methods: {
     init(item) {
@@ -25,17 +31,13 @@ export default {
         row: 7, // 歌词行数
         lineHeight: 40, //每行歌词的高度
         delay: 0, // 延迟秒数，如果歌词文件不同步可以启用这个参数
-        currentPlayTime: function () { return audio.currentTime || 0; }
+        currentPlayTime: function () {
+          return audio.currentTime || 0;
+        },
       });
-    }
+    },
   },
-  mounted() {
-    this.init({
-      url: '/medias/xnbsw.mp3',
-      lrc: '/medias/xnbsw.lrc'
-    });
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-main {

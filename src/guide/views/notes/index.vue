@@ -19,7 +19,8 @@ function distinct(list) {
 
 console.log('before', list);
 console.log('after', distinct(list));        
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
   </el-main>
@@ -27,7 +28,7 @@ console.log('after', distinct(list));
 <script>
 export default {
   name: "index",
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-main {

@@ -169,25 +169,23 @@ switch (json.event) {
             }, 1000);
         }
         break;
-};</pre>
-    </vue-code>
- <el-link
-        href="guide.html#/webrtc/display-media-recorder-to-file"
-        target="_blank"
-        >完整示例查看</el-link
+};</pre
       >
+    </vue-code>
+    <el-link
+      href="guide.html#/webrtc/display-media-recorder-to-file"
+      target="_blank"
+      >完整示例查看</el-link
+    >
   </el-main>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  name: 'WebRTCRecorder',
+  name: "WebRTCRecorder",
 })
-export default class WebRTCRecorder extends Vue {
-
-}
-
+export default class WebRTCRecorder extends Vue {}
 </script>
 <style lang="stylus" scoped>
 .el-main {

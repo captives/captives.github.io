@@ -5,12 +5,18 @@
         <el-divider content-position="left">Screen</el-divider>
         <video ref="localVideo" class="video-item" autoplay></video>
         <div>
-          <el-button v-if="!rendering" type="success" @click="initScreenStream">开启录像</el-button>
+          <el-button v-if="!rendering" type="success" @click="initScreenStream"
+            >开启录像</el-button
+          >
 
           <template v-if="localStream">
-            <el-button v-if="recording" type="danger" @click="stopRecoder">停止录制</el-button>
+            <el-button v-if="recording" type="danger" @click="stopRecoder"
+              >停止录制</el-button
+            >
 
-            <el-button v-else type="primary" @click="startRecoding(localStream)">开始录制</el-button>
+            <el-button v-else type="primary" @click="startRecoding(localStream)"
+              >开始录制</el-button
+            >
           </template>
         </div>
       </el-col>
@@ -19,7 +25,9 @@
         <video ref="playVideo" class="video-item" autoplay></video>
         <div v-if="recordBlobs.length">
           <el-tag v-if="recording" type="danger">Rec ....</el-tag>
-          <el-button v-else type="danger" @click="downloadfile">下载视频</el-button>
+          <el-button v-else type="danger" @click="downloadfile"
+            >下载视频</el-button
+          >
         </div>
       </el-col>
     </el-row>
@@ -27,11 +35,14 @@
     <StreamTracks v-model="localStream"></StreamTracks>
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-    <vue-source src="guide/views/webrtc/DisplayMediaRecorder.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/DisplayMediaRecorder.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-import StreamTracks from './../../components/StreamTracks';
+import StreamTracks from "./../../components/StreamTracks";
 export default {
   name: "DisplayMediaRecorder",
   components: { StreamTracks },
@@ -43,25 +54,32 @@ export default {
         audio: true,
         video: {
           width: { exact: 720 },
-          height: { exact: 405 }
-        }
+          height: { exact: 405 },
+        },
       },
       recordBlobs: [],
       recording: false,
       mediaRecorder: null,
-      error: null
-    }
+      error: null,
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  destroyed() {
+    this.localStream.getTracks().forEach((track) => track.stop());
   },
   methods: {
-    init() {
-    },
+    init() {},
     getDisplayMedia() {
       if (navigator.getDisplayMedia) {
         return navigator.getDisplayMedia({ video: true });
       } else if (navigator.mediaDevices.getDisplayMedia) {
         return navigator.mediaDevices.getDisplayMedia({ video: true });
       } else {
-        return navigator.mediaDevices.getUserMedia({ video: { mediaSource: 'screen' } });
+        return navigator.mediaDevices.getUserMedia({
+          video: { mediaSource: "screen" },
+        });
       }
     },
     initScreenStream() {
@@ -69,42 +87,44 @@ export default {
       const video = this.$refs.localVideo;
       return new Promise((resolve, reject) => {
         //启动媒体设备
-        this.getDisplayMedia().then((stream) => {
-          this.localStream = stream;
-          stream.oninactive = function () {
-            that.rendering = false;
-            console.log('Capture stream inactive - stop recording!');
-          };
+        this.getDisplayMedia()
+          .then((stream) => {
+            this.localStream = stream;
+            stream.oninactive = function () {
+              that.rendering = false;
+              console.log("Capture stream inactive - stop recording!");
+            };
 
-          video.addEventListener('loadedmetadata', (e) => {
-            that.rendering = true;
-            console.log("AudioTracks", stream.getAudioTracks());
-            console.log("VideoTracks", stream.getVideoTracks());
+            video.addEventListener("loadedmetadata", (e) => {
+              that.rendering = true;
+              console.log("AudioTracks", stream.getAudioTracks());
+              console.log("VideoTracks", stream.getVideoTracks());
+            });
+
+            video.srcObject = stream;
+            resolve(stream);
+          })
+          .catch(function (error) {
+            that.error = error;
+            console.log("navigator.getUserMedia error: ", error);
+            reject(error);
           });
-
-          video.srcObject = stream;
-          resolve(stream);
-        }).catch(function (error) {
-          that.error = error;
-          console.log('navigator.getUserMedia error: ', error);
-          reject(error);
-        });
       });
     },
     startRecoding(stream) {
       this.recordBlobs = [];
-      var options = { mimeType: 'video/webm;codecs=vp9' };
+      var options = { mimeType: "video/webm;codecs=vp9" };
       if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-        console.log(options.mimeType + ' is not Supported');
-        options = { mimeType: 'video/webm;codecs=vp8' };
+        console.log(options.mimeType + " is not Supported");
+        options = { mimeType: "video/webm;codecs=vp8" };
 
         if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-          console.log(options.mimeType + ' is not Supported');
-          options = { mimeType: 'video/webm' };
+          console.log(options.mimeType + " is not Supported");
+          options = { mimeType: "video/webm" };
 
           if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-            console.log(options.mimeType + ' is not Supported');
-            options = { mimeType: '' };
+            console.log(options.mimeType + " is not Supported");
+            options = { mimeType: "" };
           }
         }
       }
@@ -112,17 +132,27 @@ export default {
       try {
         this.mediaRecorder = new MediaRecorder(stream, options);
       } catch (e) {
-        alert('Exception while creating MediaRecorder: ' + e + '. mimeType: ' + options.mimeType);
+        alert(
+          "Exception while creating MediaRecorder: " +
+            e +
+            ". mimeType: " +
+            options.mimeType
+        );
       }
 
-      console.log('Created MediaRecorder', this.mediaRecorder, 'with options', options);
+      console.log(
+        "Created MediaRecorder",
+        this.mediaRecorder,
+        "with options",
+        options
+      );
       this.mediaRecorder.onstart = (event) => {
         this.recording = true;
       };
 
       this.mediaRecorder.onstop = (event) => {
         this.recording = false;
-        console.log('Recorder stopped: ', event);
+        console.log("Recorder stopped: ", event);
       };
 
       this.mediaRecorder.ondataavailable = (event) => {
@@ -131,12 +161,12 @@ export default {
         }
       };
 
-      this.mediaRecorder.onerror = event => {
+      this.mediaRecorder.onerror = (event) => {
         this.error = event;
-      }
+      };
 
       this.mediaRecorder.start(10); // 数据收集10ms
-      console.log('MediaRecorder started', this.mediaRecorder);
+      console.log("MediaRecorder started", this.mediaRecorder);
     },
     stopRecoder() {
       if (this.mediaRecorder && this.recording) {
@@ -145,7 +175,7 @@ export default {
 
       //播放
       const video = this.$refs.playVideo;
-      video.addEventListener('loadedmetadata', event => {
+      video.addEventListener("loadedmetadata", (event) => {
         console.log("loadedmetadata", video.currentTime, video.duration);
         if (video.duration === Infinity) {
           video.currentTime = 1e101;
@@ -160,18 +190,18 @@ export default {
       });
 
       if (this.recordBlobs && this.recordBlobs.length) {
-        const blob = new Blob(this.recordBlobs, { type: 'video/webm' });
+        const blob = new Blob(this.recordBlobs, { type: "video/webm" });
         video.src = window.URL.createObjectURL(blob);
       }
     },
     downloadfile() {
       if (this.recordBlobs && this.recordBlobs.length) {
-        const blob = new Blob(this.recordBlobs, { type: 'video/webm' });
+        const blob = new Blob(this.recordBlobs, { type: "video/webm" });
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
+        const a = document.createElement("a");
+        a.style.display = "none";
         a.href = url;
-        a.download = 'Rec_' + Date.now() + '.webm';
+        a.download = "Rec_" + Date.now() + ".webm";
         document.body.appendChild(a);
         a.click();
         setTimeout(() => {
@@ -179,15 +209,9 @@ export default {
           window.URL.revokeObjectURL(url);
         }, 100);
       }
-    }
+    },
   },
-  mounted() {
-    this.init();
-  },
-  destroyed() {
-    this.localStream.getTracks().forEach(track => track.stop());
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .video-item {

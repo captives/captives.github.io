@@ -1,6 +1,6 @@
 <template>
   <li class="upload-picture_card">
-    <img :src="item.url" class="fill" style="object-fit:contain" alt />
+    <img :src="item.url" class="fill" style="object-fit: contain" alt />
 
     <el-progress
       v-if="editabled && item.raw && percentage > 0"
@@ -10,7 +10,10 @@
       status="success"
     ></el-progress>
 
-    <label v-if="editabled && !item.raw" class="el-upload-list__item-status-label">
+    <label
+      v-if="editabled && !item.raw"
+      class="el-upload-list__item-status-label"
+    >
       <i class="el-icon-upload-success el-icon-check"></i>
     </label>
 
@@ -29,10 +32,14 @@
     </span>
 
     <el-row v-if="editabled && item.status == 'error'" class="fill error">
-      <span class="el-icon-question">{{item.message}}</span>
+      <span class="el-icon-question">{{ item.message }}</span>
       <span>
         <i class="el-icon-refresh" @click="reUploadhandler"></i>
-        <i v-if="editabled && removed" class="el-icon-delete" @click="removeItemHandler"></i>
+        <i
+          v-if="editabled && removed"
+          class="el-icon-delete"
+          @click="removeItemHandler"
+        ></i>
       </span>
     </el-row>
 
@@ -49,19 +56,18 @@
   </li>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop, Watch, PropSync } from 'vue-property-decorator';
-@Component({ name: 'PictureCardItem' })
-
+import { Component, Vue, Prop, Watch, PropSync } from "vue-property-decorator";
+@Component({ name: "PictureCardItem" })
 export default class PictureCardItem extends Vue {
-  @PropSync('data', { default: () => { } }) item: any;
+  @PropSync("data", { default: () => {} }) item: any;
   @Prop() readonly editabled!: boolean;
   @Prop() readonly removed!: boolean;
   @Prop() readonly preview!: boolean;
 
-  private dialogVisible: boolean = false;
-  private percentage: number = 0;
+  private dialogVisible = false;
+  private percentage = 0;
 
-  @Watch('item', { deep: true })
+  @Watch("item", { deep: true })
   itemChange() {
     this.percentage = this.item && this.item && this.item.percentage;
   }
@@ -78,12 +84,12 @@ export default class PictureCardItem extends Vue {
   }
 
   private previewItemHandler() {
-    this.$emit('preview', this.item);
+    this.$emit("preview", this.item);
     this.dialogVisible = true;
   }
 
   private removeItemHandler() {
-    this.$emit('remove', this.item);
+    this.$emit("remove", this.item);
   }
 
   private reUploadhandler() {

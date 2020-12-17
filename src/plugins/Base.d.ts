@@ -1,2 +1,2 @@
-declare const BaseApiService:any
+declare const BaseApiService: any;
 export default BaseApiService;

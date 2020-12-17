@@ -13,20 +13,40 @@
 
     <StreamTracks v-model="stream"></StreamTracks>
 
-    <vue-source src="guide/views/webrtc/VideoStreamFromCanvas.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/VideoStreamFromCanvas.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-import StreamTracks from './../../components/StreamTracks';
+import StreamTracks from "./../../components/StreamTracks";
 export default {
   name: "VideoStreamFromCanvas",
   components: {
-    StreamTracks
+    StreamTracks,
   },
   data() {
     return {
       chart: null,
-      stream: null
+      stream: null,
+    };
+  },
+  mounted() {
+    this.chart = this.$echarts.init(this.$refs.chart);
+    var data = { value: 50, name: "Use" };
+    this.drawCanvas(data);
+    setInterval(() => {
+      data.value = (Math.random() * 100).toFixed(2) - 0;
+      this.drawCanvas(data);
+    }, 1000);
+
+    this.oncanplay(this.$refs.chart);
+  },
+  destroyed() {
+    if (this.stream) {
+      this.stream.getTracks().forEach((track) => track.stop());
+      this.stream = null;
     }
   },
   methods: {
@@ -34,32 +54,34 @@ export default {
       // 指定图表的配置项和数据
       var option = {
         tooltip: {
-          formatter: "{a} <br/>{b} : {c}%"
+          formatter: "{a} <br/>{b} : {c}%",
         },
         toolbox: {
           feature: {
             restore: {},
-            saveAsImage: {}
-          }
+            saveAsImage: {},
+          },
         },
-        series: [{
-          name: 'CPU',
-          type: 'gauge',
-          detail: { formatter: '{value}%' },
-          data: [data]
-        }]
+        series: [
+          {
+            name: "CPU",
+            type: "gauge",
+            detail: { formatter: "{value}%" },
+            data: [data],
+          },
+        ],
       };
 
       this.chart.setOption(option);
-window.onresize = this.chart.resize;
+      window.onresize = this.chart.resize;
     },
     oncanplay(dom) {
       const player = this.$refs.playVideo;
-      const canvas = dom.querySelector('canvas');
+      const canvas = dom.querySelector("canvas");
       if (canvas) {
         this.stream = canvas.captureStream();
 
-        player.addEventListener('loadedmetadata', (e) => {
+        player.addEventListener("loadedmetadata", (e) => {
           console.log("AudioTracks", this.stream.getAudioTracks());
           console.log("VideoTracks", this.stream.getVideoTracks());
         });
@@ -72,26 +94,9 @@ window.onresize = this.chart.resize;
           player.pause();
         }
       }
-    }
+    },
   },
-  mounted() {
-    this.chart = this.$echarts.init(this.$refs.chart);
-    var data = { value: 50, name: 'Use' };
-    this.drawCanvas(data);
-    setInterval(() => {
-      data.value = (Math.random() * 100).toFixed(2) - 0;
-      this.drawCanvas(data);
-    }, 1000);
-
-    this.oncanplay(this.$refs.chart);
-  },
-  destroyed() {
-    if (this.stream) {
-      this.stream.getTracks().forEach(track => track.stop());
-      this.stream = null;
-    }
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-main {

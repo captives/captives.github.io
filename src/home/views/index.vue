@@ -7,9 +7,9 @@
   </el-main>
 </template>
 <script>
-import CounterBar from './CounterBar.vue';
-import CounterBar1 from './CounterBar1.vue';
-import CounterBar2 from './CounterBar2.vue';
+import CounterBar from "./CounterBar.vue";
+import CounterBar1 from "./CounterBar1.vue";
+import CounterBar2 from "./CounterBar2.vue";
 
 export default {
   name: "index",
@@ -17,7 +17,7 @@ export default {
     CounterBar,
     CounterBar1,
     CounterBar2,
-  }
-}
+  },
+};
 </script>
 <style lang="stylus" scoped></style>

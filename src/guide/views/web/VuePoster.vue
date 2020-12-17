@@ -1,7 +1,11 @@
 <template>
   <el-main>
     <el-row :gutter="50">
-      <vue-canvas-poster :painting="painting" @success="success" @fail="fail"></vue-canvas-poster>
+      <vue-canvas-poster
+        :painting="painting"
+        @success="success"
+        @fail="fail"
+      ></vue-canvas-poster>
       <el-col :span="12">
         <el-divider content-position="left">文本区域</el-divider>
         <el-upload
@@ -15,7 +19,9 @@
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
 
-        <el-button size="small" type="danger" @click="publishPoster">发布成品</el-button>
+        <el-button size="small" type="danger" @click="publishPoster"
+          >发布成品</el-button
+        >
         <el-input v-model="qrcode.text" @change="qrcodeChange"></el-input>
       </el-col>
     </el-row>
@@ -23,7 +29,11 @@
       <!-- 编辑图 -->
       <div class="edit-poster" :style="imageStyle">
         <img ref="image" :src="image.url" @load="imageLoading" />
-        <div class="qrcode-legend" :style="qrStyle" @mousedown="startMove"></div>
+        <div
+          class="qrcode-legend"
+          :style="qrStyle"
+          @mousedown="startMove"
+        ></div>
       </div>
       <!-- 预览图 -->
       <div class="edit-poster" :style="imageStyle">
@@ -33,9 +43,12 @@
   </el-main>
 </template>
 <script>
-import { VueCanvasPoster } from 'vue-canvas-poster'
+import { VueCanvasPoster } from "vue-canvas-poster";
 export default {
   name: "VuePoster",
+  components: {
+    VueCanvasPoster,
+  },
   data() {
     return {
       width: 400,
@@ -46,7 +59,7 @@ export default {
         height: 0,
         clientWidth: 0,
         clientHeight: 0,
-      },//背景图
+      }, //背景图
       qrcode: {
         text: "",
         mouseDown: false,
@@ -55,14 +68,11 @@ export default {
         top: 0,
         left: 0,
         width: 80,
-        height: 80
+        height: 80,
       },
-      url: "",//预览图
+      url: "", //预览图
       painting: null,
-    }
-  },
-  components: {
-    VueCanvasPoster
+    };
   },
   computed: {
     qrStyle() {
@@ -70,16 +80,17 @@ export default {
         top: this.qrcode.top + "px",
         left: this.qrcode.left + "px",
         width: this.qrcode.width + "px",
-        height: this.qrcode.height + "px"
-      }
+        height: this.qrcode.height + "px",
+      };
     },
     imageStyle() {
       return {
         width: this.image.clientWidth + "px",
-        height: this.image.clientHeight + "px"
-      }
-    }
+        height: this.image.clientHeight + "px",
+      };
+    },
   },
+  mounted() {},
   methods: {
     fileChangeHandle(file, fileList) {
       console.log(file);
@@ -108,34 +119,37 @@ export default {
       this.painting = {
         width: this.image.width + "px",
         height: this.image.height + "px",
-        background: '#f4f5f7',
-        views: [{
-          type: 'image',
-          url: this.image.url,
-          css: {
-            top: '0px',
-            left: '0px',
-            borderRadius: '10px',
-            width: this.image.width + "px",
-            height: this.image.height + "px"
+        background: "#f4f5f7",
+        views: [
+          {
+            type: "image",
+            url: this.image.url,
+            css: {
+              top: "0px",
+              left: "0px",
+              borderRadius: "10px",
+              width: this.image.width + "px",
+              height: this.image.height + "px",
+            },
           },
-        }, {
-          type: 'qrcode',
-          content: window.location.href,
-          css: {
-            top: (this.qrcode.top * this.image.ratio) + "px",
-            left: (this.qrcode.left * this.image.ratio) + "px",
-            borderRadius: '5px',
-            width: (this.qrcode.width * this.image.ratio) + "px",
-            height: (this.qrcode.height * this.image.ratio) + "px",
-          }
-        }]
-      }
+          {
+            type: "qrcode",
+            content: window.location.href,
+            css: {
+              top: this.qrcode.top * this.image.ratio + "px",
+              left: this.qrcode.left * this.image.ratio + "px",
+              borderRadius: "5px",
+              width: this.qrcode.width * this.image.ratio + "px",
+              height: this.qrcode.height * this.image.ratio + "px",
+            },
+          },
+        ],
+      };
     },
     qrcodeChange() {
       if (this.painting) {
-        this.painting.views.forEach(item => {
-          if (item.type == 'qrcode') {
+        this.painting.views.forEach((item) => {
+          if (item.type == "qrcode") {
             item.content = this.qrcode.text;
           }
         });
@@ -145,7 +159,7 @@ export default {
       this.url = src;
     },
     fail(err) {
-      console.log('fail', err)
+      console.log("fail", err);
     },
     startMove(event) {
       event.preventDefault();
@@ -154,8 +168,16 @@ export default {
       this.qrcode.left = event.currentTarget.offsetLeft;
       this.qrcode.startX = event.clientX;
       this.qrcode.startY = event.clientY;
-      document.addEventListener('mousemove', this.mouseMoveHandler.bind(this), false);
-      document.addEventListener('mouseup', this.mouseUpHandler.bind(this), false);
+      document.addEventListener(
+        "mousemove",
+        this.mouseMoveHandler.bind(this),
+        false
+      );
+      document.addEventListener(
+        "mouseup",
+        this.mouseUpHandler.bind(this),
+        false
+      );
     },
     mouseMoveHandler(event) {
       if (this.qrcode.mouseDown) {
@@ -171,14 +193,19 @@ export default {
     },
     mouseUpHandler(event) {
       this.qrcode.mouseDown = false;
-      document.removeEventListener('mousemove', this.mouseMoveHandler.bind(this), false);
-      document.removeEventListener('mouseup', this.mouseUpHandler.bind(this), false);
-    }
+      document.removeEventListener(
+        "mousemove",
+        this.mouseMoveHandler.bind(this),
+        false
+      );
+      document.removeEventListener(
+        "mouseup",
+        this.mouseUpHandler.bind(this),
+        false
+      );
+    },
   },
-  mounted() {
-
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 

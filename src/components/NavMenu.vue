@@ -11,51 +11,65 @@
   >
     <template v-for="item in list">
       <template v-if="item.path.indexOf('.html') != -1">
-        <el-menu-item :index="item.path" :key="item.path">
+        <el-menu-item :key="item.path" :index="item.path">
           <i :class="item.icon"></i>
-          <el-link :href="item.path">{{item.name}}</el-link>
+          <el-link :href="item.path">{{ item.name }}</el-link>
         </el-menu-item>
       </template>
 
       <template v-else>
-        <el-menu-item :index="item.path" :route="prefix + item.path" :key="item.path">
+        <el-menu-item
+          :key="item.path"
+          :index="item.path"
+          :route="prefix + item.path"
+        >
           <i :class="item.icon"></i>
-          {{item.name}}
+          {{ item.name }}
         </el-menu-item>
       </template>
     </template>
   </el-menu>
 </template>
-   
+
 <script>
 export default {
   name: "NavMenu",
   props: {
     mode: {
-      type: String, default: "vertical"
+      type: String,
+      default: "vertical",
     },
     prefix: {
-      type: String, default: ""
+      type: String,
+      default: "",
     },
     list: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     routes: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       selectIndex: "/index",
-    }
+    };
   },
   computed: {
-    path() { //判断path是否在routes中
+    path() {
+      //判断path是否在routes中
       return (path) => {
         return this.searchPath(path);
-      }
+      };
+    },
+  },
+  created() {
+    const path = this.$route.path;
+    const item = this.list.find((item, index) => path.indexOf(item.path) != -1);
+    if (item) {
+      this.selectIndex = item.path;
     }
   },
   methods: {
@@ -66,16 +80,9 @@ export default {
     },
     menuChangeHandler(key, keyPath) {
       console.log(this.prefix, key, keyPath);
-    }
+    },
   },
-  created() {
-    const path = this.$route.path;
-    const item = this.list.find((item, index) => path.indexOf(item.path) != -1);
-    if (item) {
-      this.selectIndex = item.path;
-    }
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-menu {

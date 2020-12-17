@@ -7,11 +7,11 @@
   </el-container>
 </template>
 <script>
-import NavMenu from '@/components/NavMenu';
+import NavMenu from "@/components/NavMenu";
 export default {
   name: "App",
   components: {
-    NavMenu
+    NavMenu,
   },
   data() {
     return {
@@ -20,10 +20,10 @@ export default {
         { name: "目录", path: "/" },
         { name: "E-Charts", path: "/e-charts" },
         { name: "About", path: "/about" },
-      ]
-    }
+      ],
+    };
   },
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-header {

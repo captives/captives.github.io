@@ -4,7 +4,14 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Video</el-divider>
-        <video ref="localVideo" class="video-item" :src="url" controls loop autoplay></video>
+        <video
+          ref="localVideo"
+          class="video-item"
+          :src="url"
+          controls
+          loop
+          autoplay
+        ></video>
       </el-col>
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">tracks</el-divider>
@@ -16,9 +23,15 @@
         <el-divider content-position="left">Audio</el-divider>
         <audio ref="localAudio" src="/assets/medias/jinli.mp3" controls></audio>
         <el-row style="padding-top: 20px">
-          <el-checkbox v-model="mixing">{{mixing ? '替换声道' : '原声道'}}</el-checkbox>
-          <el-button type="success" size="mini" @click="videoPlayer">播放</el-button>
-          <el-button type="danger" size="mini" @click="stopPlayer">停止播放</el-button>
+          <el-checkbox v-model="mixing">{{
+            mixing ? "替换声道" : "原声道"
+          }}</el-checkbox>
+          <el-button type="success" size="mini" @click="videoPlayer"
+            >播放</el-button
+          >
+          <el-button type="danger" size="mini" @click="stopPlayer"
+            >停止播放</el-button
+          >
           <el-button type="success" size="mini">下载视频</el-button>
         </el-row>
       </el-col>
@@ -39,17 +52,20 @@
       </el-col>
     </el-row>
 
-    <vue-source src="guide/views/webrtc/MediaStreamMixer.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/MediaStreamMixer.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-import StreamTracks from './../../components/StreamTracks';
-import StreamRecorder from './../../components/StreamRecorder';
+import StreamTracks from "./../../components/StreamTracks";
+import StreamRecorder from "./../../components/StreamRecorder";
 export default {
   name: "MediaStreamMixer",
   components: {
     StreamTracks,
-    StreamRecorder
+    StreamRecorder,
   },
   data() {
     return {
@@ -57,8 +73,22 @@ export default {
       mixing: false,
       videoStream: null,
       audioStream: null,
-      remixStream: null
-    }
+      remixStream: null,
+    };
+  },
+  mounted() {
+    const video = this.$refs.localVideo;
+    video.addEventListener("canplay", () => {
+      this.videoStream = this.getMediaStream(video);
+    });
+
+    const audio = this.$refs.localAudio;
+    audio.addEventListener("canplay", () => {
+      this.audioStream = this.getMediaStream(audio);
+    });
+  },
+  destroyed() {
+    this.close();
   },
   methods: {
     getMediaStream(video) {
@@ -69,20 +99,20 @@ export default {
       } else if (video.mozCaptureStream) {
         stream = video.mozCaptureStream(fps);
       } else {
-        console.error('Stream capture is not supported');
+        console.error("Stream capture is not supported");
         stream = null;
       }
       stream.onaddtrack = (event) => {
-        console.log('track add', event);
-      }
+        console.log("track add", event);
+      };
 
       stream.onremovetrack = (event) => {
-        console.log('track remove', event);
-      }
+        console.log("track remove", event);
+      };
 
       stream.onended = () => {
-        console.log('stream on end');
-      }
+        console.log("stream on end");
+      };
       return stream;
     },
     videoPlayer() {
@@ -104,37 +134,25 @@ export default {
     },
     stopPlayer() {
       if (this.remixStream) {
-        this.remixStream.getTracks().forEach(track => { track.stop(); });
+        this.remixStream.getTracks().forEach((track) => {
+          track.stop();
+        });
         this.remixStream = [];
       }
     },
     close() {
       if (this.videoStream) {
-        this.videoStream.getTracks().forEach(track => track.stop());
+        this.videoStream.getTracks().forEach((track) => track.stop());
       }
       if (this.audioStream) {
-        this.audioStream.getTracks().forEach(track => track.stop());
+        this.audioStream.getTracks().forEach((track) => track.stop());
       }
       if (this.remixStream) {
-        this.remixStream.getTracks().forEach(track => track.stop());
+        this.remixStream.getTracks().forEach((track) => track.stop());
       }
-    }
+    },
   },
-  mounted() {
-    const video = this.$refs.localVideo;
-    video.addEventListener('canplay', () => {
-      this.videoStream = this.getMediaStream(video);
-    });
-
-    const audio = this.$refs.localAudio;
-    audio.addEventListener('canplay', () => {
-      this.audioStream = this.getMediaStream(audio);
-    });
-  },
-  destroyed() {
-    this.close();
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-row {

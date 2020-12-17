@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{title}}</h1>
+    <h1>{{ title }}</h1>
     <button @click="onClick">更改标题</button>
   </div>
 </template>
@@ -9,8 +9,9 @@ export default {
   name: "VueSync",
   props: {
     title: {
-      type: String, default: "标题"
-    }
+      type: String,
+      default: "标题",
+    },
   },
   computed: {
     docTitle: {
@@ -18,14 +19,14 @@ export default {
         return this.title;
       },
       set(value) {
-        this.$emit('update:title', value);
-      }
-    }
+        this.$emit("update:title", value);
+      },
+    },
   },
   methods: {
     onClick() {
       this.docTitle = "This is Vue.js Web App !";
-    }
-  }
-}
+    },
+  },
+};
 </script>

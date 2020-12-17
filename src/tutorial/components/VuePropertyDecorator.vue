@@ -1,54 +1,57 @@
 <template>
   <div>
-    <h1>{{msg}}</h1>
+    <h1>{{ msg }}</h1>
     <VueRef ref="hello"></VueRef>
     <button @click="onclick">[Ref]点击一下</button>
 
-    <h3>--- {{offspring}}---</h3>
-    <p>1、
-      {{userData}}
+    <h3>--- {{ offspring }}---</h3>
+    <p>
+      1、
+      {{ userData }}
       <VuePropSync v-model="userData" :children.sync="offspring"></VuePropSync>
     </p>
-    <p>2、
-      {{userData}}
+    <p>
+      2、
+      {{ userData }}
       <VueModel v-model="userData"></VueModel>
     </p>
-    <p>3、
-      {{userData}}
+    <p>
+      3、
+      {{ userData }}
       <VueModelBase v-model="userData"></VueModelBase>
     </p>
-    <p>4、
-      {{userList}}
+    <p>
+      4、
+      {{ userList }}
       <VuePropSyncArray v-model="userList"></VuePropSyncArray>
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Ref } from 'vue-property-decorator'
-import VueRef from './VueRef.vue';
-import VueModel from './VueModel.vue'
-import VueModelBase from './VueModelBase.vue'
-import VuePropSync from './VuePropSync.vue'
-import VuePropSyncArray from './VuePropSyncArray.vue'
+import { Component, Prop, Vue, Ref } from "vue-property-decorator";
+import VueRef from "./VueRef.vue";
+import VueModel from "./VueModel.vue";
+import VueModelBase from "./VueModelBase.vue";
+import VuePropSync from "./VuePropSync.vue";
+import VuePropSyncArray from "./VuePropSyncArray.vue";
 @Component({
   name: "VuePropertyDecorator",
-  components: { VueRef, VuePropSync, VuePropSyncArray, VueModel, VueModelBase }
+  components: { VueRef, VuePropSync, VuePropSyncArray, VueModel, VueModelBase },
 })
-
 export default class VuePropertyDecorator extends Vue {
-  @Prop({ type: String, default: 'title' }) private msg!: string | null;
+  @Prop({ type: String, default: "title" }) private msg!: string | null;
   @Ref() private hello!: VuePropertyDecorator;
-  @Ref('aButton') private  button!: HTMLButtonElement | null;
+  @Ref("aButton") private button!: HTMLButtonElement | null;
   private offspring: any = {};
 
   private userData: any = {
-    age: 23, name: "李四-----", desc: "z是"
-  }
+    age: 23,
+    name: "李四-----",
+    desc: "z是",
+  };
 
-  private userList: Array<any> = [
-    { age: 23, name: "李四-----", desc: "z是" }
-  ]
+  private userList: Array<any> = [{ age: 23, name: "李四-----", desc: "z是" }];
 
   private onclick() {
     //@ts-ignore
@@ -57,10 +60,10 @@ export default class VuePropertyDecorator extends Vue {
   }
 
   mounted() {
-   //@ts-ignore
+    //@ts-ignore
     window.userData = {};
     //@ts-ignorev
-    this.userData =  window['userData'];
+    this.userData = window["userData"];
     //@ts-ignore
     // window.userData = this.userData;
   }

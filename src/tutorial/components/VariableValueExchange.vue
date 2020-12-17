@@ -10,11 +10,9 @@
   </el-main>
 </template>
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component } from "vue-property-decorator";
 @Component({
-  name: "VariableValueExchange"
+  name: "VariableValueExchange",
 })
-export default class VariableValueExchange extends Vue {
-
-}
+export default class VariableValueExchange extends Vue {}
 </script>

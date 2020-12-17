@@ -1,68 +1,73 @@
 <template>
   <div class="row">
     <vue-code v-if="code">
-      <p class="title">{{src | label}}</p>
-      <pre :lang="lang">{{code}}</pre>
+      <p class="title">{{ src | label }}</p>
+      <pre :lang="lang">{{ code }}</pre>
     </vue-code>
 
     <template v-else>
-      <vue-lottie class="lottie" value="assets/lottie/lf20_0H52jw.json"></vue-lottie>
+      <vue-lottie
+        class="lottie"
+        value="assets/lottie/lf20_0H52jw.json"
+      ></vue-lottie>
     </template>
   </div>
 </template>
 <script>
-import Code from './Code'
+import Code from "./Code";
 export default {
   name: "Source",
   components: {
-    'vue-code': Code
+    "vue-code": Code,
+  },
+  filters: {
+    label(item) {
+      let arr = item.split("/");
+      return arr[arr.length - 1];
+    },
   },
   props: {
     src: {
-      type: String, default: ''
+      type: String,
+      default: "",
     },
     lang: {
-      type: String, default: "html"
-    }
+      type: String,
+      default: "html",
+    },
   },
   data() {
     return {
       code: null,
-    }
+    };
   },
-  filters: {
-    label(item) {
-      let arr = item.split('/');
-      return arr[arr.length - 1];
+  mounted() {
+    if (this.src) {
+      this.fetch("src/" + this.src).then((code) => {
+        this.code = code;
+      });
     }
   },
   methods: {
     fetch(url) {
       return new Promise((resolve, reject) => {
         var xhr = new XMLHttpRequest();
-        xhr.open('get', url);
-        xhr.setRequestHeader('Content-type', 'text/html');
-        xhr.onloadstart = () => { };
-        xhr.onprogress = (e) => { };
+        xhr.open("get", url);
+        xhr.setRequestHeader("Content-type", "text/html");
+        xhr.onloadstart = () => {};
+        xhr.onprogress = (e) => {};
         xhr.onload = () => {
           resolve(xhr.response);
-        }
+        };
 
-        xhr.onerror = err => {
+        xhr.onerror = (err) => {
           console.error(err);
-        }
+        };
         xhr.send();
       });
-    }
+    },
   },
-  mounted() {
-    if (this.src) {
-      this.fetch("src/" + this.src).then(code => {
-        this.code = code;
-      });
-    }
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 div.row {

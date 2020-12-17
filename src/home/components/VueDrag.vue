@@ -4,9 +4,11 @@
       <li
         v-for="item in list"
         :key="item"
-        @dragstart="dragstartByResource"
         draggable="true"
-      >{{item}}</li>
+        @dragstart="dragstartByResource"
+      >
+        {{ item }}
+      </li>
     </ul>
   </el-col>
 </template>
@@ -14,15 +16,15 @@
 export default {
   data() {
     return {
-      list: [1, 2, 3, 4, 5, 6, 7]
-    }
+      list: [1, 2, 3, 4, 5, 6, 7],
+    };
   },
   methods: {
     dragstartByResource() {
-      console.log('VueDrag 拖放开始');
-    }
-  }
-}
+      console.log("VueDrag 拖放开始");
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 ul, ol {

@@ -1,6 +1,6 @@
 <template>
   <el-main>
-    <p>{{str}}</p>
+    <p>{{ str }}</p>
     <el-button type="primary" @click="checkControl">控制台</el-button>
   </el-main>
 </template>
@@ -9,14 +9,13 @@ export default {
   name: "Console",
   data() {
     return {
-      str: ''
-    }
+      str: "",
+    };
   },
   methods: {
     checkControl() {
-    
       this.str = JSON.stringify(console);
-    }
-  }
-}
+    },
+  },
+};
 </script>

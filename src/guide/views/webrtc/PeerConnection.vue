@@ -12,7 +12,10 @@
     </el-row>
     <el-tag class="error">左侧输入信息，右侧同步显示</el-tag>
 
-    <vue-source src="guide/views/webrtc/PeerConnection.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/PeerConnection.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 
@@ -21,19 +24,26 @@ export default {
   name: "PeerConnection",
   data() {
     return {
-      inputText: '',
-      outputText: '',
-      servers: null,// {"iceServers": [{"urls": "stun:stun.l.google.com:19302"}]};
+      inputText: "",
+      outputText: "",
+      servers: null, // {"iceServers": [{"urls": "stun:stun.l.google.com:19302"}]};
       dataChannel: null,
       publisherPeerConnection: null,
       subscriberPeerConnection: null,
-      error: null
-    }
+      error: null,
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  destroyed() {
+    this.publisherPeerConnection.close();
+    this.subscriberPeerConnection.close();
   },
   methods: {
     inputHandler(event) {
       this.inputText = event.target.outerText;
-      if (this.dataChannel && this.dataChannel.readyState === 'open') {
+      if (this.dataChannel && this.dataChannel.readyState === "open") {
         this.dataChannel.send(this.inputText);
       }
     },
@@ -45,42 +55,66 @@ export default {
       //创建对等连接 RTCPeerConnection
       this.publisherPeerConnection = new RTCPeerConnection(this.servers);
       //创建数据通道
-      this.dataChannel = this.publisherPeerConnection.createDataChannel('sendDataChannel');
+      this.dataChannel = this.publisherPeerConnection.createDataChannel(
+        "sendDataChannel"
+      );
       this.dataChannel.onopen = (data) => {
-        console.log('Send channel state is: ' + this.dataChannel.readyState);
+        console.log("Send channel state is: " + this.dataChannel.readyState);
       };
 
       this.dataChannel.onclose = (data) => {
-        console.log('Send channel state is: ' + this.dataChannel.readyState);
+        console.log("Send channel state is: " + this.dataChannel.readyState);
       };
 
       this.publisherPeerConnection.onicecandidate = (event) => {
-        this.handleCandidate(event.candidate, this.subscriberPeerConnection, 'localPeer#:', 'local');
+        this.handleCandidate(
+          event.candidate,
+          this.subscriberPeerConnection,
+          "localPeer#:",
+          "local"
+        );
       };
 
-      this.publisherPeerConnection.createOffer({
-        offerToReceiveAudio: 1,
-        offerToReceiveVideo: 1
-      }).then((desc) => {
-        this.publisherPeerConnection.setLocalDescription(desc);
-        console.log('Offer from publisherPeerConnection \n' + desc.sdp);
-        this.subscriberPeerConnection.setRemoteDescription(desc);
+      this.publisherPeerConnection
+        .createOffer({
+          offerToReceiveAudio: 1,
+          offerToReceiveVideo: 1,
+        })
+        .then((desc) => {
+          this.publisherPeerConnection.setLocalDescription(desc);
+          console.log("Offer from publisherPeerConnection \n" + desc.sdp);
+          this.subscriberPeerConnection.setRemoteDescription(desc);
 
-        this.subscriberPeerConnection.createAnswer().then((desc2) => {
-          this.subscriberPeerConnection.setLocalDescription(desc2);
-          console.log('Answer from subscriberPeerConnection \n' + desc2.sdp);
-          this.publisherPeerConnection.setRemoteDescription(desc2);
-        }).catch(function (error) {
-          console.log('Failed to create session description: ' + error.toString());
+          this.subscriberPeerConnection
+            .createAnswer()
+            .then((desc2) => {
+              this.subscriberPeerConnection.setLocalDescription(desc2);
+              console.log(
+                "Answer from subscriberPeerConnection \n" + desc2.sdp
+              );
+              this.publisherPeerConnection.setRemoteDescription(desc2);
+            })
+            .catch(function (error) {
+              console.log(
+                "Failed to create session description: " + error.toString()
+              );
+            });
+        })
+        .catch(function (error) {
+          console.log(
+            "Failed to create session description: " + error.toString()
+          );
         });
-      }).catch(function (error) {
-        console.log('Failed to create session description: ' + error.toString());
-      });
     },
     createSubscriber() {
       this.subscriberPeerConnection = new RTCPeerConnection(this.servers);
       this.subscriberPeerConnection.onicecandidate = (event) => {
-        this.handleCandidate(event.candidate, this.publisherPeerConnection, 'remotePeer#:', 'remote');
+        this.handleCandidate(
+          event.candidate,
+          this.publisherPeerConnection,
+          "remotePeer#:",
+          "remote"
+        );
       };
 
       this.subscriberPeerConnection.ondatachannel = (event) => {
@@ -91,27 +125,29 @@ export default {
 
         remoteChannel.onopen = remoteChannel.onclose = () => {
           var readyState = remoteChannel.readyState;
-          console.log('Receive channel state is: ' + readyState);
-        }
+          console.log("Receive channel state is: " + readyState);
+        };
       };
     },
     handleCandidate(candidate, dest, prefix, type) {
-      dest.addIceCandidate(candidate).then(() => {
-        console.log('AddIceCandidate success.');
-      }).catch(function (error) {
-        console.log('Failed to add ICE candidate: ' + error.toString());
-      });
-      console.log(prefix + 'New ' + type + ' ICE candidate: ' + (candidate ? candidate.candidate : '(null)'));
-    }
+      dest
+        .addIceCandidate(candidate)
+        .then(() => {
+          console.log("AddIceCandidate success.");
+        })
+        .catch(function (error) {
+          console.log("Failed to add ICE candidate: " + error.toString());
+        });
+      console.log(
+        prefix +
+          "New " +
+          type +
+          " ICE candidate: " +
+          (candidate ? candidate.candidate : "(null)")
+      );
+    },
   },
-  mounted() {
-    this.init();
-  },
-  destroyed() {
-    this.publisherPeerConnection.close();
-    this.subscriberPeerConnection.close();
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .textarea {

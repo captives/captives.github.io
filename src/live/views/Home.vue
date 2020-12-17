@@ -1,21 +1,23 @@
 <template>
   <el-container>
     <el-main>
-      <article  class="card" v-for="(item, index) in list" :key="index">
+      <article v-for="(item, index) in list" :key="index" class="card">
         <header class="card__header">
           <img :src="thumbs[index]" alt />
         </header>
         <div class="card__body">
-          <div class="card__category">{{item.label}}</div>
-          <h2 class="card__title">{{item.title}}</h2>
-          <div class="card__subtitle">-- {{item.subtitle}}</div>
+          <div class="card__category">{{ item.label }}</div>
+          <h2 class="card__title">{{ item.title }}</h2>
+          <div class="card__subtitle">-- {{ item.subtitle }}</div>
 
           <el-row class="card__description" :gutter="10">
             <el-col :span="18">
-              <el-input placeholder="请输入房间号" v-model="tdvalue" />
+              <el-input v-model="tdvalue" placeholder="请输入房间号" />
             </el-col>
             <el-col :span="4">
-              <el-button type="primary" @click="enterRoom(item.type)">进入</el-button>
+              <el-button type="primary" @click="enterRoom(item.type)"
+                >进入</el-button
+              >
             </el-col>
           </el-row>
         </div>
@@ -25,7 +27,7 @@
     <el-footer v-show="false">
       <el-row class="card__description" :gutter="10">
         <el-col :span="12">
-          <el-input placeholder="请输入房间号" v-model="tdvalue" />
+          <el-input v-model="tdvalue" placeholder="请输入房间号" />
         </el-col>
         <el-col :span="3">
           <el-button type="primary" @click="enterRoom('chat')">进入</el-button>
@@ -44,37 +46,46 @@
   </el-container>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import card_1 from './../assets/card-1.jpg';
-import card_2 from './../assets/card-2.jpg';
-import card_3 from './../assets/card-3.jpg';
-import card_4 from './../assets/card-4.jpg';
+import { Component, Vue } from "vue-property-decorator";
+//@ts-ignore
+import card_1 from "./../assets/card_1.png";
+//@ts-ignore
+import card_2 from "./../assets/card_2.png";
+//@ts-ignore
+import card_3 from "./../assets/card_3.png";
+//@ts-ignore
+import card_4 from "./../assets/card_4.png";
 
 @Component({ name: "Home" })
 export default class Home extends Vue {
   private tdvalue: number | null = null;
-  
-  private list: Array<any> = [{
-    label: "聊天会议室",
-    title: "人闲桂花落，夜静春山空。",
-    subtitle: "王维",
-    type: "chat"
-  }, {
-    label: "私密会议室",
-    title: "荷风送香气，竹露滴清响。",
-    subtitle: "孟浩然",
-    type: "1v1"
-  }, {
-    label: "公共会议室",
-    title: "秋窗犹曙色，落木更天风。",
-    subtitle: "杜甫",
-    type: "1vn"
-  }, {
-    label: "直播会议室",
-    title: "墙角数枝梅，凌寒独自开。",
-    subtitle: "王安石",
-    type: "live"
-  }];
+
+  private list: Array<any> = [
+    {
+      label: "聊天会议室",
+      title: "人闲桂花落，夜静春山空。",
+      subtitle: "王维",
+      type: "chat",
+    },
+    {
+      label: "私密会议室",
+      title: "荷风送香气，竹露滴清响。",
+      subtitle: "孟浩然",
+      type: "1v1",
+    },
+    {
+      label: "公共会议室",
+      title: "秋窗犹曙色，落木更天风。",
+      subtitle: "杜甫",
+      type: "1vn",
+    },
+    {
+      label: "直播会议室",
+      title: "墙角数枝梅，凌寒独自开。",
+      subtitle: "王安石",
+      type: "live",
+    },
+  ];
   private thumbs: Array<any> = [card_1, card_2, card_3, card_4];
 
   private enterRoom(type: string) {
@@ -116,9 +127,7 @@ export default class Home extends Vue {
     }
   }
 
-  /**
-   * BODY
-                                              * */
+  /* *BODY* */
   .card__body {
     position: relative;
     height: 80px;

@@ -3,7 +3,7 @@ node_modules
 /dist
 /captives.github.io
 /public/bower_components
-/public/mathjax
+/public/js/mathjax
 /public/src
 # local env files
 .env.local

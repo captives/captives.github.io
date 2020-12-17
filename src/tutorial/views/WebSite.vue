@@ -16,8 +16,8 @@
         <template v-for="item in list">
           <el-submenu v-if="item.children" :key="item.path" :index="item.path">
             <template slot="title">
-              <i :class="item.icon" v-if="item.icon"></i>
-              <span slot="title">{{item.name}}</span>
+              <i v-if="item.icon" :class="item.icon"></i>
+              <span slot="title">{{ item.name }}</span>
             </template>
 
             <template v-for="sub in item.children">
@@ -27,25 +27,34 @@
                   v-for="ssub in sub.children"
                   :key="ssub.path"
                   :index="ssub.path"
-                >{{ssub.name}}</el-menu-item>
+                  >{{ ssub.name }}</el-menu-item
+                >
               </el-submenu>
-              <el-menu-item v-else :key="sub.path" :index="sub.path">{{sub.name}}</el-menu-item>
+              <el-menu-item v-else :key="sub.path" :index="sub.path">{{
+                sub.name
+              }}</el-menu-item>
             </template>
           </el-submenu>
-          <el-menu-item v-else :key="item.path" :index="item.path">{{item.name}}</el-menu-item>
+          <el-menu-item v-else :key="item.path" :index="item.path">{{
+            item.name
+          }}</el-menu-item>
         </template>
       </el-menu>
     </el-header>
 
     <el-row :gutter="50">
       <el-col :span="12">
-        <el-tree :data="list" :props="{ label: 'name'}" @node-click="handleNodeClick"></el-tree>
+        <el-tree
+          :data="list"
+          :props="{ label: 'name' }"
+          @node-click="handleNodeClick"
+        ></el-tree>
       </el-col>
       <el-col :span="12">
         <el-cascader
           v-model="selectActive"
           :options="list"
-          :props="{ label: 'name', value: 'path'}"
+          :props="{ label: 'name', value: 'path' }"
           @change="handleChange"
         ></el-cascader>
       </el-col>
@@ -61,15 +70,19 @@ import NavMenu from "@/components/NavMenu.vue";
 // @ts-ignore
 @Component({
   name: "WebSite",
-  components: { NavMenu }
+  components: { NavMenu },
 })
 export default class WebSite extends Vue {
-  private isCollapse: boolean = false;
+  private isCollapse = false;
   private selectActive: any | string = "";
   private list: Array<any> = list;
 
-  private handleNodeClick(data: any) {}
-  private handleChange(data: any) {}
+  private handleNodeClick(data: any) {
+    console.log("handleNodeClick", data);
+  }
+  private handleChange(data: any) {
+    console.log("handleChange", data);
+  }
 
   private searchPath() {
     const path = window.location.hash.substr(1, window.location.hash.length);

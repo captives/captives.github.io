@@ -2,16 +2,26 @@
   <el-row>
     <video ref="playVideo" class="video-item" autoplay></video>
 
-    <el-row class="center" v-if="stream">
+    <el-row v-if="stream" class="center">
       <el-col v-if="recording">
         <el-tag type="danger">Rec ....</el-tag>
-        <el-button type="danger" @click="stopRecoder" size="mini">停止录制</el-button>
+        <el-button type="danger" size="mini" @click="stopRecoder"
+          >停止录制</el-button
+        >
       </el-col>
 
       <el-col v-else>
-        <el-button type="primary" @click="play" size="mini">播放流</el-button>
-        <el-button type="success" @click="startRecoding" size="mini">开始录制</el-button>
-        <el-button v-if="recordBlobs.length" type="danger" @click="downloadfile" size="mini">下载视频</el-button>
+        <el-button type="primary" size="mini" @click="play">播放流</el-button>
+        <el-button type="success" size="mini" @click="startRecoding"
+          >开始录制</el-button
+        >
+        <el-button
+          v-if="recordBlobs.length"
+          type="danger"
+          size="mini"
+          @click="downloadfile"
+          >下载视频</el-button
+        >
       </el-col>
     </el-row>
   </el-row>
@@ -20,20 +30,20 @@
 export default {
   name: "StreamRecorder",
   props: {
-    stream: { type: MediaStream }
+    stream: { type: MediaStream },
   },
   data() {
     return {
       recordBlobs: [],
       recording: false,
       mediaRecorder: null,
-      error: null
-    }
+      error: null,
+    };
   },
   methods: {
     play() {
       const player = this.$refs.playVideo;
-      player.addEventListener('loadedmetadata', (e) => {
+      player.addEventListener("loadedmetadata", (e) => {
         console.log("AudioTracks", this.stream.getAudioTracks());
         console.log("VideoTracks", this.stream.getVideoTracks());
       });
@@ -44,18 +54,18 @@ export default {
     startRecoding() {
       this.play();
       this.recordBlobs = [];
-      var options = { mimeType: 'video/webm;codecs=vp9' };
+      var options = { mimeType: "video/webm;codecs=vp9" };
       if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-        console.log(options.mimeType + ' is not Supported');
-        options = { mimeType: 'video/webm;codecs=vp8' };
+        console.log(options.mimeType + " is not Supported");
+        options = { mimeType: "video/webm;codecs=vp8" };
 
         if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-          console.log(options.mimeType + ' is not Supported');
-          options = { mimeType: 'video/webm' };
+          console.log(options.mimeType + " is not Supported");
+          options = { mimeType: "video/webm" };
 
           if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-            console.log(options.mimeType + ' is not Supported');
-            options = { mimeType: '' };
+            console.log(options.mimeType + " is not Supported");
+            options = { mimeType: "" };
           }
         }
       }
@@ -63,17 +73,27 @@ export default {
       try {
         this.mediaRecorder = new MediaRecorder(this.stream, options);
       } catch (e) {
-        alert('Exception while creating MediaRecorder: ' + e + '. mimeType: ' + options.mimeType);
+        alert(
+          "Exception while creating MediaRecorder: " +
+            e +
+            ". mimeType: " +
+            options.mimeType
+        );
       }
 
-      console.log('Created MediaRecorder', this.mediaRecorder, 'with options', options);
+      console.log(
+        "Created MediaRecorder",
+        this.mediaRecorder,
+        "with options",
+        options
+      );
       this.mediaRecorder.onstart = (event) => {
         this.recording = true;
       };
 
       this.mediaRecorder.onstop = (event) => {
         this.recording = false;
-        console.log('Recorder stopped: ', event);
+        console.log("Recorder stopped: ", event);
       };
 
       this.mediaRecorder.ondataavailable = (event) => {
@@ -82,12 +102,12 @@ export default {
         }
       };
 
-      this.mediaRecorder.onerror = event => {
+      this.mediaRecorder.onerror = (event) => {
         this.error = event;
-      }
+      };
 
       this.mediaRecorder.start(10); // 数据收集10ms
-      console.log('MediaRecorder started', this.mediaRecorder);
+      console.log("MediaRecorder started", this.mediaRecorder);
     },
     playRecoder() {
       //播放
@@ -98,7 +118,7 @@ export default {
         video.srcObject = null;
       }
 
-      video.addEventListener('loadedmetadata', event => {
+      video.addEventListener("loadedmetadata", (event) => {
         console.log("loadedmetadata", video.currentTime, video.duration);
         if (video.duration === Infinity) {
           video.currentTime = 1e101;
@@ -113,7 +133,7 @@ export default {
       });
 
       if (this.recordBlobs && this.recordBlobs.length) {
-        const blob = new Blob(this.recordBlobs, { type: 'video/webm' });
+        const blob = new Blob(this.recordBlobs, { type: "video/webm" });
         video.src = window.URL.createObjectURL(blob);
         video.play();
       }
@@ -127,12 +147,12 @@ export default {
     },
     downloadfile() {
       if (this.recordBlobs && this.recordBlobs.length) {
-        const blob = new Blob(this.recordBlobs, { type: 'video/webm' });
+        const blob = new Blob(this.recordBlobs, { type: "video/webm" });
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
+        const a = document.createElement("a");
+        a.style.display = "none";
         a.href = url;
-        a.download = 'Rec_' + Date.now() + '.webm';
+        a.download = "Rec_" + Date.now() + ".webm";
         document.body.appendChild(a);
         a.click();
         setTimeout(() => {
@@ -143,10 +163,10 @@ export default {
       }
     },
     close() {
-      this.stream.getTracks().forEach(track => track.stop());
-    }
-  }
-}
+      this.stream.getTracks().forEach((track) => track.stop());
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .video-item {

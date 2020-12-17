@@ -1,14 +1,16 @@
 <template>
   <el-container>
     <el-header id="nav">
-      <router-link v-for="item in routes" :key="item.path" :to="item.path">{{item.name}}</router-link>
+      <router-link v-for="item in routes" :key="item.path" :to="item.path">{{
+        item.name
+      }}</router-link>
     </el-header>
     <router-view></router-view>
   </el-container>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import router from './../router';
+import router from "./../router";
 @Component({ name: "App" })
 export default class App extends Vue {
   private routes: Array<any> = [];

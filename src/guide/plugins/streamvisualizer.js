@@ -26,25 +26,29 @@ var SMOOTHING = 0.8;
 var FFT_SIZE = 2048;
 
 function StreamVisualizer(stream, canvas) {
-  console.log('Creating StreamVisualizer with stream and canvas: ', stream, canvas);
+  console.log(
+    "Creating StreamVisualizer with stream and canvas: ",
+    stream,
+    canvas
+  );
   this.canvas = canvas;
-  this.drawContext = this.canvas.getContext('2d');
+  this.drawContext = this.canvas.getContext("2d");
 
   // cope with browser differences
-  if (typeof AudioContext === 'function') {
+  if (typeof AudioContext === "function") {
     this.context = new AudioContext();
-  } else if (typeof webkitAudioContext === 'function') {
+  } else if (typeof webkitAudioContext === "function") {
     this.context = new webkitAudioContext(); // eslint-disable-line new-cap
   } else {
-    alert('Sorry! Web Audio is not supported by this browser');
+    alert("Sorry! Web Audio is not supported by this browser");
   }
 
   // Create a MediaStreamAudioSourceNode from the stream
   this.source = this.context.createMediaStreamSource(stream);
-  console.log('Created Web Audio source from remote stream: ', this.source);
+  console.log("Created Web Audio source from remote stream: ", this.source);
 
   this.analyser = this.context.createAnalyser();
-//  this.analyser.connect(this.context.destination);
+  //  this.analyser.connect(this.context.destination);
   this.analyser.minDecibels = -140;
   this.analyser.maxDecibels = 0;
   this.freqs = new Uint8Array(this.analyser.frequencyBinCount);
@@ -56,18 +60,17 @@ function StreamVisualizer(stream, canvas) {
   this.startOffset = 0;
 }
 
-StreamVisualizer.prototype.start = function() {
+StreamVisualizer.prototype.start = function () {
   requestAnimationFrame(this.draw.bind(this));
 };
 
-StreamVisualizer.prototype.draw = function() {
+StreamVisualizer.prototype.draw = function () {
   this.analyser.smoothingTimeConstant = SMOOTHING;
   this.analyser.fftSize = FFT_SIZE;
 
   // Get the frequency data from the currently playing music
   this.analyser.getByteFrequencyData(this.freqs);
   this.analyser.getByteTimeDomainData(this.times);
-
 
   this.canvas.width = WIDTH;
   this.canvas.height = HEIGHT;
@@ -77,9 +80,9 @@ StreamVisualizer.prototype.draw = function() {
     var percent = value / 256;
     var height = HEIGHT * percent;
     var offset = HEIGHT - height - 1;
-    var barWidth = WIDTH/this.analyser.frequencyBinCount;
-    var hue = i/this.analyser.frequencyBinCount * 360;
-    this.drawContext.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+    var barWidth = WIDTH / this.analyser.frequencyBinCount;
+    var hue = (i / this.analyser.frequencyBinCount) * 360;
+    this.drawContext.fillStyle = "hsl(" + hue + ", 100%, 50%)";
     this.drawContext.fillRect(i * barWidth, offset, barWidth, height);
   }
 
@@ -89,17 +92,17 @@ StreamVisualizer.prototype.draw = function() {
     percent = value / 256;
     height = HEIGHT * percent;
     offset = HEIGHT - height - 1;
-    barWidth = WIDTH/this.analyser.frequencyBinCount;
-    this.drawContext.fillStyle = 'white';
+    barWidth = WIDTH / this.analyser.frequencyBinCount;
+    this.drawContext.fillStyle = "white";
     this.drawContext.fillRect(i * barWidth, offset, 1, 2);
   }
 
   requestAnimationFrame(this.draw.bind(this));
 };
 
-StreamVisualizer.prototype.getFrequencyValue = function(freq) {
-  var nyquist = this.context.sampleRate/2;
-  var index = Math.round(freq/nyquist * this.freqs.length);
+StreamVisualizer.prototype.getFrequencyValue = function (freq) {
+  var nyquist = this.context.sampleRate / 2;
+  var index = Math.round((freq / nyquist) * this.freqs.length);
   return this.freqs[index];
 };
 

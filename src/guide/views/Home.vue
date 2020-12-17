@@ -4,14 +4,17 @@
       <img alt="Vue logo" src="../assets/logo.png" />
     </el-row>
     <el-row class="content">
-      <h1 @click="show({ title:'vue-code', src:'components/Code.vue' })">vue-code</h1>
+      <h1 @click="show({ title: 'vue-code', src: 'components/Code.vue' })">
+        vue-code
+      </h1>
       <p>组件及样式引入</p>
       <vue-code>
         <pre lang="javascript">
 import '@/assets/css/code-style.css';
 import Code from './../components/Code.vue'
 Vue.component('vue-code', Code);
-</pre>
+</pre
+        >
       </vue-code>
 
       <p>or</p>
@@ -29,7 +32,8 @@ export default {
 main.js
 import global from './../plugins/global';
 Vue.use(global);
-</pre>
+</pre
+        >
       </vue-code>
 
       <p>组件使用</p>
@@ -39,7 +43,8 @@ Vue.use(global);
   &lt;p&gt;sh&lt;/p&gt;
   &lt;pre lang=&quot;sh&quot;&gt;ping localhost&lt;/pre&gt;
 &lt;/vue-code&gt;
-</pre>
+</pre
+        >
       </vue-code>
 
       <vue-code>
@@ -56,7 +61,8 @@ Vue.use(global);
     line-height: 45px;
   }
 }
-</pre>
+</pre
+        >
       </vue-code>
 
       <vue-code>
@@ -78,24 +84,32 @@ Vue.use(global);
     </el-row>
 
     <el-row class="content">
-      <h1 @click="show({ title:'vue-source', src:'components/Source.vue' })">vue-source</h1>
+      <h1 @click="show({ title: 'vue-source', src: 'components/Source.vue' })">
+        vue-source
+      </h1>
       <p>组件引入</p>
       <vue-code>
         <pre lang="javascript">
 import Source from './../components/Source';
 Vue.component('vue-source', Source);
-</pre>
+</pre
+        >
       </vue-code>
       <p>组件使用</p>
       <vue-code>
         <pre lang="html">
 &lt;vue-source src=&quot;/plugins/global.js&quot; lang=&quot;javascript&quot;&gt;&lt;/vue-source&gt;
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
     <el-row class="content">
-      <h1 @click="show({ title:'vue-source', src:'components/SourceCode.vue' })">source-code</h1>
+      <h1
+        @click="show({ title: 'vue-source', src: 'components/SourceCode.vue' })"
+      >
+        source-code
+      </h1>
       <p>代码集合列表展示组件, 组件引入:</p>
       <vue-code>
         <pre lang="javascript">
@@ -109,13 +123,15 @@ list: [
   { value: 'plugins/global.js', lang: "javascript" },
   { value: 'assets/css/code-style.css', lang: "css" },
 ]
-</pre>
+</pre
+        >
       </vue-code>
       <p>组件使用, 抽屉式弹出</p>
       <vue-code>
         <pre lang="html">
 &lt;source-code :value=&quot;list&quot;&gt;查看源码&lt;/source-code&gt;
-</pre>
+</pre
+        >
       </vue-code>
       <p>或自定义代码渲染</p>
       <vue-code>
@@ -127,21 +143,26 @@ list: [
     &lt;pre :lang=&quot;item.lang&quot;&gt;{ { item.code } }&lt;/pre&gt;
   &lt;/vue-code&gt;
 &lt;/el-row&gt;
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
     <el-row class="content">
-      <h1 @click="show({ title:'url-input', src:'components/URLInput.vue' })">url-input</h1>
+      <h1 @click="show({ title: 'url-input', src: 'components/URLInput.vue' })">
+        url-input
+      </h1>
       <p>HTML</p>
       <vue-code>
         <pre lang="html">
 &lt;url-input v-model=&quot;url&quot; :list=&quot;$videoList&quot;&gt;&lt;/url-input&gt; 
 &lt;video  :src=&quot;url&quot; controls muted loop autoplay&gt;&lt;/video&gt;
-</pre>
-      </vue-code>JavasSript部分
+</pre
+        ></vue-code
+      >JavasSript部分
       <vue-code>
-        <pre lang="javascript">data() {
+        <pre lang="javascript">
+data() {
   return {
     url: "",
     list: [
@@ -158,11 +179,16 @@ list: [
       ];
   }
 }
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
-    <el-dialog :title="dialog.title" :visible.sync="dialog.visible" @closed="dialog.src = null">
+    <el-dialog
+      :title="dialog.title"
+      :visible.sync="dialog.visible"
+      @closed="dialog.src = null"
+    >
       <vue-source v-if="dialog.src" :src="dialog.src"></vue-source>
       <span v-else>暂无数据</span>
     </el-dialog>
@@ -171,24 +197,24 @@ list: [
 
 <script>
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
       dialog: {
         title: null,
         visible: false,
-        src: null
-      }
-    }
+        src: null,
+      },
+    };
   },
   methods: {
     show(item) {
       this.dialog.title = item.title;
       this.dialog.src = item.src;
       this.dialog.visible = true;
-    }
+    },
   },
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-main {

@@ -5,12 +5,13 @@
   </div>
 </template>
 <script>
-import MixinsItemA from './mixins/MixinsItemA.vue'
-import MixinsItemB from './mixins/MixinsItemB.vue'
+import MixinsItemA from "./mixins/MixinsItemA.vue";
+import MixinsItemB from "./mixins/MixinsItemB.vue";
 export default {
   name: "VueMixins",
   components: {
-    MixinsItemA, MixinsItemB
-  }
-}
+    MixinsItemA,
+    MixinsItemB,
+  },
+};
 </script>

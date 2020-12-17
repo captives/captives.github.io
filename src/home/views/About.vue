@@ -4,7 +4,7 @@
       <a href>postcss-px-to-viewport</a>
       <span>将px单位转换为视口单位的 (vw, vh, vmin, vmax) 的 PostCSS 插件</span>
       <p>
-          <pre>
+        <pre>
     css: {
         loaderOptions: {
           postcss: {

@@ -1,7 +1,7 @@
-import event from 'events'
+import event from "events";
 class BaseEvent extends event.EventEmitter {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 }
 export default BaseEvent;

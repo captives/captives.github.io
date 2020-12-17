@@ -12,15 +12,15 @@
   </el-container>
 </template>
 <script>
-import router from './../../router/web';
+import router from "./../../router/web";
 export default {
   name: router.name,
   data() {
     return {
-      router
-    }
-  }
-}
+      router,
+    };
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .el-aside {

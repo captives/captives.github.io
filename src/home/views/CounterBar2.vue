@@ -2,7 +2,7 @@
   <div class="demo">
     <ul class="fp-box">
       <!-- 需要显示6列 -->
-      <li ref="li" v-for="i in 6" :key="i">
+      <li v-for="i in 6" ref="li" :key="i">
         <!-- 每列中的10行数字 -->
         <span v-for="num in 10" :key="num">{{ num - 1 }}</span>
       </li>
@@ -16,8 +16,13 @@ export default {
     return {
       numberArr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], //固定每列中的19行数字
       numStr: "", // 需要展示的数字字符串
-      numArr: [0, 0, 0, 0, 0, 0] //默认展示6个数字数组
+      numArr: [0, 0, 0, 0, 0, 0], //默认展示6个数字数组
     };
+  },
+  mounted() {
+    setInterval(() => {
+      this.create(Math.ceil(Math.random() * 10000000));
+    }, 5000);
   },
   methods: {
     create(number) {
@@ -33,13 +38,8 @@ export default {
         // 滚动数字(li标签)
         item.style.transform = `translateY(-${ty * 90}px)`;
       });
-    }
+    },
   },
-  mounted() {
-    setInterval(() => {
-      this.create(Math.ceil(Math.random() * 10000000));
-    }, 5000);
-  }
 };
 </script>
 

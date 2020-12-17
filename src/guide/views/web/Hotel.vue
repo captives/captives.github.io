@@ -1,7 +1,11 @@
 <template>
   <ul>
-    <li v-for="item in list" :key="item.id" :style="{'background-image': `url(${item.listImg})`}">
-      <span>{{item.title}}</span>
+    <li
+      v-for="item in list"
+      :key="item.id"
+      :style="{ 'background-image': `url(${item.listImg})` }"
+    >
+      <span>{{ item.title }}</span>
     </li>
   </ul>
 </template>
@@ -9,9 +13,9 @@
 export default {
   name: "Hotel",
   props: {
-    list: { type: Array, defaute: () => [] }
-  }
-}
+    list: { type: Array, defaute: () => [] },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 ul {

@@ -6,13 +6,22 @@
         v-for="(item, index) in list"
         :key="item.label"
         :label="item.label"
-        :span="list.length/24"
+        :span="list.length / 24"
       >
-        <el-button :type="index%2 ==0 ?'danger':'success'" @click="loadURL(item.url)">{{item.label}}</el-button>
+        <el-button
+          :type="index % 2 == 0 ? 'danger' : 'success'"
+          @click="loadURL(item.url)"
+          >{{ item.label }}</el-button
+        >
       </el-col>
     </el-row>
     <el-main style="height: 80%">
-      <iframe :src="url" allow="autoplay" frameborder="0" scrolling="no"></iframe>
+      <iframe
+        :src="url"
+        allow="autoplay"
+        frameborder="0"
+        scrolling="no"
+      ></iframe>
     </el-main>
 
     <!-- <iframe :src="item.url" allow="autoplay" frameborder="0" scrolling="no"></iframe>
@@ -28,7 +37,7 @@
   </el-main>
 </template>
 <script>
-import VueShareWorker from './../../components/VueShareWorker';
+import VueShareWorker from "./../../components/VueShareWorker";
 export default {
   name: "index",
   components: { VueShareWorker },
@@ -41,25 +50,44 @@ export default {
         // { label: '西瓜播放器', url: "//h5player.bytedance.com/" },
         // { label: 'video.js', url: "//videojs.com/" },
         // { label: 'MediaElement.js', url: "//www.mediaelementjs.com/" },
-      ]
-    }
+      ],
+    };
+  },
+  mounted() {
+    //媒体参与度查询 chrome://media-engagement/
+    this.list.push({
+      label: "自动播放 - 直接加载",
+      url: "/v3/testIframe.html",
+      desc: "这里模拟百家云教室加载课件",
+    });
+    this.list.push({
+      label: "自动播放 - 直接加载(跨域)",
+      url: "/v3/testIframe2.html",
+      desc: "这里模拟百家云教室加载课件",
+    });
+    this.list.push({
+      label: "自动播放 + 自动跳转",
+      url: "/v3/testReward.html",
+      desc: "这里模拟百家云教室加载课件",
+    });
+    this.list.push({
+      label: "自动播放 + 自动跳转(同域)",
+      url: "/v3/testReward2.html",
+      desc: "这里模拟百家云教室加载课件",
+    });
+    this.list.push({
+      label: "自动播放 + 自动跳转(跳转后同域)",
+      url: "/v3/testReward3.html",
+      desc: "这里模拟百家云教室加载课件",
+    });
   },
   methods: {
     loadURL(url) {
       this.url = url;
-      console.log('加载页面', url);
-
-    }
+      console.log("加载页面", url);
+    },
   },
-  mounted() {
-    //媒体参与度查询 chrome://media-engagement/
-    this.list.push({ label: '自动播放 - 直接加载', url: "/v3/testIframe.html", desc: "这里模拟百家云教室加载课件" });
-    this.list.push({ label: '自动播放 - 直接加载(跨域)', url: "/v3/testIframe2.html", desc: "这里模拟百家云教室加载课件" });
-    this.list.push({ label: '自动播放 + 自动跳转', url: "/v3/testReward.html", desc: "这里模拟百家云教室加载课件" });
-    this.list.push({ label: '自动播放 + 自动跳转(同域)', url: "/v3/testReward2.html", desc: "这里模拟百家云教室加载课件" });
-    this.list.push({ label: '自动播放 + 自动跳转(跳转后同域)', url: "/v3/testReward3.html", desc: "这里模拟百家云教室加载课件" });
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-main {

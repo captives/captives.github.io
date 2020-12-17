@@ -1,9 +1,9 @@
 <template>
   <ul class="picture_card">
     <PictureCardItem
-      class="upload-picture_card"
       v-for="(item, index) in list"
       :key="index"
+      class="upload-picture_card"
       :data.sync="item"
       :editabled="true"
       :preview="true"
@@ -32,11 +32,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import PictureCardItem from './PictureCardItem.vue';
+import { Vue, Component } from "vue-property-decorator";
+import PictureCardItem from "./PictureCardItem.vue";
 @Component({
   name: "FileUploader",
-  components: { PictureCardItem }
+  components: { PictureCardItem },
 })
 export default class FileUploader extends Vue {
   private list: Array<any> = [];
@@ -52,12 +52,19 @@ export default class FileUploader extends Vue {
   private pictureChangeHandler(file: any, list: Array<any>) {
     const raw: any = file.raw;
     if (file.status == "ready") {
-      if (raw.type.indexOf('image') != -1) {
+      if (raw.type.indexOf("image") != -1) {
         if (raw.size <= 5 * 1024 * 1024) {
-          this.list.push({ ...file, id: Date.now(), url: URL.createObjectURL(file.raw) });
+          this.list.push({
+            ...file,
+            id: Date.now(),
+            url: URL.createObjectURL(file.raw),
+          });
         } else {
           //@ts-ignore
-          this.$message({ type: "error", message: "图片文件大小不能超出5M限制！" });
+          this.$message({
+            type: "error",
+            message: "图片文件大小不能超出5M限制！",
+          });
         }
       }
     }

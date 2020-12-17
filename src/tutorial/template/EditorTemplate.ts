@@ -20,8 +20,9 @@ export default [
             };
           }
         }
-      </script>`
-  }, {
+      </script>`,
+  },
+  {
     title: "日期选择器",
     description: "el-date-picker",
     content: `<template>
@@ -43,12 +44,13 @@ export default [
             };
           }
         };
-      </script>`
-  }, {
+      </script>`,
+  },
+  {
     title: "Vue代码库",
     description: "el-date-picker",
     content: `<div ref="code" class="code">
     <pre  class="language-javascript"></pre>
-  </div>`
-  }
+  </div>`,
+  },
 ];

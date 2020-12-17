@@ -36,12 +36,15 @@
     </el-row>
     <StreamTracks v-model="localStream"></StreamTracks>
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
-    <vue-source src="guide/views/webrtc/AudioStreamVolume.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/AudioStreamVolume.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-import StreamTracks from './../../components/StreamTracks';
-import SoundMeter from './../../plugins/SoundMeter'
+import StreamTracks from "./../../components/StreamTracks";
+import SoundMeter from "./../../plugins/SoundMeter";
 export default {
   name: "AudioStreamVolume",
   components: { StreamTracks },
@@ -50,58 +53,11 @@ export default {
       localStream: null,
       options: {
         audio: true,
-        video: false
+        video: false,
       },
       soundMeter: null,
-      error: null
-    }
-  },
-  methods: {
-    init() {
-      this.initLocalStream().then(stream => {
-        this.addAudioContextListener(stream);
-      });
-    },
-    initLocalStream() {
-      const that = this;
-      const video = this.$refs.localVideo;
-      return new Promise((resolve, reject) => {
-        //启动媒体设备
-        navigator.mediaDevices.getUserMedia(this.options).then((stream) => {
-          this.localStream = stream;
-          stream.oninactive = function () {
-            console.log('Stream inactive');
-          };
-
-          video.addEventListener('loadedmetadata', (e) => {
-            console.log("AudioTracks", stream.getAudioTracks());
-            console.log("VideoTracks", stream.getVideoTracks());
-          });
-
-          video.srcObject = stream;
-          resolve(stream);
-        }).catch(function (error) {
-          that.error = error;
-          console.log('navigator.getUserMedia error: ', error);
-          reject(error);
-        });
-      });
-    },
-    addAudioContextListener(stream) {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioContext = new AudioContext();
-
-        this.soundMeter = new SoundMeter(audioContext);
-        this.soundMeter.connectToSource(stream, error => {
-          if (error) {
-            this.error = error;
-          }
-        });
-      } catch (e) {
-        alert('Web Audio API not supported.');
-      }
-    }
+      error: null,
+    };
   },
   mounted() {
     this.init();
@@ -111,11 +67,62 @@ export default {
       this.soundMeter.stop();
     }
 
-    this.localStream && this.localStream.getTracks().forEach(track => {
-      track.stop();
-    });
-  }
-}
+    this.localStream &&
+      this.localStream.getTracks().forEach((track) => {
+        track.stop();
+      });
+  },
+  methods: {
+    init() {
+      this.initLocalStream().then((stream) => {
+        this.addAudioContextListener(stream);
+      });
+    },
+    initLocalStream() {
+      const that = this;
+      const video = this.$refs.localVideo;
+      return new Promise((resolve, reject) => {
+        //启动媒体设备
+        navigator.mediaDevices
+          .getUserMedia(this.options)
+          .then((stream) => {
+            this.localStream = stream;
+            stream.oninactive = function () {
+              console.log("Stream inactive");
+            };
+
+            video.addEventListener("loadedmetadata", (e) => {
+              console.log("AudioTracks", stream.getAudioTracks());
+              console.log("VideoTracks", stream.getVideoTracks());
+            });
+
+            video.srcObject = stream;
+            resolve(stream);
+          })
+          .catch(function (error) {
+            that.error = error;
+            console.log("navigator.getUserMedia error: ", error);
+            reject(error);
+          });
+      });
+    },
+    addAudioContextListener(stream) {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+
+        this.soundMeter = new SoundMeter(audioContext);
+        this.soundMeter.connectToSource(stream, (error) => {
+          if (error) {
+            this.error = error;
+          }
+        });
+      } catch (e) {
+        alert("Web Audio API not supported.");
+      }
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .video-item {

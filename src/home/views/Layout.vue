@@ -10,21 +10,19 @@
     </el-main>
   </el-container>
 </template>
+<script></script>
 <script>
-
-</script>
-<script>
-import NavMenu from './../../components/NavMenu';
-import router from './../router/tools' 
+import NavMenu from "./../../components/NavMenu";
+import router from "./../router/tools";
 export default {
   name: "Layout",
   components: { NavMenu },
   data() {
     return {
-      list: router.children
-    }
-  }
-}
+      list: router.children,
+    };
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .el-aside {

@@ -1,17 +1,30 @@
 <template>
   <el-main class="center">
-    <video ref="localVideo" class="video-item" :srcObject.prop="localStream" autoplay></video>
+    <video
+      ref="localVideo"
+      class="video-item"
+      :srcObject.prop="localStream"
+      autoplay
+    ></video>
 
     <!-- 媒体设备列表 -->
-    <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      :row-class-name="tableRowClassName"
+    >
       <el-table-column prop="label" label="名称"></el-table-column>
       <el-table-column label="类型" width="100" align="center">
-        <template slot-scope="scope">{{deviceLabel[scope.row.kind]}}</template>
+        <template slot-scope="scope">{{
+          deviceLabel[scope.row.kind]
+        }}</template>
       </el-table-column>
       <el-table-column prop="deviceId" label="设备ID"></el-table-column>
       <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="changeDevice(scope.row)">选择</el-button>
+          <el-button type="danger" size="mini" @click="changeDevice(scope.row)"
+            >选择</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -21,7 +34,10 @@
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-    <vue-source src="guide/views/webrtc/ChooseUserMedia.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/ChooseUserMedia.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
@@ -35,23 +51,32 @@ export default {
       deviceLabel: {
         audioinput: "音频输入",
         audiooutput: "音频输出",
-        videoinput: "视频输入"
+        videoinput: "视频输入",
       },
       selectDevice: {
         audioinput: null,
         audiooutput: null,
-        videoinput: null
+        videoinput: null,
       },
       localStream: null,
       options: {
         audio: true,
         video: {
           width: { exact: 720 },
-          height: { exact: 405 }
-        }
+          height: { exact: 405 },
+        },
       },
-      error: null
+      error: null,
     };
+  },
+  mounted() {
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(this.gotDevices)
+      .catch(this.handleError);
+  },
+  destroyed() {
+    this.closeDevice();
   },
   methods: {
     tableRowClassName({ row, rowIndex }) {
@@ -65,8 +90,10 @@ export default {
     },
     changeDevice(device) {
       const videoElement = this.$refs.localVideo;
-      if (device.kind === 'audiooutput') {
-        const deviceId = this.selectDevice.audiooutput ? this.selectDevice.audiooutput.deviceId : undefined;
+      if (device.kind === "audiooutput") {
+        const deviceId = this.selectDevice.audiooutput
+          ? this.selectDevice.audiooutput.deviceId
+          : undefined;
         this.playback(videoElement, deviceId);
       } else {
         this.selectDevice[device.kind] = device.deviceId;
@@ -83,57 +110,62 @@ export default {
 
         //mode B
         audio: audioSource ? { deviceId: { exact: audioSource } } : false,
-        video: videoSource ? { deviceId: { exact: videoSource } } : false
+        video: videoSource ? { deviceId: { exact: videoSource } } : false,
       };
 
       console.log("constraints", constraints);
       this.closeDevice();
 
-      navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-        this.localStream = stream;
-        stream.oninactive = function () {
-          console.log("Stream inactive");
-        };
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then((stream) => {
+          this.localStream = stream;
+          stream.oninactive = function () {
+            console.log("Stream inactive");
+          };
 
-        videoElement.addEventListener("loadedmetadata", e => {
-          console.log("AudioTracks", stream.getAudioTracks());
-          console.log("VideoTracks", stream.getVideoTracks());
+          videoElement.addEventListener("loadedmetadata", (e) => {
+            console.log("AudioTracks", stream.getAudioTracks());
+            console.log("VideoTracks", stream.getVideoTracks());
+          });
+        })
+        .catch(function (error) {
+          that.error = error;
+          console.log("navigator.getUserMedia error: ", error);
         });
-        
-      }).catch(function (error) {
-        that.error = error;
-        console.log("navigator.getUserMedia error: ", error);
-      });
     },
     playback(videoElement, deviceId) {
-      console.log('videoElement', deviceId, videoElement.sinkId, typeof videoElement.sinkId);
-      if (typeof videoElement.sinkId !== 'undefined') {
-        videoElement.setSinkId(deviceId).then(() => {
-          console.log(`Success, audio output device attached: ${deviceId}`);
-        }).catch(error => {
-          let errorMessage = error;
-          if (error.name === 'SecurityError') {
-            errorMessage = `You need to use HTTPS for selecting audio output device: ${error}`;
-          }
-          console.error(errorMessage);
-          // Use default device
-        });
+      console.log(
+        "videoElement",
+        deviceId,
+        videoElement.sinkId,
+        typeof videoElement.sinkId
+      );
+      if (typeof videoElement.sinkId !== "undefined") {
+        videoElement
+          .setSinkId(deviceId)
+          .then(() => {
+            console.log(`Success, audio output device attached: ${deviceId}`);
+          })
+          .catch((error) => {
+            let errorMessage = error;
+            if (error.name === "SecurityError") {
+              errorMessage = `You need to use HTTPS for selecting audio output device: ${error}`;
+            }
+            console.error(errorMessage);
+            // Use default device
+          });
       } else {
-        console.warn('Browser does not support output device selection.');
+        console.warn("Browser does not support output device selection.");
       }
     },
     closeDevice() {
-      this.localStream && this.localStream.getTracks().forEach(track => {
-        track.stop();
-      });
-    }
+      this.localStream &&
+        this.localStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+    },
   },
-  mounted() {
-    navigator.mediaDevices.enumerateDevices().then(this.gotDevices).catch(this.handleError);
-  },
-  destroyed() {
-    this.closeDevice();
-  }
 };
 </script>
 <style lang="stylus">

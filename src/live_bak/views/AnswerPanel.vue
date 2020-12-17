@@ -4,33 +4,50 @@
       <el-table :data="tableData">
         <el-table-column prop="id" label="ID"></el-table-column>
         <el-table-column label="昵称">
-          <template slot-scope="scope">{{getUserById(scope.row.id).name}}</template>
+          <template slot-scope="scope">{{
+            getUserById(scope.row.id).name
+          }}</template>
         </el-table-column>
-        <el-table-column prop="select" label="选项" v-if="publisher"></el-table-column>
+        <el-table-column
+          v-if="publisher"
+          prop="select"
+          label="选项"
+        ></el-table-column>
         <el-table-column label="结果">
           <template slot-scope="scope">
-            <i :class="[scope.row.result ? 'el-icon-check' : 'el-icon-close', 'icon-result']"></i>
+            <i
+              :class="[
+                scope.row.result ? 'el-icon-check' : 'el-icon-close',
+                'icon-result',
+              ]"
+            ></i>
           </template>
         </el-table-column>
       </el-table>
 
-      <el-footer>答题计时中: {{time | formatTimeValue}}</el-footer>
+      <el-footer>答题计时中: {{ time | formatTimeValue }}</el-footer>
     </el-aside>
     <el-main>
       <el-row class="title">
-        <b>{{item.title}}</b>
+        <b>{{ item.title }}</b>
       </el-row>
 
       <el-row class="el-list">
         <el-row
-          :class="[publisher ? '' : selectValue == index ? 'select current-row' : 'select']"
           v-for="(item, index) in item.options"
           :key="index"
+          :class="[
+            publisher
+              ? ''
+              : selectValue == index
+              ? 'select current-row'
+              : 'select',
+          ]"
           :gutter="20"
           @click.native="selectHandler(index)"
         >
           <el-col :span="2">{{ subjectOptionLabel[index] }}、</el-col>
-          <el-col :span="22">{{item}}</el-col>
+          <el-col :span="22">{{ item }}</el-col>
         </el-row>
       </el-row>
 
@@ -48,7 +65,12 @@
 
         <template v-else>
           <p>选择答案选项，并提交答案，等待老师结束答题</p>
-          <el-button type="success" v-if="!getResultById(user.id)" @click="submitResult">提交答案</el-button>
+          <el-button
+            v-if="!getResultById(user.id)"
+            type="success"
+            @click="submitResult"
+            >提交答案</el-button
+          >
         </template>
       </el-footer>
     </el-main>
@@ -60,64 +82,88 @@ export default {
   name: "AnswerPanel",
   props: {
     item: {},
-    user: {}
+    user: {},
   },
   data() {
     return {
-      time:0,
+      time: 0,
       result: "",
       selectValue: -1,
-      subjectOptionLabel: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'],
-    }
+      subjectOptionLabel: [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+      ],
+    };
   },
   computed: {
     ...mapGetters("UserData", ["getUserById"]),
     ...mapGetters("SubjectData", ["getResultById"]),
     ...mapState("SubjectData", {
-      subject: state => state
+      subject: (state) => state,
     }),
     publisher() {
       return this.user && this.user.role == this.RoleType.PUBLISHER;
     },
     tableData() {
-      return this.subject && this.subject.list || [];
-    }
+      return (this.subject && this.subject.list) || [];
+    },
   },
   methods: {
-    ...mapActions("SubjectData", ["initResults", "addResult", "addRankingList"]),
+    ...mapActions("SubjectData", [
+      "initResults",
+      "addResult",
+      "addRankingList",
+    ]),
     selectHandler(index) {
       this.selectValue = index;
     },
     submitResult() {
       var opt = this.subjectOptionLabel[this.selectValue];
-      this.$confirm("您确认提交答案？提交后将不得再更改答案。", "提交答案，选项 " + opt, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.client.subject('answer', opt, this.addResult);
+      this.$confirm(
+        "您确认提交答案？提交后将不得再更改答案。",
+        "提交答案，选项 " + opt,
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).then(() => {
+        this.client.subject("answer", opt, this.addResult);
       });
     },
     closeSubject() {
-      this.$confirm("确认结束答题？确认结束后，学生将不能提交答案。", "结束答题", {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.client.subject('stop', null, data => {
-          this.$emit('complete', data);
+      this.$confirm(
+        "确认结束答题？确认结束后，学生将不能提交答案。",
+        "结束答题",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).then(() => {
+        this.client.subject("stop", null, (data) => {
+          this.$emit("complete", data);
         });
-      })
-    }
+      });
+    },
   },
   mounted() {
-    this.client.on('reply', this.addResult);
-    this.client.on('startTime', time => this.time = time);
-    this.client.on('stop', data => {
-      this.$emit('complete', data);
+    this.client.on("reply", this.addResult);
+    this.client.on("startTime", (time) => (this.time = time));
+    this.client.on("stop", (data) => {
+      this.$emit("complete", data);
     });
   },
-}
+};
 </script>
 
 <style lang="stylus" scoped>

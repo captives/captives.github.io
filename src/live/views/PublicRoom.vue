@@ -2,13 +2,11 @@
   <el-container>公共会议室</el-container>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 @Component({
-  name: "PublicRoom"
+  name: "PublicRoom",
 })
-export default class PublicRoom extends Vue {
-
-}
+export default class PublicRoom extends Vue {}
 </script>
 <style lang="stylus" scoped>
 .el-container {

@@ -10,19 +10,17 @@
     </el-container>
   </el-container>
 </template>
+<script></script>
 <script>
-
-</script>
-<script>
-import router from './../../router/notes';
+import router from "./../../router/notes";
 export default {
   name: router.name,
   data() {
     return {
-      router
-    }
-  }
-}
+      router,
+    };
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .el-aside {

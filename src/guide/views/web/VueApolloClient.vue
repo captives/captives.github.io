@@ -2,7 +2,9 @@
   <el-main>
     <el-row class="content">
       <h1>
-        <el-link href="https://vue-apollo.netlify.com/zh-cn/">Vue Apollo Client</el-link>
+        <el-link href="https://vue-apollo.netlify.com/zh-cn/"
+          >Vue Apollo Client</el-link
+        >
       </h1>
       <p>main.ts</p>
       <vue-code>
@@ -56,7 +58,8 @@ const apolloProvider = new VueApollo({
     cache: new InMemoryCache(),
   }),
 });
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
     <el-row class="content">
@@ -91,7 +94,8 @@ GET_LESSON_INFO(lessonType: string) {
 }).catch(error => {
     console.log(error);
 });
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
     <el-row class="content">
@@ -125,7 +129,8 @@ this.$apollo.mutate({
 }).catch(err => {
     console.log(error);
 });
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
   </el-main>

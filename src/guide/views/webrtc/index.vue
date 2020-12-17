@@ -16,7 +16,9 @@ navigator.mediaDevices.enumerateDevices().then(deviceInfos =>{
     </el-row>
     <el-row>
       <h3>
-        <router-link to="/webrtc/stream-from-usermedia">Stream from UserMedia</router-link>
+        <router-link to="/webrtc/stream-from-usermedia"
+          >Stream from UserMedia</router-link
+        >
       </h3>
       <vue-code>
         <pre lang="javascript">
@@ -33,12 +35,15 @@ navigator.mediaDevices.getUserMedia({ video:true, audio:true }).then((stream) =>
 }).catch(function (error) {
   console.log('navigator.getUserMedia error: ', error);
 });
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
     <el-row>
       <h3>
-        <router-link to="/webrtc/stream-from-displaymedia">Stream from DisplayMedia</router-link>
+        <router-link to="/webrtc/stream-from-displaymedia"
+          >Stream from DisplayMedia</router-link
+        >
       </h3>
 
       <vue-code>
@@ -66,12 +71,15 @@ getDisplayMedia().then((stream) => {
   }).catch(function (error) {
     console.log('navigator.getUserMedia error: ', error);
   });
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
     <el-row>
       <h3>
-        <router-link to="/webrtc/stream-from-video">Stream from video element</router-link>
+        <router-link to="/webrtc/stream-from-video"
+          >Stream from video element</router-link
+        >
       </h3>
       <vue-code>
         <pre lang="javascript">
@@ -94,12 +102,15 @@ video.addEventListener('canplay', () => {
       player.src = URL.createObjectURL(this.stream);
   }
 });
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
     <el-row>
       <h3>
-        <router-link to="/webrtc/stream-from-canvas">Stream from canvas element</router-link>
+        <router-link to="/webrtc/stream-from-canvas"
+          >Stream from canvas element</router-link
+        >
       </h3>
       <vue-code>
         <pre lang="javascript">
@@ -109,7 +120,8 @@ if ('srcObject' in video) {
 } else {
     video.src = URL.createObjectURL(stream);
 }
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
@@ -120,16 +132,20 @@ if ('srcObject' in video) {
       <vue-code>
         <pre lang="html">
 &lt;video :srcObject.prop=&quot;localStream&quot; autoplay&gt;&lt;/video&gt;
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
     <el-row>
       <h3>
-        <router-link to="/webrtc/audiooutput">Choose media source and audio output</router-link>
+        <router-link to="/webrtc/audiooutput"
+          >Choose media source and audio output</router-link
+        >
       </h3>
       <el-row>
-        该<em>HTMLMediaElement.setSinkId()</em>方法设置用于输出的音频设备的ID，并返回  Promise。仅当授权该应用程序使用指定设备时，此方法才有效。
+        该<em>HTMLMediaElement.setSinkId()</em>方法设置用于输出的音频设备的ID，并返回
+        Promise。仅当授权该应用程序使用指定设备时，此方法才有效。
       </el-row>
       <vue-code>
         <pre lang="javascript">
@@ -149,24 +165,30 @@ playback(videoElement, deviceId) {
     console.warn('Browser does not support output device selection.');
   }
 }
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
     <el-row>
       <h3>
-        <router-link to="/webrtc/stream-from-displaymedia">Close video stream</router-link>
+        <router-link to="/webrtc/stream-from-displaymedia"
+          >Close video stream</router-link
+        >
       </h3>
       <vue-code>
         <pre lang="javascript">
 stream.getTracks().forEach(track => track.stop());
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
     <el-row>
       <h3>
-        <router-link to="/webrtc/recorder">Recording media streaming to blob</router-link>
+        <router-link to="/webrtc/recorder"
+          >Recording media streaming to blob</router-link
+        >
       </h3>
       <vue-code>
         <pre lang="javascript">
@@ -230,7 +252,8 @@ stopRecoder() {
     this.mediaRecorder.stop();
   }
 },
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
     <el-row>
@@ -267,12 +290,15 @@ playStream() {
         video.src = window.URL.createObjectURL(blob);
     }
 }
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
     <el-row>
       <h3>
-        <router-link to="/webrtc/recorder">Download blob media stream</router-link>
+        <router-link to="/webrtc/recorder"
+          >Download blob media stream</router-link
+        >
       </h3>
       <vue-code>
         <pre lang="javascript">
@@ -298,14 +324,16 @@ downloadfile() {
     }, 100);
   }
 }
-</pre>
+</pre
+        >
       </vue-code>
     </el-row>
 
     <h3>多路音频流混合</h3>
     <p></p>
     <vue-code>
-      <pre lang='javascript'>let videos = [];
+      <pre lang="javascript">
+let videos = [];
 let audioSources = [];
 
 // WebAudio API representer
@@ -351,13 +379,19 @@ let stream:MediaStream = audioDestination.stream;
       <h3>资料</h3>
       <ul>
         <li>
-          <el-link href="https://www.webrtc-experiment.com/">WebRTC Experiment</el-link>
+          <el-link href="https://www.webrtc-experiment.com/"
+            >WebRTC Experiment</el-link
+          >
         </li>
         <li>
-          <el-link href="https://www.webrtc-experiment.com/RecordRTC/">RecordRTC</el-link>
+          <el-link href="https://www.webrtc-experiment.com/RecordRTC/"
+            >RecordRTC</el-link
+          >
         </li>
         <li>
-          <el-link href="https://quickblox.com/developers/Sample-videochat-web">Sample Webrtc Web</el-link>
+          <el-link href="https://quickblox.com/developers/Sample-videochat-web"
+            >Sample Webrtc Web</el-link
+          >
         </li>
       </ul>
     </el-row>
@@ -366,7 +400,7 @@ let stream:MediaStream = audioDestination.stream;
 <script>
 export default {
   name: "index",
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-main {

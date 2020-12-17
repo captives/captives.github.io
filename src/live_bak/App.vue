@@ -3,15 +3,14 @@
 </template>
 
 <script>
-
 export default {
   name: "App",
   mounted() {
     window.onresize = () => {
-      this.elementEvent.emit('resize', document.documentElement);
+      this.elementEvent.emit("resize", document.documentElement);
     };
-  }
-}
+  },
+};
 </script>
 <style lang="stylus">
 html, body, #app {

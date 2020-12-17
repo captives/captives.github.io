@@ -4,13 +4,13 @@
   </el-main>
 </template>
 <script>
-import Ruler from './ruler/Ruler';
+import Ruler from "./ruler/Ruler";
 export default {
   name: "RulerMain",
   components: {
-    Ruler
-  }
-}
+    Ruler,
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .el-main {

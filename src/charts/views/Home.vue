@@ -1,6 +1,6 @@
 <template>
   <div class="center">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../assets/logo.png" />
   </div>
 </template>
 
@@ -8,9 +8,7 @@
 // @ is an alias to /src
 
 export default {
-  name: 'home',
-  components: {
-    
-  }
-}
+  name: "home",
+  components: {},
+};
 </script>

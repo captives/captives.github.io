@@ -5,28 +5,25 @@
       :key="index"
       :index="index + 1"
       :data="item"
-      :style="{left:item.x+'px', top:item.y + 'px'}"
+      :style="{ left: item.x + 'px', top: item.y + 'px' }"
     ></VideoItem>
   </div>
 </template>
 <script>
-
-import VideoItem from './VideoItem';
+import VideoItem from "./VideoItem";
 export default {
   name: "VideoList",
   components: {
-    VideoItem
+    VideoItem,
   },
 
   props: {
-    list: { type: Array, default: () => [] }
+    list: { type: Array, default: () => [] },
   },
   data() {
-    return {
-
-    }
+    return {};
   },
-}
+};
 </script>
 <style lang="stylus" scoped>
 .videos {

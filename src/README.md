@@ -22,6 +22,8 @@ sh ./build.sh
 ### Lints and fixes files
 ```
 npm run lint
+or
+npm run lint --fix
 ```
 
 ### Customize configuration

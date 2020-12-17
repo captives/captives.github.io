@@ -2,9 +2,13 @@
   <ol>
     <li v-for="i in size" :key="i">
       <span class="scale">
-        <i v-for="k in count" :key="k" :class="{active: k == 1, hide:k == count }"></i>
+        <i
+          v-for="k in count"
+          :key="k"
+          :class="{ active: k == 1, hide: k == count }"
+        ></i>
       </span>
-      <span class="label" v-if="i!==1">{{(i - 3) * 100}}</span>
+      <span v-if="i !== 1" class="label">{{ (i - 3) * 100 }}</span>
     </li>
   </ol>
 </template>
@@ -14,12 +18,12 @@ export default {
   name: "VerticalRuler",
   props: {
     value: { type: Number, default: 100 },
-    space: { type: Number, default: 100 }
+    space: { type: Number, default: 100 },
   },
   data() {
     return {
-      count: 6
-    }
+      count: 6,
+    };
   },
   computed: {
     size() {
@@ -28,9 +32,9 @@ export default {
       } else {
         return 0;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

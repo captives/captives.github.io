@@ -1,7 +1,9 @@
 <template>
   <el-container>
-    <el-main :class="{matrix: isMatrix}">
-      <div v-if="isMatrix" class="block" :style="styleObject.matrixText">正</div>
+    <el-main :class="{ matrix: isMatrix }">
+      <div v-if="isMatrix" class="block" :style="styleObject.matrixText">
+        正
+      </div>
 
       <div v-else class="block" :style="styleObject.transformText">楷</div>
     </el-main>
@@ -14,50 +16,65 @@
 
       <el-row class="footer">
         <el-button
-          :type="isMatrix ? 'success':'danger'"
+          :type="isMatrix ? 'success' : 'danger'"
           size="mini"
           @click="isMatrix = !isMatrix"
-        >切换</el-button>
-        <el-button type="success" size="mini" @click="resetHandler">重置</el-button>
-        <el-button type="primary" size="mini" @click="reloadHandler">刷新</el-button>
+          >切换</el-button
+        >
+        <el-button type="success" size="mini" @click="resetHandler"
+          >重置</el-button
+        >
+        <el-button type="primary" size="mini" @click="reloadHandler"
+          >刷新</el-button
+        >
       </el-row>
     </el-aside>
   </el-container>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Sidebar from './Sidebar.vue';
-import Matrix from './Matrix';
+import { Component, Vue } from "vue-property-decorator";
+import Sidebar from "./Sidebar.vue";
+import Matrix from "./Matrix";
 const degToRadian = (deg: number) => {
-  return Math.PI / 180 * deg;
-}
+  return (Math.PI / 180) * deg;
+};
 @Component({
-  name: "Room", components: { Sidebar }
+  name: "Room",
+  components: { Sidebar },
 })
 export default class Room extends Vue {
-  private isMatrix: boolean = false;
+  private isMatrix = false;
   private styleObject: any = {
     transform: null,
     transformText: "",
     matrix: {},
     matrixText: "",
-    transition: 1
+    transition: 1,
   };
-  private form: any = { x: 400, y: 100, rotate: 0, scaleX: 1, scaleY: 1, skewX: 0, skewY: 0, time: 1 };
+  private form: any = {
+    x: 400,
+    y: 100,
+    rotate: 0,
+    scaleX: 1,
+    scaleY: 1,
+    skewX: 0,
+    skewY: 0,
+    time: 1,
+  };
 
   private get transform() {
     this.styleObject.transition = this.form.time;
     this.styleObject.transform =
-      ` translate(${this.form.x}px, ${this.form.y}px)` +      //平移
-      ` rotate(${this.form.rotate}deg)` +                     //旋转
+      ` translate(${this.form.x}px, ${this.form.y}px)` + //平移
+      ` rotate(${this.form.rotate}deg)` + //旋转
       ` skew(${this.form.skewX}deg, ${this.form.skewY}deg)` + //斜切/扭曲
-      ` scale(${this.form.scaleX}, ${this.form.scaleY})`      //缩放
+      ` scale(${this.form.scaleX}, ${this.form.scaleY})`; //缩放
 
     this.styleObject.transformText = `transform: ${this.styleObject.transform}; transition: ${this.styleObject.transition}s; transform-origin: center`;
 
     /**
      * 矩阵：matrix(a, b, c, d, e, f)
-     * 
+     *
      * X轴    a    c    e
      * Y轴    b    d    f
      * Z轴    0    0    1
@@ -73,7 +90,14 @@ export default class Room extends Vue {
     const matrix: Matrix = new Matrix(1, 0, 0, 1, this.form.x, this.form.y);
     //Step 2、缩放scale(x,y)
     //x,y 对应矩阵的 a,d, 默认值都是1
-    const scaleMatrix = new Matrix(this.form.scaleX, 0, 0, this.form.scaleY, 0, 0);
+    const scaleMatrix = new Matrix(
+      this.form.scaleX,
+      0,
+      0,
+      this.form.scaleY,
+      0,
+      0
+    );
 
     //Step 3. 旋转 rotate(0deg);
     //旋转影响矩阵的 a, b, c, d四个值,并且需要把角度值转换成弧度值
@@ -85,18 +109,39 @@ export default class Room extends Vue {
 
     //Step 4. 斜切 skew(0deg, 0deg)
     //斜切/扭曲的x, y 对应矩阵的 c, b;
-    const skewMatrix: Matrix = new Matrix(1, Math.tan(degToRadian(this.form.skewY)), Math.tan(degToRadian(this.form.skewX)), 1, 0, 0);
+    const skewMatrix: Matrix = new Matrix(
+      1,
+      Math.tan(degToRadian(this.form.skewY)),
+      Math.tan(degToRadian(this.form.skewX)),
+      1,
+      0,
+      0
+    );
 
     this.styleObject.transition = this.form.time;
     // this.styleObject.matrix = matrix.concat(scaleMatrix).concat(rotateMatrix).concat(skewMatrix);
-    this.styleObject.matrix = matrix.concat(rotateMatrix).concat(skewMatrix).concat(scaleMatrix);
-    this.styleObject.matrixText = `transform: ${this.styleObject.matrix.toString()}; transition: ${this.styleObject.transition}s; transform-origin: center`;
+    this.styleObject.matrix = matrix
+      .concat(rotateMatrix)
+      .concat(skewMatrix)
+      .concat(scaleMatrix);
+    this.styleObject.matrixText = `transform: ${this.styleObject.matrix.toString()}; transition: ${
+      this.styleObject.transition
+    }s; transform-origin: center`;
 
     return this.form;
   }
 
   private resetHandler() {
-    this.form = { x: 400, y: 100, rotate: 0, scaleX: 1, scaleY: 1, skewX: 0, skewY: 0, time: 1 };
+    this.form = {
+      x: 400,
+      y: 100,
+      rotate: 0,
+      scaleX: 1,
+      scaleY: 1,
+      skewX: 0,
+      skewY: 0,
+      time: 1,
+    };
   }
 
   private reloadHandler() {

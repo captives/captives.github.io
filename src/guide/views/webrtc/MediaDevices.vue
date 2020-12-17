@@ -8,7 +8,10 @@
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-    <vue-source src="guide/views/webrtc/MediaDevices.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/MediaDevices.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
@@ -17,8 +20,14 @@ export default {
   data() {
     return {
       tableData: [],
-      error: null
-    }
+      error: null,
+    };
+  },
+  mounted() {
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(this.gotDevices)
+      .catch(this.handleError);
   },
   methods: {
     gotDevices(deviceInfos) {
@@ -26,10 +35,7 @@ export default {
     },
     handleError(err) {
       this.error = err;
-    }
+    },
   },
-  mounted() {
-    navigator.mediaDevices.enumerateDevices().then(this.gotDevices).catch(this.handleError);
-  }
-}
+};
 </script>

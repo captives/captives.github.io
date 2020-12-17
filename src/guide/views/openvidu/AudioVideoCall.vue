@@ -1,48 +1,19 @@
 <template>
   <el-main class="center">
-    <el-row
-      :gutter="50"
-      class="center"
-    >
-      <el-col
-        class="center"
-        :xs="24"
-        :sm="24"
-        :md="12"
-      >
-        <el-table
-          :data="tableData"
-          stripe
-        >
-          <el-table-column
-            prop="name"
-            label="User"
-          >
-          </el-table-column>
-          <el-table-column
-            prop="pass"
-            label="Password"
-          >
-          </el-table-column>
-          <el-table-column
-            prop="role"
-            label="Role"
-          >
-          </el-table-column>
+    <el-row :gutter="50" class="center">
+      <el-col class="center" :xs="24" :sm="24" :md="12">
+        <el-table :data="tableData" stripe>
+          <el-table-column prop="name" label="User"> </el-table-column>
+          <el-table-column prop="pass" label="Password"> </el-table-column>
+          <el-table-column prop="role" label="Role"> </el-table-column>
           <el-table-column label>
-            <el-button
-              slot-scope="scope"
-              @click="loginHandler(scope.row)"
-            >Enter</el-button>
+            <el-button slot-scope="scope" @click="loginHandler(scope.row)"
+              >Enter</el-button
+            >
           </el-table-column>
         </el-table>
       </el-col>
-      <el-col
-        class="center"
-        :xs="12"
-        :sm="12"
-        :md="6"
-      >
+      <el-col class="center" :xs="12" :sm="12" :md="6">
         <el-divider content-position="left">video session</el-divider>
         <el-form label-width="80px">
           <el-form-item label="Participant:">
@@ -59,25 +30,14 @@
       </el-col>
     </el-row>
 
-    <el-row
-      :gutter="50"
-      class="video-view"
-    >
+    <el-row :gutter="50" class="video-view">
       <div class="videoplay main">
-        <video
-          autoplay
-          muted
-          loop
-        ></video>
+        <video autoplay muted loop></video>
         <p>标签二</p>
         <p class="right">标签二</p>
       </div>
       <div class="videoplay">
-        <video
-          autoplay
-          muted
-          loop
-        ></video>
+        <video autoplay muted loop></video>
         <p>标签二</p>
         <p class="right">标签二</p>
       </div>
@@ -93,24 +53,24 @@ export default {
   data() {
     return {
       tableData: [
-        { name: 'publisher1', pass: 'pass', role: 'PUBLISHER' },
-        { name: 'publisher2', pass: 'pass', role: 'PUBLISHER' },
-        { name: 'subscriber', pass: 'pass', role: 'SUBSCRIBER' }
+        { name: "publisher1", pass: "pass", role: "PUBLISHER" },
+        { name: "publisher2", pass: "pass", role: "PUBLISHER" },
+        { name: "subscriber", pass: "pass", role: "SUBSCRIBER" },
       ],
-      username: 'SessionA3',
+      username: "SessionA3",
       password: "",
       participant: "",
       session: "",
       OV: null,
       session: null,
-    }
+    };
   },
   methods: {
     httpPostRequest(url, body, errorMsg, callback) {
       var http = new XMLHttpRequest();
-      http.open('POST', url, true);
-      http.setRequestHeader('Content-type', 'application/json');
-      http.addEventListener('readystatechange', processRequest, false);
+      http.open("POST", url, true);
+      http.setRequestHeader("Content-type", "application/json");
+      http.addEventListener("readystatechange", processRequest, false);
       http.send(JSON.stringify(body));
 
       function processRequest() {
@@ -129,7 +89,7 @@ export default {
       }
     },
     loginHandler(user) {
-      console.log('login', user);
+      console.log("login", user);
       //   this.axios({
       //     method: 'POST',
       //     url: SERVER_URL + "api-login/login",
@@ -145,36 +105,44 @@ export default {
       //     });
 
       this.httpPostRequest(
-        SERVER_URL + 'api-login/login',
+        SERVER_URL + "api-login/login",
         { user: user.name, pass: user.pass },
-        'Login WRONG',
+        "Login WRONG",
         (response) => {
           console.log(response);
-        });
+        }
+      );
     },
     joinSession() {
       this.OV = new OpenVidu();
       this.session = this.OV.initSession();
-      this.session.on('streamCreated', ({ stream }) => {
-        this.session.subscribe(stream, 'subscriber');
+      this.session.on("streamCreated", ({ stream }) => {
+        this.session.subscribe(stream, "subscriber");
       });
 
-      this.getToken(this.userName).then(token => {
-        this.session.connect(token).then(() => {
-          var publisher = this.OV.initPublisher("publisher");
-          this.session.publish(publisher);
-        }).catch(error => {
-          console.log("There was an error connecting to the session:", error.code, error.message);
-        })
+      this.getToken(this.userName).then((token) => {
+        this.session
+          .connect(token)
+          .then(() => {
+            var publisher = this.OV.initPublisher("publisher");
+            this.session.publish(publisher);
+          })
+          .catch((error) => {
+            console.log(
+              "There was an error connecting to the session:",
+              error.code,
+              error.message
+            );
+          });
       });
     },
     leaveSession() {
       if (this.session) {
         this.session.disconnect();
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .video-view {

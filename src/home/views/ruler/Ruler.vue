@@ -1,33 +1,35 @@
 <template>
   <div ref="ruler" class="ruler">
     <VerticalRuler class="vertical-ruler" :value="clientHeight"></VerticalRuler>
-    <HorizontalRuler class="horizontal-ruler" :value="clientWidth"></HorizontalRuler>
+    <HorizontalRuler
+      class="horizontal-ruler"
+      :value="clientWidth"
+    ></HorizontalRuler>
     <slot></slot>
-    <span>{{clientWidth}}x{{clientHeight}}</span>
+    <span>{{ clientWidth }}x{{ clientHeight }}</span>
   </div>
 </template>
 <script>
-
 import VerticalRuler from "./VerticalRuler.vue";
-import HorizontalRuler from './HorizontalRuler.vue';
+import HorizontalRuler from "./HorizontalRuler.vue";
 export default {
   name: "Ruler",
   components: { VerticalRuler, HorizontalRuler },
   data() {
     return {
       clientWidth: 0,
-      clientHeight: 0
-    }
+      clientHeight: 0,
+    };
   },
   mounted() {
     this.clientWidth = this.$parent.$el.clientWidth;
     this.clientHeight = this.$parent.$el.clientHeight;
 
-    this.$refs.ruler.addEventListener('resize', event => {
-      console.log('resize.....');
+    this.$refs.ruler.addEventListener("resize", (event) => {
+      console.log("resize.....");
     });
-  }
-}
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

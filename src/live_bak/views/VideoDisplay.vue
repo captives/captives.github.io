@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <div id="video_display" class="fill" v-loading="loading"></div>
+    <div id="video_display" v-loading="loading" class="fill"></div>
     <el-button
       class="setting"
       type="danger"
       icon="el-icon-setting"
       circle
-      @click="dialog.visible=true"
-    ></el-button>]
-
+      @click="dialog.visible = true"
+    ></el-button
+    >]
 
     <el-dialog
       title="设置"
@@ -24,7 +24,7 @@
         <el-form-item label="摄像头">
           <el-select v-model="form.cameraId" placeholder="请选择摄像头">
             <el-option
-              v-for="(item,index) in videoStream.cameras"
+              v-for="(item, index) in videoStream.cameras"
               :key="index"
               :label="item.label"
               :value="item.deviceId"
@@ -34,7 +34,7 @@
         <el-form-item label="麦克风">
           <el-select v-model="form.microphoneId" placeholder="请选择麦克风">
             <el-option
-              v-for="(item,index) in videoStream.microphones"
+              v-for="(item, index) in videoStream.microphones"
               :key="index"
               :label="item.label"
               :value="item.deviceId"
@@ -44,7 +44,7 @@
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialog.visible=false">取 消</el-button>
+        <el-button @click="dialog.visible = false">取 消</el-button>
         <el-button type="primary">确 定</el-button>
       </span>
     </el-dialog>
@@ -56,16 +56,16 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => { }
+      default: () => {},
     },
     td: {
       type: String,
-      default: "1000"
+      default: "1000",
     },
     appid: {
       type: String,
-      default: '9bc022ca9b2d4b2e93ac03a4d548fc0d'
-    }
+      default: "9bc022ca9b2d4b2e93ac03a4d548fc0d",
+    },
   },
   data() {
     return {
@@ -76,14 +76,19 @@ export default {
         microphoneId: null,
       },
       dialog: {
-        visible: false
-      }
-    }
+        visible: false,
+      },
+    };
   },
   computed: {
     publisher() {
       return this.user && this.user.role == this.RoleType.PUBLISHER;
-    }
+    },
+  },
+  mounted() {
+    this.loading = true;
+    console.log(this.user);
+    this.publisher ? this.init() : this.connect();
   },
   methods: {
     init() {
@@ -92,52 +97,50 @@ export default {
         this.videoStream.videoElement = "video_display";
         this.videoStream.videoProfile = this.videoProfile;
         this.videoStream.streamID = this.user.id;
-        this.videoStream.createStream().then(localStream => {
-          this.form.cameraId = this.videoStream.cameraId;
-          this.form.microphoneId = this.videoStream.microphoneId;
-          this.videoStream.display();
-          this.connect();
-        }).catch(err => {
-          console.log('localStream play err', err);
-          this.$message({ type: "error", message: err });
-        });
+        this.videoStream
+          .createStream()
+          .then((localStream) => {
+            this.form.cameraId = this.videoStream.cameraId;
+            this.form.microphoneId = this.videoStream.microphoneId;
+            this.videoStream.display();
+            this.connect();
+          })
+          .catch((err) => {
+            console.log("localStream play err", err);
+            this.$message({ type: "error", message: err });
+          });
       });
     },
     connect() {
       const that = this;
-      this.videoClient.on("stream", uid => {
+      this.videoClient.on("stream", (uid) => {
         console.log("Remove Video Stream ADD", uid);
         this.videoClient.player(uid, "video_display");
-        if (!this.publisher) { this.loading = false; }
+        if (!this.publisher) {
+          this.loading = false;
+        }
       });
 
-      this.videoClient.on("removed", uid => {
+      this.videoClient.on("removed", (uid) => {
         console.log("Remove Video Stream REMOVE", uid);
         this.videoClient.stopPlayer(uid, "video_display");
       });
 
-      this.videoClient.on("error", error => {
+      this.videoClient.on("error", (error) => {});
 
-      });
+      this.videoClient.on("rejected", function (uid) {});
 
-      this.videoClient.on('rejected', function (uid) {
-
-      });
-
-      this.videoClient.connect(this.appid, this.td, this.user.role + '' + this.user.id).then(() => {
-        if (this.publisher) {
-          this.videoClient.publish(this.videoStream.localStream);
-          this.loading = false;
-        }
-      });
-    }
+      this.videoClient
+        .connect(this.appid, this.td, this.user.role + "" + this.user.id)
+        .then(() => {
+          if (this.publisher) {
+            this.videoClient.publish(this.videoStream.localStream);
+            this.loading = false;
+          }
+        });
+    },
   },
-  mounted() {
-    this.loading = true;
-    console.log(this.user);
-    this.publisher ? this.init() : this.connect()
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .container {

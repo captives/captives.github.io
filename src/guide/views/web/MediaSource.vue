@@ -10,7 +10,7 @@
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-     <vue-source src="guide/views/web/MediaSource.vue" lang="html"></vue-source>
+    <vue-source src="guide/views/web/MediaSource.vue" lang="html"></vue-source>
   </el-main>
 </template>
 <script>
@@ -21,24 +21,27 @@ export default {
       mimeCodec: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"',
       mediaSource: null,
       percentage: 0,
-      error: null
-    }
+      error: null,
+    };
+  },
+  mounted() {
+    this.init();
   },
   methods: {
     fetch(url) {
       return new Promise((resolve, reject) => {
-        console.log('fetch', url);
+        console.log("fetch", url);
         var xhr = new XMLHttpRequest();
-        xhr.open('get', url);
-        xhr.responseType = 'arraybuffer';
-        xhr.onloadstart = () => this.percentage = 0;
+        xhr.open("get", url);
+        xhr.responseType = "arraybuffer";
+        xhr.onloadstart = () => (this.percentage = 0);
         xhr.onload = () => {
           this.percentage = 100;
           resolve(xhr.response);
-        }
+        };
 
         xhr.onprogress = (e) => {
-          this.percentage = Math.round(e.loaded * 100 / e.total);
+          this.percentage = Math.round((e.loaded * 100) / e.total);
         };
         xhr.send();
       });
@@ -48,32 +51,38 @@ export default {
       const video = this.$refs.localVideo;
       // Need to be specific for Blink regarding codecs
       // ./mp4info frag_bunny.mp4 | grep Codec
-      if ('MediaSource' in window && MediaSource.isTypeSupported(this.mimeCodec)) {
+      if (
+        "MediaSource" in window &&
+        MediaSource.isTypeSupported(this.mimeCodec)
+      ) {
         this.mediaSource = new MediaSource();
-        console.log('1, mediaSource.readyState', this.mediaSource.readyState);
+        console.log("1, mediaSource.readyState", this.mediaSource.readyState);
         video.src = URL.createObjectURL(this.mediaSource);
-        this.mediaSource.addEventListener('sourceopen', () => {
-          console.log('2, mediaSource.readyState', that.mediaSource.readyState);
+        this.mediaSource.addEventListener("sourceopen", () => {
+          console.log("2, mediaSource.readyState", that.mediaSource.readyState);
           let sourceBuffer = that.mediaSource.addSourceBuffer(that.mimeCodec);
-          that.fetch('/medias/Piper_720P.mp4').then(buf => {
-            sourceBuffer.addEventListener('updateend', () => {
-              console.log('4, mediaSource.readyState', that.mediaSource.readyState);
+          that.fetch("/medias/Piper_720P.mp4").then((buf) => {
+            sourceBuffer.addEventListener("updateend", () => {
+              console.log(
+                "4, mediaSource.readyState",
+                that.mediaSource.readyState
+              );
               that.mediaSource.endOfStream();
               video.play();
             });
             sourceBuffer.appendBuffer(buf);
-            console.log('3, mediaSource.readyState', that.mediaSource.readyState);
+            console.log(
+              "3, mediaSource.readyState",
+              that.mediaSource.readyState
+            );
           });
         });
       } else {
-        console.log('不支持MIME类型编解码', this.mimeCodec);
+        console.log("不支持MIME类型编解码", this.mimeCodec);
       }
-    }
+    },
   },
-  mounted() {
-    this.init();
-  }
-}
+};
 </script>
 
 <style lang="stylus" scoped>

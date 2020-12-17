@@ -9,15 +9,15 @@
 export default {
   data() {
     return {
-      list: [1, 2, 3, 4, 5, 6, 7]
-    }
+      list: [1, 2, 3, 4, 5, 6, 7],
+    };
   },
   methods: {
     dropModuleOnEgret() {
-      console.log('VueDrop 拖放结束');
-    }
-  }
-}
+      console.log("VueDrop 拖放结束");
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 ul, ol {

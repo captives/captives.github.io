@@ -3,36 +3,38 @@
     <div class="answer-list">
       <div class="tabs">
         <div
-          class="single-tab"
-          :class="{'tab-active': activeTab == i }"
-          @click="activeTab = i"
           v-for="(item, i) in tabList"
           :key="i"
-        >{{ item }}</div>
+          class="single-tab"
+          :class="{ 'tab-active': activeTab == i }"
+          @click="activeTab = i"
+        >
+          {{ item }}
+        </div>
       </div>
       <div class="ipt-region">
-        <div class="textarea" v-if="!activeTab">
+        <div v-if="!activeTab" class="textarea">
           <textarea
-            rows="5"
             ref="inputValue"
             v-model="inputValue"
+            rows="5"
             :disabled="!enabled"
             :placeholder="enabled ? '请输入答案' : '等待老师发题'"
           ></textarea>
         </div>
-        <div class="upload-img" v-else>
+        <div v-else class="upload-img">
           <ul class="picture_card">
             <PictureCardItem
-              class="upload-picture_card"
               v-for="(item, index) in list"
               :key="index"
+              class="upload-picture_card"
               :data.sync="item"
               :editabled="enabled"
               :preview="true"
               :removed="true"
               @remove="optionRemoveHandler(item, index)"
             ></PictureCardItem>
-            <li class="upload-picture_card upload" v-if="enabled">
+            <li v-if="enabled" class="upload-picture_card upload">
               <el-upload
                 class="el-upload"
                 action="#"
@@ -57,18 +59,19 @@
 </template>
 <script lang="ts">
 //@ts-ignore
-import { Vue, Component, Prop, PropSync, Watch } from 'vue-property-decorator';
-import PictureCardItem from './PictureCardItem.vue';
+import { Vue, Component, Prop, PropSync, Watch } from "vue-property-decorator";
+import PictureCardItem from "./PictureCardItem.vue";
 const URL: any = window.URL || window.webkitURL;
 @Component({
-  name: "ResultInput", components: { PictureCardItem }
+  name: "ResultInput",
+  components: { PictureCardItem },
 })
 export default class ResultInput extends Vue {
-  private actived: boolean = true;
-  private inputValue: string = "";
+  private actived = true;
+  private inputValue = "";
   private list: Array<any> = [];
-  private enabled: boolean = true;
-  private activeTab: number = 0;
+  private enabled = true;
+  private activeTab = 0;
   private tabList: Array<string> = ["文本答题", "上传图片"];
 
   private pictureRemoveHandler(file: any, list: Array<any>) {
@@ -82,12 +85,19 @@ export default class ResultInput extends Vue {
   private pictureChangeHandler(file: any, list: Array<any>) {
     const raw: any = file.raw;
     if (file.status == "ready") {
-      if (raw.type.indexOf('image') != -1) {
+      if (raw.type.indexOf("image") != -1) {
         if (raw.size <= 5 * 1024 * 1024) {
-          this.list.push({ ...file, id: Date.now(), url: URL.createObjectURL(file.raw) });
+          this.list.push({
+            ...file,
+            id: Date.now(),
+            url: URL.createObjectURL(file.raw),
+          });
         } else {
           //@ts-ignore
-          this.$message({ type: "error", message: "图片文件大小不能超出5M限制！" });
+          this.$message({
+            type: "error",
+            message: "图片文件大小不能超出5M限制！",
+          });
         }
       }
     }

@@ -10,20 +10,22 @@ export default {
     // 指定图表的配置项和数据
     var option = {
       tooltip: {
-        formatter: "{a} <br/>{b} : {c}%"
+        formatter: "{a} <br/>{b} : {c}%",
       },
       toolbox: {
         feature: {
           restore: {},
-          saveAsImage: {}
-        }
+          saveAsImage: {},
+        },
       },
-      series: [{
-        name: '业务指标',
-        type: 'gauge',
-        detail: { formatter: '{value}%' },
-        data: [{ value: 50, name: '完成率' }]
-      }]
+      series: [
+        {
+          name: "业务指标",
+          type: "gauge",
+          detail: { formatter: "{value}%" },
+          data: [{ value: 50, name: "完成率" }],
+        },
+      ],
     };
 
     setInterval(function () {
@@ -32,6 +34,6 @@ export default {
     }, 1000);
     chart.setOption(option);
     window.onresize = chart.resize;
-  }
-}
+  },
+};
 </script>

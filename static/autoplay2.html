@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动播放策略</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        
+        video {
+            width: 720px;
+            height: 405px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1></h1>
+    <h5></h5>
+    <video id="video" src="/assets/medias/Piper_720P.mp4" controls></video>
+</body>
+<script>
+    /**
+     * 检测音频是否可以自动播放
+     */
+    var AudioAutoplay = function(url) {
+        return new Promise(function(resolve, reject) {
+            var audio = document.createElement('audio');
+            audio.src = url;
+            audio.oncanplay = function() {
+                var promise = audio.play();
+                audio.volume = 0.01;
+                promise && promise.then(function() {
+                    resolve();
+                }).catch(function(err) {
+                    console.warn("autoplay 策略检查:不可用", err.name, err.message);
+                    reject(err);
+                });
+            }
+
+            audio.onerror = function(err) {
+                reject(err);
+            }
+        });
+    }
+
+    function play() {
+        AudioAutoplay('/assets/medias/jinli.mp3').then(function() {
+            allowEnter();
+        }).catch(function(err) {
+            document.querySelector('h1').innerText = '音频检测 播放失败';
+        });
+    }
+
+    function allowEnter() {
+        const video = document.getElementById('video');
+        console.log("视频音量", video.volume);
+        video.play().then(() => {
+            console.log('播放开始');
+            document.querySelector('h1').innerText = '视频 播放开始';
+        }).catch(err => {
+            console.log('播放失败', err);
+            document.querySelector('h1').innerText = '视频 播放失败';
+        })
+    }
+
+    function timerChange() {
+        const d = new Date();
+        document.querySelector('h5').innerText = d.toLocaleTimeString();
+    }
+
+    window.onload = function() {
+        document.querySelector('h1').innerText = '3秒后开始播放';
+        setTimeout(play, 3000);
+        setInterval(timerChange, 1000);
+        timerChange();
+    }
+</script>
+
+</html>

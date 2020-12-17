@@ -2,11 +2,22 @@
   <el-container id="app">
     <template v-if="logined">
       <el-main>
-        <CoursePanel ref="course" :list="courseList" class="content" @change="courseChange"></CoursePanel>
+        <CoursePanel
+          ref="course"
+          :list="courseList"
+          class="content"
+          @change="courseChange"
+        ></CoursePanel>
 
         <el-button-group v-if="userData.role == RoleType.PUBLISHER">
-          <el-button type="primary" size="mini" icon="el-icon-arrow-left" @click="prevPage">上一页</el-button>
-          <el-button size="mini">{{coursePage}}</el-button>
+          <el-button
+            type="primary"
+            size="mini"
+            icon="el-icon-arrow-left"
+            @click="prevPage"
+            >上一页</el-button
+          >
+          <el-button size="mini">{{ coursePage }}</el-button>
           <el-button type="primary" size="mini" @click="nextPage">
             下一页
             <i class="el-icon-arrow-right el-icon--right"></i>
@@ -37,41 +48,58 @@
         <VideoDisplay :user="userData" class="video-display"></VideoDisplay>
         <VideoSeatList v-model="videoData" :list="tableData"></VideoSeatList>
 
-        <el-tabs type="border-card" class="online-list" v-model="activeName">
+        <el-tabs v-model="activeName" type="border-card" class="online-list">
           <el-tab-pane label="用户" name="zero">
             <UserProfile :user="userData">
               <el-button type="danger" @click="logoutHandler">退出</el-button>
             </UserProfile>
           </el-tab-pane>
 
-          <el-tab-pane label="题库" name="second" v-if="userData.role == RoleType.PUBLISHER">
+          <el-tab-pane
+            v-if="userData.role == RoleType.PUBLISHER"
+            label="题库"
+            name="second"
+          >
             <QuestionBank v-if="currentSubject" :data="currentSubject">
               <el-button
                 v-if="!currentSubject.done"
                 v-show="!subject.starting"
                 type="danger"
                 @click="sendPageSubject"
-              >发送答题</el-button>
+                >发送答题</el-button
+              >
             </QuestionBank>
           </el-tab-pane>
           <el-tab-pane label="排行榜" name="third">
             <el-table :data="rankList" border stripe :show-header="false">
-              <el-table-column width="100" prop="id" label="UID" align="center"></el-table-column>
+              <el-table-column
+                width="100"
+                prop="id"
+                label="UID"
+                align="center"
+              ></el-table-column>
               <el-table-column width="80" label="昵称" align="center">
-                <template slot-scope="scope">{{ getUserById(scope.row.id).name }}</template>
+                <template slot-scope="scope">{{
+                  getUserById(scope.row.id).name
+                }}</template>
               </el-table-column>
             </el-table>
           </el-tab-pane>
-          <el-tab-pane id="console" label="Console" name="console"></el-tab-pane>
+          <el-tab-pane
+            id="console"
+            label="Console"
+            name="console"
+          ></el-tab-pane>
         </el-tabs>
 
         <el-button
-          v-if="activeName=='console'"
+          v-if="activeName == 'console'"
           class="clear-btn"
           type="primary"
           icon="el-icon-delete"
           @click="clearHistory"
-        >清除</el-button>
+          >清除</el-button
+        >
       </el-aside>
 
       <VideoList :list="videoData"></VideoList>
@@ -84,9 +112,9 @@
     <el-main v-else class="center">
       <el-carousel height="100%" arrow="never">
         <el-carousel-item
-          v-for="item in ['#409EFF','#67C23A','#F56C6C']"
+          v-for="item in ['#409EFF', '#67C23A', '#F56C6C']"
           :key="item"
-          :style="{background:item}"
+          :style="{ background: item }"
         ></el-carousel-item>
       </el-carousel>
       <Login class="login" @complete="loginComplete"></Login>
@@ -95,19 +123,19 @@
 </template>
 
 <script>
-import UserProfile from './../components/UserProfile';
-import OnlineList from './../components/OnlineList';
-import QuestionBank from './../components/QuestionBank';
-import CompetitionList from './../components/CompetitionList';
-import CoursePanel from './CoursePanel';
-import AnswerPanel from './AnswerPanel';
-import VideoDisplay from './VideoDisplay.vue';
-import VideoList from './VideoList';
-import VideoSeatList from './VideoSeatList';
-import Login from './LoginPanel'
+import UserProfile from "./../components/UserProfile";
+import OnlineList from "./../components/OnlineList";
+import QuestionBank from "./../components/QuestionBank";
+import CompetitionList from "./../components/CompetitionList";
+import CoursePanel from "./CoursePanel";
+import AnswerPanel from "./AnswerPanel";
+import VideoDisplay from "./VideoDisplay.vue";
+import VideoList from "./VideoList";
+import VideoSeatList from "./VideoSeatList";
+import Login from "./LoginPanel";
 import { mapGetters, mapActions, mapState } from "vuex";
 
-const CourseStatusType = { NORMAL: 'normal', ANSWER: 'answer' };
+const CourseStatusType = { NORMAL: "normal", ANSWER: "answer" };
 export default {
   name: "Home",
   components: {
@@ -120,36 +148,36 @@ export default {
     VideoList,
     VideoSeatList,
     CoursePanel,
-    AnswerPanel
+    AnswerPanel,
   },
   data() {
     return {
       CourseStatusType: CourseStatusType,
       userData: null,
-      videoData:[],
+      videoData: [],
       logined: false,
       courseStatus: CourseStatusType.NORMAL,
       answerItem: null,
-      activeName: 'zero',
-      coursePage: '',
+      activeName: "zero",
+      coursePage: "",
       dialogRank: { visible: false, title: "" },
       lucky: null,
       rankList: [],
       courseList: [],
       currentSubject: null,
-    }
+    };
   },
   computed: {
     ...mapGetters("UserData", ["getUserById"]),
     ...mapState("UserData", {
-      user: state => state
+      user: (state) => state,
     }),
     ...mapState("SubjectData", {
-      subject: state => state
+      subject: (state) => state,
     }),
     tableData() {
       return this.user && this.user.userList;
-    }
+    },
   },
   methods: {
     ...mapActions("SubjectData", ["startSubject", "stopSubject"]),
@@ -169,22 +197,22 @@ export default {
     courseChange(page, total) {
       this.coursePage = page + "/" + total;
       if (this.logined && this.userData.role == this.RoleType.PUBLISHER) {
-        this.client.subject('search', page, data => {
+        this.client.subject("search", page, (data) => {
           this.currentSubject = Object.values(data).length ? data : null;
         });
       }
     },
     sendPageSubject() {
-      this.client.subject('start', this.$refs.course.page, data => {
+      this.client.subject("start", this.$refs.course.page, (data) => {
         this.courseStatus = CourseStatusType.ANSWER;
         this.answerItem = data;
         this.startSubject(data);
       });
     },
     answerCompleteHandler(data) {
-      this.rankList = data.list || [];//答对排行榜
-      this.lucky = data.lucky;//幸运观众
-      console.log('答题结束,幸运观众', this.lucky, this.rankList);
+      this.rankList = data.list || []; //答对排行榜
+      this.lucky = data.lucky; //幸运观众
+      console.log("答题结束,幸运观众", this.lucky, this.rankList);
       this.courseStatus = CourseStatusType.NORMAL;
       this.answerItem = null;
       this.stopSubject();
@@ -197,33 +225,34 @@ export default {
 
     luckyTabelRow({ row, index }) {
       if (row.id === this.lucky.id) {
-        return 'success-row';
+        return "success-row";
       }
-    }
+    },
   },
   mounted() {
-    this.client.on('start', data => {
+    this.client.on("start", (data) => {
       this.courseStatus = CourseStatusType.ANSWER;
       this.answerItem = data;
       this.currentSubject = data;
       this.startSubject(data);
     });
 
-    this.client.on('page', page => {
+    this.client.on("page", (page) => {
       this.$refs.course.changePage(page);
     });
 
-    this.client.on('closed', () => {
+    this.client.on("closed", () => {
       this.logined = false;
       sessionStorage.removeItem("live_user");
     });
 
-    this.axios.get('/stellar/index.json').then(({ data }) => {
-      this.courseList = data.list.map(item => { return '/stellar/' + item });
+    this.axios.get("/assets/stellar/index.json").then(({ data }) => {
+      this.courseList = data.list.map((item) => {
+        return "/assets/stellar/" + item;
+      });
     });
-
   },
-}
+};
 </script>
 <style lang="stylus" scoped>
 #app {

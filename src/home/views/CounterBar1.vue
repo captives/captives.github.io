@@ -1,16 +1,15 @@
- 
 <template>
   <div class="chartNum">
     <div class="box-item">
       <li
-        :class="{'number-item': !isNaN(item), 'mark-item': isNaN(item) }"
-        v-for="(item,index) in orderNum"
+        v-for="(item, index) in orderNum"
         :key="index"
+        :class="{ 'number-item': !isNaN(item), 'mark-item': isNaN(item) }"
       >
         <span v-if="!isNaN(item)">
           <i ref="numberItem">0123456789</i>
         </span>
-        <span class="comma" v-else>{{item}}</span>
+        <span v-else class="comma">{{ item }}</span>
       </li>
     </div>
   </div>
@@ -19,8 +18,8 @@
 export default {
   data() {
     return {
-      orderNum: ['0', '0', '0', '0', '0', '0'], // 默认订单总数
-    }
+      orderNum: ["0", "0", "0", "0", "0", "0"], // 默认订单总数
+    };
   },
   mounted() {
     setInterval(() => {
@@ -30,35 +29,35 @@ export default {
   methods: {
     // 设置文字滚动
     setNumberTransform() {
-      const numberItems = this.$refs.numberItem // 拿到数字的ref，计算元素数量
-      const numberArr = this.orderNum.filter(item => !isNaN(item))
+      const numberItems = this.$refs.numberItem; // 拿到数字的ref，计算元素数量
+      const numberArr = this.orderNum.filter((item) => !isNaN(item));
       // 结合CSS 对数字字符进行滚动,显示订单数量
       for (let index = 0; index < numberItems.length; index++) {
-        const elem = numberItems[index]
-        elem.style.transform = `translate(-50%, -${numberArr[index] * 10}%)`
+        const elem = numberItems[index];
+        elem.style.transform = `translate(-50%, -${numberArr[index] * 10}%)`;
       }
     },
     // 处理总订单数字
     toOrderNum(num) {
-      num = num.toString()
+      num = num.toString();
       // 把订单数变成字符串
       if (num.length < 6) {
-        num = '0' + num // 如未满八位数，添加"0"补位
-        this.toOrderNum(num) // 递归添加"0"补位
+        num = "0" + num; // 如未满八位数，添加"0"补位
+        this.toOrderNum(num); // 递归添加"0"补位
       } else if (num.length === 6) {
         // 订单数中加入逗号
         // num = num.slice(0, 2) + ',' + num.slice(2, 5) + ',' + num.slice(5, 8)
-        this.orderNum = num.split('') // 将其便变成数据，渲染至滚动数组
+        this.orderNum = num.split(""); // 将其便变成数据，渲染至滚动数组
       } else {
         // 订单总量数字超过八位显示异常
-        this.$message.warning('总量数字过大')
+        this.$message.warning("总量数字过大");
       }
-      this.setNumberTransform()
+      this.setNumberTransform();
     },
-  }
-}
+  },
+};
 </script>
-<style scoped lang='stylus'>
+<style scoped lang="stylus">
 /* 订单总量滚动数字设置 */
 .box-item {
   position: relative;

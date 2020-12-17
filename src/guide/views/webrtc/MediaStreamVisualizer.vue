@@ -15,12 +15,15 @@
 
     <el-tag v-if="error" class="error" type="danger">{{ error }}</el-tag>
 
-    <vue-source src="guide/views/webrtc/MediaStreamVisualizer.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/MediaStreamVisualizer.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-import StreamTracks from './../../components/StreamTracks';
-import StreamVisualizer from './../../plugins/streamvisualizer'
+import StreamTracks from "./../../components/StreamTracks";
+import StreamVisualizer from "./../../plugins/streamvisualizer";
 export default {
   name: "MediaStreamVisualizer",
   components: { StreamTracks },
@@ -31,48 +34,54 @@ export default {
         audio: true,
         video: {
           width: { exact: 720 },
-          height: { exact: 405 }
-        }
+          height: { exact: 405 },
+        },
       },
-      error: null
-    }
+      error: null,
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  destroyed() {
+    this.localStream &&
+      this.localStream.getTracks().forEach((track) => {
+        track.stop();
+      });
   },
   methods: {
     init() {
       const that = this;
       const video = this.$refs.localVideo;
       //启动媒体设备
-      navigator.mediaDevices.getUserMedia(this.options).then((stream) => {
-        this.localStream = stream;
-        stream.oninactive = function () {
-          console.log('Stream inactive');
-        };
+      navigator.mediaDevices
+        .getUserMedia(this.options)
+        .then((stream) => {
+          this.localStream = stream;
+          stream.oninactive = function () {
+            console.log("Stream inactive");
+          };
 
-        video.onloadedmetadata = function (e) {
-          console.log("AudioTracks", stream.getAudioTracks());
-          console.log("VideoTracks", stream.getVideoTracks());
-        };
+          video.onloadedmetadata = function (e) {
+            console.log("AudioTracks", stream.getAudioTracks());
+            console.log("VideoTracks", stream.getVideoTracks());
+          };
 
-        video.srcObject = stream;
-        //绘图
-        var streamVisualizer = new StreamVisualizer(stream, this.$refs.canvas);
-        streamVisualizer.start();
-
-      }).catch(function (error) {
-        that.error = error;
-        console.log('navigator.getUserMedia error: ', error);
-      });
-    }
+          video.srcObject = stream;
+          //绘图
+          var streamVisualizer = new StreamVisualizer(
+            stream,
+            this.$refs.canvas
+          );
+          streamVisualizer.start();
+        })
+        .catch(function (error) {
+          that.error = error;
+          console.log("navigator.getUserMedia error: ", error);
+        });
+    },
   },
-  mounted() {
-    this.init();
-  },
-  destroyed() {
-    this.localStream && this.localStream.getTracks().forEach(track => {
-      track.stop();
-    });
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .video-item {

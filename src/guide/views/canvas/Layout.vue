@@ -10,15 +10,15 @@
   </el-container>
 </template>
 <script>
-import router from './../../router/canvas';
+import router from "./../../router/canvas";
 export default {
   name: router.name,
   data() {
     return {
-      router
-    }
-  }
-}
+      router,
+    };
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .el-aside {

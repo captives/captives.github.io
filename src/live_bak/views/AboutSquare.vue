@@ -1,14 +1,20 @@
 <template>
-  <div ref="item" class="box" @mouseover="show=true" @mouseout="show=false">
+  <div ref="item" class="box" @mouseover="show = true" @mouseout="show = false">
     <pre>
-    Element: ({{offset.left}}, {{offset.top}}) {{offset.width}}x{{offset.height}}
-    Stage:({{offset.x}}, {{offset.y}}) Rect:({{rect.x}}, {{rect.y}}) 
-    Scroll:({{scroll.left}}, {{scroll.top}}) {{scroll.width}}x{{scroll.height}}
-    DOM:({{dom.clientLeft + "," + dom.clientTop}})({{dom.offsetLeft + "," + dom.offsetTop}}){{dom.clientWidth + "x" + dom.clientHeight}}
+    Element: ({{ offset.left }}, {{ offset.top }}) {{ offset.width }}x{{
+        offset.height
+      }}
+    Stage:({{ offset.x }}, {{ offset.y }}) Rect:({{ rect.x }}, {{ rect.y }}) 
+    Scroll:({{ scroll.left }}, {{ scroll.top }}) {{ scroll.width }}x{{
+        scroll.height
+      }}
+    DOM:({{ dom.clientLeft + "," + dom.clientTop }})({{
+        dom.offsetLeft + "," + dom.offsetTop
+      }}){{ dom.clientWidth + "x" + dom.clientHeight }}
     </pre>
-    <div class="float-view" v-if="show">
-      <div class="h" :style="{left: 0, top: offset.y + 'px'}"></div>
-      <div class="v" :style="{left: offset.x+'px', top:0}"></div>
+    <div v-if="show" class="float-view">
+      <div class="h" :style="{ left: 0, top: offset.y + 'px' }"></div>
+      <div class="v" :style="{ left: offset.x + 'px', top: 0 }"></div>
     </div>
   </div>
 </template>
@@ -22,12 +28,18 @@ export default {
       rect: {},
       win: {},
       offset: { top: 0, left: 0 },
-      scroll: {}
-    }
+      scroll: {},
+    };
+  },
+  mounted() {
+    this.onResize(document.documentElement);
+    this.elementEvent.on("resize", () => {
+      this.onResize(document.documentElement);
+    });
   },
   methods: {
     onResize() {
-      const dom = this.dom = this.$refs.item;
+      const dom = (this.dom = this.$refs.item);
       this.rect = dom.getBoundingClientRect();
       this.win = dom.ownerDocument.defaultView;
       this.offset = {
@@ -35,20 +47,25 @@ export default {
         top: dom.offsetTop,
         x: this.rect.left + this.win.pageXOffset,
         y: this.rect.top + this.win.pageYOffset,
-        width: dom.offsetWidth, height: dom.offsetHeight
+        width: dom.offsetWidth,
+        height: dom.offsetHeight,
       };
-      this.scroll = { left: dom.parentNode.scrollLeft, top: dom.parentNode.scrollTop, width: dom.parentNode.scrollWidth, height: dom.parentNode.scrollHeight };
-      console.warn(dom.parentNode.scrollLeft, dom.parentNode.scrollTop, dom.parentNode.scrollWidth, dom.parentNode.scrollHeight);
-      this.$emit('change', this.offset);
-    }
+      this.scroll = {
+        left: dom.parentNode.scrollLeft,
+        top: dom.parentNode.scrollTop,
+        width: dom.parentNode.scrollWidth,
+        height: dom.parentNode.scrollHeight,
+      };
+      console.warn(
+        dom.parentNode.scrollLeft,
+        dom.parentNode.scrollTop,
+        dom.parentNode.scrollWidth,
+        dom.parentNode.scrollHeight
+      );
+      this.$emit("change", this.offset);
+    },
   },
-  mounted() {
-    this.onResize(document.documentElement);
-    this.elementEvent.on('resize', () => {
-      this.onResize(document.documentElement);
-    });
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .box {

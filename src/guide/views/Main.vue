@@ -16,17 +16,20 @@
         <template v-for="item in routes">
           <el-submenu v-if="item.children" :key="item.path" :index="item.path">
             <template slot="title">
-              <i :class="item.icon" v-if="item.icon"></i>
-              <span slot="title">{{item.name}}</span>
+              <i v-if="item.icon" :class="item.icon"></i>
+              <span slot="title">{{ item.name }}</span>
             </template>
 
             <el-menu-item
               v-for="sub in item.children"
               :key="sub.path"
               :index="sub.path"
-            >{{sub.name}}</el-menu-item>
+              >{{ sub.name }}</el-menu-item
+            >
           </el-submenu>
-          <el-menu-item v-else :key="item.path" :index="item.path">{{item.name}}</el-menu-item>
+          <el-menu-item v-else :key="item.path" :index="item.path">{{
+            item.name
+          }}</el-menu-item>
         </template>
       </el-menu>
     </el-header>
@@ -36,15 +39,21 @@
   </el-container>
 </template>
 <script>
-import router, { routes } from './../router/index';
+import router, { routes } from "./../router/index";
 export default {
   name: "Main",
   data() {
     return {
       isCollapse: false,
-      selectActive: '',
-      routes
-    }
+      selectActive: "",
+      routes,
+    };
+  },
+  activated() {
+    this.searchPath();
+  },
+  created() {
+    this.searchPath();
   },
   methods: {
     searchPath() {
@@ -52,22 +61,16 @@ export default {
       this.selectActive = path || this.routes[0].path;
     },
     navSelectHandler(path) {
-      console.log('nav', path);
-      if (path.indexOf('.') != -1) {
+      console.log("nav", path);
+      if (path.indexOf(".") != -1) {
         window.location.href = path;
       } else {
         this.selectActive = path;
         this.$router.push({ path });
       }
-    }
+    },
   },
-  activated() {
-    this.searchPath();
-  },
-  created() {
-    this.searchPath();
-  }
-}
+};
 </script>
 
 <style>
@@ -95,6 +98,9 @@ export default {
 </style>
 
 <style lang="stylus" scoped>
+.el-container{
+  min-height 100%;
+}
 .el-header {
   padding: 0;
   text-align: center;

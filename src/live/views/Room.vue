@@ -2,21 +2,43 @@
   <el-container>
     <el-container>
       <el-header>
-        <span type="success">房间：{{tdvalue}}</span>
-        <span>当前用户:{{user.name}} | {{user.uid}}</span>
+        <span type="success">房间：{{ tdvalue }}</span>
+        <span>当前用户:{{ user.name }} | {{ user.uid }}</span>
 
-        <i class="icon-button el-icon-more" @click="drawerVisible=true" style="right: 60px;"></i>
-        <i class="icon-button el-icon-switch-button" @click="logoutHandler" style="right: 0;"></i>
+        <i
+          class="icon-button el-icon-more"
+          style="right: 60px"
+          @click="drawerVisible = true"
+        ></i>
+        <i
+          class="icon-button el-icon-switch-button"
+          style="right: 0"
+          @click="logoutHandler"
+        ></i>
       </el-header>
 
       <el-container>
-        <el-aside width="320px" style="text-align:center">
+        <el-aside width="320px" style="text-align: center">
           <VideoPanel v-if="localStream" :stream="localStream">
-            <VideoPlayer :title="user.name" :stream="localStream" :muted="true" :range="stageRange"></VideoPlayer>
+            <VideoPlayer
+              :title="user.name"
+              :stream="localStream"
+              :muted="true"
+              :range="stageRange"
+            ></VideoPlayer>
           </VideoPanel>
 
-          <VideoPanel v-for="user in streamList" :key="user.id" :stream="user.stream">
-            <VideoPlayer :title="user.name" :stream="user.stream" :muted="true" :range="stageRange"></VideoPlayer>
+          <VideoPanel
+            v-for="user in streamList"
+            :key="user.id"
+            :stream="user.stream"
+          >
+            <VideoPlayer
+              :title="user.name"
+              :stream="user.stream"
+              :muted="true"
+              :range="stageRange"
+            ></VideoPlayer>
           </VideoPanel>
         </el-aside>
         <el-main ref="stage">主面板</el-main>
@@ -47,40 +69,49 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Ref } from 'vue-property-decorator';
-import VideoPanel from './VideoPanel.vue';
-import VideoPlayer from './VideoPlayer.vue';
-import api from './../api/index'
+import { Vue, Component, Ref } from "vue-property-decorator";
+import VideoPanel from "./VideoPanel.vue";
+import VideoPlayer from "./VideoPlayer.vue";
+import api from "./../api/index";
 
-interface User { id: string, name: string };
+interface User {
+  id: string;
+  name: string;
+}
 
-interface UserMedia { id: string, name: string, streamId?: string, stream?: MediaStream };
+interface UserMedia {
+  id: string;
+  name: string;
+  streamId?: string;
+  stream?: MediaStream;
+}
 
 @Component({
-  name: "Room", components: { VideoPanel, VideoPlayer }
+  name: "Room",
+  components: { VideoPanel, VideoPlayer },
 })
 export default class Room extends Vue {
-  private tdvalue: string = "7788";
-  @Ref('stage') readonly stageElement: HTMLElement;
+  private tdvalue = "7788";
+  @Ref("stage") readonly stageElement: HTMLElement;
   private user: any = { uid: null, name: null };
   private localStream: MediaStream | null = null;
   private userList: Array<User> = [];
   private streamList: Array<UserMedia> = [];
-  private drawerVisible: boolean = false;
+  private drawerVisible = false;
   private stageRange: any = null;
 
   //路由进入
   beforeRouteEnter(to: any, from: any, next: Function) {
-    console.log('进入路由');
+    console.log("进入路由");
     next();
   }
 
   beforeRouteUpdate(to: any, from: any, next: Function) {
-    console.log('路由改变');
+    console.log("路由改变");
   }
 
   beforeRouteLeave(to: any, from: any, next: Function) {
-    console.log('路由离开');
+    console.log("路由离开");
   }
 
   private logoutHandler() {
@@ -88,16 +119,16 @@ export default class Room extends Vue {
     this.$confirm("是否确认退出？", "提示", {
       confirmButtonText: "确定",
       cancelButtonText: "取消",
-      type: "warning"
+      type: "warning",
     }).then(() => {
       api.destory().then(({ success }: any) => {
         if (success) {
           //@ts-ignore
           this.$message({ type: "success", message: "退出成功" });
-          this.$router.push('/login');
+          this.$router.push("/login");
         }
       });
-    })
+    });
   }
 
   private onResize(element: HTMLElement) {
@@ -120,7 +151,12 @@ export default class Room extends Vue {
 
     //@ts-ignore
     let rect = this.stageElement.$el.getBoundingClientRect();
-    this.stageRange = { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
+    this.stageRange = {
+      x: rect.x,
+      y: rect.y,
+      width: rect.width,
+      height: rect.height,
+    };
     console.log(this.stageRange);
   }
 
@@ -130,9 +166,13 @@ export default class Room extends Vue {
         this.user.name = user.name;
         this.user.uid = user.time;
         //@ts-ignore
-        this.$socket.emit('register', { role: 1, td: this.$route.params.td, name: user.name });
+        this.$socket.emit("register", {
+          role: 1,
+          td: this.$route.params.td,
+          name: user.name,
+        });
       }
-    })
+    });
   }
 
   private mounted() {
@@ -141,13 +181,14 @@ export default class Room extends Vue {
       this.onResize(document.documentElement);
     };
 
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-      this.localStream = stream;
-      this.streamList.push({ ...this.user, stream });
-      this.streamList.push({ ...this.user, stream });
-    }).catch(err => {
-
-    })
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        this.localStream = stream;
+        this.streamList.push({ ...this.user, stream });
+        this.streamList.push({ ...this.user, stream });
+      })
+      .catch((err) => {});
   }
 }
 </script>

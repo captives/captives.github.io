@@ -10,19 +10,17 @@
     </el-container>
   </el-container>
 </template>
+<script></script>
 <script>
-
-</script>
-<script>
-import router from './../../router/openvidu';
+import router from "./../../router/openvidu";
 export default {
   name: router.name,
   data() {
     return {
-      router
-    }
+      router,
+    };
   },
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-aside {

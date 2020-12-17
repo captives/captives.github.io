@@ -2,29 +2,30 @@
   <el-main id="content" class="article text-content">
     <article id="wikiArticle">
       <p>
-          CanvasRenderingContext2D 接口提供的 2D 渲染背景用来绘制
-        <span style="line-height: inherit;">
+        CanvasRenderingContext2D 接口提供的 2D 渲染背景用来绘制
+        <span style="line-height: inherit">
           <a
             href="/zh-CN/docs/Web/HTML/Element/canvas"
             title="<canvas>元素可被用来通过脚本（通常是JavaScript）绘制图形。比如,它可以被用来绘制图形,制作图片集合,甚至用来实现动画效果。你可以(也应该)在元素标签内写入可提供替代的的代码内容，这些内容将会在在旧的、不支持<canvas>元素的浏览器或是禁用了JavaScript的浏览器内渲染并展现。"
           >
-            <code>&lt;canvas&gt;</code>
-          </a>元素，为了获得这个接口的对象，需要在 &lt;canvas&gt; 上调用
+            <code>&lt;canvas&gt;</code> </a
+          >元素，为了获得这个接口的对象，需要在 &lt;canvas&gt; 上调用
         </span>
         <a
           href="/zh-CN/docs/Web/API/HTMLCanvasElement/getContext"
           title="HTMLCanvasElement.getContext()&nbsp;方法返回canvas 的上下文，如果上下文没有定义则返回 null ."
         >
-          <code>getContext()</code>
-        </a>&nbsp;
-        <span style="line-height: inherit;">，并提供一个 "2d" 的参数：</span>
+          <code>getContext()</code> </a
+        >&nbsp;
+        <span style="line-height: inherit">，并提供一个 "2d" 的参数：</span>
       </p>
 
       <vue-code>
         <pre lang="javascript">
 var canvas = document.getElementById('tutorial');
 var ctx = canvas.getContext('2d');
-</pre>
+</pre
+        >
       </vue-code>
 
       <p>一旦你得到 2D 渲染背景后，你可以像下面一样绘制：</p>
@@ -33,14 +34,20 @@ var ctx = canvas.getContext('2d');
         <pre lang="javascript">
 ctx.fillStyle = "rgb(200,0,0)";  
 ctx.fillRect(10, 10, 55, 50); 
-</pre>
+</pre
+        >
       </vue-code>
 
       <p>
         在侧边栏和下面查看属性和方法。 Canvas 教程提供了更多的信息，例子和资源。
       </p>
 
-      <h2 id="绘制矩形" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">绘制矩形</h2>
+      <h2
+        id="绘制矩形"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        绘制矩形
+      </h2>
 
       <p>以下是3个绘制矩形位图的方法。</p>
 
@@ -57,7 +64,8 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>
           设置指定矩形区域内（以 点&nbsp;
           <em>(x, y)</em>&nbsp;为起点，范围是
-          <em>(width, height)</em>&nbsp;）所有像素变成透明，并擦除之前绘制的所有内容。
+          <em>(width, height)</em
+          >&nbsp;）所有像素变成透明，并擦除之前绘制的所有内容。
         </dd>
         <dt>
           <a
@@ -70,8 +78,7 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>
           绘制填充矩形，矩形的起点在&nbsp;
           <em>(x, y)&nbsp;</em>位置，矩形的尺寸是&nbsp;
-          <em>width</em>&nbsp;和&nbsp;
-          <em>height&nbsp;</em>。
+          <em>width</em>&nbsp;和&nbsp; <em>height&nbsp;</em>。
         </dd>
         <dt>
           <a
@@ -83,13 +90,17 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           在 canvas 中，使用当前的绘画样式，描绘一个起点在&nbsp;
-          <em>(x, y)</em>&nbsp;、宽度为
-          <em>&nbsp;w</em>&nbsp;、高度为&nbsp;
+          <em>(x, y)</em>&nbsp;、宽度为 <em>&nbsp;w</em>&nbsp;、高度为&nbsp;
           <em>h</em>&nbsp;的矩形。
         </dd>
       </dl>
 
-      <h2 id="绘制文本" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">绘制文本</h2>
+      <h2
+        id="绘制文本"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        绘制文本
+      </h2>
 
       <p>
         下面是绘制文本的方法。 参见
@@ -98,7 +109,8 @@ ctx.fillRect(10, 10, 55, 50);
           title="在 canvas 中，TextMetrics 接口表示文本的尺寸，通过&nbsp;CanvasRenderingContext2D.measureText() 方法创建。"
         >
           <code>TextMetrics</code>
-        </a> 对象获取文本属性。
+        </a>
+        对象获取文本属性。
       </p>
 
       <dl>
@@ -135,11 +147,14 @@ ctx.fillRect(10, 10, 55, 50);
             title="在 canvas 中，TextMetrics 接口表示文本的尺寸，通过&nbsp;CanvasRenderingContext2D.measureText() 方法创建。"
           >
             <code>TextMetrics</code>
-          </a> 对象。
+          </a>
+          对象。
         </dd>
       </dl>
 
-      <h2 id="线型" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">线型</h2>
+      <h2 id="线型" style="margin-bottom: 20px; font-size: 2.14285714285714rem">
+        线型
+      </h2>
 
       <p>下面的方法和属性控制如何绘制线。</p>
 
@@ -166,8 +181,7 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           线末端的类型。 允许的值：&nbsp;
-          <code>butt</code>&nbsp;(默认),&nbsp;
-          <code>round</code>,&nbsp;
+          <code>butt</code>&nbsp;(默认),&nbsp; <code>round</code>,&nbsp;
           <code>square</code>.
         </dd>
         <dt>
@@ -180,9 +194,9 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           定义两线相交拐点的类型。允许的值：
-          <code style="font-style: normal;">round</code>,&nbsp;
-          <code style="font-style: normal;">bevel</code>,&nbsp;
-          <code style="font-style: normal;">miter</code>(默认)。
+          <code style="font-style: normal">round</code>,&nbsp;
+          <code style="font-style: normal">bevel</code>,&nbsp;
+          <code style="font-style: normal">miter</code>(默认)。
         </dd>
         <dt>
           <a
@@ -225,7 +239,12 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>描述在哪里开始绘制线段。</dd>
       </dl>
 
-      <h2 id="文本样式" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">文本样式</h2>
+      <h2
+        id="文本样式"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        文本样式
+      </h2>
 
       <p>下面的属性控制如何设计文本。</p>
 
@@ -252,10 +271,8 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           文本对齐设置。 允许的值：&nbsp;
-          <code>start</code>&nbsp;(默认),&nbsp;
-          <code>end</code>,&nbsp;
-          <code>left</code>,&nbsp;
-          <code>right</code>&nbsp;或&nbsp;
+          <code>start</code>&nbsp;(默认),&nbsp; <code>end</code>,&nbsp;
+          <code>left</code>,&nbsp; <code>right</code>&nbsp;或&nbsp;
           <code>center</code>.
         </dd>
         <dt>
@@ -268,12 +285,9 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           基线对齐设置。 允许的值：&nbsp;
-          <code>top</code>,&nbsp;
-          <code>hanging</code>,&nbsp;
-          <code>middle</code>,&nbsp;
-          <code>alphabetic</code>&nbsp;(默认),
-          <code>ideographic</code>,&nbsp;
-          <code>bottom</code>.
+          <code>top</code>,&nbsp; <code>hanging</code>,&nbsp;
+          <code>middle</code>,&nbsp; <code>alphabetic</code>&nbsp;(默认),
+          <code>ideographic</code>,&nbsp; <code>bottom</code>.
         </dd>
         <dt>
           <a
@@ -285,12 +299,16 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           文本的方向。&nbsp;允许的值：&nbsp;
-          <code>ltr, rtl</code>,&nbsp;
-          <code>inherit</code>&nbsp;(默认).
+          <code>ltr, rtl</code>,&nbsp; <code>inherit</code>&nbsp;(默认).
         </dd>
       </dl>
 
-      <h2 id="填充和描边样式" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">填充和描边样式</h2>
+      <h2
+        id="填充和描边样式"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        填充和描边样式
+      </h2>
 
       <p>填充设计用于图形内部的颜色和样式，描边设计用于图形的边线。</p>
 
@@ -321,7 +339,12 @@ ctx.fillRect(10, 10, 55, 50);
         </dd>
       </dl>
 
-      <h2 id="渐变和图案" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">渐变和图案</h2>
+      <h2
+        id="渐变和图案"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        渐变和图案
+      </h2>
 
       <dl>
         <dt>
@@ -356,18 +379,20 @@ ctx.fillRect(10, 10, 55, 50);
             href="/zh-CN/docs/Web/API/CanvasImageSource"
             title="CanvasImageSource&nbsp;是一个辅助类型，描述下面类型的任何一个对象：HTMLImageElement, HTMLVideoElement, HTMLCanvasElement, CanvasRenderingContext2D, 或&nbsp;ImageBitmap."
           >
-            <code>CanvasImageSource</code>
-          </a>)创建图案。通过 repetition 变量指定的方向上重复源图片。此方法返回
+            <code>CanvasImageSource</code> </a
+          >)创建图案。通过 repetition 变量指定的方向上重复源图片。此方法返回
           <a
             href="/zh-CN/docs/Web/API/CanvasPattern"
             title="CanvasPattern 接口表示描述一个模板（基于image, canvas或video）的不透明对象，通过 CanvasRenderingContext2D.createPattern() 方法创建."
           >
-            <code>CanvasPattern</code>
-          </a>对象。
+            <code>CanvasPattern</code> </a
+          >对象。
         </dd>
       </dl>
 
-      <h2 id="阴影" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">阴影</h2>
+      <h2 id="阴影" style="margin-bottom: 20px; font-size: 2.14285714285714rem">
+        阴影
+      </h2>
 
       <dl>
         <dt>
@@ -411,7 +436,9 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>阴影垂直方向的偏移量。 默认&nbsp;0.</dd>
       </dl>
 
-      <h2 id="路径" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">路径</h2>
+      <h2 id="路径" style="margin-bottom: 20px; font-size: 2.14285714285714rem">
+        路径
+      </h2>
 
       <p>下面的方法用来操作对象的路径。</p>
 
@@ -424,7 +451,9 @@ ctx.fillRect(10, 10, 55, 50);
             <code>CanvasRenderingContext2D.beginPath()</code>
           </a>
         </dt>
-        <dd>清空子路径列表开始一个新的路径。当你想创建一个新的路径时，调用此方法。</dd>
+        <dd>
+          清空子路径列表开始一个新的路径。当你想创建一个新的路径时，调用此方法。
+        </dd>
         <dt>
           <a
             href="/zh-CN/docs/Web/API/CanvasRenderingContext2D/closePath"
@@ -433,7 +462,9 @@ ctx.fillRect(10, 10, 55, 50);
             <code>CanvasRenderingContext2D.closePath()</code>
           </a>
         </dt>
-        <dd>使笔点返回到当前子路径的起始点。它尝试从当前点到起始点绘制一条直线。如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。</dd>
+        <dd>
+          使笔点返回到当前子路径的起始点。它尝试从当前点到起始点绘制一条直线。如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。
+        </dd>
         <dt>
           <a
             href="/zh-CN/docs/Web/API/CanvasRenderingContext2D/moveTo"
@@ -462,9 +493,7 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           添加一个3次贝赛尔曲线路径。该方法需要三个点。&nbsp;第一、第二个点是控制点，第三个点是结束点。起始点是当前路径的最后一个点，绘制贝赛尔曲线前，可以通过调用&nbsp;
-          <code
-            style="font-style: normal;"
-          >moveTo()</code>&nbsp;进行修改。
+          <code style="font-style: normal">moveTo()</code>&nbsp;进行修改。
         </dd>
         <dt>
           <a
@@ -485,8 +514,7 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           绘制一段圆弧路径，&nbsp;圆弧路径的圆心在&nbsp;
-          <em>(x, y)</em>&nbsp;位置，半径为
-          <em>&nbsp;r</em>&nbsp;，根据
+          <em>(x, y)</em>&nbsp;位置，半径为 <em>&nbsp;r</em>&nbsp;，根据
           <em>anticlockwise</em>&nbsp;（默认为顺时针）指定的方向从&nbsp;
           <em>startAngle</em>&nbsp;开始绘制，到&nbsp;
           <em>endAngle</em>&nbsp;结束。
@@ -516,8 +544,7 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           添加一个椭圆路径，椭圆的圆心在（x,y）位置，半径分别是
-          <em>radiusX</em>&nbsp;和&nbsp;
-          <em>radiusY</em>&nbsp;，按照
+          <em>radiusX</em>&nbsp;和&nbsp; <em>radiusY</em>&nbsp;，按照
           <em>anticlockwise</em>&nbsp;（默认顺时针）指定的方向，从&nbsp;
           <em>startAngle&nbsp;</em>&nbsp;开始绘制，到&nbsp;
           <em>endAngle</em>&nbsp;结束。
@@ -532,13 +559,17 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           创建一个矩形路径，矩形的起点位置是&nbsp;
-          <em>(x, y)&nbsp;</em>，尺寸为&nbsp;
-          <em>width</em>&nbsp;和&nbsp;
+          <em>(x, y)&nbsp;</em>，尺寸为&nbsp; <em>width</em>&nbsp;和&nbsp;
           <em>height</em>。
         </dd>
       </dl>
 
-      <h2 id="绘制路径" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">绘制路径</h2>
+      <h2
+        id="绘制路径"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        绘制路径
+      </h2>
 
       <dl>
         <dt>
@@ -567,7 +598,9 @@ ctx.fillRect(10, 10, 55, 50);
             <code>CanvasRenderingContext2D.drawFocusIfNeeded()</code>
           </a>
         </dt>
-        <dd>如果给定的元素获取了焦点，那么此方法会在当前的路径绘制一个焦点。</dd>
+        <dd>
+          如果给定的元素获取了焦点，那么此方法会在当前的路径绘制一个焦点。
+        </dd>
         <dt>
           <a
             href="/zh-CN/docs/Web/API/CanvasRenderingContext2D/scrollPathIntoView"
@@ -588,12 +621,18 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>
           从当前路径创建一个剪切路径。在 &nbsp;
           <strong
-            style="font-family: courier new,andale mono,monospace; font-weight: bold;"
-          >clip()&nbsp;</strong>调用之后，绘制的所有信息只会出现在剪切路径内部。例如： 参见 Canvas教程中的&nbsp;
+            style="
+              font-family: courier new, andale mono, monospace;
+              font-weight: bold;
+            "
+            >clip()&nbsp;</strong
+          >调用之后，绘制的所有信息只会出现在剪切路径内部。例如： 参见
+          Canvas教程中的&nbsp;
           <a
             href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing"
             title="Clipping paths"
-          >剪切路径</a>&nbsp;。
+            >剪切路径</a
+          >&nbsp;。
         </dd>
         <dt>
           <a
@@ -615,26 +654,28 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>判断检测点是否在路径的描边线上。</dd>
       </dl>
 
-      <h2 id="变换" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">变换</h2>
+      <h2 id="变换" style="margin-bottom: 20px; font-size: 2.14285714285714rem">
+        变换
+      </h2>
 
       <p>
         在
         <strong
-          style="font-family: courier new,andale mono,monospace; font-weight: bold;"
-        >CanvasRenderingContext2D&nbsp;</strong>渲染背景中的对象会有一个当前的变换矩阵，一些方法可以对其进行控制。当创建当前的默认路径，绘制文本、图形和
+          style="
+            font-family: courier new, andale mono, monospace;
+            font-weight: bold;
+          "
+          >CanvasRenderingContext2D&nbsp;</strong
+        >渲染背景中的对象会有一个当前的变换矩阵，一些方法可以对其进行控制。当创建当前的默认路径，绘制文本、图形和
         <a
           href="/zh-CN/docs/Web/API/Path2D"
           title="Canvas 2D API 的接口 Path2D&nbsp;用来声明路径，此路径稍后会被CanvasRenderingContext2D 对象使用。CanvasRenderingContext2D&nbsp;接口的 路径方法&nbsp;也存在于 Path2D 这个接口中，允许你在 canvas 中根据需要创建可以保留并重用的路径。"
         >
-          <code>Path2D</code>
-        </a>对象的时候，会应用此变换矩阵。下面列出的方法保持历史和兼容性的原因，是为了
-        <a
-          rel="nofollow"
-          class="new"
-          title="此页面仍未被本地化, 期待您的翻译!"
-        >
-          <code>SVGMatrix</code>
-        </a>对象现在能够应用于大部分 API&nbsp;，将来会被替换。
+          <code>Path2D</code> </a
+        >对象的时候，会应用此变换矩阵。下面列出的方法保持历史和兼容性的原因，是为了
+        <a rel="nofollow" class="new" title="此页面仍未被本地化, 期待您的翻译!">
+          <code>SVGMatrix</code> </a
+        >对象现在能够应用于大部分 API&nbsp;，将来会被替换。
       </p>
 
       <dl>
@@ -648,9 +689,14 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           当前的变换矩阵 (
-          <a rel="nofollow" class="new" title="此页面仍未被本地化, 期待您的翻译!">
+          <a
+            rel="nofollow"
+            class="new"
+            title="此页面仍未被本地化, 期待您的翻译!"
+          >
             <code>SVGMatrix</code>
-          </a> 对象)。
+          </a>
+          对象)。
         </dd>
         <dt>
           <a
@@ -660,7 +706,9 @@ ctx.fillRect(10, 10, 55, 50);
             <code>CanvasRenderingContext2D.rotate()</code>
           </a>
         </dt>
-        <dd>在变换矩阵中增加旋转，角度变量表示一个顺时针旋转角度并且用弧度表示。</dd>
+        <dd>
+          在变换矩阵中增加旋转，角度变量表示一个顺时针旋转角度并且用弧度表示。
+        </dd>
         <dt>
           <a
             href="/zh-CN/docs/Web/API/CanvasRenderingContext2D/scale"
@@ -678,7 +726,10 @@ ctx.fillRect(10, 10, 55, 50);
             <code>CanvasRenderingContext2D.translate()</code>
           </a>
         </dt>
-        <dd>通过在网格中移动 canvas 和 canvas&nbsp;原点&nbsp;x 水平方向、原点&nbsp;y 垂直方向，添加平移变换</dd>
+        <dd>
+          通过在网格中移动 canvas 和 canvas&nbsp;原点&nbsp;x
+          水平方向、原点&nbsp;y 垂直方向，添加平移变换
+        </dd>
         <dt>
           <a
             href="/zh-CN/docs/Web/API/CanvasRenderingContext2D/transform"
@@ -699,8 +750,12 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>
           重新设置当前的变换为单位矩阵，并使用同样的变量调用
           <strong
-            style="font-family: courier new,andale mono,monospace; font-weight: bold;"
-          >transform()&nbsp;</strong>方法。
+            style="
+              font-family: courier new, andale mono, monospace;
+              font-weight: bold;
+            "
+            >transform()&nbsp;</strong
+          >方法。
         </dd>
         <dt>
           <a
@@ -716,7 +771,9 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>使用单位矩阵重新设置当前的变换。</dd>
       </dl>
 
-      <h2 id="合成" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">合成</h2>
+      <h2 id="合成" style="margin-bottom: 20px; font-size: 2.14285714285714rem">
+        合成
+      </h2>
 
       <dl>
         <dt>
@@ -729,7 +786,7 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           在合成到 canvas 之前，设置图形和图像透明度的值。默认&nbsp;
-          <code style="font-style: normal;">1.0</code>&nbsp;(不透明)。
+          <code style="font-style: normal">1.0</code>&nbsp;(不透明)。
         </dd>
         <dt>
           <a
@@ -741,11 +798,17 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           通过&nbsp;
-          <code>globalAlpha</code>&nbsp;应用，设置如何在已经存在的位图上绘制图形和图像。
+          <code>globalAlpha</code
+          >&nbsp;应用，设置如何在已经存在的位图上绘制图形和图像。
         </dd>
       </dl>
 
-      <h2 id="绘制图像" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">绘制图像</h2>
+      <h2
+        id="绘制图像"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        绘制图像
+      </h2>
 
       <dl>
         <dt>
@@ -759,7 +822,12 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>绘制指定的图片。该方法有多种格式，提供了很大的使用灵活性。</dd>
       </dl>
 
-      <h2 id="像素控制" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">像素控制</h2>
+      <h2
+        id="像素控制"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        像素控制
+      </h2>
 
       <p>
         参见
@@ -768,7 +836,8 @@ ctx.fillRect(10, 10, 55, 50);
           title="ImageData&nbsp;接口描述 <canvas> 元素的一个隐含像素数据的区域。使用&nbsp;ImageData() 构造函数创建或者使用和 canvas 在一起的 CanvasRenderingContext2D 对象的创建方法：&nbsp;createImageData() 和 getImageData()。也可以使用&nbsp;putImageData() 设置 canvas 的一部分。"
         >
           <code>ImageData</code>
-        </a> 对象。
+        </a>
+        对象。
       </p>
 
       <dl>
@@ -787,7 +856,8 @@ ctx.fillRect(10, 10, 55, 50);
             title="ImageData&nbsp;接口描述 <canvas> 元素的一个隐含像素数据的区域。使用&nbsp;ImageData() 构造函数创建或者使用和 canvas 在一起的 CanvasRenderingContext2D 对象的创建方法：&nbsp;createImageData() 和 getImageData()。也可以使用&nbsp;putImageData() 设置 canvas 的一部分。"
           >
             <code>ImageData</code>
-          </a> 对象。所有的像素在新对象中都是透明的。
+          </a>
+          对象。所有的像素在新对象中都是透明的。
         </dd>
         <dt>
           <a
@@ -804,10 +874,9 @@ ctx.fillRect(10, 10, 55, 50);
             title="ImageData&nbsp;接口描述 <canvas> 元素的一个隐含像素数据的区域。使用&nbsp;ImageData() 构造函数创建或者使用和 canvas 在一起的 CanvasRenderingContext2D 对象的创建方法：&nbsp;createImageData() 和 getImageData()。也可以使用&nbsp;putImageData() 设置 canvas 的一部分。"
           >
             <code>ImageData</code>
-          </a> 对象，用来描述canvas区域隐含的像素数据，这个区域通过矩形表示，起始点为
-          <em>(sx, sy)、</em>宽为
-          <em>sw、</em>高为
-          <em>sh</em>。
+          </a>
+          对象，用来描述canvas区域隐含的像素数据，这个区域通过矩形表示，起始点为
+          <em>(sx, sy)、</em>宽为 <em>sw、</em>高为 <em>sh</em>。
         </dd>
         <dt>
           <a
@@ -824,11 +893,17 @@ ctx.fillRect(10, 10, 55, 50);
             title="ImageData&nbsp;接口描述 <canvas> 元素的一个隐含像素数据的区域。使用&nbsp;ImageData() 构造函数创建或者使用和 canvas 在一起的 CanvasRenderingContext2D 对象的创建方法：&nbsp;createImageData() 和 getImageData()。也可以使用&nbsp;putImageData() 设置 canvas 的一部分。"
           >
             <code>ImageData</code>
-          </a> 绘制到位图上。&nbsp;如果提供了脏矩形，只能绘制矩形的像素。&nbsp;
+          </a>
+          绘制到位图上。&nbsp;如果提供了脏矩形，只能绘制矩形的像素。&nbsp;
         </dd>
       </dl>
 
-      <h2 id="图像平滑" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">图像平滑</h2>
+      <h2
+        id="图像平滑"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        图像平滑
+      </h2>
 
       <dl>
         <dt>
@@ -845,13 +920,28 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>图像平滑的方式；如果禁用，缩放时，图像不会被平滑处理。</dd>
       </dl>
 
-      <h2 id="canvas_状态" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">canvas 状态</h2>
+      <h2
+        id="canvas_状态"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        canvas 状态
+      </h2>
 
       <p>
-        <strong style="font-family: courier new,andale mono,monospace; font-weight: bold;">C</strong>
         <strong
-          style="font-family: courier new,andale mono,monospace; font-weight: bold;"
-        >anvasRenderingContext2D</strong>渲染环境包含了多种绘图的样式状态（属性有线的样式、填充样式、阴影样式、文本样式）。下面的方法会帮助你使用这些状态：
+          style="
+            font-family: courier new, andale mono, monospace;
+            font-weight: bold;
+          "
+          >C</strong
+        >
+        <strong
+          style="
+            font-family: courier new, andale mono, monospace;
+            font-weight: bold;
+          "
+          >anvasRenderingContext2D</strong
+        >渲染环境包含了多种绘图的样式状态（属性有线的样式、填充样式、阴影样式、文本样式）。下面的方法会帮助你使用这些状态：
       </p>
 
       <dl>
@@ -866,8 +956,12 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>
           使用栈保存当前的绘画样式状态，你可以使用
           <strong
-            style="font-family: courier new,andale mono,monospace; font-weight: bold;"
-          >restore()</strong>&nbsp;恢复任何改变。
+            style="
+              font-family: courier new, andale mono, monospace;
+              font-weight: bold;
+            "
+            >restore()</strong
+          >&nbsp;恢复任何改变。
         </dd>
         <dt>
           <a
@@ -880,8 +974,12 @@ ctx.fillRect(10, 10, 55, 50);
         <dd>
           恢复到最近的绘制样式状态，此状态是通过
           <strong
-            style="font-family: courier new,andale mono,monospace; font-weight: bold;"
-          >save()</strong>&nbsp;保存到”状态栈“中最新的元素。
+            style="
+              font-family: courier new, andale mono, monospace;
+              font-weight: bold;
+            "
+            >save()</strong
+          >&nbsp;保存到”状态栈“中最新的元素。
         </dd>
         <dt>
           <a
@@ -898,23 +996,29 @@ ctx.fillRect(10, 10, 55, 50);
             title="DOM canvas元素暴露了HTMLCanvasElement接口,该接口提供了用来操作一个canvas元素布局和呈现的属性和方法.HTMLCanvasElement接口继承了element接口的属性和方法."
           >
             <code>HTMLCanvasElement</code>
-          </a> 只读的反向引用。如果和
+          </a>
+          只读的反向引用。如果和
           <a
             href="/zh-CN/docs/Web/HTML/Element/canvas"
             title="<canvas>元素可被用来通过脚本（通常是JavaScript）绘制图形。比如,它可以被用来绘制图形,制作图片集合,甚至用来实现动画效果。你可以(也应该)在元素标签内写入可提供替代的的代码内容，这些内容将会在在旧的、不支持<canvas>元素的浏览器或是禁用了JavaScript的浏览器内渲染并展现。"
           >
-            <code>&lt;canvas&gt;</code>
-          </a>&nbsp;元素没有联系，可能为
+            <code>&lt;canvas&gt;</code> </a
+          >&nbsp;元素没有联系，可能为
           <a
             href="/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null"
             title="值&nbsp;null&nbsp;特指对象的值未设置。它是 JavaScript 基本类型 之一。"
           >
-            <code>null</code>
-          </a>。
+            <code>null</code> </a
+          >。
         </dd>
       </dl>
 
-      <h2 id="点击区域" style="margin-bottom: 20px; font-size: 2.14285714285714rem;">点击区域</h2>
+      <h2
+        id="点击区域"
+        style="margin-bottom: 20px; font-size: 2.14285714285714rem"
+      >
+        点击区域
+      </h2>
 
       <dl>
         <dt>
@@ -942,7 +1046,7 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           从 canvas 中删除指定
-          <code style="font-style: normal;">id</code>&nbsp;&nbsp;的点击区域。
+          <code style="font-style: normal">id</code>&nbsp;&nbsp;的点击区域。
         </dd>
         <dt>
           <a
@@ -960,24 +1064,42 @@ ctx.fillRect(10, 10, 55, 50);
 
       <h4
         id="内部的_APIs_(chrome-context_特有的)"
-        style="font-size: 1.28571428571429rem;"
-      >内部的 APIs (chrome-context 特有的)</h4>
+        style="font-size: 1.28571428571429rem"
+      >
+        内部的 APIs (chrome-context 特有的)
+      </h4>
 
       <dl>
         <dt>
-          <span class="icon-only-inline" title="This API has not been standardized.">
+          <span
+            class="icon-only-inline"
+            title="This API has not been standardized."
+          >
             <i class="icon-warning-sign"></i>
           </span>
-          <a rel="nofollow" class="new" title="此页面仍未被本地化, 期待您的翻译!">
+          <a
+            rel="nofollow"
+            class="new"
+            title="此页面仍未被本地化, 期待您的翻译!"
+          >
             <code>CanvasRenderingContext2D.asyncDrawXULElement()</code>
           </a>
         </dt>
         <dd>
           在
-          <strong style="font-family: courier new,andale mono,monospace; font-weight: bold;">canvas</strong>&nbsp;内渲染一个 XUL 元素的区域。
+          <strong
+            style="
+              font-family: courier new, andale mono, monospace;
+              font-weight: bold;
+            "
+            >canvas</strong
+          >&nbsp;内渲染一个 XUL 元素的区域。
         </dd>
         <dt>
-          <span class="icon-only-inline" title="This API has not been standardized.">
+          <span
+            class="icon-only-inline"
+            title="This API has not been standardized."
+          >
             <i class="icon-warning-sign"></i>
           </span>
           <a
@@ -989,15 +1111,22 @@ ctx.fillRect(10, 10, 55, 50);
         </dt>
         <dd>
           在&nbsp;
-          <strong style="font-family: courier new,andale mono,monospace;">canvas</strong>&nbsp;内渲染一个窗口的区域。窗口可视区的内容被渲染，忽略窗口的剪切和滚动。
+          <strong style="font-family: courier new, andale mono, monospace"
+            >canvas</strong
+          >&nbsp;内渲染一个窗口的区域。窗口可视区的内容被渲染，忽略窗口的剪切和滚动。
         </dd>
         <dt>
-          <span class="icon-only-inline" title="This API has not been standardized.">
-            <i class="icon-warning-sign"></i>
-          </span>&nbsp;
+          <span
+            class="icon-only-inline"
+            title="This API has not been standardized."
+          >
+            <i class="icon-warning-sign"></i> </span
+          >&nbsp;
           <code>CanvasRenderingContext2D.demote()</code>
         </dt>
-        <dd>这个方法会引起当前的上下文使用后端的硬件加速作为软件的备选方案。所有的状态都会被保留。</dd>
+        <dd>
+          这个方法会引起当前的上下文使用后端的硬件加速作为软件的备选方案。所有的状态都会被保留。
+        </dd>
       </dl>
     </article>
   </el-main>

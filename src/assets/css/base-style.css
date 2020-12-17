@@ -14,6 +14,13 @@ li {
     list-style: none;
 }
 
+.video-container {
+    margin: 20px 0;
+    height: 480px;
+    width: 100%;
+    background: rgba(84, 92, 100, 0.65);
+}
+
 video,
 audio {
     outline: none;
@@ -42,6 +49,10 @@ em {
 
 .center {
     text-align: center;
+}
+
+.el-header {
+    line-height: 60px;
 }
 
 .el-header .nav {

@@ -1,16 +1,16 @@
 <template>
   <div>
-    基础数据{{num}}
+    基础数据{{ num }}
     <button @click="counter">增加</button>
   </div>
 </template>
 <script>
-import data from './MixinsItem.js'
+import data from "./MixinsItem.js";
 export default {
-  mixins: [data],
   name: "MixinsItemB",
+  mixins: [data],
   created() {
     this.counter();
-  }
-}
+  },
+};
 </script>

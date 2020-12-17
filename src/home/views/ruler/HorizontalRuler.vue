@@ -2,9 +2,13 @@
   <ul>
     <li v-for="i in size" :key="i">
       <span class="scale">
-        <i v-for="k in count" :key="k" :class="{active: k == 1, hide:k == count }"></i>
+        <i
+          v-for="k in count"
+          :key="k"
+          :class="{ active: k == 1, hide: k == count }"
+        ></i>
       </span>
-      <span class="label" v-if="i!==1">{{(i - 3) * space}}</span>
+      <span v-if="i !== 1" class="label">{{ (i - 3) * space }}</span>
     </li>
   </ul>
 </template>
@@ -13,23 +17,23 @@ export default {
   name: "HorizontalRuler",
   props: {
     value: { type: Number, default: 100 },
-    space: { type: Number, default: 100 }
+    space: { type: Number, default: 100 },
   },
   data() {
     return {
-      count: 6
-    }
+      count: 6,
+    };
   },
   computed: {
     size() {
       if (this.value && this.space) {
         return Math.ceil(this.value / this.space);
-      }else{
+      } else {
         return 0;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 ul {

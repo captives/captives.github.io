@@ -6,9 +6,11 @@
           <li
             v-for="item in list"
             :key="item"
-            @dragstart="dragstartByResource"
             draggable="true"
-          >{{item}}</li>
+            @dragstart="dragstartByResource"
+          >
+            {{ item }}
+          </li>
         </ul>
       </el-col>
       <el-col :span="10" @dragover.prevent @drop="dropModuleOnEgret">
@@ -28,28 +30,28 @@
   </el-main>
 </template>
 <script>
-import VueDrag from './../components/VueDrag.vue';
-import VueDrop from './../components/VueDrop.vue';
+import VueDrag from "./../components/VueDrag.vue";
+import VueDrop from "./../components/VueDrop.vue";
 export default {
   components: {
     VueDrag,
-    VueDrop
+    VueDrop,
   },
   data() {
     return {
-      list: [1, 2, 3, 4, 5, 6, 7]
-    }
+      list: [1, 2, 3, 4, 5, 6, 7],
+    };
   },
 
   methods: {
     dragstartByResource() {
-      console.log('VueAndDrop 拖放开始');
+      console.log("VueAndDrop 拖放开始");
     },
     dropModuleOnEgret() {
-      console.log('VueAndDrop 拖放结束');
-    }
-  }
-}
+      console.log("VueAndDrop 拖放结束");
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 ul, ol {

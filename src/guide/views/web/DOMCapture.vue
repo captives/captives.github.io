@@ -12,14 +12,20 @@
         <el-button size="small" type="primary">点击上传</el-button>
       </el-upload>
 
-      <el-button size="small" type="danger" @click="publishPoster">发布海报</el-button>
+      <el-button size="small" type="danger" @click="publishPoster"
+        >发布海报</el-button
+      >
     </el-row>
     <el-row>
       <!-- 编辑图 -->
       <div ref="poster" class="edit-poster" :style="imageStyle">
         <!-- <div ref="poster" :style="posterStyle"> -->
         <img ref="image" :src="image.url" @load="imageLoading" />
-        <div class="qrcode-legend" :style="qrStyle" @mousedown="startMove"></div>
+        <div
+          class="qrcode-legend"
+          :style="qrStyle"
+          @mousedown="startMove"
+        ></div>
         <!-- </div> -->
       </div>
       <!-- 预览图 -->
@@ -30,12 +36,12 @@
   </el-main>
 </template>
 <script>
-import html2canvas from 'html2canvas'
+import html2canvas from "html2canvas";
 export default {
   name: "DOMCapture",
   data() {
     return {
-      url: "",//预览图
+      url: "", //预览图
       width: 400,
       image: {
         ratio: 1,
@@ -44,7 +50,7 @@ export default {
         height: 0,
         clientWidth: 0,
         clientHeight: 0,
-      },//背景图
+      }, //背景图
       qrcode: {
         text: "",
         mouseDown: false,
@@ -53,9 +59,9 @@ export default {
         top: 0,
         left: 0,
         width: 80,
-        height: 80
+        height: 80,
       },
-    }
+    };
   },
   computed: {
     qrStyle() {
@@ -63,8 +69,8 @@ export default {
         top: this.qrcode.top + "px",
         left: this.qrcode.left + "px",
         width: this.qrcode.width + "px",
-        height: this.qrcode.height + "px"
-      }
+        height: this.qrcode.height + "px",
+      };
     },
     posterStyle() {
       let scale = 1;
@@ -74,21 +80,21 @@ export default {
 
       return {
         width: this.image.width + "px",
-        height: this.image.width + "px"
-      }
+        height: this.image.width + "px",
+      };
     },
     imageStyle() {
       return {
         width: this.image.clientWidth + "px",
-        height: this.image.clientHeight + "px"
-      }
-    }
+        height: this.image.clientHeight + "px",
+      };
+    },
   },
   methods: {
     fileChangeHandle(file, fileList) {
       //   this.image.url = URL.createObjectURL(file.raw);
-      const reader = new FileReader()
-      reader.addEventListener('load', () => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
         this.image.url = reader.result;
       });
       reader.readAsDataURL(file.raw);
@@ -119,8 +125,16 @@ export default {
       this.qrcode.left = event.currentTarget.offsetLeft;
       this.qrcode.startX = event.clientX;
       this.qrcode.startY = event.clientY;
-      document.addEventListener('mousemove', this.mouseMoveHandler.bind(this), false);
-      document.addEventListener('mouseup', this.mouseUpHandler.bind(this), false);
+      document.addEventListener(
+        "mousemove",
+        this.mouseMoveHandler.bind(this),
+        false
+      );
+      document.addEventListener(
+        "mouseup",
+        this.mouseUpHandler.bind(this),
+        false
+      );
     },
     mouseMoveHandler(event) {
       if (this.qrcode.mouseDown) {
@@ -136,18 +150,26 @@ export default {
     },
     mouseUpHandler(event) {
       this.qrcode.mouseDown = false;
-      document.removeEventListener('mousemove', this.mouseMoveHandler.bind(this), false);
-      document.removeEventListener('mouseup', this.mouseUpHandler.bind(this), false);
+      document.removeEventListener(
+        "mousemove",
+        this.mouseMoveHandler.bind(this),
+        false
+      );
+      document.removeEventListener(
+        "mouseup",
+        this.mouseUpHandler.bind(this),
+        false
+      );
     },
     publishPoster() {
-      html2canvas(this.$refs.poster).then(canvas => {
+      html2canvas(this.$refs.poster).then((canvas) => {
         if (canvas) {
           this.url = canvas.toDataURL("image/png");
         }
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .file-upload {

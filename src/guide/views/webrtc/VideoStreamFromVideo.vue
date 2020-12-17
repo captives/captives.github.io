@@ -4,7 +4,15 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Video</el-divider>
-        <video ref="localVideo" class="video-item" :src="url" controls muted loop autoplay></video>
+        <video
+          ref="localVideo"
+          class="video-item"
+          :src="url"
+          controls
+          muted
+          loop
+          autoplay
+        ></video>
       </el-col>
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Capture</el-divider>
@@ -14,20 +22,34 @@
 
     <StreamTracks v-model="stream"></StreamTracks>
 
-    <vue-source src="guide/views/webrtc/VideoStreamFromVideo.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/webrtc/VideoStreamFromVideo.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-import StreamTracks from './../../components/StreamTracks';
+import StreamTracks from "./../../components/StreamTracks";
 export default {
   name: "VideoStreamFromVideo",
   components: {
-    StreamTracks
+    StreamTracks,
   },
   data() {
     return {
       url: "",
-      stream: null
+      stream: null,
+    };
+  },
+  mounted() {
+    const video = this.$refs.localVideo;
+    video.addEventListener("canplay", () => {
+      this.oncanplay(video);
+    });
+  },
+  destroyed() {
+    if (this.stream) {
+      this.stream = null;
     }
   },
   methods: {
@@ -39,31 +61,20 @@ export default {
       } else if (video.mozCaptureStream) {
         this.stream = video.mozCaptureStream(fps);
       } else {
-        console.error('Stream capture is not supported');
+        console.error("Stream capture is not supported");
         this.stream = null;
       }
 
-      player.addEventListener('loadedmetadata', (e) => {
+      player.addEventListener("loadedmetadata", (e) => {
         console.log("AudioTracks", this.stream.getAudioTracks());
         console.log("VideoTracks", this.stream.getVideoTracks());
       });
 
       player.autoplay = true;
       player.srcObject = this.stream;
-    }
+    },
   },
-  mounted() {
-    const video = this.$refs.localVideo;
-    video.addEventListener('canplay', () => {
-      this.oncanplay(video);
-    });
-  },
-  destroyed() {
-    if (this.stream) {
-      this.stream = null;
-    }
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .video-item {

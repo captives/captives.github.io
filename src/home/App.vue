@@ -13,6 +13,7 @@
     </el-header>
     <router-view />
     <!-- <el-footer>Footer</el-footer> -->
+    <vue-debugger class="debug-btn"></vue-debugger>
   </el-container>
 </template>
 <script>
@@ -21,8 +22,8 @@ export default {
     this.$router.afterEach(() => {
       document.title = this.$route.name;
     });
-  }
-}
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .el-header {
@@ -38,5 +39,11 @@ export default {
     line-height: 60px;
     text-decoration: none;
   }
+}
+
+.debug-btn {
+  position: fixed;
+  right: 10px;
+  top: 10px;
 }
 </style>

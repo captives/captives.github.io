@@ -1,17 +1,26 @@
 <template>
-  <el-input placeholder="请输入内容" v-model="text" clearable>
+  <el-input v-model="text" placeholder="请输入内容" clearable>
     <template slot="prepend">
       <el-select
-        v-model="selectValue"
         v-if="list.length"
+        v-model="selectValue"
         placeholder="请选择视频"
         @change="changeHandler"
       >
-        <el-option v-for="item in list" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        <el-option
+          v-for="item in list"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
       </el-select>
       <span v-else>URL：</span>
     </template>
-    <el-button slot="append" icon="el-icon-s-promotion" @click="requestURL"></el-button>
+    <el-button
+      slot="append"
+      icon="el-icon-s-promotion"
+      @click="requestURL"
+    ></el-button>
   </el-input>
 </template>
 <script>
@@ -20,16 +29,24 @@ export default {
   props: {
     value: {
       type: String,
-      default: ""
+      default: "",
     },
     list: {
-      type: Array, default: () => []
-    }
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
       text: this.value,
-      selectValue: null
+      selectValue: null,
+    };
+  },
+  mounted() {
+    if (this.list.length) {
+      this.text = this.list[0].value;
+      this.selectValue = this.text;
+      this.$emit("input", this.text);
     }
   },
   methods: {
@@ -37,17 +54,11 @@ export default {
       this.text = this.selectValue;
     },
     requestURL() {
-      this.$emit('input', this.text);
-    }
+      this.$emit("input", this.text);
+      this.$emit("change", this.selectValue);
+    },
   },
-  mounted() {
-    if (this.list.length) {
-      this.text = this.list[0].value;
-      this.selectValue = this.text;
-      this.$emit('input', this.text);
-    }
-  }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .el-input {

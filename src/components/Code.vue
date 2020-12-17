@@ -4,30 +4,30 @@
   </div>
 </template>
 <script>
-import Prism from 'prismjs';
+import Prism from "prismjs";
 export default {
   name: "Code",
   props: {
-    language: { type: String, default: 'javascrit' },
-  },
-  methods: {
-    render() {
-      const list = this.$refs.code.querySelectorAll('pre') || [];
-      list.forEach(preEl => {
-        var codeEl = document.createElement('code');
-        if (preEl.innerHTML) {
-          codeEl.innerHTML = preEl.innerHTML;
-          codeEl.className = 'language-' + preEl.getAttribute('lang');
-        }
-        this.$refs.code.replaceChild(codeEl, preEl);
-      });
-      Prism.highlightAll();
-    }
+    language: { type: String, default: "javascrit" },
   },
   mounted() {
     this.render();
   },
-}
+  methods: {
+    render() {
+      const list = this.$refs.code.querySelectorAll("pre") || [];
+      list.forEach((preEl) => {
+        var codeEl = document.createElement("code");
+        if (preEl.innerHTML) {
+          codeEl.innerHTML = preEl.innerHTML;
+          codeEl.className = "language-" + preEl.getAttribute("lang");
+        }
+        this.$refs.code.replaceChild(codeEl, preEl);
+      });
+      Prism.highlightAll();
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .code {

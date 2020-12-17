@@ -1,31 +1,38 @@
 <template>
   <div
     ref="videoPanel"
-    :class="[drag.moving ? size : '', drag.moving ? 'video-item move' : 'video-item']"
+    :class="[
+      drag.moving ? size : '',
+      drag.moving ? 'video-item move' : 'video-item',
+    ]"
   >
     <video autoplay :muted="muted" :srcObject.prop="stream"></video>
     <slot></slot>
     <p ref="titleBar" class="title-bar">
-      <em>{{title}}</em>
-      <i v-if="drag.moving" class="el-icon-full-screen" @click="videoResizeHandler"></i>
+      <em>{{ title }}</em>
       <i
-        :class="[ drag.moving ? 'el-icon-news' : 'el-icon-copy-document']"
+        v-if="drag.moving"
+        class="el-icon-full-screen"
+        @click="videoResizeHandler"
+      ></i>
+      <i
+        :class="[drag.moving ? 'el-icon-news' : 'el-icon-copy-document']"
         @click="videoMoveHandler"
       ></i>
     </p>
 
     <ul>
-      <li>startMatrix = {{drag.startMatrix}}</li>
-      <li>endMatrix = {{drag.endMatrix}}</li>
-      <li>initStartMatrix = {{drag.initStartMatrix}}</li>
+      <li>startMatrix = {{ drag.startMatrix }}</li>
+      <li>endMatrix = {{ drag.endMatrix }}</li>
+      <li>initStartMatrix = {{ drag.initStartMatrix }}</li>
     </ul>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop, Ref } from 'vue-property-decorator';
-import Matrix from './Matrix';
+import { Component, Vue, Prop, Ref } from "vue-property-decorator";
+import Matrix from "./Matrix";
 @Component({
-  name: 'VideoPlayer',
+  name: "VideoPlayer",
 })
 export default class VideoPlayer extends Vue {
   @Ref() readonly titleBar: HTMLElement;
@@ -34,7 +41,7 @@ export default class VideoPlayer extends Vue {
   @Prop({ type: Boolean, default: false }) readonly muted?: boolean;
   @Prop({ type: String, default: "标签" }) readonly title?: string;
   @Prop({ type: Object, default: null }) readonly range?: any;
-  private size: string = "";
+  private size = "";
   private rect: any = {};
 
   private drag: any = {
@@ -47,26 +54,35 @@ export default class VideoPlayer extends Vue {
   };
 
   private videoResizeHandler() {
-    this.size = this.size == "" ? "large" : (this.size === "large" ? 'small' : "");
+    this.size =
+      this.size == "" ? "large" : this.size === "large" ? "small" : "";
   }
 
   private videoMoveHandler() {
     this.drag.moving = !this.drag.moving;
     if (this.drag.moving) {
       this.initMove();
-      this.titleBar.addEventListener('mousedown', this.startMove.bind(this), false);
+      this.titleBar.addEventListener(
+        "mousedown",
+        this.startMove.bind(this),
+        false
+      );
     } else {
       this.videoPanel.style.transform = "";
-      this.titleBar.removeEventListener('mousedown', this.startMove.bind(this), false);
-      document.removeEventListener('mousemove', this.moveEvent, false);
-      document.removeEventListener('mouseup', this.upEvent, false);
+      this.titleBar.removeEventListener(
+        "mousedown",
+        this.startMove.bind(this),
+        false
+      );
+      document.removeEventListener("mousemove", this.moveEvent, false);
+      document.removeEventListener("mouseup", this.upEvent, false);
     }
   }
 
   private getRange() {
     this.rect = { x: 0, y: 0, width: 0, height: 0 };
     if (this.range) {
-      this.rect = { ... this.range };
+      this.rect = { ...this.range };
     } else {
       this.rect = document.documentElement.getBoundingClientRect();
     }
@@ -80,7 +96,10 @@ export default class VideoPlayer extends Vue {
       this.drag.startMatrix.copyFrom(this.drag.endMatrix);
     }
     this.drag.endMatrix.copyFrom(this.drag.startMatrix);
-    this.drag.initStartMatrix.translate(this.drag.startMatrix.x, this.drag.startMatrix.y);
+    this.drag.initStartMatrix.translate(
+      this.drag.startMatrix.x,
+      this.drag.startMatrix.y
+    );
 
     let { x, y } = this.drag.initStartMatrix;
     this.videoPanel.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y})`;
@@ -98,8 +117,8 @@ export default class VideoPlayer extends Vue {
     }
 
     // @ts-ignore
-    document.addEventListener('mousemove', this.moveEvent, false);
-    document.addEventListener('mouseup', this.upEvent, false);
+    document.addEventListener("mousemove", this.moveEvent, false);
+    document.addEventListener("mouseup", this.upEvent, false);
   }
 
   private moveEvent(evt: MouseEvent) {
@@ -133,15 +152,15 @@ export default class VideoPlayer extends Vue {
       const transform = `matrix(1, 0, 0, 1, ${x}, ${y})`;
       this.videoPanel.style.transform = transform;
     }
-  };
+  }
 
   private upEvent() {
     this.drag.endMatrix.copyFrom(this.drag.initStartMatrix);
     // @ts-ignore
 
-    document.removeEventListener('mousemove', this.moveEvent, false);
-    document.removeEventListener('mouseup', this.upEvent, false);
-  };
+    document.removeEventListener("mousemove", this.moveEvent, false);
+    document.removeEventListener("mouseup", this.upEvent, false);
+  }
 }
 </script>
 <style lang="stylus" scoped>

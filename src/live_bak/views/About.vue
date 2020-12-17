@@ -41,17 +41,16 @@
   </el-container>
 </template>
 <script>
-import Square from './AboutSquare.vue';
+import Square from "./AboutSquare.vue";
 export default {
   name: "About",
+  components: { Square },
   data() {
     return {
-      activeName: "first"
-    }
+      activeName: "first",
+    };
   },
-  components: { Square }
-}
-
+};
 </script>
 <style lang="stylus" scoped>
 .flex {

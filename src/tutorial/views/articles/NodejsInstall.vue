@@ -3,7 +3,9 @@
     <h3>安装Nodejs</h3>
     <p>命令行下载</p>
     <vue-code>
-      <pre lang="sh">wget https://nodejs.org/dist/.../node-v4.2.1-linux-x64.tar.gz</pre>
+      <pre lang="sh">
+wget https://nodejs.org/dist/.../node-v4.2.1-linux-x64.tar.gz</pre
+      >
     </vue-code>
     <p>解压缩文件</p>
     <vue-code>
@@ -18,8 +20,12 @@
     </vue-code>
     <p>设置全局软连接</p>
     <vue-code>
-      <pre lang="sh">sudo ln -s /opt/node-v4.2.1-linux-x64/bin/node /usr/local/bin/node</pre>
-      <pre lang="sh">sudo ln -s /opt/node-v4.2.1-linux-x64/bin/npm /usr/local/bin/npm</pre>
+      <pre lang="sh">
+sudo ln -s /opt/node-v4.2.1-linux-x64/bin/node /usr/local/bin/node</pre
+      >
+      <pre lang="sh">
+sudo ln -s /opt/node-v4.2.1-linux-x64/bin/npm /usr/local/bin/npm</pre
+      >
     </vue-code>
     <p>查看安装版本号</p>
     <vue-code>
@@ -39,7 +45,9 @@
       <em>config</em>命令
     </p>
     <vue-code>
-      <pre lang="sh">npm config set registry https://registry.npm.taobao.org</pre>
+      <pre lang="sh">
+npm config set registry https://registry.npm.taobao.org</pre
+      >
       <pre lang="sh">npm info underscore #查看underscore模块信息</pre>
     </vue-code>
 
@@ -67,22 +75,18 @@
     </vue-code>
     <span>
       一共有两种打开调试工具的方法，第一种是在 Chrome 浏览器的地址栏，键入
-      <em>chrome://inspect</em>或者
-      <em>about:inspect</em>进入, 在 Devices/Target 部分，点击 inspect 链接，就能进入调试工具了。
+      <em>chrome://inspect</em>或者 <em>about:inspect</em>进入, 在
+      Devices/Target 部分，点击 inspect 链接，就能进入调试工具了。
     </span>
   </el-main>
 </template>
 <script lang="ts">
-
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  name: 'NodejsInstall',
+  name: "NodejsInstall",
 })
-export default class NodejsInstall extends Vue {
-
-}
-
+export default class NodejsInstall extends Vue {}
 </script>
 <style lang="stylus" scoped>
 .el-main {

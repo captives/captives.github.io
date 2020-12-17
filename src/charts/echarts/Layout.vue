@@ -9,22 +9,22 @@
   </el-container>
 </template>
 <script>
-import router from './../router/echarts';
-import NavMenu from '@/components/NavMenu';
+import router from "./../router/echarts";
+import NavMenu from "@/components/NavMenu";
 export default {
   label: "ECharts",
   components: {
-    NavMenu
+    NavMenu,
   },
   data() {
     return {
-      list: []
-    }
+      list: [],
+    };
   },
   created() {
     this.list = router.children;
-  }
-}
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .el-container {

@@ -4,7 +4,15 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Video</el-divider>
-        <video ref="localVideo" class="video-item" :src="url" controls muted loop autoplay></video>
+        <video
+          ref="localVideo"
+          class="video-item"
+          :src="url"
+          controls
+          muted
+          loop
+          autoplay
+        ></video>
       </el-col>
 
       <el-col class="center" :xs="24" :sm="24" :md="12">
@@ -12,17 +20,30 @@
         <canvas ref="draw" class="video-item"></canvas>
         <el-row>
           行
-          <el-input-number v-model="row" :min="1" :max="10" size="small"></el-input-number>列
-          <el-input-number v-model="column" :min="1" :max="10" size="small"></el-input-number>
+          <el-input-number
+            v-model="row"
+            :min="1"
+            :max="10"
+            size="small"
+          ></el-input-number
+          >列
+          <el-input-number
+            v-model="column"
+            :min="1"
+            :max="10"
+            size="small"
+          ></el-input-number>
         </el-row>
       </el-col>
     </el-row>
 
-    <vue-source src="guide/views/canvas/DrawVideoSplitScreen.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/canvas/DrawVideoSplitScreen.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-
 export default {
   name: "DrawVideoSplicing",
   data() {
@@ -31,15 +52,19 @@ export default {
       canvas: null,
       context: null,
       row: 3,
-      column: 3
-    }
+      column: 3,
+    };
+  },
+  mounted() {
+    let video = this.$refs.localVideo;
+    video.addEventListener("canplay", this.init);
   },
   methods: {
     init(event) {
       let canvas = this.$refs.draw;
       if (canvas) {
-        canvas.setAttribute('width', event.target.offsetWidth);
-        canvas.setAttribute('height', event.target.offsetHeight);
+        canvas.setAttribute("width", event.target.offsetWidth);
+        canvas.setAttribute("height", event.target.offsetHeight);
         this.context = canvas.getContext("2d");
         this.animate();
       }
@@ -56,27 +81,38 @@ export default {
     drawText(x, y, text) {
       this.context.font = "16px 微软雅黑";
       this.context.fillStyle = "#FFF";
-      this.context.fillText('video ' + text, x, y);
+      this.context.fillText("video " + text, x, y);
     },
     animate() {
       let source = this.$refs.localVideo;
       let canvas = this.$refs.draw;
       if (source) {
         const sourceWidth = Math.floor(source.videoWidth / this.column); //单个元素的宽
-        const sourceHeight = Math.floor(source.videoHeight / this.row);//单个元素的高
+        const sourceHeight = Math.floor(source.videoHeight / this.row); //单个元素的高
 
         const drawWidth = Math.floor(canvas.width / this.column); //单个元素的宽
-        const drawHeight = Math.floor(canvas.height / this.row);//单个元素的高
+        const drawHeight = Math.floor(canvas.height / this.row); //单个元素的高
 
         this.context.clearRect(0, 0, canvas.width, canvas.height);
         for (var i = 0; i < this.column; i++) {
           for (var k = 0; k < this.row; k++) {
-            this.context.drawImage(source,
-              0, 0, source.videoWidth, source.videoHeight,
-              i * drawWidth + 1, k * drawHeight + 1, drawWidth - 1, drawHeight - 1,
+            this.context.drawImage(
+              source,
+              0,
+              0,
+              source.videoWidth,
+              source.videoHeight,
+              i * drawWidth + 1,
+              k * drawHeight + 1,
+              drawWidth - 1,
+              drawHeight - 1
             );
 
-            this.drawText((i + 1) * drawWidth - 70, k * drawHeight + 20, k * this.column + i + 1);
+            this.drawText(
+              (i + 1) * drawWidth - 70,
+              k * drawHeight + 20,
+              k * this.column + i + 1
+            );
           }
         }
 
@@ -90,13 +126,9 @@ export default {
           mozRequestAnimationFrame(this.animate);
         }
       }
-    }
+    },
   },
-  mounted() {
-    let video = this.$refs.localVideo;
-    video.addEventListener('canplay', this.init);
-  },
-}
+};
 </script>
 
 <style lang="stylus" scoped>

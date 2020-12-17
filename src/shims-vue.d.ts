@@ -1,14 +1,18 @@
-declare module '*.vue' {
-  import Vue from 'vue'
-  export default Vue
+import VueRouter, { Route } from "vue-router";
+import VueSocketIO from "vue-socket.io";
+
+declare module "*.vue" {
+  import Vue from "vue";
+  export default Vue;
 }
 
-declare module '*.svg'
-declare module '*.png'
-declare module '*.jpg'
-declare module '*.jpeg'
-declare module '*.gif'
-declare module '*.bmp'
-declare module '*.tiff'
-
-declare module 'global';
+declare module "vue/types/vue" {
+  interface Vue {
+    $router: VueRouter;
+    $route: Route;
+    $http: any;
+    $message: any;
+    socket: any;
+    sockets: VueSocketIO;
+  }
+}

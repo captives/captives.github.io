@@ -2,12 +2,15 @@
   <el-container>公共聊天室</el-container>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import api from './../api/index';
+import { Component, Vue } from "vue-property-decorator";
+import api from "./../api/index";
 
-interface User { id: string, name: string };
+interface User {
+  id: string;
+  name: string;
+}
 @Component({
-  name: "ChatRoom"
+  name: "ChatRoom",
 })
 export default class ChatRoom extends Vue {
   private user: any = { uid: null, name: null };
@@ -19,9 +22,13 @@ export default class ChatRoom extends Vue {
         this.user.name = user.name;
         this.user.uid = user.time;
         //@ts-ignore
-        this.$socket.emit('register', { role: 1, td: this.$route.params.td, name: user.name });
+        this.$socket.emit("register", {
+          role: 1,
+          td: this.$route.params.td,
+          name: user.name,
+        });
       }
-    })
+    });
   }
 }
 </script>

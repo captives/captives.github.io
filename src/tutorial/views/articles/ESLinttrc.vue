@@ -4,7 +4,8 @@
     <p>.eslintrc.js</p>
     <p>使用<em>parser</em>插件</p>
     <vue-code>
-      <pre lang="sh">module.exports = {
+      <pre lang="sh">
+module.exports = {
      /* 指定如何解析语法。可以为空，但若不为空，只能配该值，原因见下文。*/
     parser: 'vue-eslint-parser', 
     /* 扩展配置，加一些插件 */            
@@ -23,7 +24,8 @@
     </vue-code>
     <p>.eslintrc.yml</p>
     <vue-code>
-      <pre lang="sh">parser: 'vue-eslint-parser'
+      <pre lang="sh">
+parser: 'vue-eslint-parser'
 extends: 
   - 'eslint:recommended'
   - 'plugin:vue/recommended'

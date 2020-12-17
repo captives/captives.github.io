@@ -15,23 +15,25 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from './../components/HelloWorld.vue'
-import VueSync from './../components/VueSync.vue';
-import VueModel from './../components/VueModel.vue';
-import VueModelBase from './../components/VueModelBase.vue';
-import QRCode from './QRCode';
+import HelloWorld from "./../components/HelloWorld.vue";
+import VueSync from "./../components/VueSync.vue";
+import VueModel from "./../components/VueModel.vue";
+import VueModelBase from "./../components/VueModelBase.vue";
+import QRCode from "./QRCode";
 export default {
-  name: 'home',
+  name: "home",
   components: {
-    HelloWorld, QRCode, VueSync, VueModel, VueModelBase
+    HelloWorld,
+    QRCode,
+    VueSync,
+    VueModel,
+    VueModelBase,
   },
   data() {
     return {
-      list: [
-        { name: "AA", age: 10 }
-      ],
-      title: "Welcome to Your Vue.js App !"
-    }
-  }
-}
+      list: [{ name: "AA", age: 10 }],
+      title: "Welcome to Your Vue.js App !",
+    };
+  },
+};
 </script>

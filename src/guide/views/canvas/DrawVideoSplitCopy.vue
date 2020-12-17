@@ -4,7 +4,15 @@
     <el-row :gutter="50">
       <el-col class="center" :xs="24" :sm="24" :md="12">
         <el-divider content-position="left">Video</el-divider>
-        <video ref="localVideo" class="video-item" :src="url" controls muted loop autoplay></video>
+        <video
+          ref="localVideo"
+          class="video-item"
+          :src="url"
+          controls
+          muted
+          loop
+          autoplay
+        ></video>
       </el-col>
 
       <el-col class="center" :xs="24" :sm="24" :md="12">
@@ -12,17 +20,32 @@
         <div ref="container" class="video-item"></div>
         <el-row>
           行
-          <el-input-number v-model="row" :min="1" :max="10" size="small" @change="handleChange"></el-input-number>列
-          <el-input-number v-model="column" :min="1" :max="10" size="small" @change="handleChange"></el-input-number>
+          <el-input-number
+            v-model="row"
+            :min="1"
+            :max="10"
+            size="small"
+            @change="handleChange"
+          ></el-input-number
+          >列
+          <el-input-number
+            v-model="column"
+            :min="1"
+            :max="10"
+            size="small"
+            @change="handleChange"
+          ></el-input-number>
         </el-row>
       </el-col>
     </el-row>
 
-    <vue-source src="guide/views/canvas/DrawVideoSplitCopy.vue" lang="html"></vue-source>
+    <vue-source
+      src="guide/views/canvas/DrawVideoSplitCopy.vue"
+      lang="html"
+    ></vue-source>
   </el-main>
 </template>
 <script>
-
 export default {
   name: "DrawVideoSplitCopy",
   data() {
@@ -31,27 +54,34 @@ export default {
       list: [],
       row: 2,
       column: 2,
-      animationFrameId: 0
-    }
+      animationFrameId: 0,
+    };
+  },
+  mounted() {
+    let video = this.$refs.localVideo;
+    // video.addEventListener('canplay', this.init);
+    this.init();
   },
   methods: {
     init(event) {
       let views = this.$refs.container;
-      views.innerHTML = '';
+      views.innerHTML = "";
       this.list = [];
 
       const drawWidth = Math.floor(views.clientWidth / this.column); //单个元素的宽
-      const drawHeight = Math.floor(views.clientHeight / this.row);//单个元素的高
-      for (var k = 0; k < this.row; k++) { //逐行
-        for (var i = 0; i < this.column; i++) { //逐列
-          let canvas = document.createElement('canvas');
-          let context = canvas.getContext('2d');
+      const drawHeight = Math.floor(views.clientHeight / this.row); //单个元素的高
+      for (var k = 0; k < this.row; k++) {
+        //逐行
+        for (var i = 0; i < this.column; i++) {
+          //逐列
+          let canvas = document.createElement("canvas");
+          let context = canvas.getContext("2d");
 
-          canvas.setAttribute('width', drawWidth - 1);
-          canvas.setAttribute('height', drawHeight - 1);
-          canvas.style.position = 'absolute';
-          canvas.style.left = (i * drawWidth + 1) + "px";
-          canvas.style.top = (k * drawHeight + 1) + "px";
+          canvas.setAttribute("width", drawWidth - 1);
+          canvas.setAttribute("height", drawHeight - 1);
+          canvas.style.position = "absolute";
+          canvas.style.left = i * drawWidth + 1 + "px";
+          canvas.style.top = k * drawHeight + 1 + "px";
           views.appendChild(canvas);
 
           this.list.push(context);
@@ -64,17 +94,26 @@ export default {
       let source = this.$refs.localVideo;
       let views = this.$refs.container;
       const drawWidth = Math.floor(views.clientWidth / this.column); //单个元素的宽
-      const drawHeight = Math.floor(views.clientHeight / this.row);//单个元素的高
+      const drawHeight = Math.floor(views.clientHeight / this.row); //单个元素的高
 
       if (source) {
         const sourceWidth = Math.floor(source.videoWidth / this.column); //单个元素的宽
-        const sourceHeight = Math.floor(source.videoHeight / this.row);//单个元素的高
-        for (var i = 0; i < this.column; i++) { //逐列
-          for (var k = 0; k < this.row; k++) { //逐行
+        const sourceHeight = Math.floor(source.videoHeight / this.row); //单个元素的高
+        for (var i = 0; i < this.column; i++) {
+          //逐列
+          for (var k = 0; k < this.row; k++) {
+            //逐行
             let context = this.list[k * this.column + i];
-            context.drawImage(source,
-              i * sourceWidth, k * sourceHeight, sourceWidth, sourceHeight,
-              0, 0, drawWidth, drawHeight,
+            context.drawImage(
+              source,
+              i * sourceWidth,
+              k * sourceHeight,
+              sourceWidth,
+              sourceHeight,
+              0,
+              0,
+              drawWidth,
+              drawHeight
             );
           }
         }
@@ -101,14 +140,9 @@ export default {
         mozCancelAnimationFrame(this.animate);
       }
       this.init();
-    }
+    },
   },
-  mounted() {
-    let video = this.$refs.localVideo;
-    // video.addEventListener('canplay', this.init);
-    this.init();
-  },
-}
+};
 </script>
 
 <style lang="stylus" scoped>

@@ -2,13 +2,11 @@
   <el-container>直播会议室</el-container>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from "vue-property-decorator";
 @Component({
-  name: "LiveRoom"
+  name: "LiveRoom",
 })
-export default class LiveRoom extends Vue {
-
-}
+export default class LiveRoom extends Vue {}
 </script>
 <style lang="stylus" scoped>
 .el-container {
