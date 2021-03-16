@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <el-main class="center">
     <h1>Docker安装mysql</h1>
     <h3>建立镜像</h3>
     <p>1、拉取官方镜像</p>
@@ -15,8 +15,7 @@
     <p>3、一般来说数据库容器不需要建立目录映射</p>
     <vue-code>
       <pre lang="bash">
-sudo docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql</pre
-      >
+sudo docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql</pre>
     </vue-code>
     <ul>
       <li>–name：容器名，此处命名为<em>mysql</em></li>

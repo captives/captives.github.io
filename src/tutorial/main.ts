@@ -1,8 +1,7 @@
 import Vue from "vue";
-import Main from "./views/Main.vue";
+import Main from "./Main.vue";
 import router from "./router";
 import store from "./store";
-import "@/assets/css/base-style.css";
 
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
@@ -12,6 +11,11 @@ Vue.config.productionTip = false;
 
 import global from "@/plugins/global";
 Vue.use(global);
+
+//引入动画库
+//@ts-ignore
+import animate from 'animate.css/animate.compat.css'
+Vue.use(animate);
 
 new Vue({
   router,

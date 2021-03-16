@@ -1,11 +1,10 @@
 <template>
-  <el-main>
+  <el-main class="center">
     <h3>安装Nodejs</h3>
     <p>命令行下载</p>
     <vue-code>
       <pre lang="sh">
-wget https://nodejs.org/dist/.../node-v4.2.1-linux-x64.tar.gz</pre
-      >
+wget https://nodejs.org/dist/.../node-v4.2.1-linux-x64.tar.gz</pre>
     </vue-code>
     <p>解压缩文件</p>
     <vue-code>
@@ -21,11 +20,9 @@ wget https://nodejs.org/dist/.../node-v4.2.1-linux-x64.tar.gz</pre
     <p>设置全局软连接</p>
     <vue-code>
       <pre lang="sh">
-sudo ln -s /opt/node-v4.2.1-linux-x64/bin/node /usr/local/bin/node</pre
-      >
+sudo ln -s /opt/node-v4.2.1-linux-x64/bin/node /usr/local/bin/node</pre>
       <pre lang="sh">
-sudo ln -s /opt/node-v4.2.1-linux-x64/bin/npm /usr/local/bin/npm</pre
-      >
+sudo ln -s /opt/node-v4.2.1-linux-x64/bin/npm /usr/local/bin/npm</pre>
     </vue-code>
     <p>查看安装版本号</p>
     <vue-code>
@@ -46,8 +43,7 @@ sudo ln -s /opt/node-v4.2.1-linux-x64/bin/npm /usr/local/bin/npm</pre
     </p>
     <vue-code>
       <pre lang="sh">
-npm config set registry https://registry.npm.taobao.org</pre
-      >
+npm config set registry https://registry.npm.taobao.org</pre>
       <pre lang="sh">npm info underscore #查看underscore模块信息</pre>
     </vue-code>
 
@@ -86,13 +82,5 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   name: "NodejsInstall",
 })
-export default class NodejsInstall extends Vue {}
+export default class NodejsInstall extends Vue { }
 </script>
-<style lang="stylus" scoped>
-.el-main {
-  text-align: initial;
-  width: 60%;
-  min-width: 750px;
-  margin: 0 auto;
-}
-</style>

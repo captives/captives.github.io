@@ -1,10 +1,10 @@
 <template>
-  <ul>
-    <li>
-      <a href>postcss-px-to-viewport</a>
-      <span>将px单位转换为视口单位的 (vw, vh, vmin, vmax) 的 PostCSS 插件</span>
-      <p>
-        <pre>
+    <ul>
+        <li>
+            <a href>postcss-px-to-viewport</a>
+            <span>将px单位转换为视口单位的 (vw, vh, vmin, vmax) 的 PostCSS 插件</span>
+            <p>
+            <pre>
     css: {
         loaderOptions: {
           postcss: {
@@ -29,7 +29,9 @@
         }
     },
           </pre>
-      </p>
-    </li>
-  </ul>
+            </p>
+        </li>
+    </ul>
 </template>
+<script>
+</script>

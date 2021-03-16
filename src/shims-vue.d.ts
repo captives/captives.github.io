@@ -6,6 +6,7 @@ declare module "*.vue" {
   export default Vue;
 }
 
+declare module 'animate.css';
 declare module "vue/types/vue" {
   interface Vue {
     $router: VueRouter;

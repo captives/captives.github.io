@@ -165,9 +165,21 @@
         "href": "http://vue-particles.netlify.com/",
         "desc": "--- 轻量级JavaScript粒子库！"
     }, {
+        "title": "file pond",
+        "href": "https://pqina.nl/filepond/docs/",
+        "desc": "vue中使用filepond进行文件上传"
+    }, {
         "title": "gtag.js",
         "href": "https://developers.google.cn/gtagjs",
         "desc": "全局网站代码 (gtag.js)是一种JavaScrip代码植入框架兼API;"
+    }, {
+        "title": "waifu2x",
+        "href": "http://waifu2x.udp.jp/",
+        "desc": "插画/照片无损放大"
+    }, {
+        "title": "bigjpg",
+        "href": "https://bigjpg.com/",
+        "desc": "插画/照片无损放大"
     }, {
         "title": "TensorFlow.js",
         "href": "https://tensorflow.google.cn",

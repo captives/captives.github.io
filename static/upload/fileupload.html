@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue HTML5 文件上传</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <form id="fileupload" action="https://jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+            <span class="btn btn-success fileinput-button">
+                <span>选择文件..</span> <input type="file" name="file" multiple />
+            </span>
+            <ul>
+                <li v-for="(item, index) in list" :key="index">
+                    {{item.name}} - {{item.text}} - {{item.progress}}
+                    <button v-on:click="uploadHandler(item)">上传</button>
+                </li>
+            </ul>
+        </form>
+
+        {{title}}
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="js/jquery-1.12.4.min.js"></script>
+
+<script src="js/vendor/jquery.ui.widget.js"></script>
+
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="js/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="js/jquery.fileupload-process.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="js/jquery.fileupload-validate.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: "Hello",
+            list: []
+        },
+        methods: {
+            getFormData(files) {
+                const formData = new FormData();
+                formData.append('theFile', files);
+                formData.append('userFileDO', {
+                    belong: 1 //上级目录ID
+                });
+                formData.append('fileDo', {
+                    filename: "test", //文件名
+                    totalSize: 1024, //文件大小
+                    isLastChunk: 1, //1为末段，最后一次上传，0不是末段
+                    // chunk://分片上传
+                    filemd5: "xxx-xxx-xxx-ddd-" + Date.now()
+                });
+            },
+            // 当文件被添加到上传组件时被触发
+            add: function(e, data) {
+                const file = data.files[0];
+                data.context = {
+                    file: file,
+                    name: file.name,
+                    text: "准备上传",
+                    progress: "",
+                    submit: () => data.submit()
+                };
+                this.list.push(data.context);
+            },
+            // 上传请求成功时触发的回调函数
+            done: function(e, data) {
+                data.context.text = '上传完成';
+            },
+            // 上传请求失败时触发的回调函数
+            fail: function(e, data) {
+                data.context.text = "上传失败";
+            },
+            // 上传请求结束时（成功，错误或者中止）都会被触发。
+            always: function(e, data) {
+                console.log("上传逻辑执行完成");
+            },
+            // 当一个单独的文件处理队列结束（完成或失败时）触发
+            processalways: function(e, data) {
+                console.log("processalways 当一个单独的文件处理队列结束（完成或失败时）触发");
+            },
+            //  全局上传处理事件的回调函数
+            progressall: function(e, data) {
+                data.context.progress = parseInt(data.loaded / data.total * 100, 10) + '%';
+            },
+            uploadHandler(item) {
+                item.submit();
+            }
+        },
+        mounted() {
+            const fileUpload = $('#fileupload').fileupload({
+                // 取消注释以下内容以发送跨域Cookie：
+                xhrFields: {
+                    withCredentials: true
+                },
+                // url: "https://121.225.84.134:8011/sys/userFile/uploadFileFor",
+                url: "http://localhost:8000/upload",
+                autoUpload: false,
+                drop: this.drop,
+                change: this.change,
+                add: this.add,
+                done: this.done,
+                fail: this.fail,
+                always: this.always,
+                progressall: this.progressall,
+                processalways: this.processalways
+            });
+        }
+    });
+</script>
+
+</html>

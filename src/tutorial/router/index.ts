@@ -1,60 +1,23 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { RouteConfig, Route } from "vue-router";
 import Home from "../views/Home.vue";
+type Position = { x: number; y: number }
 
 Vue.use(VueRouter);
 
 const prefix = "";
 const routes: Array<RouteConfig> = [
+  { path: prefix + "/", name: "Home", component: Home },
+  { path: prefix + "/view.vue", name: "视图预览", component: () => import("../views/View.vue") },
+  { path: prefix + "/about", name: "About", component: () => import("../views/About.vue") },
   {
-    path: prefix,
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: prefix + "/nav",
-    name: "WebSite",
-    component: () => import("../views/WebSite.vue"),
-  },
-  {
-    path: prefix + "/node",
-    name: "Nodejs 安装",
-    component: () => import("../views/articles/NodejsInstall.vue"),
-  },
-  {
-    path: prefix + "/editor",
-    name: "编辑器",
-    component: () => import("../views/VueEditor.vue"),
-  },
-  {
-    path: prefix + "/matrix",
-    name: "矩阵",
-    component: () => import("../views/matrix/index.vue"),
-  },
-  {
-    path: prefix + "/html5",
-    name: "HTML5",
-    component: () => import("../views/articles/HTML5.vue"),
-  },
-  {
-    path: prefix + "/vscode",
-    name: "VScode Setting",
-    component: () => import("../views/articles/VSCodeSettings.vue"),
-  },
-  {
-    path: prefix + "/js-uuid",
-    name: "JavaScript 创建GUID/UUID",
-    component: () => import("../views/articles/JavaScriptGenerateUUID.vue"),
-  },
-  {
-    path: prefix + "/webrtc-recorder",
-    name: "WebRTC录制",
-    component: () => import("../views/articles/WebRTCRecorder.vue"),
-  },
-  {
-    path: prefix + "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
+    path: prefix + "/article", name: "...", redirect: prefix + "/articles/index",
+    component: Vue.extend({ template: '<router-view></router-view>' }),
+    children: [
+      { name: "文章", path: prefix + "/articles/index", component: () => import("../views/articles/index.vue") },
+      { name: "WebSite", path: prefix + "/article/website", component: () => import("../views/WebSite.vue") },
+      { name: "编辑器", path: prefix + "/article/edit", component: () => import("../views/files/VueEditor.vue") },
+    ]
   },
 ];
 
@@ -64,7 +27,13 @@ const routes: Array<RouteConfig> = [
 //   return originalPush.call(this, location).catch((err: any) => err)
 // }
 
-// mode: "history"
-const router = new VueRouter({ routes });
+const router = new VueRouter({
+  routes,
+  // scrollBehavior(to: Route, from: Route, savedPosition: Position | void) {
+  //   // return 期望滚动到哪个的位置
+  //   return savedPosition || { x: 0, y: 0 }
+  // }
+});
+
 export default router;
 export { prefix };

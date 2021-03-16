@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <el-main class="center">
     <h3>TypeScript Vue ESLint 配置</h3>
     <p>.eslintrc.js</p>
     <p>使用<em>parser</em>插件</p>

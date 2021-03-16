@@ -1,9 +1,8 @@
 <template>
-  <el-main>
-    <h3>VSCode Setting</h3>
-
-    <vue-code>
-      <pre lang="json5">
+    <el-main class="center">
+        <h3>VSCode Setting</h3>
+        <vue-code>
+            <pre lang="js">
 {
     // 换行
     "editor.wordWrap": "on",
@@ -82,8 +81,7 @@
         "i18n": "json"
     }
 }
-            </pre
-      >
-    </vue-code>
-  </el-main>
+            </pre>
+        </vue-code>
+    </el-main>
 </template>

@@ -8,19 +8,13 @@
             getUserById(scope.row.id).name
           }}</template>
         </el-table-column>
-        <el-table-column
-          v-if="publisher"
-          prop="select"
-          label="选项"
-        ></el-table-column>
+        <el-table-column v-if="publisher" prop="select" label="选项"></el-table-column>
         <el-table-column label="结果">
           <template slot-scope="scope">
-            <i
-              :class="[
+            <i :class="[
                 scope.row.result ? 'el-icon-check' : 'el-icon-close',
                 'icon-result',
-              ]"
-            ></i>
+              ]"></i>
           </template>
         </el-table-column>
       </el-table>
@@ -33,19 +27,13 @@
       </el-row>
 
       <el-row class="el-list">
-        <el-row
-          v-for="(item, index) in item.options"
-          :key="index"
-          :class="[
+        <el-row v-for="(item, index) in item.options" :key="index" :class="[
             publisher
               ? ''
               : selectValue == index
               ? 'select current-row'
               : 'select',
-          ]"
-          :gutter="20"
-          @click.native="selectHandler(index)"
-        >
+          ]" :gutter="20" @click.native="selectHandler(index)">
           <el-col :span="2">{{ subjectOptionLabel[index] }}、</el-col>
           <el-col :span="22">{{ item }}</el-col>
         </el-row>
@@ -65,12 +53,7 @@
 
         <template v-else>
           <p>选择答案选项，并提交答案，等待老师结束答题</p>
-          <el-button
-            v-if="!getResultById(user.id)"
-            type="success"
-            @click="submitResult"
-            >提交答案</el-button
-          >
+          <el-button v-if="!getResultById(user.id)" type="success" @click="submitResult">提交答案</el-button>
         </template>
       </el-footer>
     </el-main>
@@ -89,19 +72,7 @@ export default {
       time: 0,
       result: "",
       selectValue: -1,
-      subjectOptionLabel: [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-      ],
+      subjectOptionLabel: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"],
     };
   },
   computed: {
@@ -118,38 +89,26 @@ export default {
     },
   },
   methods: {
-    ...mapActions("SubjectData", [
-      "initResults",
-      "addResult",
-      "addRankingList",
-    ]),
+    ...mapActions("SubjectData", ["initResults", "addResult", "addRankingList"]),
     selectHandler(index) {
       this.selectValue = index;
     },
     submitResult() {
       var opt = this.subjectOptionLabel[this.selectValue];
-      this.$confirm(
-        "您确认提交答案？提交后将不得再更改答案。",
-        "提交答案，选项 " + opt,
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        }
-      ).then(() => {
+      this.$confirm("您确认提交答案？提交后将不得再更改答案。", "提交答案，选项 " + opt, {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
         this.client.subject("answer", opt, this.addResult);
       });
     },
     closeSubject() {
-      this.$confirm(
-        "确认结束答题？确认结束后，学生将不能提交答案。",
-        "结束答题",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        }
-      ).then(() => {
+      this.$confirm("确认结束答题？确认结束后，学生将不能提交答案。", "结束答题", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
         this.client.subject("stop", null, (data) => {
           this.$emit("complete", data);
         });

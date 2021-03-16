@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <el-main class="center">
     <h3>JS生成 UUID的四种方法</h3>
     <p>
       全局唯一标识符（GUID，Globally Unique Identifier）也称作 UUID(Universally
@@ -19,11 +19,7 @@
 
     <h3>
       算法一:
-      <el-button
-        class="el-icon-refresh"
-        type="text"
-        @click="guid.value1 = create1_uuid()"
-      ></el-button>
+      <el-button class="el-icon-refresh" type="text" @click="guid.value1 = create1_uuid()"></el-button>
       <em>{{ guid.value1 }}</em>
     </h3>
     <vue-code>
@@ -40,17 +36,12 @@ function uuid() {
 
     var uuid = s.join("");
     return uuid;
-}</pre
-      >
+}</pre>
     </vue-code>
 
     <h3>
       算法二:
-      <el-button
-        class="el-icon-refresh"
-        type="text"
-        @click="guid.value2 = create2_uuid()"
-      ></el-button>
+      <el-button class="el-icon-refresh" type="text" @click="guid.value2 = create2_uuid()"></el-button>
       <em>{{ guid.value2 }}</em>
     </h3>
     <vue-code>
@@ -61,17 +52,12 @@ function guid() {
             v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
-}</pre
-      >
+}</pre>
     </vue-code>
 
     <h3>
       算法三:
-      <el-button
-        class="el-icon-refresh"
-        type="text"
-        @click="guid.value3 = create3_uuid()"
-      ></el-button>
+      <el-button class="el-icon-refresh" type="text" @click="guid.value3 = create3_uuid()"></el-button>
       <em>{{ guid.value3 }}</em>
     </h3>
     <vue-code>
@@ -81,26 +67,15 @@ function guid() {
         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-}</pre
-      >
+}</pre>
     </vue-code>
 
     <h3>
       算法四:
-      <el-button
-        class="el-icon-refresh"
-        type="text"
-        @click="guid.value4 = create4_uuid(guid.length, guid.radix)"
-      ></el-button>
+      <el-button class="el-icon-refresh" type="text" @click="guid.value4 = create4_uuid(guid.length, guid.radix)"></el-button>
       <em>{{ guid.value4 }}</em>
       长度
-      <el-input-number
-        v-model="guid.length"
-        :min="8"
-        :max="32"
-        size="mini"
-        label="长度"
-      ></el-input-number>
+      <el-input-number v-model="guid.length" :min="8" :max="32" size="mini" label="长度"></el-input-number>
 
       <el-radio-group v-model="guid.radix">
         <el-radio :label="2">二进制</el-radio>
@@ -138,8 +113,7 @@ function uuid(len, radix) {
     }
 
     return uuid.join('');
-}</pre
-      >
+}</pre>
     </vue-code>
     <p>这个可以指定长度和基数。比如:</p>
     <vue-code>
@@ -149,8 +123,7 @@ uuid(8, 2) //  "01001010"
     // 8 character ID (base=10)
 uuid(8, 10) // "47473046"
     // 8 character ID (base=16)
-uuid(8, 16) // "098F4D35"</pre
-      >
+uuid(8, 16) // "098F4D35"</pre>
     </vue-code>
   </el-main>
 </template>
@@ -185,40 +158,22 @@ export default class JavaScriptGenerateUUID extends Vue {
   }
 
   private create2_uuid() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-      /[xy]/g,
-      function (c) {
-        var r = (Math.random() * 16) | 0,
-          v = c == "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-      }
-    );
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+      var r = (Math.random() * 16) | 0,
+        v = c == "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
   }
 
   private create3_uuid() {
     function S4() {
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }
-    return (
-      S4() +
-      S4() +
-      "-" +
-      S4() +
-      "-" +
-      S4() +
-      "-" +
-      S4() +
-      "-" +
-      S4() +
-      S4() +
-      S4()
-    );
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
   }
 
   private create4_uuid(len: number, radix: number) {
-    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(
-      ""
-    );
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
     var uuid = [];
     var i;
     radix = radix || chars.length;
@@ -255,29 +210,3 @@ export default class JavaScriptGenerateUUID extends Vue {
   }
 }
 </script>
-<style lang="stylus" scoped>
-@keyframes radar-beam
-    0%
-        transform translateX(-100%)
-    100%
-        transform translateX(150%)
-.row-building
-    background #E6A23C
-    height 60px
-    position relative
-    &::after
-        content ''
-        display block
-        background-image linear-gradient(90deg, rgba(0, 255, 51, 0) 50%, rgba(103, 194, 58, 0.55) 100%)
-        width 50%
-        height 100%
-        position absolute
-        top 0
-        left 0
-        -webkit-animation radar-beam-data-v-64cd0161 5s infinite
-        animation radar-beam-data-v-64cd0161 5s infinite
-        -webkit-animation-timing-function linear
-        animation-timing-function linear
-        transform-origin bottom right
-        border-radius 100% 0 0 0
-</style>

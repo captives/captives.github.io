@@ -2,12 +2,7 @@
   <el-row>
     <el-container>
       <el-main>
-        <canvas
-          ref="canvasElement"
-          class="canvas"
-          width="1360px"
-          height="720px"
-        ></canvas>
+        <canvas ref="canvasElement" class="canvas" width="1360px" height="720px"></canvas>
         <DrawTypeBar @change="drawTypeChange">
           <li @click="clear">清屏</li>
         </DrawTypeBar>
@@ -21,17 +16,17 @@
             <BasicAssembly @change="rectChangeHandler"></BasicAssembly>
           </el-collapse-item>
           <el-collapse-item title="属性" name="3">
-            <ElementProperties
-              v-model="options"
-              :drawType="drawType"
-              @input="elementPropertiesHandler"
-            ></ElementProperties>
+            <ElementProperties v-model="options" :drawType="drawType" @input="elementPropertiesHandler"></ElementProperties>
           </el-collapse-item>
+          <el-divider content-position="left">画布尺寸</el-divider>
+          <el-button type="primary" size="mini" @click="changeCanvasSize('640x480')">640x480</el-button>
+          <el-button type="primary" size="mini" @click="changeCanvasSize('1360x720')">1360x720</el-button>
+          <el-button type="primary" size="mini" @click="changeCanvasSize('1920x1080')">1920x1080</el-button>
         </el-collapse>
       </el-aside>
     </el-container>
     <el-container>
-      <DrawBoardFabricRemote></DrawBoardFabricRemote>
+      <DrawBoardFabricRemote :size="domSize"></DrawBoardFabricRemote>
     </el-container>
   </el-row>
 </template>
@@ -51,6 +46,7 @@ export default {
   },
   data() {
     return {
+      domSize: "1360x720",
       canvas: null, //画布对象
       canvasObject: null, //绘图元素
       textBoxObject: null, //文本框
@@ -147,12 +143,7 @@ export default {
 
         if (this.drawType == this.DrawType.SELECT) {
           // canvas._drawSelection = _drawSelection;
-        } else if (
-          this.canvasObject &&
-          [this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(
-            this.canvasObject.drawType
-          ) == -1
-        ) {
+        } else if (this.canvasObject && [this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(this.canvasObject.drawType) == -1) {
           this.canvasObject = null;
         }
 
@@ -172,11 +163,7 @@ export default {
           if (this.canvasObject) {
             this.canvas.remove(this.canvasObject);
 
-            if (
-              [this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(
-                this.canvasObject.drawType
-              ) !== -1
-            ) {
+            if ([this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(this.canvasObject.drawType) !== -1) {
               this.canvasObject.exitEditing();
             }
           }
@@ -224,6 +211,12 @@ export default {
         console.log("path:created", e);
       });
     },
+    changeCanvasSize(size) {
+      this.domSize = size;
+      const rect = size.split("x");
+      this.canvas.setWidth(rect[0]);
+      this.canvas.setHeight(rect[1]);
+    },
     transformMouse(x, y) {
       return { x: x, y: y };
     },
@@ -231,76 +224,36 @@ export default {
       const text = "这是文本内容";
       switch (this.drawType) {
         case this.DrawType.LINE: //实线
-          this.canvasObject = new fabric.Line(
-            [
-              this.mouseFrom.x,
-              this.mouseFrom.y,
-              this.mouseTo.x,
-              this.mouseTo.y,
-            ],
-            {
-              stroke: this.selectColor,
-              strokeWidth: this.selecteWidth,
-              strokeLineJoin: "round",
-            }
-          );
+          this.canvasObject = new fabric.Line([this.mouseFrom.x, this.mouseFrom.y, this.mouseTo.x, this.mouseTo.y], {
+            stroke: this.selectColor,
+            strokeWidth: this.selecteWidth,
+            strokeLineJoin: "round",
+          });
           break;
         case this.DrawType.DOTTEDLINE: //虚线
-          this.canvasObject = new fabric.Line(
-            [
-              this.mouseFrom.x,
-              this.mouseFrom.y,
-              this.mouseTo.x,
-              this.mouseTo.y,
-            ],
-            {
-              strokeDashArray: [this.selecteWidth, this.selecteWidth], //宽度、间距
-              stroke: this.selectColor,
-              strokeWidth: this.selecteWidth,
-              strokeLineJoin: "round",
-            }
-          );
+          this.canvasObject = new fabric.Line([this.mouseFrom.x, this.mouseFrom.y, this.mouseTo.x, this.mouseTo.y], {
+            strokeDashArray: [this.selecteWidth, this.selecteWidth], //宽度、间距
+            stroke: this.selectColor,
+            strokeWidth: this.selecteWidth,
+            strokeLineJoin: "round",
+          });
           break;
         case this.DrawType.ARROW: //箭头
-          this.canvasObject = new fabric.Path(
-            this.drawArrow(
-              this.mouseFrom.x,
-              this.mouseFrom.y,
-              this.mouseTo.x,
-              this.mouseTo.y,
-              30,
-              30
-            ),
-            {
-              fill: "rgba(255, 255, 255, 0)",
-              stroke: this.selectColor,
-              strokeWidth: this.selecteWidth,
-            }
-          );
+          this.canvasObject = new fabric.Path(this.drawArrow(this.mouseFrom.x, this.mouseFrom.y, this.mouseTo.x, this.mouseTo.y, 30, 30), {
+            fill: "rgba(255, 255, 255, 0)",
+            stroke: this.selectColor,
+            strokeWidth: this.selecteWidth,
+          });
           break;
         case this.DrawType.ARROW2: //箭头指向
-          this.canvasObject = new fabric.Path(
-            this.drawArrow2(
-              this.mouseFrom.x,
-              this.mouseFrom.y,
-              this.mouseTo.x,
-              this.mouseTo.y,
-              30,
-              30
-            ),
-            {
-              fill: this.selectColor,
-              // stroke: this.selectColor,
-              strokeWidth: 2,
-            }
-          );
+          this.canvasObject = new fabric.Path(this.drawArrow2(this.mouseFrom.x, this.mouseFrom.y, this.mouseTo.x, this.mouseTo.y, 30, 30), {
+            fill: this.selectColor,
+            // stroke: this.selectColor,
+            strokeWidth: 2,
+          });
           break;
         case this.DrawType.CIRCLE: //正圆
-          let value =
-            (this.mouseTo.x - this.mouseFrom.x) *
-              (this.mouseTo.x - this.mouseFrom.x) +
-            (this.mouseTo.y - this.mouseFrom.y) *
-              (this.mouseTo.y - this.mouseFrom.y);
+          let value = (this.mouseTo.x - this.mouseFrom.x) * (this.mouseTo.x - this.mouseFrom.x) + (this.mouseTo.y - this.mouseFrom.y) * (this.mouseTo.y - this.mouseFrom.y);
           let radius = Math.sqrt(value) / 2;
 
           this.canvasObject = new fabric.Circle({
@@ -328,28 +281,7 @@ export default {
           });
           break;
         case this.DrawType.SQUARE: //正方形
-          var path =
-            "M " +
-            this.mouseFrom.x +
-            " " +
-            this.mouseFrom.y +
-            " L " +
-            this.mouseTo.x +
-            " " +
-            this.mouseFrom.y +
-            " L " +
-            this.mouseTo.x +
-            " " +
-            this.mouseTo.y +
-            " L " +
-            this.mouseFrom.x +
-            " " +
-            this.mouseTo.y +
-            " L " +
-            this.mouseFrom.x +
-            " " +
-            this.mouseFrom.y +
-            " z";
+          var path = "M " + this.mouseFrom.x + " " + this.mouseFrom.y + " L " + this.mouseTo.x + " " + this.mouseFrom.y + " L " + this.mouseTo.x + " " + this.mouseTo.y + " L " + this.mouseFrom.x + " " + this.mouseTo.y + " L " + this.mouseFrom.x + " " + this.mouseFrom.y + " z";
 
           this.canvasObject = new fabric.Path(path, {
             left: this.mouseTo.x - (this.mouseTo.x - this.mouseFrom.x) / 2,
@@ -376,20 +308,7 @@ export default {
           });
           break;
         case this.DrawType.RIGHTANGLE: //直角三角形
-          var path =
-            "M " +
-            this.mouseFrom.x +
-            " " +
-            this.mouseFrom.y +
-            " L " +
-            this.mouseFrom.x +
-            " " +
-            this.mouseTo.y +
-            " L " +
-            this.mouseTo.x +
-            " " +
-            this.mouseTo.y +
-            " z";
+          var path = "M " + this.mouseFrom.x + " " + this.mouseFrom.y + " L " + this.mouseFrom.x + " " + this.mouseTo.y + " L " + this.mouseTo.x + " " + this.mouseTo.y + " z";
 
           this.canvasObject = new fabric.Path(path, {
             left: this.mouseTo.x - (this.mouseTo.x - this.mouseFrom.x) / 2,
@@ -465,11 +384,7 @@ export default {
       if (this.canvasObject) {
         this.canvas.add(this.canvasObject);
         this.canvasObject.drawType = this.drawType;
-        if (
-          [this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(
-            this.canvasObject.drawType
-          ) !== -1
-        ) {
+        if ([this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(this.canvasObject.drawType) !== -1) {
           this.canvasObject.enterEditing();
           // this.canvas._drawSelectionl = false;
           this.canvasObject.hiddenTextarea.focus();
@@ -593,31 +508,16 @@ export default {
     behaviorHandler() {
       if (this.canvasObject) {
         console.log("当前绘图对象", this.canvasObject.drawType);
-        if (
-          [this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(
-            this.drawType
-          ) !== -1
-        ) {
+        if ([this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(this.drawType) !== -1) {
           this.canvasObject.enterEditing();
           this.canvasObject.hiddenTextarea.focus();
           console.log("进入编辑");
-        } else if (
-          [this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(
-            this.canvasObject.drawType
-          ) !== -1
-        ) {
+        } else if ([this.DrawType.TEXTBOX, this.DrawType.ITEXT].indexOf(this.canvasObject.drawType) !== -1) {
           this.canvasObject.exitEditing();
           console.log("退出编辑");
         }
 
-        console.log(
-          "当前绘制类型",
-          this.drawType,
-          "\n数据",
-          this.canvasObject.toObject(),
-          "\nSVG",
-          this.canvasObject.toSVG()
-        );
+        console.log("当前绘制类型", this.drawType, "\n数据", this.canvasObject.toObject(), "\nSVG", this.canvasObject.toSVG());
       }
     },
     elementPropertiesHandler(value) {

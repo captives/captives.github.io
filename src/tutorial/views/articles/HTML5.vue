@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <el-main class="center">
     <h3>HTML5 基本知识</h3>
     <p>
       浏览器选项卡获取焦点和失去焦点
@@ -13,8 +13,7 @@ document.addEventListener("visibilitychange", () => {
         }else{
             document.title = "选项卡被激活";
         }
-    });</pre
-      >
+    });</pre>
     </vue-code>
 
     <p>
@@ -29,10 +28,8 @@ window.addEventListener("beforeunload", (e) => {
             (e || window.event).returnValue = confirmationMessage; // 兼容 Gecko + IE
             return confirmationMessage; // 兼容 Gecko + Webkit, Safari, Chrome
         }
-    });</pre
-      >
+    });</pre>
     </vue-code>
-    <div class="row-building"></div>
   </el-main>
 </template>
 <script lang="ts">
@@ -73,29 +70,3 @@ export default class HTML5 extends Vue {
   }
 }
 </script>
-<style lang="stylus" scoped>
-@keyframes radar-beam
-    0%
-        transform translateX(-100%)
-    100%
-        transform translateX(150%)
-.row-building
-    background #E6A23C
-    height 60px
-    position relative
-    &::after
-        content ''
-        display block
-        background-image linear-gradient(90deg, rgba(0, 255, 51, 0) 50%, rgba(103, 194, 58, .55) 100%)
-        width 50%
-        height 100%
-        position absolute
-        top 0
-        left 0
-        -webkit-animation radar-beam-data-v-64cd0161 5s infinite
-        animation radar-beam-data-v-64cd0161 5s infinite
-        -webkit-animation-timing-function linear
-        animation-timing-function linear
-        transform-origin bottom right
-        border-radius 100% 0 0 0
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <el-main class="center">
     <h3>WebRTC录制</h3>
     <h4>MediaRecorder</h4>
     <p>
@@ -9,8 +9,7 @@
     </p>
     <vue-code>
       <pre lang="js">
-var mediaRecorder = new MediaRecorder(stream[, options]);</pre
-      >
+var mediaRecorder = new MediaRecorder(stream[, options]);</pre>
     </vue-code>
     <div>
       创建一个新的MediaRecorder对象,对指定的MediaStream
@@ -19,11 +18,7 @@ var mediaRecorder = new MediaRecorder(stream[, options]);</pre
     </div>
     <p>
       <b>stream</b>,
-      <el-link
-        href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaRecorder"
-        target="_blank"
-        >options</el-link
-      >
+      <el-link href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaRecorder" target="_blank">options</el-link>
     </p>
     <p>
       MediaStream 将要录制的流. 它可以是来自于使用
@@ -52,8 +47,7 @@ var mediaRecorder = new MediaRecorder(stream[, options]);</pre
             }
           }
         }
-      }</pre
-      >
+      }</pre>
     </vue-code>
     <p>创建录制对象</p>
     <vue-code>
@@ -86,27 +80,20 @@ var mediaRecorder = new MediaRecorder(stream[, options]);</pre
       }
 
       this.mediaRecorder.start(200); // 数据收集200ms
-      console.log('MediaRecorder started', this.mediaRecorder);</pre
-      >
+      console.log('MediaRecorder started', this.mediaRecorder);</pre>
     </vue-code>
     <p>停止录制</p>
     <vue-code>
       <pre lang="js">
     if (this.mediaRecorder && this.recording) {
         this.mediaRecorder.stop();
-    }</pre
-      >
+    }</pre>
     </vue-code>
     <h4>FileReader</h4>
     <p>
-      <em>FileReader</em
-      >对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用
+      <em>FileReader</em>对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用
       File 或 Blob 对象指定要读取的文件或数据。
-      <el-link
-        href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader"
-        target="_blank"
-        >查看更多</el-link
-      >
+      <el-link href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader" target="_blank">查看更多</el-link>
     </p>
     <vue-code>
       <pre lang="js">var reader = new FileReader();</pre>
@@ -131,8 +118,7 @@ var mediaRecorder = new MediaRecorder(stream[, options]);</pre
 
           reader.readAsBinaryString(event.data);
         }
-      };</pre
-      >
+      };</pre>
     </vue-code>
 
     <h4>fs.createWriteStream</h4>
@@ -169,14 +155,9 @@ switch (json.event) {
             }, 1000);
         }
         break;
-};</pre
-      >
+};</pre>
     </vue-code>
-    <el-link
-      href="guide.html#/webrtc/display-media-recorder-to-file"
-      target="_blank"
-      >完整示例查看</el-link
-    >
+    <el-link href="guide.html#/webrtc/display-media-recorder-to-file" target="_blank">完整示例查看</el-link>
   </el-main>
 </template>
 <script lang="ts">
@@ -185,13 +166,5 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   name: "WebRTCRecorder",
 })
-export default class WebRTCRecorder extends Vue {}
+export default class WebRTCRecorder extends Vue { }
 </script>
-<style lang="stylus" scoped>
-.el-main {
-  text-align: initial;
-  width: 60%;
-  min-width: 750px;
-  margin: 0 auto;
-}
-</style>

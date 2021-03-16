@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery File Upload</title>
+    <!-- Bootstrap v3.3.7 -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="css/blueimp-gallery.min.css" />
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <!-- <link rel="stylesheet" href="css/jquery.fileupload.css" />
+    <link rel="stylesheet" href="css/jquery.fileupload-ui.css" /> -->
+</head>
+
+<body style="padding: 50px;">
+    <form id="fileupload" action="https://jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="col-lg-7">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button">
+                    <span>选择文件..</span> <input type="file" name="file" multiple />
+                </span>
+                <button type="submit" class="btn btn-primary start">
+                    <span>开始上传</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <span>取消上传</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <span>删除选中</span>
+                </button>
+                <input type="checkbox" class="toggle" />
+                <!-- The global file processing state -->
+                <span class="fileupload-process"></span>
+            </div>
+            <!-- The global progress state -->
+            <div class="col-lg-5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                </div>
+                <!-- The extended global progress state -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped">
+            <tbody class="files"></tbody>
+        </table>
+    </form>
+    <!-- The template to display files available for upload -->
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade{%=o.options.loadImageFileTypes.test(file.type)?' image':''%}">
+            <td>
+                <span class="preview"></span>
+            </td>
+            <td>
+                <p class="name">{%=file.name%}</p>
+                <strong class="error text-danger"></strong>
+            </td>
+            <td>
+                <p class="size">Processing...</p>
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+            </td>
+            <td>
+                {% if (!o.options.autoUpload && o.options.edit && o.options.loadImageFileTypes.test(file.type)) { %}
+                <button class="btn btn-success edit" data-index="{%=i%}" disabled>
+                      <i class="glyphicon glyphicon-edit"></i>
+                      <span>Edit</span>
+                  </button> {% } %} {% if (!i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start" disabled>
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Start</span>
+                    </button> {% } %} {% if (!i) { %}
+                <button class="btn btn-warning cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Cancel</span>
+                    </button> {% } %}
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade{%=file.thumbnailUrl?' image':''%}">
+            <td>
+                <span class="preview">
+                    {% if (file.thumbnailUrl) { %}
+                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                    {% } %}
+                </span>
+            </td>
+            <td>
+                <p class="name">
+                    {% if (file.url) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a> {% } else { %}
+                    <span>{%=file.name%}</span> {% } %}
+                </p>
+                {% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                {% } %}
+            </td>
+            <td>
+                <span class="size">{%=o.formatFileSize(file.size)%}</span>
+            </td>
+            <td>
+                {% if (file.deleteUrl) { %}
+                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>Delete</span>
+                    </button>
+                <input type="checkbox" name="delete" value="1" class="toggle"> {% } else { %}
+                <button class="btn btn-warning cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Cancel</span>
+                    </button> {% } %}
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    <!-- <script src="js/jquery-3.6.0.min.js"></script> -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <!-- The Templates plugin is included to render the upload/download listings -->
+    <script src="https://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+
+    <script src="js/vendor/jquery.ui.widget.js"></script>
+
+    <script src="js/jquery.blueimp-gallery.min.js"></script>
+
+    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+    <script src="js/jquery.iframe-transport.js"></script>
+    <!-- The basic File Upload plugin -->
+    <script src="js/jquery.fileupload.js"></script>
+    <!-- The File Upload processing plugin -->
+    <script src="js/jquery.fileupload-process.js"></script>
+    <!-- The File Upload image preview & resize plugin -->
+    <!-- <script src="js/jquery.fileupload-image.js"></script> -->
+    <!-- The File Upload audio preview plugin -->
+    <!-- <script src="js/jquery.fileupload-audio.js"></script> -->
+    <!-- The File Upload video preview plugin -->
+    <!-- <script src="js/jquery.fileupload-video.js"></script> -->
+    <!-- The File Upload validation plugin -->
+    <script src="js/jquery.fileupload-validate.js"></script>
+    <!-- The File Upload user interface plugin -->
+    <script src="js/jquery.fileupload-ui.js"></script>
+    <!-- The main application script -->
+    <!-- <script src="js/demo.js"></script> -->
+    <script>
+        function getFormData(files) {
+            const formData = new FormData();
+            formData.append('theFile', files);
+            formData.append('userFileDO', {
+                belong: 1 //上级目录ID
+            });
+            formData.append('fileDo', {
+                filename: "test", //文件名
+                totalSize: 1024, //文件大小
+                isLastChunk: 1, //1为末段，最后一次上传，0不是末段
+                // chunk://分片上传
+                filemd5: "xxx-xxx-xxx-ddd-" + Date.now()
+            });
+
+            const data = {
+                script: true,
+                theFile: files,
+                userFileDO: {
+                    belong: 1
+                },
+                fileDo: {
+                    filename: "test", //文件名
+                    totalSize: 1024, //文件大小
+                    isLastChunk: 1, //1为末段，最后一次上传，0不是末段
+                    // chunk://分片上传
+                    filemd5: "xxx-xxx-xxx-ddd-" + Date.now()
+                }
+            }
+
+            // return JSON.stringify(data);
+            return data;
+        }
+
+        // 初始化jQuery文件上载小部件：
+        const fileUpload = $('#fileupload').fileupload({
+            // 取消注释以下内容以发送跨域Cookie：
+            xhrFields: {
+                withCredentials: true
+            },
+            // url: "https://121.225.84.134:8011/sys/userFile/uploadFileFor",
+            url: "http://localhost:8000/upload",
+            autoUpload: false,
+            // acceptFileTypes: /(\.|\/)(gif|jpe?g|png|xlsx)$/i, //允许上传的文件类型
+            // maxFileSize:999, 允许最大上传文件大小，单位：B
+            // minFileSize:10, 允许最小上传文件大小，单位：B
+            drop: function(e, data) {　　
+                console.log('拖入的文件', data.files);
+                // $.each(data.files, function(index, file) {　　
+                //     alert('Dropped file: ' + file.name);　　
+                // });　　
+            },
+            change: function(e, data) {
+                console.log('Selected file: ' + data.files);
+                // $.each(data.files, function(index, file) {　　
+                //     alert('Selected file: ' + file.name);　　
+                // });　　
+            },
+            // 当文件被添加到上传组件时被触发
+            add: function(e, data) {
+                console.log(data.files);
+
+                data.files.forEach(file => {
+                    file.uploadName = "file_" + file.name;
+                })
+
+                data.formData = getFormData(data.files);
+                data.context = $('<button/>').text('Upload')
+                    .appendTo(document.body)
+                    .click(function() {
+                        data.context = $('<p/>').text('Uploading...').replaceAll($(this));
+                        data.submit();
+                    });
+
+            },
+            // 上传请求成功时触发的回调函数
+            done: function(e, data) {
+                data.context.text('Upload finished.');
+            },
+            // 上传请求失败时触发的回调函数
+            fail: function(e, data) {
+                console.log('Upload fail.');
+            },
+            // 上传请求结束时（成功，错误或者中止）都会被触发。
+            always: function(e, data) {
+                console.log('Upload always.');
+            },
+            // 当一个单独的文件处理队列结束（完成或失败时）触发
+            processalways: function(e, data) {
+
+            },
+            //  全局上传处理事件的回调函数
+            progressall: function(e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                // data.context.text(progress + '%');
+                console.log('progress: %s%', progress);
+            }
+        });
+
+        /*  
+        * 等价于以下使用方式
+
+        fileUpload.bind("fileuploaddrop", (e, data) => {
+              console.log('fileuploaddrop', data.files);
+          }).bind("fileuploadadd", (e, data) => {
+              // 当文件被添加到上传组件时被触发
+              console.log('fileuploadadd', data.files);
+          }).bind("fileuploadprogress", (e, data) => {
+              // 进度条更新时被触发
+            var progress = parseInt(data.loaded / data.total * 100, 10);  
+              console.log('progress', progress + '%');
+          }).bind("fileuploadchange", (e, data) => {
+              // 
+              console.log('fileuploadchange', data.files);
+          }).bind("fileuploaddone", (e, data) => {
+              // 上传请求成功时触发的回调函数
+              var result = JSON.parse(data.result);
+              console.log('fileuploaddone', result);
+          }) 
+
+        */
+    </script>
+</body>
+
+</html>

@@ -5,11 +5,7 @@
     <p>
       Fabric.js是一个可以简化canvas程序编写的库。
       Fabric.js为canvas提供所缺少的对象模型, svg parser,
-      交互和一整套其他不可或缺的工具。基于MIT协议开源，在github上有许多人贡献代码。<a
-        href="https://github.com/Rookie-Birds/Fabric-Tutorial_zh-CN"
-        target="_blank"
-        >中文教程</a
-      >
+      交互和一整套其他不可或缺的工具。基于MIT协议开源，在github上有许多人贡献代码。<a href="https://github.com/Rookie-Birds/Fabric-Tutorial_zh-CN" target="_blank">中文教程</a>
     </p>
 
     <h3>配置参数</h3>
@@ -29,12 +25,7 @@
       <li>flipY垂直翻转：boolean</li>
       <li>
         <p>
-          更多配置参数请参考：<a
-            href="http://fabricjs.com/docs/fabric.Object.html"
-            rel="nofollow noreferrer"
-            target="_blank"
-            >fabric.Object</a
-          >，以及其子类
+          更多配置参数请参考：<a href="http://fabricjs.com/docs/fabric.Object.html" rel="nofollow noreferrer" target="_blank">fabric.Object</a>，以及其子类
         </p>
       </li>
     </ul>

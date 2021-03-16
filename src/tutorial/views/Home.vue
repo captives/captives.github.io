@@ -1,26 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <VueSync v-model="title"></VueSync>
-    <!-- <VuePropertyDecorator :msg="title"></VuePropertyDecorator> -->
-  </div>
+    <div class="home">
+        <transition mode="out-in" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+            <img v-show="show" alt="Vue logo" src="../assets/logo.png" @click="show=!show" />
+        </transition>
+        <transition mode="out-in" enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+            <img v-show="!show" alt="Vue logo" src="../assets/logo.png" @click="show=!show" />
+        </transition>
+        <VuePropertyDecorator></VuePropertyDecorator>
+    </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-// @ is an alias to /src
-import VuePropertyDecorator from "./../components/VuePropertyDecorator.vue";
-import VueSync from "./../components/VueSync.vue";
+import VuePropertyDecorator from './vue-property-decorator/index.vue';
+
 @Component({
-  name: "Home",
-  components: { VuePropertyDecorator, VueSync },
+    name: "Home",
+    components: { VuePropertyDecorator },
 })
 export default class Home extends Vue {
-  private title = "Vue.js";
-  private list: Array<string> = [];
-  private selectValue = false;
+    private show: boolean = false;
 }
 </script>
 <style lang="stylus" scoped>
-.home
-    text-align center
+.home {
+    text-align: center;
+}
 </style>
