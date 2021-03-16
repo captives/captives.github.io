@@ -2,13 +2,14 @@
     <el-container>
         <el-header class="center">
             <el-row class="nav">
-                <router-link to="/">首页</router-link>
+                <router-link to="/" v-if="$route.path != '/'">首页</router-link>
                 <a href="/live.html">会议室</a>
                 <a href="/guide.html">指南</a>
                 <a href="/charts.html">图表</a>
-                <router-link to="/tools">工具</router-link>
+                <router-link to="/markdown">编辑器</router-link>
                 <router-link :to="{ path:'/iframe', query:{ url:'/static/sprite/index.html' }}">雪碧图</router-link>
                 <router-link to="/favorite">收藏夹</router-link>
+                <router-link to="/tools">...</router-link>
             </el-row>
         </el-header>
 
@@ -26,6 +27,7 @@ export default {
         return {};
     },
     beforeCreate() {
+        console.log(this.$route);
         this.$router.afterEach(() => {
             document.title = this.$route.name;
         });
@@ -49,6 +51,10 @@ export default {
         line-height: 60px;
         text-decoration: none;
     }
+}
+
+.el-container {
+    height: 100%;
 }
 
 .debug-btn {

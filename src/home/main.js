@@ -15,5 +15,11 @@ Vue.use(Splash);
 import Debug from '@/plugins/logger/index.js'
 Vue.use(new Debug({ debug: true }));
 
+//必须全局注册
+import mavonEditor from "mavon-editor";
+import "mavon-editor/dist/css/index.css";
+Vue.use(mavonEditor);
+
+
 Vue.config.productionTip = false;
 new Vue({ router, render: (h) => h(App) }).$mount("#app");

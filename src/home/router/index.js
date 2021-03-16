@@ -16,6 +16,12 @@ const routes = [{
             import ("../views/Favorite.vue"),
     },
     {
+        path: "/markdown",
+        name: "Markdown",
+        component: () =>
+            import ("../views/VueMarkdownEditor.vue")
+    },
+    {
         path: "/iframe",
         name: "窗口",
         component: () =>

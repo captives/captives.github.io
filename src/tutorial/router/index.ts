@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 const prefix = "";
 const routes: Array<RouteConfig> = [
   { path: prefix + "/", name: "Home", component: Home },
-  { path: prefix + "/view.vue", name: "视图预览", component: () => import("../views/View.vue") },
+  { path: prefix + "/view", name: "视图预览", component: () => import("../views/View.vue") },
   { path: prefix + "/about", name: "About", component: () => import("../views/About.vue") },
   {
     path: prefix + "/article", name: "...", redirect: prefix + "/articles/index",

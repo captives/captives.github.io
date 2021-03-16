@@ -125,6 +125,14 @@
         "title": "Web Designer",
         "href": "https://github.com/xiaoai7904/web_designer",
         "desc": "网页设计器图形化工具,通过拖拽组件进行页面排版和生成页面代码。"
+    }, {
+        "title": "Mavon-editor",
+        "href": "https://www.npmjs.com/package/mavon-editor",
+        "desc": "一款强大的Vue-markdown编辑器插件"
+    }, {
+        "title": "marked.js",
+        "href": "https://marked.js.org/",
+        "desc": "强大的markdown语法转换js插件库"
     }],
     "UI框架": [{
         "title": "Muse-UI",
