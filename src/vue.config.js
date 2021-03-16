@@ -23,9 +23,9 @@ module.exports = {
         //写法一：排除不需要打包到项目中的外部库
         externals: {
             //包名 ： 全局变量
-            vue: 'Vue',
-            'vue-router': 'VueRouter',
-            axios: 'axios'
+            // vue: 'Vue',
+            // 'vue-router': 'VueRouter',
+            // axios: 'axios'
         }
     },
     chainWebpack: (config) => {
