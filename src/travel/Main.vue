@@ -7,11 +7,11 @@
             <div slot="today" class="font-bold">今天</div>
 
             <div slot="arrow" slot-scope="scope" class="calendar-arrow">
-                <i :class="[scope.show ? 'cubeic-select' : 'cubeic-close' ]"></i>
+                <van-icon :name="[scope.show ? 'arrow-down' : 'cross' ]" />
             </div>
 
         </vue-hash-calendar>
-        <cube-button type="submit">Button</cube-button>
+        <van-button type="primary" block>Button</van-button>
         <router-view></router-view>
     </div>
 </template>

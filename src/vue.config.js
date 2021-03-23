@@ -65,16 +65,9 @@ module.exports = {
             stylus: {
                 'resolve url': true,
                 'import': [
-                    './src/travel/theme'
+                    // './src/travel/theme'
                 ]
             }
-        }
-    },
-
-    pluginOptions: {
-        'cube-ui': {
-            postCompile: true,
-            theme: true
         }
     }
 };

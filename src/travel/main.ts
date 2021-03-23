@@ -16,8 +16,9 @@ Vue.use(VueHashCalendar);
 import animate from 'animate.css/animate.compat.css'
 Vue.use(animate);
 
-import Cube from 'cube-ui'
-Vue.use(Cube)
+import Vant from 'vant';
+import 'vant/lib/index.css';
+Vue.use(Vant)
 
 
 Vue.config.productionTip = false;
