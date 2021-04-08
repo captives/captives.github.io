@@ -8,16 +8,18 @@ import SourceCode from "./../components/SourceCode";
 import URLInput from "./../components/URLInput.vue";
 import NavMenu from "./../components/NavMenu";
 import Lottie from "./../components/Lottie";
+import QRCode from "./../components/QRCode.vue";
 import DebuggerPopover from "./../components/DebuggerPopover.vue";
 import { fetch } from "./common";
 
 const global = {
     install(Vue) {
-        Vue.component("url-input", URLInput);
+        Vue.component("qr-code", QRCode);
         Vue.component("vue-code", Code);
         Vue.component("vue-source", Source);
         Vue.component("vue-lottie", Lottie);
         Vue.component("vue-menu", NavMenu);
+        Vue.component("url-input", URLInput);
         Vue.component("source-code", SourceCode);
         Vue.component("vue-debugger", DebuggerPopover);
 

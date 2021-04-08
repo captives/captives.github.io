@@ -24,6 +24,7 @@ export default class Articles extends Vue {
         { name: "VScode Setting", component: () => import("./VSCodeSettings.vue") },
         { name: "JavaScript 创建GUID/UUID", component: () => import("./JavaScriptGenerateUUID.vue") },
         { name: "WebRTC录制", component: () => import("./WebRTCRecorder.vue") },
+        { name: "VCard 电子名片", component: () => import("./VCard.vue") },
     ];
 
     private selectHandler(value: any) {

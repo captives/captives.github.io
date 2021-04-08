@@ -11,6 +11,10 @@ import VueHashCalendar from 'vue-hash-calendar';
 import 'vue-hash-calendar/lib/vue-hash-calendar.css';
 Vue.use(VueHashCalendar);
 
+import VueAwesomeSwiper from 'vue-awesome-swiper';
+import 'swiper/swiper.min.css';
+Vue.use(VueAwesomeSwiper);
+
 //引入动画库
 //@ts-ignore
 import animate from 'animate.css/animate.compat.css'
