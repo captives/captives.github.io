@@ -11,6 +11,15 @@
             </div>
 
         </vue-hash-calendar>
+        <swiper ref="mySwiper" style="height:200px;background:red" :options="swiperOptions">
+            <swiper-slide>Slide 1</swiper-slide>
+            <swiper-slide>Slide 2</swiper-slide>
+            <swiper-slide>Slide 3</swiper-slide>
+            <swiper-slide>Slide 4</swiper-slide>
+            <swiper-slide>Slide 5</swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+
         <van-button type="primary" block>Button</van-button>
         <router-view></router-view>
     </div>
@@ -20,6 +29,12 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component({ name: "Main" })
 export default class Main extends Vue {
+
+    private swiperOptions: any = {
+        pagination: {
+            el: '.swiper-pagination'
+        }
+    };
 
     private calendarChangeHandler(date: Date) {
         console.log('time', date.toLocaleString());
