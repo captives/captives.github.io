@@ -107,6 +107,21 @@ function arrow(mouseFrom, mouseTo) {
 }
 
 
+function image() {
+    // fabric.Image.fromURL("/static/logo.jpg", (img) => {
+    //     img.scale(0.5).set({
+    //         left: fabric.util.getRandomInt(0, width / 2),
+    //         top: fabric.util.getRandomInt(0, height) / 2,
+    //         angle: -15,
+    //         clipTo: function (ctx) {
+    //             ctx.arc(0, 0, 300, 0, Math.PI * 2, true);
+    //         },
+    //     });
+    //     this.canvas.add(img).setActiveObject(img);
+    // });
+}
+
+
 module.exports = {
     transformMouse,
     arrow,

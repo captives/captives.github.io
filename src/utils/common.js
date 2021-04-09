@@ -20,7 +20,12 @@ const hashGetData = () => {
     return {...window.location, path, query: r };
 }
 
+const isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n); // http://stackoverflow.com/a/1830844/648802
+};
+
 export {
     queryGet,
-    hashGetData
+    hashGetData,
+    isNumber
 }

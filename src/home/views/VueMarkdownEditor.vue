@@ -5,15 +5,21 @@
             <!-- <i slot="left-toolbar-after">2</i> -->
             <!-- <i slot="right-toolbar-before">3</i> -->
             <!-- <i slot="right-toolbar-after">4</i> -->
-            <button slot="left-toolbar-after" type="button" class="op-icon fa fa-mavon-floppy-o" @click="dialog.visible=true"></button>
 
-            <template slot="left-toolbar-after">
+            <template slot="left-toolbar-before">
                 <el-popover placement="top-start" title="文章列表" width="200" trigger="hover" popper-class="popper-list">
                     <ul class="list">
-                        <li v-for="(item,index) in list" :key="index" @click="editHandler(item)">{{item.title}}</li>
+                        <li v-for="(item,index) in list" :key="index">
+                            <span> {{item.title}}</span>
+                            <el-button type="text" @click="editHandler(item)" icon="el-icon-edit"></el-button>
+                            <el-button type="text" icon="el-icon-view"></el-button>
+                        </li>
                     </ul>
                     <button slot="reference" type="button" class="op-icon fa fa-mavon-bars" @click="getList"></button>
                 </el-popover>
+                <button type="button" class="op-icon fa el-icon-document-add" @click="createPage"></button>
+                <button type="button" class="op-icon fa fa-mavon-floppy-o" @click="dialog.visible=true"></button>
+                <span class="op-icon-divider"></span>
             </template>
         </mavon-editor>
 
@@ -100,6 +106,15 @@ export default {
         this.getList();
     },
     methods: {
+        createPage() {
+            this.value = "";
+            this.dialog.id = null;
+            this.dialog.text = "";
+            this.dialog.html = "";
+            this.dialog.title = ""; //标题
+            this.dialog.desc = ""; //描述
+            this.dialog.anchor = [];
+        },
         changeHandler(value, html) {
             this.dialog.text = value;
             this.dialog.html = value;
@@ -114,7 +129,7 @@ export default {
         editHandler(item) {
             //编辑指定信息
             request("/edit/read", { id: item.id }).then((data) => {
-                console.log("read", item.id, data);
+                console.log("匹配结果", data.data.text.match(/^\-{3} - $\-{3}/g));
                 if (data.success) {
                     this.value = data.data.text;
                     this.dialog.title = data.data.title;
@@ -124,6 +139,10 @@ export default {
             });
         },
         saveHandler() {
+            if (!this.dialog.text) {
+                return this.$message({ type: "error", message: "暂无内容需要保存" });
+            }
+
             this.$refs["dialog-form"].validate((valid) => {
                 if (valid) {
                     request("/edit/save", {
@@ -156,7 +175,20 @@ export default {
     ul.list {
         li {
             padding: 3px 5px 3px 0;
-            cursor: pointer;
+            display: flex;
+
+            span {
+                flex: 1;
+            }
+
+            button {
+                display: none;
+                padding: 0;
+            }
+
+            &:hover button {
+                display: block;
+            }
         }
     }
 }

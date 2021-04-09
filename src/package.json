@@ -84,11 +84,5 @@
         "xgplayer": "^2.13.2",
         "xgplayer-mp4": "^1.2.0"
     },
-    "homepage": "https://captives.github.io",
-    "transformModules": {
-        "cube-ui": {
-            "transform": "cube-ui/src/modules/${member}",
-            "kebabCase": true
-        }
-    }
+    "homepage": "https://captives.github.io"
 }

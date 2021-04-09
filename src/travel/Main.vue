@@ -9,8 +9,12 @@
             <div slot="arrow" slot-scope="scope" class="calendar-arrow">
                 <van-icon :name="[scope.show ? 'arrow-down' : 'cross' ]" />
             </div>
-
         </vue-hash-calendar>
+        <div class="test-bok">
+            <p>1</p>
+            <p>2</p>
+        </div>
+        <van-button type="primary" block>Button</van-button>
         <swiper ref="mySwiper" style="height:200px;background:red" :options="swiperOptions">
             <swiper-slide>Slide 1</swiper-slide>
             <swiper-slide>Slide 2</swiper-slide>
@@ -19,8 +23,6 @@
             <swiper-slide>Slide 5</swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
-
-        <van-button type="primary" block>Button</van-button>
         <router-view></router-view>
     </div>
 </template>
@@ -41,11 +43,9 @@ export default class Main extends Vue {
     }
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 body {
     font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     margin-top: 60px;
 }
@@ -53,5 +53,9 @@ body {
 <style lang="stylus" scoped>
 .calendar-week {
     color: $btn-active-bdc;
+}
+
+.test-bok {
+    display: flex;
 }
 </style>
