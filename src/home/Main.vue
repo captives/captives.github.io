@@ -13,7 +13,7 @@
             </el-row>
         </el-header>
         <router-view />
-        <vue-debugger class="debug-btn"></vue-debugger>
+        <vue-debugger class="debug-btn" v-if="isDebug"></vue-debugger>
     </el-container>
 </template>
 <script>
@@ -21,6 +21,11 @@ export default {
     name: "Main",
     data() {
         return {};
+    },
+    computed: {
+        isDebug() {
+            return location.host.indexOf("local") != -1;
+        },
     },
     beforeCreate() {
         console.log(this.$route);
