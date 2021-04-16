@@ -468,6 +468,12 @@ input.button {
     color: #3eaf7c;
 }
 
+@media screen and (max-width: 750px) {
+    .content {
+        margin: 0 10px;
+    }
+}
+
 @media print {
     #header,
     .debug-btn,
