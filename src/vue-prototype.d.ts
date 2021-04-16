@@ -17,6 +17,11 @@ declare module 'vue-awesome-swiper' {
   export default VueAwesomeSwiper;
 }
 
+declare module '@/plugins/markdown' {
+  import MarkdownEditor from '@/plugins/MarkdownEditor';
+  export default MarkdownEditor;
+}
+
 declare module "*.mp3" {
   const src: string;
   export default src;

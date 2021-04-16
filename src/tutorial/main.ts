@@ -5,7 +5,7 @@ import store from "./store";
 
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-Vue.use(ElementUI);
+Vue.use(ElementUI, { size: "small" });
 
 Vue.config.productionTip = false;
 
@@ -16,6 +16,9 @@ Vue.use(global);
 //@ts-ignore
 import animate from 'animate.css/animate.compat.css'
 Vue.use(animate);
+
+import MarkdownEditor from '@/plugins/MarkdownEditor';
+Vue.use(MarkdownEditor);
 
 new Vue({
   router,

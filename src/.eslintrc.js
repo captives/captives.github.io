@@ -17,7 +17,7 @@ module.exports = {
     },
     plugins: ["vue", "@typescript-eslint"],
     rules: {
-        indent: ["error", 2],
+        indent: [4, 8],
         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
         "no-unused-vars": "off", // ["error", { args: "none" }], //消除未使用的变量，函数和函数的参数

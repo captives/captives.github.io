@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <el-aside width="300px">
+        <el-aside class="sidebar" width="300px">
             <ul>
                 <li v-for="(item,index) in list" :key="index" @click="selectHandler(item)">{{item.name}}</li>
             </ul>
@@ -25,6 +25,7 @@ export default class Articles extends Vue {
         { name: "JavaScript 创建GUID/UUID", component: () => import("./JavaScriptGenerateUUID.vue") },
         { name: "WebRTC录制", component: () => import("./WebRTCRecorder.vue") },
         { name: "VCard 电子名片", component: () => import("./VCard.vue") },
+        { name: "SQLite3", component: () => import("./SQLite3.vue") },
     ];
 
     private selectHandler(value: any) {
@@ -33,20 +34,22 @@ export default class Articles extends Vue {
 }
 </script>
 <style lang='stylus' scoped>
-ul {
-    list-style: none;
+.sidebar {
+    ul {
+        list-style: none;
 
-    li {
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding: 10px 5px;
-        white-space: nowrap;
-        border-bottom: 1px solid #EEE;
-        cursor: pointer;
+        li {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 10px 5px;
+            white-space: nowrap;
+            border-bottom: 1px solid #EEE;
+            cursor: pointer;
 
-        &:hover {
-            background: #EEE;
+            &:hover {
+                background: #EEE;
+            }
         }
     }
 }

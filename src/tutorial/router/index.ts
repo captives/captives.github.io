@@ -1,24 +1,37 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig, Route } from "vue-router";
-import Home from "../views/Home.vue";
 type Position = { x: number; y: number }
 
 Vue.use(VueRouter);
 
 const prefix = "";
+
+let moreRoutes: Array<RouteConfig> = [
+  { name: "文章", path: prefix + "/articles/index", component: () => import("../views/articles/index.vue") },
+  { name: "WebSite", path: prefix + "/article/website", component: () => import("../views/WebSite.vue") },
+]
+
+//只允许本地添加
+if (window.location.origin.indexOf('local') != -1) {
+  moreRoutes = moreRoutes.concat([
+    { name: "文档管理", path: prefix + "/markdown/index", component: () => import("../views/markdown/index.vue") },
+    { name: "新建文档", path: prefix + "/markdown/edit/:id", component: () => import("../views/markdown/Editor.vue") }
+  ]);
+}
+
 const routes: Array<RouteConfig> = [
-  { path: prefix + "/", name: "Home", component: Home },
+  { path: prefix + "/", name: "Home", component: () => import("../views/Home.vue") },
   { path: prefix + "/view", name: "视图预览", component: () => import("../views/View.vue") },
   { path: prefix + "/about", name: "About", component: () => import("../views/About.vue") },
   {
     path: prefix + "/article", name: "...", redirect: prefix + "/articles/index",
     component: Vue.extend({ template: '<router-view></router-view>' }),
-    children: [
-      { name: "文章", path: prefix + "/articles/index", component: () => import("../views/articles/index.vue") },
-      { name: "WebSite", path: prefix + "/article/website", component: () => import("../views/WebSite.vue") },
-      { name: "编辑器", path: prefix + "/article/edit", component: () => import("../views/files/VueEditor.vue") },
-    ]
-  },
+    children: moreRoutes
+  }, {
+    path: "*",
+    name: "404",
+    component: Vue.extend({ template: '<h1 class="center">404</h1>' }),
+  }
 ];
 
 //屏蔽重复导航,控制台报错

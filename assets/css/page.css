@@ -1,0 +1,473 @@
+@font-face {
+    font-family: "Source Sans Pro";
+    src: local("Source Sans Pro"), url("/assets/fonts/SourceSansPro-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    src: local("Source Sans Pro Light"), url("/assets/fonts/SourceSansPro-Light.ttf");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    src: local("Source Sans Pro Semibold"), url("/assets/fonts/SourceSansPro-Semibold.ttf");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    src: local("Roboto Mono"), url("/assets/fonts/RobotoMono-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Dosis";
+    src: local("Dosis Medium"), url("/assets/fonts/Dosis-Medium.ttf");
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+}
+
+#downloads .info {
+    margin-top: 5px;
+    margin-left: 30px;
+    color: #4f5959;
+    width: 400px;
+}
+
+a.button,
+input.button {
+    padding: 0.75em 2em;
+    border-radius: 2em;
+    display: inline-block;
+    color: #fff;
+    background-color: #4fc08d;
+    transition: all 0.15s ease;
+    box-sizing: border-box;
+    border: 1px solid #4fc08d;
+}
+
+.benchmark-table {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.benchmark-table tbody>tr>th {
+    text-align: right;
+}
+
+.benchmark-table th,
+.benchmark-table td {
+    padding: 3px 7px;
+}
+
+.content .platinum {
+    text-align: center;
+}
+
+.content .platinum a {
+    display: inline-block;
+    margin: 20px;
+}
+
+.content .platinum img {
+    width: 250px;
+    vertical-align: middle;
+}
+
+.content .sponsor-section {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 60px;
+}
+
+.content .patreon-sponsors a,
+.content .patreon-sponsors img {
+    width: 140px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.content .patreon-sponsors a {
+    margin: 10px 20px;
+}
+
+.content .open-collective-sponsors img {
+    max-width: 140px;
+    max-height: 60px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.content .video-sponsors-china a {
+    display: inline-block;
+    margin: 20px;
+}
+
+.content .video-sponsors-china img {
+    width: 250px;
+}
+
+.content.guide[class*="migration"] h2>sup,
+.content.guide[class*="migration"] h3>sup {
+    margin-left: 0.3em;
+    color: #b9465c;
+}
+
+.content.guide[class*="migration"] .upgrade-path {
+    margin-top: 2em;
+    padding: 2em;
+    background: rgba(73, 195, 140, 0.1);
+    border-radius: 2px;
+}
+
+.content.guide[class*="migration"] .upgrade-path>h4 {
+    margin-top: 0;
+}
+
+.content.guide[class*="migration"] .upgrade-path>p:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.content.api>a:first-of-type>h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.content.api ul {
+    padding-left: 1.25em;
+    line-height: 1.4em;
+}
+
+.content.api ul ul,
+.content.api ul p:not(.tip) {
+    padding-bottom: 0;
+    margin: 1.2em 0;
+}
+
+.content a.button {
+    font-size: 0.9em;
+    color: #fff;
+    margin: 0.2em 0;
+    width: 200px;
+    text-align: center;
+    padding: 12px 24px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.content img {
+    max-width: 100%;
+}
+
+.content span.light {
+    color: #4f5959;
+}
+
+.content span.info {
+    font-size: 0.85em;
+    display: inline-block;
+    vertical-align: middle;
+    width: 280px;
+    margin-left: 20px;
+}
+
+.content h1 {
+    margin: 0 0 1em;
+}
+
+.content h2,
+.content h3 {
+    pointer-events: none;
+}
+
+.content h2 a,
+.content h3 a,
+.content h2 button,
+.content h3 button {
+    pointer-events: auto;
+    color: #273849;
+}
+
+.content h2:before,
+.content h3:before {
+    content: "";
+    display: block;
+    margin-top: -96px;
+    height: 96px;
+    visibility: hidden;
+}
+
+.content h2 {
+    margin: 45px 0 0.8em;
+    padding-bottom: 0.7em;
+    border-bottom: 1px solid #ddd;
+}
+
+.content h3 {
+    margin: 52px 0 1.2em;
+    line-height: 1.2;
+    position: relative;
+}
+
+.content h3>a:before {
+    content: "#";
+    color: #42b983;
+    position: absolute;
+    left: -0.7em;
+    margin-top: -0.05em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
+    line-height: 1;
+    font-weight: bold;
+}
+
+.content figure {
+    margin: 1.2em 0;
+}
+
+.content p,
+.content ul,
+.content ol {
+    /* padding-bottom: 1.2em; */
+    padding: 0;
+}
+
+.content ul,
+.content ol {
+    padding-left: 1.5em;
+    position: inherit;
+}
+
+.content ul li,
+.content ol li {
+    list-style: initial;
+}
+
+.content ul ul,
+.content ol ul,
+.content ul ol,
+.content ol ol {
+    margin: 0;
+}
+
+.content a {
+    color: #42b983;
+    font-weight: 600;
+}
+
+.content blockquote {
+    margin: 2em 0;
+    padding-left: 20px;
+    border-left: 4px solid #42b983;
+    color: #999;
+}
+
+.content blockquote p {
+    font-weight: 600;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.content iframe {
+    margin: 1em 0;
+    outline: none;
+    border: none;
+}
+
+.content table {
+    border-collapse: collapse;
+    margin: 1rem 0;
+    display: block;
+    overflow-x: auto;
+}
+
+.content table td,
+.content table th {
+    line-height: 1.5em;
+    padding: 0.4em 0.8em;
+    border: none;
+    border: 1px solid #ddd;
+}
+
+.content table th {
+    font-weight: bold;
+    text-align: left;
+}
+
+.content table thead th {
+    background-color: #DDD;
+}
+
+.content table tbody tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+
+.content table tbody tr:nth-child(2n) code {
+    background-color: #efefef;
+}
+
+.content p.tip,
+.content p.success {
+    padding: 12px 24px 12px 30px;
+    margin: 2em 0;
+    border-left-width: 4px;
+    border-left-style: solid;
+    background-color: #f8f8f8;
+    position: relative;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.content p.tip:before,
+.content p.success:before {
+    position: absolute;
+    top: 14px;
+    left: -12px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    font-family: "Dosis", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.content p.tip code,
+.content p.success code {
+    background-color: #efefef;
+}
+
+.content p.tip em,
+.content p.success em {
+    color: #304455;
+}
+
+.content p.tip {
+    border-left-color: #f66;
+}
+
+.content p.tip:before {
+    content: "!";
+    background-color: #f66;
+}
+
+.content p.success {
+    border-left-color: #42b983;
+}
+
+.content p.success:before {
+    content: "\f00c";
+    font-family: FontAwesome;
+    background-color: #42b983;
+}
+
+.content .tip-block::before {
+    content: url(/assets/css/bulb.svg);
+    width: 25px;
+    height: 25px;
+    left: -18px;
+    position: absolute;
+    top: 19px;
+}
+
+.content .tip-block {
+    border-color: #42b983;
+    background-color: #f8f8f8;
+    padding: .1rem 1.5rem;
+    border-left-width: .5rem;
+    border-left-style: solid;
+    margin: 1rem 0;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    position: relative;
+}
+
+.content .tip-block.info {
+    border-color: #007bff;
+}
+
+.content .tip-block.info::before {
+    content: url(/assets/css/info.svg);
+}
+
+.content .tip-block.warning {
+    border-color: #f4cd00;
+}
+
+.content .tip-block.warning::before {
+    content: url(/assets/css/warning.svg);
+}
+
+.content .tip-block.error {
+    border-color: #F56C6C;
+}
+
+.content .tip-block.error::before {
+    content: url(/assets/css/danger.svg);
+}
+
+.content .tip-block span.title {
+    font-weight: 600;
+    padding-top: 1rem;
+    display: block;
+    color: #222;
+}
+
+.content .more-block details {
+    cursor: pointer;
+}
+
+.content .more-block details summary {
+    outline: none;
+}
+
+@media print {
+    #header,
+    .debug-btn,
+    .el-header {
+        display: none;
+    }
+    .content {
+        padding-left: 0px;
+        color: #000;
+    }
+    .content p {
+        line-height: 1.35em;
+    }
+    .content p.tip {
+        background-color: #fff;
+        border: 2px solid #e8e8e8;
+        border-left: 4px solid #f66;
+    }
+    .content pre {
+        color: #000;
+        background-color: #fff;
+        border: none;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        color: #000;
+        page-break-after: avoid;
+        page-break-before: avoid;
+    }
+    img {
+        page-break-inside: avoid;
+    }
+    h2+p {
+        page-break-before: avoid;
+    }
+    a:link:after,
+    a:visited:after {
+        content: " [" attr(href) "] ";
+    }
+}

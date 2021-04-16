@@ -6,17 +6,12 @@
                 <a href="/live.html">会议室</a>
                 <a href="/guide.html">指南</a>
                 <a href="/charts.html">图表</a>
-                <router-link to="/markdown">编辑器</router-link>
                 <router-link :to="{ path:'/iframe', query:{ url:'/static/sprite/index.html' }}">雪碧图</router-link>
                 <router-link to="/favorite">收藏夹</router-link>
                 <router-link to="/tools">...</router-link>
             </el-row>
         </el-header>
-
-        <el-container>
-            <router-view />
-        </el-container>
-        <!-- <el-footer>Footer</el-footer> -->
+        <router-view />
         <vue-debugger class="debug-btn"></vue-debugger>
     </el-container>
 </template>

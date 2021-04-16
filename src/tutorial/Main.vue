@@ -17,7 +17,7 @@
                             <el-menu-item v-else :key="sub.path" :index="sub.path">{{ sub.name }}</el-menu-item>
                         </template>
                     </el-submenu>
-                    <el-menu-item v-else :key="item.path" :index="item.path">{{ item.name }}</el-menu-item>
+                    <el-menu-item v-else-if="item.path !='*'" :key="item.path" :index="item.path">{{ item.name }}</el-menu-item>
                 </template>
             </el-menu>
         </el-header>

@@ -1,5 +1,7 @@
 /* PrismJS 1.17.1
 https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+json+json5+sql+stylus+typescript&plugins=line-highlight+line-numbers */
+
+
 /**
  * prism.js default theme for JavaScript, CSS and HTML
  * Based on dabblet (http://dabblet.com)
@@ -54,7 +56,6 @@ pre[class*=language-]::selection {
 }
 
 @media print {
-
     code[class*=language-],
     pre[class*=language-] {
         text-shadow: none
@@ -150,12 +151,9 @@ pre[data-line] {
     padding: inherit 0;
     margin-top: 1em;
     /* Same as .prism’s padding-top */
-
     background: hsla(24, 20%, 50%, .08);
     background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
-
     pointer-events: none;
-
     line-height: inherit;
     white-space: pre;
 }
@@ -210,12 +208,10 @@ pre[class*="language-"].line-numbers>code {
     /* works for line-numbers below 1000 lines */
     letter-spacing: -1px;
     border-right: 1px solid #999;
-
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
 
 .line-numbers-rows>span {
@@ -232,9 +228,6 @@ pre[class*="language-"].line-numbers>code {
     text-align: right;
 }
 
-
-
-
 code[class*=language-console]::before,
 code[class*=language-bash]::before,
 code[class*=language-cmd]::before,
@@ -247,7 +240,8 @@ code[class*=language-sh]::before {
 }
 
 code[class*=language-console]::before {
-    content: ">";
+    content: "";
+    padding: 0;
 }
 
 code[class*=language-cmd]::before {

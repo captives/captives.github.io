@@ -8,24 +8,16 @@ const routes = [{
         name: "首页",
         component: () =>
             import ("../views/Home.vue")
-    },
-    {
+    }, {
         path: "/favorite",
         name: "收藏夹",
         component: () =>
             import ("../views/Favorite.vue"),
-    },
-    {
-        path: "/markdown",
-        name: "Markdown",
-        component: () =>
-            import ("../views/VueMarkdownEditor.vue")
-    },
-    {
+    }, {
         path: "/iframe",
         name: "窗口",
         component: () =>
-            import ("../views/VueIframe.vue"),
+            import ("../views/VueIframe.vue")
     },
     tools,
 ];

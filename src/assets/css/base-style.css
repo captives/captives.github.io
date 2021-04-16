@@ -60,3 +60,16 @@ em {
     flex-wrap: nowrap;
     overflow-x: auto;
 }
+
+@media print {
+    .sidebar {
+        display: none;
+    }
+    .code {
+        border: 1px dotted #dedede;
+        background: none;
+    }
+    code {
+        white-space: pre-wrap;
+    }
+}

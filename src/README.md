@@ -30,3 +30,8 @@ npm run lint --fix
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 -- 人脸识别 https://trackingjs.com/
+
+
+### 图床空间
+- https://imgtu.com/captive
+- 593278382@qq.com # 123456
