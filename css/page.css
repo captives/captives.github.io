@@ -242,7 +242,7 @@ input.button {
 
 .content ul,
 .content ol {
-    padding-left: 1.5em;
+    padding-left: 1em;
     position: inherit;
 }
 
@@ -456,7 +456,7 @@ input.button {
 .content .toc-block li a {
     font-size: 1em;
     font-weight: 400;
-    padding: .35rem 1rem .35rem 1.25rem;
+    padding: .35rem 1rem .35rem .25rem;
     line-height: 1.4;
     box-sizing: border-box;
     color: #2c3e50;
@@ -471,6 +471,9 @@ input.button {
 @media screen and (max-width: 750px) {
     .content {
         margin: 0 10px;
+    }
+    .content .toc-block ul {
+        padding-left: 0.55em;
     }
 }
 
