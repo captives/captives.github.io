@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <title>Lodash 数组</title>
+</head>
+
+<body>
+    <div class="content"><h1><a id="数组"></a>数组</h1>
+<h2><a id="检索"></a>检索</h2>
+<h3><a id="_.indexOf(array, value, [fromIndex = 0])"></a>_.indexOf(array, value, [fromIndex = 0])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 需要查找的数组。</li>
+<li>value (*): 需要查找的值。</li>
+<li>[fromIndex=0] (number): 开始查询的位置。<br />
+返回值</li>
+<li>(number): 返回 值value在数组中的索引位置, 没有找到为返回-1。</li>
+</ul>
+</details></div><p>使用<a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero" target="_blank">SameValueZero</a> 等值比较，返回首次<code>value</code>在数组<code>array</code>中被找到的索引值， 如果<code>fromIndex</code>为负值，将从数组<code>array</code>尾端索引进行匹配。</p>
+<pre><div class="hljs"><code class="lang-js">_.indexOf([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 1</span>
+ 
+<span class="hljs-comment">// Search from the `fromIndex`.</span>
+_.indexOf([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], <span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 3</span>
+
+</code></div></pre>
+<h3><a id="_.findIndex(array, [predicate = _.identity], [fromIndex=0])"></a>_.findIndex(array, [predicate = _.identity], [fromIndex=0])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要搜索的数组。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 这个函数会在每一次迭代调用。</li>
+<li>[fromIndex=0] (number): The index to search from.</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(number): 返回找到元素的 索引值（index），否则返回 -1</li>
+</ul>
+</details></div><p>该方法类似<code>_.find</code>，区别是该方法返回第一个通过<code>predicate</code>判断为真值的元素的索引值（index），而不是元素本身。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> users = [
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>,  <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>,    <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">true</span> }
+];
+ 
+_.findIndex(users, item =&gt; item.user == <span class="hljs-string">'barney'</span>);
+<span class="hljs-comment">// =&gt; 0</span>
+ 
+<span class="hljs-comment">// The `_.matches` iteratee shorthand.</span>
+_.findIndex(users, { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// =&gt; 1</span>
+ 
+<span class="hljs-comment">// The `_.matchesProperty` iteratee shorthand.</span>
+_.findIndex(users, [<span class="hljs-string">'active'</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; 0</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.findIndex(users, <span class="hljs-string">'active'</span>);
+<span class="hljs-comment">// =&gt; 2</span>
+</code></div></pre>
+<h3><a id="_.findLastIndex(array, [predicate = _.identity], [fromIndex=array.length-1])"></a>_.findLastIndex(array, [predicate = _.identity], [fromIndex=array.length-1])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要搜索的数组。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 这个函数会在每一次迭代调用。</li>
+<li>[fromIndex=array.length-1] (number): The index to search from.</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(number): 返回找到元素的 索引值（index），否则返回 -1</li>
+</ul>
+</details></div><p>这个方式类似<code>_.findIndex</code>，区别是它是从右到左的迭代集合array中的元素。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> users = [
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>,  <span class="hljs-string">'active'</span>: <span class="hljs-literal">true</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>,    <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> }
+];
+ 
+_.findLastIndex(users, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">o</span>) </span>{ <span class="hljs-keyword">return</span> o.user == <span class="hljs-string">'pebbles'</span>; });
+<span class="hljs-comment">// =&gt; 2</span>
+ 
+<span class="hljs-comment">// The `_.matches` iteratee shorthand.</span>
+_.findLastIndex(users, { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">// =&gt; 0</span>
+ 
+<span class="hljs-comment">// The `_.matchesProperty` iteratee shorthand.</span>
+_.findLastIndex(users, [<span class="hljs-string">'active'</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; 2</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.findLastIndex(users, <span class="hljs-string">'active'</span>);
+<span class="hljs-comment">// =&gt; 0</span>
+</code></div></pre>
+<h3><a id="_.lastIndexOf(array, value, [fromIndex=array.length-1])"></a>_.lastIndexOf(array, value, [fromIndex=array.length-1])</h3>
+<p>这个方法类似<code>_.indexOf</code>，区别是它是从右到左遍历<code>array</code>的元素。</p>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要搜索的数组。</li>
+<li>value (*): 要搜索的值。</li>
+<li>[fromIndex=array.length-1] (number): 开始搜索的索引值。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(number): 返回匹配值的索引值，否则返回 -1。</li>
+</ul>
+</details></div><pre><code class="lang-">_.lastIndexOf([1, 2, 1, 2], 2);
+// =&gt; 3
+ 
+// Search from the `fromIndex`.
+_.lastIndexOf([1, 2, 1, 2], 2, 2);
+// =&gt; 1
+</code></pre>
+<h3><a id="_.head(array)"></a>_.head(array)</h3>
+<p>获取数组 array 的第一个元素。</p>
+<pre><div class="hljs"><code class="lang-js">_.head([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; 1</span>
+ 
+_.head([]);
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></div></pre>
+<h3><a id="_.last(array)"></a>_.last(array)</h3>
+<p>获取array中的最后一个元素。</p>
+<pre><div class="hljs"><code class="lang-js">_.last([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; 3</span>
+</code></div></pre>
+<h3><a id="_.initial(array)"></a>_.initial(array)</h3>
+<p>获取数组<code>array</code>中除了最后一个元素之外的所有元素（去除数组array中的最后一个元素）。</p>
+<pre><div class="hljs"><code class="lang-js">_.initial([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [1, 2]</span>
+</code></div></pre>
+<h3><a id="_.tail(array)"></a>_.tail(array)</h3>
+<p>返回 array 数组的切片，除了array数组第一个元素以外的全部元素。</p>
+<pre><div class="hljs"><code class="lang-js">_.tail([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [2, 3]</span>
+</code></div></pre>
+<h3><a id="_.nth(array, [n=0])"></a>_.nth(array, [n=0])</h3>
+<p>获取array数组的第n个元素。如果n为负数，则返回从数组结尾开始的第n个元素。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>];
+ 
+_.nth(array, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; 'b'</span>
+ 
+_.nth(array, <span class="hljs-number">-2</span>);
+<span class="hljs-comment">// =&gt; 'c';</span>
+</code></div></pre>
+<h3><a id="_.take(array, [n=1])"></a>_.take(array, [n=1])</h3>
+<p>创建一个数组切片，从array数组的起始元素开始提取n个元素。</p>
+<pre><div class="hljs"><code class="lang-js">_.take([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [1]</span>
+ 
+_.take([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [1, 2]</span>
+ 
+_.take([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+_.take([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; []</span>
+</code></div></pre>
+<h3><a id="_.takeRight(array, [n=1])"></a>_.takeRight(array, [n=1])</h3>
+<p>创建一个数组切片，从array数组的最后一个元素开始提取n个元素。</p>
+<pre><div class="hljs"><code class="lang-js">_.takeRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [3]</span>
+ 
+_.takeRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [2, 3]</span>
+ 
+_.takeRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+_.takeRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; []</span>
+</code></div></pre>
+<h3><a id="_.takeRightWhile(array, [predicate = _.identity])"></a>_.takeRightWhile(array, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要检索的数组。</li>
+<li>[predicate = _.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回<br />
+-(Array): 返回 array 数组的切片。</p>
+</details></div><p>从array数组的最后一个元素开始提取元素，直到<code>predicate</code>返回假值。<code>predicate</code>会传入三个参数： <code>(value, index, array)</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> users = [
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>,  <span class="hljs-string">'active'</span>: <span class="hljs-literal">true</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>,    <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> }
+];
+ 
+_.takeRightWhile(users, item =&gt; !item.active);
+<span class="hljs-comment">// =&gt; objects for ['fred', 'pebbles']</span>
+ 
+<span class="hljs-comment">// The `_.matches` iteratee shorthand.</span>
+_.takeRightWhile(users, { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// =&gt; objects for ['pebbles']</span>
+ 
+<span class="hljs-comment">// The `_.matchesProperty` iteratee shorthand.</span>
+_.takeRightWhile(users, [<span class="hljs-string">'active'</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; objects for ['fred', 'pebbles']</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.takeRightWhile(users, <span class="hljs-string">'active'</span>);
+<span class="hljs-comment">// =&gt; []</span>
+</code></div></pre>
+<h3><a id="_.takeWhile(array, [predicate = _.identity])"></a>_.takeWhile(array, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要检索的数组。</li>
+<li>[predicate = _.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回<br />
+-(Array): 返回 array 数组的切片。</p>
+</details></div><p>从<code>array</code>数组的起始元素开始提取元素，直到<code>predicate</code>返回假值。<code>predicate</code>会传入三个参数：<code>(value, index, array)</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> users = [
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>,  <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>,    <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span>},
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">true</span> }
+];
+ 
+_.takeWhile(users, item =&gt; !item.active);
+<span class="hljs-comment">// =&gt; objects for ['barney', 'fred']</span>
+ 
+<span class="hljs-comment">// The `_.matches` iteratee shorthand.</span>
+_.takeWhile(users, { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// =&gt; objects for ['barney']</span>
+ 
+<span class="hljs-comment">// The `_.matchesProperty` iteratee shorthand.</span>
+_.takeWhile(users, [<span class="hljs-string">'active'</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; objects for ['barney', 'fred']</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.takeWhile(users, <span class="hljs-string">'active'</span>);
+<span class="hljs-comment">// =&gt; []</span>
+</code></div></pre>
+<h3><a id="_.slice(array, [start=0], [end=array.length])"></a>_.slice(array, [start=0], [end=array.length])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要裁剪数组。</li>
+<li>[start=0] (number): 开始位置。</li>
+<li>[end=array.length] (number): 结束位置。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回 数组array 裁剪部分的新数组。</li>
+</ul>
+</details></div><p>裁剪数组<code>array</code>，从<code>start</code>位置开始到<code>end</code>结束，但不包括<code>end</code>本身的位置。</p>
+<div class='tip-block info'><p>这个方法用于代替<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice" target="_blank">Array#slice</a>来确保数组正确返回。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">var</span> evens = _.slice(array, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt;  [1, 2, 3, 4]</span>
+
+<span class="hljs-built_in">console</span>.log(evens);
+<span class="hljs-comment">// =&gt; [2, 3]</span>
+</code></div></pre>
+<h2><a id="分组"></a>分组</h2>
+<h3><a id="_.chunk(array, [size=1])"></a>_.chunk(array, [size=1])</h3>
+<p>将数组<code>array</code>拆分成多个<code>size</code>长度的区块，并将这些区块组成一个新数组。 如果<code>array</code>无法被分割成全部等长的区块，那么最后剩余的元素将组成一个区块。</p>
+<pre><div class="hljs"><code class="lang-js">_.chunk([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>], <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [['a', 'b'], ['c', 'd']]</span>
+ 
+_.chunk([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>], <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; [['a', 'b', 'c'], ['d']]</span>
+</code></div></pre>
+<h3><a id="_.zip([arrays])"></a>_.zip([arrays])</h3>
+<p>创建一个分组元素的数组，数组的第一个元素包含所有给定数组的第一个元素，数组的第二个元素包含所有给定数组的第二个元素，以此类推。</p>
+<pre><div class="hljs"><code class="lang-js">_.zip([<span class="hljs-string">'fred'</span>, <span class="hljs-string">'barney'</span>], [<span class="hljs-number">30</span>, <span class="hljs-number">40</span>], [<span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; [['fred', 30, true], ['barney', 40, false]]</span>
+</code></div></pre>
+<h3><a id="_.unzip(array)"></a>_.unzip(array)</h3>
+<p>这个方法类似于<code>_.zip</code>，除了它接收分组元素的数组，并且创建一个数组，分组元素到打包前的结构。（返回数组的第一个元素包含所有的输入数组的第一元素，第一个元素包含了所有的输入数组的第二元素，依此类推。）</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> zipped = _.zip([<span class="hljs-string">'fred'</span>, <span class="hljs-string">'barney'</span>], [<span class="hljs-number">30</span>, <span class="hljs-number">40</span>], [<span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; [['fred', 30, true], ['barney', 40, false]]</span>
+ 
+_.unzip(zipped);
+<span class="hljs-comment">// =&gt; [['fred', 'barney'], [30, 40], [true, false]]</span>
+</code></div></pre>
+<h3><a id="_.zipWith([arrays], [iteratee = _.identity])"></a>_.zipWith([arrays], [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>[arrays] (…Array): 要处理的数组。</li>
+<li>[iteratee=_.identity] (Function): 函数用来组合分组的值。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回分组元素的新数组。</li>
+</ul>
+</details></div><p>这个方法类似于<code>_.zip</code>，不同之处在于它接受一个 iteratee（迭代函数），来 指定分组的值应该如何被组合。 该iteratee调用每个组的元素： (…group).</p>
+<pre><div class="hljs"><code class="lang-js">_.zipWith([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>], [<span class="hljs-number">100</span>, <span class="hljs-number">200</span>], (a, b, c) =&gt; a + b + c);
+<span class="hljs-comment">// =&gt; [111, 222]</span>
+</code></div></pre>
+<h3><a id="_.unzipWith(array, [iteratee = _.identity])"></a>_.unzipWith(array, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>[arrays] (…Array): 要处理的数组。</li>
+<li>[iteratee=_.identity] (Function): 函数用来组合分组的值。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回分组元素的新数组。</li>
+</ul>
+</details></div><p>此方法类似于<code>_.unzip</code>，除了它接受一个iteratee指定重组值应该如何被组合。iteratee 调用时会传入每个分组的值： (…group)。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> zipped = _.zip([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>], [<span class="hljs-number">100</span>, <span class="hljs-number">200</span>]);
+<span class="hljs-comment">// =&gt; [[1, 10, 100], [2, 20, 200]]</span>
+ 
+_.unzipWith(zipped, _.add);
+<span class="hljs-comment">// =&gt; [3, 30, 300]</span>
+</code></div></pre>
+<h2><a id="合并"></a>合并</h2>
+<h3><a id="_.join(array, [separator=','])"></a>_.join(array, [separator=’,’])</h3>
+<p>将 array 中的所有元素转换为由 separator 分隔的字符串</p>
+<pre><div class="hljs"><code class="lang-js">_.join([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>], <span class="hljs-string">'~'</span>);
+<span class="hljs-comment">// =&gt; 'a~b~c'</span>
+</code></div></pre>
+<h3><a id="_.concat(array, [values])"></a>_.concat(array, [values])</h3>
+<p>创建一个新数组，将<code>array</code>与任何数组 或 值连接在一起。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>];
+<span class="hljs-keyword">var</span> other = _.concat(array, <span class="hljs-number">2</span>, [<span class="hljs-number">3</span>], [[<span class="hljs-number">4</span>]]);
+ 
+<span class="hljs-built_in">console</span>.log(other);
+<span class="hljs-comment">// =&gt; [1, 2, 3, [4]]</span>
+ 
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [1]</span>
+</code></div></pre>
+<h3><a id="_.union([arrays])"></a>_.union([arrays])</h3>
+<p>创建一个按顺序返回一个新的联合数组,并且数组的元素是唯一的。所有给定数组的元素值使用<a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero" target="_blank">SameValueZero</a>做等值比较。</p>
+<pre><div class="hljs"><code class="lang-js">_.union([<span class="hljs-number">2</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>])
+<span class="hljs-comment">// =&gt; [2, 1, 3]</span>
+</code></div></pre>
+<h3><a id="_.unionBy([arrays], [iteratee = _.identity])"></a>_.unionBy([arrays], [iteratee = _.identity])</h3>
+<p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.union" target="_blank">_.union</a>，除了它接受一个<code>iteratee</code>（迭代函数），调用每一个数组（array）的每个元素以产生唯一性计算的标准。iteratee 会传入一个参数：(value)。</p>
+<pre><div class="hljs"><code class="lang-js">_.unionBy([<span class="hljs-number">2.1</span>], [<span class="hljs-number">1.2</span>, <span class="hljs-number">2.3</span>], <span class="hljs-built_in">Math</span>.floor);
+<span class="hljs-comment">// =&gt; [2.1, 1.2]</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.unionBy([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], <span class="hljs-string">'x'</span>);
+<span class="hljs-comment">// =&gt; [{ 'x': 1 }, { 'x': 2 }]</span>
+</code></div></pre>
+<h3><a id="_.unionWith([arrays], [comparator])"></a>_.unionWith([arrays], [comparator])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>[arrays] (…Array): 要检查的数组。</li>
+<li>[comparator] (Function): 比较函数，调用每个元素。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回一个新的联合数组。</li>
+</ul>
+</details></div><p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.union" target="_blank">_.union</a>，除了它接受一个<code>comparator</code>调用比较<code>arrays</code>数组的每一个元素。<code>comparator</code>调用时会传入2个参数：<code>(arrVal, othVal)</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }];
+<span class="hljs-keyword">var</span> others = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }];
+ 
+_.unionWith(objects, others, _.isEqual);
+<span class="hljs-comment">// =&gt; [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]</span>
+</code></div></pre>
+<h2><a id="过滤"></a>过滤</h2>
+<h3><a id="_.difference(array, [values])"></a>_.difference(array, [values])</h3>
+<p>创建一个具有唯一<code>array</code>值的数组，每个值不包含在其他给定的数组中。该方法使用SameValueZero做相等比较。结果值是从第一数组中选择, 顺序是由第一个数组中的顺序确定。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>创建一个新数组，这个数组中的值，为第一个参数（array）排除了给定数组中的值。</p>
+</div><pre><div class="hljs"><code class="lang-js">_.difference([<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>]);
+<span class="hljs-comment">// =&gt; [3, 1]</span>
+</code></div></pre>
+<h3><a id="_.differenceBy(array, [values], [iteratee = _.identity])"></a>_.differenceBy(array, [values], [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要检查的数组。</li>
+<li>[values] (…Array): 排除的值。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): iteratee 调用每个元素。</li>
+</ul>
+<p>返回：<br />
+(Array): 返回一个过滤值后的新数组。</p>
+</details></div><p>这个方法类似<code>_.difference</code> ，增加一个 <code>iteratee</code>（注：迭代器）， 调用<code>array</code>和<code>values</code>中的每个元素以产生比较的标准。 结果值是从第一数组中选择。<code>iteratee</code>会调用一个参数：(value)。</p>
+<blockquote>
+<p>首先使用迭代器分别迭代array 和 values中的每个元素，返回的值作为比较值</p>
+</blockquote>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>不像<a href="https://www.lodashjs.com/docs/lodash.differenceBy#pullAllBy" target="_blank">_.pullAllBy</a>，这个方法会返回一个新数组。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-comment">//迭代器把值Math.floor后进行比较，返回的原值</span>
+_.differenceBy([<span class="hljs-number">3.1</span>, <span class="hljs-number">2.2</span>, <span class="hljs-number">1.3</span>], [<span class="hljs-number">4.4</span>, <span class="hljs-number">2.5</span>], <span class="hljs-built_in">Math</span>.floor);
+<span class="hljs-comment">// =&gt; [3.1, 1.3]</span>
+ 
+<span class="hljs-comment">// 指定对象属性排除</span>
+_.differenceBy([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">3</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">3</span> }], [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], <span class="hljs-string">'x'</span>)
+<span class="hljs-comment">// =&gt; [{x: 2, y: 3}]</span>
+
+_.differenceBy([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">3</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">3</span> }], [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], <span class="hljs-string">'x'</span>)
+<span class="hljs-comment">// =&gt; [{x: 2, y: 3}, { 'x': 1, 'y': 3 }]</span>
+</code></div></pre>
+<h3><a id="_.differenceWith(array, [values], [comparator])"></a>_.differenceWith(array, [values], [comparator])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要检查的数组。</li>
+<li>[values] (…Array): 排除的值。</li>
+<li>[comparator] (Function): comparator 调用每个元素。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>返回一个过滤值后的新数组。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.difference</code>，除了它接受一个<code>comparator</code>（比较器），它调用比较<code>array</code>，<code>values</code>中的元素。 结果值是从第一数组中选择。<code>comparator</code>调用参数有两个：<code>(arrVal, othVal)</code>。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>不像<a href="https://www.lodashjs.com/docs/lodash.differenceWith#pullAllWith" target="_blank">_.pullAllWith</a>，这个方法会返回一个新数组。</p>
+</div><pre><div class="hljs"><code class="lang-js">
+_.differenceWith([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }], [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }], _.isEqual);
+<span class="hljs-comment">// =&gt; [{ 'x': 2, 'y': 1 }]</span>
+
+_.differenceWith([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'z'</span>: <span class="hljs-number">4</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span>}], [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }], _.isEqual)
+<span class="hljs-comment">// =&gt; [{ 'x': 1, 'y': 2, 'z': 4 }, { 'x': 2, 'y': 1}]</span>
+</code></div></pre>
+<h3><a id="_.compact(array)"></a>_.compact(array)</h3>
+<p>创建一个新数组，包含原数组中所有的非假值元素。例如<code>false</code>, <code>null</code>, <code>0</code>, <code>&quot;&quot;</code>, <code>undefined</code>, <code>NaN</code> 等都是被认为是“假值”</p>
+<pre><div class="hljs"><code class="lang-js">_.compact([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">2</span>, <span class="hljs-string">''</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+</code></div></pre>
+<h3><a id="_.intersection([arrays])"></a>_.intersection([arrays])</h3>
+<p>创建唯一值的数组，这个数组包含所有给定数组都包含的元素，使用<a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero" target="_blank">SameValueZero</a>进行相等性比较。（可以理解为给定数组的交集）</p>
+<pre><div class="hljs"><code class="lang-js">_.intersection([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+<span class="hljs-comment">// =&gt; [2]</span>
+</code></div></pre>
+<h3><a id="_.intersectionBy([arrays], [iteratee = _.identity])"></a>_.intersectionBy([arrays], [iteratee = _.identity])</h3>
+<p>这个方法类似<code>_.intersection</code>，区别是它接受一个<code>iteratee</code>调用每一个<code>arrays</code>的每个值以产生一个值，通过产生的值进行了比较。结果值是从第一数组中选择。<code>iteratee</code>会传入一个参数：<code>(value)</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-comment">//迭代器把值Math.floor后进行比较，返回的原值</span>
+_.intersectionBy([<span class="hljs-number">2.1</span>, <span class="hljs-number">1.2</span>], [<span class="hljs-number">4.3</span>, <span class="hljs-number">2.4</span>], <span class="hljs-built_in">Math</span>.floor);
+<span class="hljs-comment">// =&gt; [2.1]</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.intersectionBy([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], <span class="hljs-string">'x'</span>);
+<span class="hljs-comment">// =&gt; [{ 'x': 1 }]</span>
+</code></div></pre>
+<h3><a id="_.intersectionWith([arrays], [comparator])"></a>_.intersectionWith([arrays], [comparator])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>[arrays] (…Array): 待检查的数组。</li>
+<li>[comparator] (Function): comparator（比较器）调用每个元素。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回一个包含所有传入数组交集元素的新数组。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.intersection</code>，区别是它接受一个<code>comparator</code>调用比较<code>arrays</code>中的元素。结果值是从第一数组中选择。<code>comparator</code>会传入两个参数:<code>(arrVal, othVal)</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }];
+<span class="hljs-keyword">var</span> others = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }];
+ 
+_.intersectionWith(objects, others, _.isEqual);
+<span class="hljs-comment">// =&gt; [{ 'x': 1, 'y': 2 }]</span>
+</code></div></pre>
+<h2><a id="移除"></a>移除</h2>
+<h3><a id="_.remove(array, [predicate = _.identity])"></a>_.remove(array, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要修改的数组。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回移除元素组成的新数组。</li>
+</ul>
+</details></div><p>移除数组中<code>predicate</code>（断言）返回为真值的所有元素，并返回移除元素组成的数组。<code>predicate</code>（断言）会传入3个参数：<code>(value, index, array)</code>。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>和<a href="https://www.lodashjs.com/docs/lodash.filter" target="_blank">_.filter</a>不同, 这个方法会改变数组<code>array</code>。使用<a href="https://www.lodashjs.com/docs/lodash.pull" target="_blank">_.pull</a>来根据提供的<code>value</code>值从数组中移除元素。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">var</span> evens = _.remove(array, n =&gt; n % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>);
+ 
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [1, 3]</span>
+ 
+<span class="hljs-built_in">console</span>.log(evens);
+<span class="hljs-comment">// =&gt; [2, 4]</span>
+</code></div></pre>
+<h3><a id="_.drop(array, [n=1])"></a>_.drop(array, [n=1])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要查询的数组。</li>
+<li>[n=1] (number): 要去除的元素个数。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回array剩余切片。</li>
+</ul>
+</details></div><p>创建一个切片数组，去除array前面的n个元素；n默认值为1。</p>
+<pre><div class="hljs"><code class="lang-js">_.drop([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [2, 3]</span>
+ 
+_.drop([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [3]</span>
+ 
+_.drop([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; []</span>
+ 
+_.drop([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+</code></div></pre>
+<h3><a id="_.dropRight(array, [n=1])"></a>_.dropRight(array, [n=1])</h3>
+<p>创建一个切片数组，去除array尾部的n个元素；n默认值为1。</p>
+<pre><div class="hljs"><code class="lang-js">_.dropRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [1, 2]</span>
+ 
+_.dropRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [1]</span>
+ 
+_.dropRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; []</span>
+ 
+_.dropRight([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], <span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+</code></div></pre>
+<h3><a id="_.dropRightWhile(array, [predicate = _.identity])"></a>_.dropRightWhile(array, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要查询的数组。</li>
+<li>[predicate=_.identity] (Function): 这个函数会在每一次迭代调用。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回array剩余切片。</li>
+</ul>
+</details></div><p>创建一个切片数组，去除array中从<code>predicate</code>返回值开始到尾部的部分。<code>predicate</code>会传入3个参数： <code>(value, index, array)</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> users = [
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>,  <span class="hljs-string">'active'</span>: <span class="hljs-literal">true</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>,    <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> }
+];
+ 
+_.dropRightWhile(users, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">o</span>) </span>{ <span class="hljs-keyword">return</span> !o.active; });
+<span class="hljs-comment">// =&gt; objects for ['barney']</span>
+ 
+<span class="hljs-comment">// The `_.matches` iteratee shorthand.</span>
+_.dropRightWhile(users, { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// =&gt; objects for ['barney', 'fred']</span>
+ 
+<span class="hljs-comment">// The `_.matchesProperty` iteratee shorthand.</span>
+_.dropRightWhile(users, [<span class="hljs-string">'active'</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; objects for ['barney']</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.dropRightWhile(users, <span class="hljs-string">'active'</span>)
+=&gt;  objects <span class="hljs-keyword">for</span> [<span class="hljs-string">'barney'</span>, <span class="hljs-string">'fred'</span>, <span class="hljs-string">'pebbles'</span>]
+
+_.isEqual(_.dropRightWhile(users, <span class="hljs-string">'active'</span>), users);
+<span class="hljs-comment">// =&gt; true</span>
+</code></div></pre>
+<h3><a id="_.dropWhile(array, [predicate = _.identity])"></a>_.dropWhile(array, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要查询的数组。</li>
+<li>[predicate=_.identity] (Function): 这个函数会在每一次迭代调用。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回array剩余切片。</li>
+</ul>
+</details></div><p>创建一个切片数组，去除array中从起点开始到<code>predicate</code>返回值结束部分。<code>predicate</code>会传入3个参数：<code>(value, index, array)</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> users = [
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>,  <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>,    <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-string">'user'</span>: <span class="hljs-string">'pebbles'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">true</span> }
+];
+ 
+_.dropWhile(users, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">o</span>) </span>{ <span class="hljs-keyword">return</span> !o.active; });
+<span class="hljs-comment">// =&gt; objects for ['pebbles']</span>
+ 
+<span class="hljs-comment">// The `_.matches` iteratee shorthand.</span>
+_.dropWhile(users, { <span class="hljs-string">'user'</span>: <span class="hljs-string">'barney'</span>, <span class="hljs-string">'active'</span>: <span class="hljs-literal">false</span> });
+<span class="hljs-comment">// =&gt; objects for ['fred', 'pebbles']</span>
+ 
+<span class="hljs-comment">// The `_.matchesProperty` iteratee shorthand.</span>
+_.dropWhile(users, [<span class="hljs-string">'active'</span>, <span class="hljs-literal">false</span>]);
+<span class="hljs-comment">// =&gt; objects for ['pebbles']</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.dropWhile(users, <span class="hljs-string">'active'</span>);
+<span class="hljs-comment">// =&gt; objects for ['barney', 'fred', 'pebbles']</span>
+
+_.isEqual(_.dropWhile(users, <span class="hljs-string">'active'</span>), users);
+<span class="hljs-comment">// =&gt; true</span>
+</code></div></pre>
+<h3><a id="_.pull(array, [values])"></a>_.pull(array, [values])</h3>
+<p>移除数组<code>array</code>中所有和给定值相等的元素，使用<a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero" target="_blank">SameValueZero</a>进行全等比较。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>和<a href="https://www.lodashjs.com/docs/lodash.without" target="_blank">_.without</a> 方法不同，这个方法会改变数组。使用<a href="https://www.lodashjs.com/docs/lodash.remove" target="_blank">_.remove</a> 从一个数组中移除元素。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+ 
+_.pull(array, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [1, 1]</span>
+</code></div></pre>
+<h3><a id="_.pullAll(array, values)"></a>_.pullAll(array, values)</h3>
+<p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.pull" target="_blank">_.pull</a>，区别是这个方法接收一个要移除值的数组。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>不同于<a href="https://www.lodashjs.com/docs/lodash.difference" target="_blank">_.difference</a>, 这个方法会改变数组<code>array</code></p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+ 
+_.pullAll(array, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [1, 1]</span>
+</code></div></pre>
+<h3><a id="_.pullAllBy(array, values, [iteratee = _.identity])"></a>_.pullAllBy(array, values, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要修改的数组。</li>
+<li>values (Array): 要移除值的数组。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): iteratee（迭代器）调用每个元素。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回 array.</li>
+</ul>
+</details></div><p>这个方法类似于<a href="https://www.lodashjs.com/docs/lodash.pullAll" target="_blank">_.pullAll</a> ，区别是这个方法接受一个 <code>iteratee</code>（迭代函数） 调用<code>array</code>和<code>values</code>的每个值以产生一个值，通过产生的值进行了比较。<code>iteratee</code>会传入一个参数：<code>(value)</code>。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>不同于<a href="https://www.lodashjs.com/docs/lodash.differenceBy" target="_blank">_.differenceBy</a>, 这个方法会改变数组 <code>array</code></p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">3</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }];
+ 
+_.pullAllBy(array, [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">3</span> }], <span class="hljs-string">'x'</span>);
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [{ 'x': 2 }]</span>
+</code></div></pre>
+<h3><a id="_.pullAllWith(array, values, [comparator])"></a>_.pullAllWith(array, values, [comparator])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要修改的数组。</li>
+<li>values (Array): 要移除值的数组。</li>
+<li>[comparator] (Function): comparator（比较器）调用每个元素。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回 array。</li>
+</ul>
+</details></div><p>这个方法类似于<a href="https://www.lodashjs.com/docs/lodash.pullAll" target="_blank">_.pullAll</a>，区别是这个方法接受 <code>comparator</code>调用<code>array</code>中的元素和<code>values</code>比较。<code>comparator</code>会传入两个参数：<code>(arrVal, othVal)</code>。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>不同于<a href="https://www.lodashjs.com/docs/lodash.differenceWith" target="_blank">_.differenceWith</a>, 这个方法会改变数组 <code>array</code></p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">3</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">4</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">5</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">6</span> }];
+ 
+_.pullAllWith(array, [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">3</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">4</span> }], _.isEqual);
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]</span>
+</code></div></pre>
+<h3><a id="_.pullAt(array, [indexes])"></a>_.pullAt(array, [indexes])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要修改的数组。</li>
+<li>[indexes] (…(number|number[])): 要移除元素的索引。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回移除元素组成的新数组。</li>
+</ul>
+</details></div><p>根据索引<code>indexes</code>，移除<code>array</code>中对应的元素，并返回被移除元素的数组。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>和 <a href="https://www.lodashjs.com/docs/lodash.at" target="_blank">_.at</a>不同, 这个方法会改变数组 array。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">20</span>];
+<span class="hljs-keyword">var</span> evens = _.pullAt(array, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+ 
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [5, 15]</span>
+ 
+<span class="hljs-built_in">console</span>.log(evens);
+<span class="hljs-comment">// =&gt; [10, 20]</span>
+</code></div></pre>
+<h3><a id="_.without(array, [values])"></a>_.without(array, [values])</h3>
+<p>创建一个剔除所有给定值的新数组，剔除值的时候，使用SameValueZero<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>做相等比较。</p>
+<div class='tip-block warning'><span class='title'> 注意: </span><p>不像<a href="https://www.lodashjs.com/docs/lodash.pull" target="_blank">_.pull</a>, 这个方法会返回一个新数组。</p>
+</div><h2><a id="增加"></a>增加</h2>
+<h3><a id="_.fill(array, value, [start=0], [end = array.length])"></a>_.fill(array, value, [start=0], [end = array.length])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要填充改变的数组。</li>
+<li>value (*): 填充给 array 的值。</li>
+<li>[start=0] (number): 开始位置（默认0）。</li>
+<li>[end=array.length] (number):结束位置（默认array.length）。</li>
+</ul>
+<p>返回值</p>
+<ul>
+<li>(Array): 返回 array。</li>
+</ul>
+</details></div><p>使用<code>value</code>值来填充（替换）<code>array</code>，从<code>start</code>位置开始, 到<code>end</code>位置结束（但不包含end位置）</p>
+<div class='tip-block warning'><p>这个方法会改变<code>array</code>(不是创建新数组）</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+ 
+_.fill(array, <span class="hljs-string">'a'</span>);
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; ['a', 'a', 'a']</span>
+ 
+_.fill(<span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>), <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [2, 2, 2]</span>
+ 
+_.fill([<span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>], <span class="hljs-string">'*'</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; [4, '*', '*', 10]</span>
+</code></div></pre>
+<h2><a id="排序"></a>排序</h2>
+<h3><a id="_.sortedIndex(array, value)"></a>_.sortedIndex(array, value)</h3>
+<p>使用二进制的方式检索，来决定<code>value</code>值应该插入到数组中尽可能小的索引位置，以保证array的排序。</p>
+<pre><div class="hljs"><code class="lang-js">_.sortedIndex([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>], <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 2</span>
+</code></div></pre>
+<h3><a id="_.sortedIndexBy(array, value, [iteratee = _.identity])"></a>_.sortedIndexBy(array, value, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要检查的排序数组。</li>
+<li>value (*): 要评估的值。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 迭代函数，调用每个元素。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(number): 返回 value值 应该在数组array中插入的索引位置 index。</li>
+</ul>
+</details></div><p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.sortedIndex" target="_blank">_.sortedIndex</a>，除了它接受一个<code>iteratee</code>（迭代函数），调用每一个数组（array）元素，返回结果和value 值比较来计算排序。iteratee 会传入一个参数：(value)。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">3</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">4</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">5</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">6</span> }];
+
+_.sortedIndexBy(array, { <span class="hljs-string">'x'</span>: <span class="hljs-number">4</span> }, item =&gt; item.x);
+<span class="hljs-comment">// =&gt; 1</span>
+
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.sortedIndexBy(array, { <span class="hljs-string">'x'</span>: <span class="hljs-number">4</span> }, <span class="hljs-string">'x'</span>);
+<span class="hljs-comment">// =&gt; 1</span>
+</code></div></pre>
+<h3><a id="_.sortedIndexOf(array, value)"></a>_.sortedIndexOf(array, value)</h3>
+<p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.indexOf" target="_blank">_.indexOf</a>，除了它是在已经排序的数组	<code>array</code>上执行二进制检索。</p>
+<pre><div class="hljs"><code class="lang-js">_.sortedIndexOf([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; 1</span>
+</code></div></pre>
+<h3><a id="_.sortedLastIndex(array, value)"></a>_.sortedLastIndex(array, value)</h3>
+<p>此方法类似于<a href="https://www.lodashjs.com/docs/lodash.sortedIndex" target="_blank">_.sortedIndex</a>，除了它返回<code>value</code>值在<code>array</code>中尽可能大的索引位置（index）。</p>
+<pre><div class="hljs"><code class="lang-js">_.sortedLastIndex([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; 4</span>
+</code></div></pre>
+<h3><a id="_.sortedLastIndexBy(array, value, [iteratee = _.identity])"></a>_.sortedLastIndexBy(array, value, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>array (Array): 要检查的排序数组。</li>
+<li>value (*): 要评估的值。</li>
+<li>[iteratee = _.identity] (Array|Function|Object|string): 迭代函数，调用每个元素。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(number): 返回 value值 应该在数组array中插入的索引位置 index。</li>
+</ul>
+</details></div><p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.sortedLastIndex" target="_blank">_.sortedLastIndex</a> ，除了它接受一个<code>iteratee</code>（迭代函数），调用每一个数组<code>array</code>元素，返回结果和<code>value</code>值比较来计算排序。<code>iteratee </code>会传入一个参数：<code>value</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">3</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">4</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">5</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">6</span> }];
+
+_.sortedLastIndexBy(array, { <span class="hljs-string">'x'</span>: <span class="hljs-number">4</span> }, item =&gt; item.x);
+<span class="hljs-comment">// =&gt; 2</span>
+
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.sortedLastIndexBy(array, { <span class="hljs-string">'x'</span>: <span class="hljs-number">4</span> }, <span class="hljs-string">'x'</span>);
+<span class="hljs-comment">// =&gt; 2</span>
+</code></div></pre>
+<h3><a id="_.sortedLastIndexOf(array, value)"></a>_.sortedLastIndexOf(array, value)</h3>
+<p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.lastIndexOf" target="_blank">_.lastIndexOf</a>，除了它是在已经排序的数组array上执行二进制检索。</p>
+<pre><div class="hljs"><code class="lang-js">_.sortedLastIndexOf([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>], <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; 3</span>
+</code></div></pre>
+<h3><a id="_.sortedUniq(array)"></a>_.sortedUniq(array)</h3>
+<p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.uniq" target="_blank">_.uniq</a>；它会优化排序数组，返回一个新的不重复的数组。</p>
+<pre><div class="hljs"><code class="lang-js">_.sortedUniq([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+<span class="hljs-comment">// =&gt; [1, 2]</span>
+</code></div></pre>
+<h3><a id="_.sortedUniqBy(array, [iteratee])"></a>_.sortedUniqBy(array, [iteratee])</h3>
+<p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.uniqBy" target="_blank">_.uniqBy</a>；它会优化排序数组，返回一个新的不重复的数组。</p>
+<pre><div class="hljs"><code class="lang-js">_.sortedUniqBy([<span class="hljs-number">1.1</span>, <span class="hljs-number">1.2</span>, <span class="hljs-number">2.3</span>, <span class="hljs-number">2.4</span>], <span class="hljs-built_in">Math</span>.floor);
+<span class="hljs-comment">// =&gt; [1.1, 2.3]</span>
+</code></div></pre>
+<h2><a id="去重"></a>去重</h2>
+<h3><a id="_.uniq(array)"></a>_.uniq(array)</h3>
+<p>返回一个去重后的array数组副本。使用了SameValueZero<sup class="footnote-ref"><a href="#fn1" id="fnref1:1">[1:1]</a></sup> 做等值比较。只有第一次出现的元素才会被保留。</p>
+<pre><div class="hljs"><code class="lang-js">_.uniq([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+<span class="hljs-comment">// =&gt; [2, 1]</span>
+</code></div></pre>
+<h3><a id="_.uniqBy(array, [iteratee = _.identity])"></a>_.uniqBy(array, [iteratee = _.identity])</h3>
+<p>这个方法类似_.uniq ，除了它接受一个 iteratee（迭代函数），调用每一个数组（array）的每个元素以产生唯一性计算的标准。iteratee 调用时会传入一个参数：(value)。</p>
+<pre><div class="hljs"><code class="lang-js">_.uniqBy([<span class="hljs-number">2.1</span>, <span class="hljs-number">1.2</span>, <span class="hljs-number">2.3</span>], <span class="hljs-built_in">Math</span>.floor);
+<span class="hljs-comment">// =&gt; [2.1, 1.2]</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.uniqBy([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], <span class="hljs-string">'x'</span>);
+<span class="hljs-comment">// =&gt; [{ 'x': 1 }, { 'x': 2 }]</span>
+</code></div></pre>
+<h3><a id="_.uniqWith(array, [comparator])"></a>_.uniqWith(array, [comparator])</h3>
+<p>这个方法类似_.uniq， 除了它接受一个 comparator 调用比较arrays数组的每一个元素。 comparator 调用时会传入2个参数： (arrVal, othVal)。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }];
+ 
+_.uniqWith(objects, _.isEqual);
+<span class="hljs-comment">// =&gt; [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]</span>
+</code></div></pre>
+<h3><a id="_.xor([arrays])"></a>_.xor([arrays])</h3>
+<p>创建一个给定数组唯一值的数组，使用symmetric difference<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>做等值比较。<br />
+返回一个值的顺序取决于他们数组的出现顺序。</p>
+<pre><div class="hljs"><code class="lang-js">_.xor([<span class="hljs-number">2</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// =&gt; [1, 3]</span>
+</code></div></pre>
+<h3><a id="_.xorBy([arrays], [iteratee = _.identity])"></a>_.xorBy([arrays], [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>[arrays] (…Array): 要检查的数组。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 调用每一个元素的迭代函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回过滤值后的新数组。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.xor</code>，除了它接受 iteratee（迭代器），这个迭代器 调用每一个 arrays（数组）的每一个值，以生成比较的新值。iteratee 调用一个参数：(value).</p>
+<pre><div class="hljs"><code class="lang-js">_.xorBy([<span class="hljs-number">2.1</span>, <span class="hljs-number">1.2</span>], [<span class="hljs-number">2.3</span>, <span class="hljs-number">3.4</span>], <span class="hljs-built_in">Math</span>.floor);
+<span class="hljs-comment">// =&gt; [1.2, 3.4]</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.xorBy([{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span> }], <span class="hljs-string">'x'</span>);
+<span class="hljs-comment">// =&gt; [{ 'x': 2 }]</span>
+</code></div></pre>
+<h3><a id="_.xorWith([arrays], [comparator])"></a>_.xorWith([arrays], [comparator])</h3>
+<p>该方法是像<code>_.xor</code>，除了它接受一个<code>comparator</code>，以调用比较数组的元素。<br />
+<code>comparator</code>调用2个参数：<code>(arrVal, othVal)</code>.</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }];
+<span class="hljs-keyword">var</span> others = [{ <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'x'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'y'</span>: <span class="hljs-number">2</span> }];
+ 
+_.xorWith(objects, others, _.isEqual);
+<span class="hljs-comment">// =&gt; [{ 'x': 2, 'y': 1 }, { 'x': 1, 'y': 1 }]</span>
+</code></div></pre>
+<h2><a id="转换"></a>转换</h2>
+<h3><a id="_.reverse(array)"></a>_.reverse(array)</h3>
+<p>反转<code>array</code>，使得第一个元素变为最后一个元素，第二个元素变为倒数第二个元素，依次类推。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>这个方法会改变原数组<code>array</code>，基于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse" target="_blank">Array#reverse</a>.</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+ 
+_.reverse(array);
+<span class="hljs-comment">// =&gt; [3, 2, 1]</span>
+ 
+<span class="hljs-built_in">console</span>.log(array);
+<span class="hljs-comment">// =&gt; [3, 2, 1]</span>
+</code></div></pre>
+<h3><a id="_.flatten(array)"></a>_.flatten(array)</h3>
+<p>减少一级array嵌套深度。</p>
+<pre><div class="hljs"><code class="lang-js">_.flatten([<span class="hljs-number">1</span>, [<span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, [<span class="hljs-number">4</span>]], <span class="hljs-number">5</span>]]);
+<span class="hljs-comment">// =&gt; [1, 2, [3, [4]], 5]</span>
+</code></div></pre>
+<h3><a id="_.flattenDeep(array)"></a>_.flattenDeep(array)</h3>
+<p>将array递归为一维数组。</p>
+<pre><div class="hljs"><code class="lang-js">_.flattenDeep([<span class="hljs-number">1</span>, [<span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, [<span class="hljs-number">4</span>]], <span class="hljs-number">5</span>]]);
+<span class="hljs-comment">// =&gt; [1, 2, 3, 4, 5]</span>
+</code></div></pre>
+<h3><a id="_.flattenDepth(array, [depth=1])"></a>_.flattenDepth(array, [depth=1])</h3>
+<p>根据 depth 递归减少<code>array</code>的嵌套层级。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, [<span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, [<span class="hljs-number">4</span>]], <span class="hljs-number">5</span>]];
+ 
+_.flattenDepth(array, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; [1, 2, [3, [4]], 5]</span>
+ 
+_.flattenDepth(array, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3, [4], 5]</span>
+</code></div></pre>
+<h3><a id="_.fromPairs(pairs)"></a>_.fromPairs(pairs)</h3>
+<p>与<a href="https://www.lodashjs.com/docs/lodash.toPairs" target="_blank">_.toPairs</a>正好相反；这个方法返回一个由键值对pairs构成的对象。</p>
+<pre><div class="hljs"><code class="lang-js">_.fromPairs([[<span class="hljs-string">'fred'</span>, <span class="hljs-number">30</span>], [<span class="hljs-string">'barney'</span>, <span class="hljs-number">40</span>]]);
+<span class="hljs-comment">// =&gt; { 'fred': 30, 'barney': 40 }</span>
+</code></div></pre>
+<h3><a id="_.zipObject([props=[]], [values=[]])"></a>_.zipObject([props=[]], [values=[]])</h3>
+<p>这个方法类似<code>_.fromPairs</code>，除了它接受2个数组，第一个数组中的值作为属性标识符（属性名），第二个数组中的值作为相应的属性值。</p>
+<pre><div class="hljs"><code class="lang-js">_.zipObject([<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+<span class="hljs-comment">// =&gt; { 'a': 1, 'b': 2 }</span>
+</code></div></pre>
+<h3><a id="_.zipObjectDeep([props=[]], [values=[]])"></a>_.zipObjectDeep([props=[]], [values=[]])</h3>
+<p>这个方法类似<code>_.zipObject</code>，除了它支持属性路径。</p>
+<pre><div class="hljs"><code class="lang-js">_.zipObjectDeep([<span class="hljs-string">'a.b[0].c'</span>, <span class="hljs-string">'a.b[1].d'</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]);
+<span class="hljs-comment">// =&gt; { 'a': { 'b': [{ 'c': 1 }, { 'd': 2 }] } }</span>
+</code></div></pre>
+<hr class="footnotes-sep" />
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero" target="_blank">SameValueZero</a> <a href="#fnref1" class="footnote-backref">↩︎</a> <a href="#fnref1:1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://en.wikipedia.org/wiki/Symmetric_difference" target="_blank">symmetric difference</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>

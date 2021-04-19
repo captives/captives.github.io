@@ -65,6 +65,8 @@ input.button {
 
 .content {
     margin: 0 20%;
+    box-shadow: 0 5px 26px -5px #9da5ab;
+    padding: 20px;
 }
 
 .content .platinum {
@@ -373,7 +375,6 @@ input.button {
 }
 
 .content .tip-block::before {
-    content: url(/assets/bulb.svg);
     width: 25px;
     height: 25px;
     left: -18px;
@@ -382,7 +383,7 @@ input.button {
 }
 
 .content .tip-block {
-    border-color: #42b983;
+    border-color: #909399;
     background-color: #f8f8f8;
     padding: .1rem 1.5rem;
     border-left-width: .5rem;
@@ -399,6 +400,14 @@ input.button {
 
 .content .tip-block.info::before {
     content: url(/assets/info.svg);
+}
+
+.content .tip-block.success {
+    border-color: #42b983;
+}
+
+.content .tip-block.success::before {
+    content: url(/assets/css/bulb.svg);
 }
 
 .content .tip-block.warning {
@@ -468,12 +477,32 @@ input.button {
     color: #3eaf7c;
 }
 
+.content ul.article-list {
+    display: block;
+    padding: 10px 20px;
+}
+
+.content ul.article-list li {
+    list-style: decimal;
+    padding: 5px 0;
+}
+
+.content ul.article-list li i {
+    padding-right: 20px;
+    float: right;
+}
+
 @media screen and (max-width: 750px) {
     .content {
-        margin: 0 10px;
+        margin: 0;
+        box-shadow: none;
+        padding: 10px;
     }
     .content .toc-block ul {
         padding-left: 0.55em;
+    }
+    .content ul.article-list li i {
+        display: none;
     }
 }
 
