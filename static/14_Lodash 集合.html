@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <title>Lodash 集合</title>
+</head>
+
+<body>
+    <div class="content"><h1><a id="集合"></a>集合</h1>
+<h2><a id="创建"></a>创建</h2>
+<h3><a id="_.sample(collection)"></a>_.sample(collection)</h3>
+<p>从<code>collection</code>（集合）中获得一个随机元素。</p>
+<pre><code class="lang-js">_.sample([1, 2, 3, 4]);
+// =&gt; 2
+</code></pre>
+<h3><a id="_.sampleSize(collection, [n = 1])"></a>_.sampleSize(collection, [n = 1])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 要取样的集合。</li>
+<li>[n=1] (number): 取样的元素个数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回随机元素。</li>
+</ul>
+</details></div><p>从<code>collection</code>中获得<code>n</code>个随机元素。</p>
+<pre><code class="lang-js">_.sampleSize([1, 2, 3], 2);
+// =&gt; [3, 1]
+ 
+_.sampleSize([1, 2, 3], 4);
+// =&gt; [2, 3, 1]
+</code></pre>
+<h3><a id="_.shuffle(collection)"></a>_.shuffle(collection)</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 要打乱的集合。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回打乱的新数组。</li>
+</ul>
+</details></div><p>创建一个被打乱值的集合。 使用<a href="https://en.wikipedia.org/wiki/Fisher-Yates_shuffle" target="_blank">Fisher-Yates shuffle</a>版本。</p>
+<pre><code class="lang-js">_.shuffle([1, 2, 3, 4]);
+// =&gt; [4, 1, 3, 2]
+</code></pre>
+<h3><a id="_.countBy(collection, [iteratee = _.identity])"></a>_.countBy(collection, [iteratee = _.identity])</h3>
+<p>创建一个组成对象；<br />
+key（键）是经过 iteratee（迭代函数）执行处理<code>collection</code>中每个元素后返回的结果；<br />
+每个key（键）对应的<code>value</code>值：是<code>iteratee(value)</code>（迭代函数）返回该key（键）的迭代次数。</p>
+<pre><code class="lang-js">_.countBy([6.1, 4.2, 6.3], Math.floor);
+// =&gt; { '4': 1, '6': 2 }
+ 
+// The `_.property` iteratee shorthand.
+_.countBy(['one', 'two', 'three'], 'length');
+// =&gt; { '3': 2, '5': 1 }
+</code></pre>
+<h3><a id="_.sortBy(collection, [iteratees = [ _.identity ] ])"></a>_.sortBy(collection, [iteratees = [ _.identity ] ])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[iteratees=[_.identity]] (…(Array|Array[]|Function|Function[]|Object|Object[]|string|string[])): 这个函数决定排序。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回排序后的数组。</li>
+</ul>
+</details></div><p>创建一个元素数组。<br />
+以<code>iteratee(value)</code>处理的结果升序排序。 这个方法执行稳定排序，也就是说相同元素会保持原始排序。</p>
+<pre><code class="lang-js">var users = [
+  { 'user': 'fred',   'age': 48 },
+  { 'user': 'barney', 'age': 36 },
+  { 'user': 'fred',   'age': 40 },
+  { 'user': 'barney', 'age': 34 }
+];
+ 
+_.sortBy(users, item =&gt; item.user);
+// =&gt; objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+ 
+_.sortBy(users, ['user', 'age']);
+// =&gt; objects for [['barney', 34], ['barney', 36], ['fred', 40], ['fred', 48]]
+ 
+_.sortBy(users, 'user', item =&gt; Math.floor(item.age / 10));
+// =&gt; objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+</code></pre>
+<h3><a id="_.orderBy(collection, [iteratees=[ _.identity ] ], [ orders ])"></a>_.orderBy(collection, [iteratees=[ _.identity ] ], [ orders ])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[iteratees=[_.identity]] (Array[]|Function[]|Object[]|string[]): 排序的迭代函数。</li>
+<li>[orders] (string[]): iteratees迭代函数的排序顺序。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 排序排序后的新数组。</li>
+</ul>
+</details></div><p>此方法类似于<code>_.sortBy</code>，除了它允许指定<code>iteratee</code>（迭代函数）结果如何排序。 如果没指定orders，以默认值&quot;asc&quot; 升序；否则为&quot;desc&quot; 降序排序对应值。</p>
+<pre><code class="lang-js">var users = [
+  { 'user': 'fred',   'age': 48 },
+  { 'user': 'barney', 'age': 34 },
+  { 'user': 'fred',   'age': 40 },
+  { 'user': 'barney', 'age': 36 }
+];
+ 
+// 以 `user` 升序排序 再  `age` 以降序排序。
+_.orderBy(users, ['user', 'age'], ['asc', 'desc']);
+// =&gt; [{&quot;user&quot;:&quot;barney&quot;,&quot;age&quot;:36},{&quot;user&quot;:&quot;barney&quot;,&quot;age&quot;:34},{&quot;user&quot;:&quot;fred&quot;,&quot;age&quot;:48},{&quot;user&quot;:&quot;fred&quot;,&quot;age&quot;:40}]
+</code></pre>
+<h3><a id="_.groupBy(collection, [iteratee = _.identity])"></a>_.groupBy(collection, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 这个迭代函数用来转换key。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Object): 返回一个组成聚合的对象。</li>
+</ul>
+</details></div><p>创建一个对象;<br />
+<code>key</code>是<code>iteratee(value)</code>遍历<code>collectio</code>中的每个元素返回的结果。 分组值的顺序是由他们出现在<code>collection</code>中的顺序确定的。每个键对应的值负责生成<code>key</code>的元素组成的数组。</p>
+<pre><code class="lang-js">_.groupBy([6.1, 4.2, 6.3], Math.floor);
+// =&gt; { '4': [4.2], '6': [6.1, 6.3] }
+ 
+// The `_.property` iteratee shorthand.
+_.groupBy(['one', 'two', 'three'], 'length');
+// =&gt; { '3': ['one', 'two'], '5': ['three'] }
+</code></pre>
+<h3><a id="_.keyBy(collection, [iteratee = _.identity])"></a>_.keyBy(collection, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 这个迭代函数用来转换key。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Object): 返回一个组成聚合的对象。</li>
+</ul>
+</details></div><p>创建一个对象; 组成<code>key</code>是<code>collection</code>中的每个元素经过<code>iteratee(value)</code>处理后返回的结果。 每个<code>key</code>对应的值是生成<code>key</code>的最后一个元素。</p>
+<pre><code class="lang-js">var array = [
+  { 'dir': 'left', 'code': 97 },
+  { 'dir': 'right', 'code': 100 }
+];
+ 
+_.keyBy(array, function(o) {
+  return String.fromCharCode(o.code);
+});
+// =&gt; { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
+ 
+_.keyBy(array, 'dir');
+// =&gt; { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
+</code></pre>
+<h2><a id="遍历"></a>遍历</h2>
+<h3><a id="_.forEach(collection, [iteratee = _.identity])"></a>_.forEach(collection, [iteratee = _.identity])</h3>
+<blockquote>
+<p>别名 _.each</p>
+</blockquote>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Function): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(*): 返回集合 collection。</li>
+</ul>
+</details></div><p>调用<code>iteratee</code>遍历<code>collection</code>(集合)中的每个元素，<code>iteratee</code>调用3个参数： <code>(value, index|key, collection)</code>。 如果迭代函数<code>iteratee</code>显式的返回false，迭代会提前退出。</p>
+<div class='tip-block warning'><span class='title'> 注意: </span><p>与其他&quot;集合&quot;方法一样，类似于数组，对象的 “length” 属性也会被遍历。<br />
+想避免这种情况，可以用<a href="https://www.lodashjs.com/docs/lodash.forIn" target="_blank">_.forIn</a>或者<a href="https://www.lodashjs.com/docs/lodash.forOwn" target="_blank">_.forOwn</a>代替。</p>
+</div><pre><code class="lang-js">_([1, 2]).forEach(function(value) {
+  console.log(value);
+});
+// =&gt; 顺序输出1、2.
+ 
+_.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
+  console.log(key);
+});
+// =&gt; 随机输出 a、b，不保证顺序
+</code></pre>
+<h3><a id="_.forEachRight(collection, [iteratee = _.identity])"></a>_.forEachRight(collection, [iteratee = _.identity])</h3>
+<blockquote>
+<p>别名：_.eachRight</p>
+</blockquote>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Function): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(*): 返回集合 collection。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.forEach</code>，不同之处在于<code>_.forEachRight</code>是从右到左遍历集合中每一个元素的。</p>
+<pre><code class="lang-js">_.forEachRight([1, 2], function(value) {
+  console.log(value);
+});
+// =&gt; 顺序输出1、2.
+</code></pre>
+<h3><a id="_.map(collection, [iteratee = _.identity])"></a>_.map(collection, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回新的映射后数组。</li>
+</ul>
+</details></div><p>创建一个数组，<code>value</code> 是<code>iteratee(value, index|key, collection)</code>遍历<code>collection</code>中的每个元素后返回的结果。</p>
+<div class='tip-block warning'><p>lodash 中有许多方法是防止作为其他方法的迭代函数。<br />
+例如：<br />
+_.every, _.filter, _.map, _.mapValues, _.reject和 _.some</p>
+<p>注：即不能作为iteratee参数传递给其他方法</p>
+<p>受保护的方法有：<br />
+ary, chunk, curry, curryRight, drop, dropRight, every,fill, invert, parseInt, random, range, rangeRight, repeat,sampleSize, slice, some, sortBy, split, take, takeRight,template, trim, trimEnd, trimStart, and words</p>
+<p>注：即这些方法不能使用 _.every, _.filter, _.map, _.mapValues, _.reject, 和 _.some作为iteratee迭代函数参数</p>
+</div><pre><code class="lang-js">function square(n) {
+  return n * n;
+}
+ 
+_.map([4, 8], square);
+// =&gt; [16, 64]
+ 
+_.map({ 'a': 4, 'b': 8 }, square);
+// =&gt; [16, 64] (iteration order is not guaranteed)
+ 
+var users = [
+  { 'user': 'barney' },
+  { 'user': 'fred' }
+];
+ 
+// The `_.property` iteratee shorthand.
+_.map(users, 'user');
+// =&gt; ['barney', 'fred']
+</code></pre>
+<h2><a id="检索"></a>检索</h2>
+<h3><a id="_.includes(collection, value, [fromIndex = 0])"></a>_.includes(collection, value, [fromIndex = 0])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object|string): 要检索的集合。</li>
+<li>value (*): 要检索的值。</li>
+<li>[fromIndex=0] (number): 要检索的 索引位置。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(boolean): 如果找到 value 返回 true， 否则返回 false。</li>
+</ul>
+</details></div><p>检查<code>value</code>是否在<code>collection</code>中。如果<code>collection</code>是一个字符串，那么检查<code>value</code>(子字符串）是否在字符串中，否则使用<a href="http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero" target="_blank">SameValueZero</a>做等值比较。 如果指定<code>fromIndex</code>是负数，那么从<code>collection</code>的结尾开始检索。</p>
+<pre><code class="lang-js">_.includes([1, 2, 3], 1);
+// =&gt; true
+ 
+_.includes([1, 2, 3], 1, 2);
+// =&gt; false
+ 
+_.includes({ 'user': 'fred', 'age': 40 }, 'fred');
+// =&gt; true
+ 
+_.includes('pebbles', 'eb');
+// =&gt; true
+</code></pre>
+<h3><a id="_.every(collection, [predicate = _.identity])"></a>_.every(collection, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(boolean): 如果所有元素经 predicate（断言函数） 检查后都都返回真值，那么就返回true，否则返回 false 。</li>
+</ul>
+</details></div><p>通过<code>predicate</code>（断言函数）检查<code>collection</code>（集合）中的所有元素是否都返回true。一旦<code>predicate</code>（断言函数）返回false，迭代就马上停止。</p>
+<p><code>predicate(value, index | key, collection)</code>。</p>
+<div class='tip-block warning'><span class='title'> 注意: </span><p>这个方法对于对于<a href="https://en.wikipedia.org/wiki/Empty_set" target="_blank">空集合</a>返回 true，因为空集合的<a href="https://en.wikipedia.org/wiki/Vacuous_truth" target="_blank">任何元素都是true</a> 。</p>
+</div><pre><code class="lang-js">_.every([true, 1, null, 'yes'], Boolean);
+// =&gt; false
+ 
+var users = [
+  { 'user': 'barney', 'age': 36, 'active': false },
+  { 'user': 'fred',   'age': 40, 'active': false }
+];
+ 
+// The `_.matches` iteratee shorthand.
+_.every(users, { 'user': 'barney', 'active': false });
+// =&gt; false
+ 
+// The `_.matchesProperty` iteratee shorthand.
+_.every(users, ['active', false]);
+// =&gt; true
+ 
+// The `_.property` iteratee shorthand.
+_.every(users, 'active');
+// =&gt; false
+</code></pre>
+<h3><a id="_.some(collection, [predicate = _.identity])"></a>_.some(collection, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(boolean): 如果任意元素经 predicate 检查都为 truthy（真值），返回 true ，否则返回 false 。</li>
+</ul>
+</details></div><p>通过<code>predicate</code>（断言函数）检查<code>collection</code>（集合）中的元素是否存在<strong>任意</strong> truthy（真值）的元素，一旦<code>predicate</code>（断言函数）返回 truthy（真值），遍历就停止。</p>
+<p><code>predicate(value, index | key, collection)</code>。</p>
+<pre><code class="lang-js">_.some([null, 0, 'yes', false], Boolean);
+// =&gt; true
+ 
+var users = [
+  { 'user': 'barney', 'active': true },
+  { 'user': 'fred',   'active': false }
+];
+ 
+// The `_.matches` iteratee shorthand.
+_.some(users, { 'user': 'barney', 'active': false });
+// =&gt; false
+ 
+// The `_.matchesProperty` iteratee shorthand.
+_.some(users, ['active', false]);
+// =&gt; true
+ 
+// The `_.property` iteratee shorthand.
+_.some(users, 'active');
+// =&gt; true
+</code></pre>
+<h3><a id="_.find(collection, [predicate = _.identity], [fromIndex = 0])"></a>_.find(collection, [predicate = _.identity], [fromIndex = 0])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[predicate = _.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+<li>[fromIndex = 0] (number): 开始搜索的索引位置。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(*): 返回匹配元素，否则返回 undefined。</li>
+</ul>
+</details></div><p>遍历<code>collection</code>（集合）元素，返回<code>predicate</code>（断言函数）第一个返回true的第一个元素。</p>
+<p><code>predicate(value, index | key, collection)</code></p>
+<pre><code class="lang-js">var users = [
+  { 'user': 'barney',  'age': 36, 'active': true },
+  { 'user': 'fred',    'age': 40, 'active': false },
+  { 'user': 'pebbles', 'age': 1,  'active': true }
+];
+ 
+_.find(users, item =&gt; item.age &lt; 40);
+// =&gt; object for 'barney'
+ 
+// The `_.matches` iteratee shorthand.
+_.find(users, { 'age': 1, 'active': true });
+// =&gt; object for 'pebbles'
+ 
+// The `_.matchesProperty` iteratee shorthand.
+_.find(users, ['active', false]);
+// =&gt; object for 'fred'
+ 
+// The `_.property` iteratee shorthand.
+_.find(users, 'active');
+// =&gt; object for 'barney'
+</code></pre>
+<h3><a id="_.findLast(collection, [predicate = _.identity], [fromIndex = collection.length - 1])"></a>_.findLast(collection, [predicate = _.identity], [fromIndex = collection.length - 1])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+<li>[fromIndex=collection.length-1] (number): 开始搜索的索引位置。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(*): 返回匹配元素，否则返回 undefined。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.find</code>，不同之处在于，<code>_.findLast</code>是从右至左遍历<code>collection</code>元素的。</p>
+<pre><code class="lang-js">_.findLast([1, 2, 3, 4], n =&gt; n % 2 == 1);
+// =&gt; 3
+</code></pre>
+<h2><a id="过滤"></a>过滤</h2>
+<h3><a id="_.filter(collection, [predicate = _.identity])"></a>_.filter(collection, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回一个新的过滤后的数组。</li>
+</ul>
+</details></div><p>遍历<code>collection</code>（集合）元素，返回<code>predicate</code>（断言函数）返回true的所有元素的数组。</p>
+<p><code>predicate(value, index | key, collection)</code></p>
+<pre><code class="lang-js">var users = [
+  { 'user': 'barney', 'age': 36, 'active': true },
+  { 'user': 'fred',   'age': 40, 'active': false }
+];
+ 
+_.filter(users, function(o) { return !o.active; });
+// =&gt; objects for ['fred']
+ 
+// The `_.matches` iteratee shorthand.
+_.filter(users, { 'age': 36, 'active': true });
+// =&gt; objects for ['barney']
+ 
+// The `_.matchesProperty` iteratee shorthand.
+_.filter(users, ['active', false]);
+// =&gt; objects for ['fred']
+ 
+// The `_.property` iteratee shorthand.
+_.filter(users, 'active');
+// =&gt; objects for ['barney']
+</code></pre>
+<h3><a id="_.reject(collection, [predicate = _.identity])"></a>_.reject(collection, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回过滤后的新数组</li>
+</ul>
+</details></div><p><code>_.filter</code>的反向方法;<br />
+此方法通过<code>predicate</code>（断言函数）不返回 <code>truthy</code>（真值）的<code>collection</code>元素（注释：非真）。</p>
+<pre><code class="lang-js">var users = [
+  { 'user': 'barney', 'age': 36, 'active': false },
+  { 'user': 'fred',   'age': 40, 'active': true }
+];
+ 
+_.reject(users, item =&gt; item.active);
+// =&gt; objects for ['fred']
+ 
+// `_.matches` 迭代简写
+_.reject(users, { 'age': 40, 'active': true });
+// =&gt; objects for ['barney']
+ 
+// `_.matchesProperty` 迭代简写
+_.reject(users, ['active', false]);
+// =&gt; objects for ['fred']
+ 
+// `_.property` 迭代简写
+_.reject(users, 'active');
+// =&gt; objects for ['barney']
+</code></pre>
+<h3><a id="_.partition(collection, [predicate = _.identity])"></a>_.partition(collection, [predicate = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[predicate=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回元素分组后的数组。</li>
+</ul>
+</details></div><p>创建一个分成两组的元素数组，第一组包含<code>predicate(value)</code>（断言函数）返回为 <code>truthy</code>（真值）的元素，第二组包含<code>predicate</code>返回为<code>falsey</code>的元素。</p>
+<pre><code class="lang-js">var users = [
+  { 'user': 'barney',  'age': 36, 'active': false },
+  { 'user': 'fred',    'age': 40, 'active': true },
+  { 'user': 'pebbles', 'age': 1,  'active': false }
+];
+ 
+_.partition(users, item =&gt; item.active);
+// =&gt; objects for [['fred'], ['barney', 'pebbles']]
+ 
+// The `_.matches` iteratee shorthand.
+_.partition(users, { 'age': 1, 'active': false });
+// =&gt; objects for [['pebbles'], ['barney', 'fred']]
+ 
+// The `_.matchesProperty` iteratee shorthand.
+_.partition(users, ['active', false]);
+// =&gt; objects for [['barney', 'pebbles'], ['fred']]
+ 
+// The `_.property` iteratee shorthand.
+_.partition(users, 'active');
+// =&gt; objects for [['fred'], ['barney', 'pebbles']]
+</code></pre>
+<h2><a id="转换"></a>转换</h2>
+<h3><a id="_.flatMap(collection, [iteratee = _.identity])"></a>_.flatMap(collection, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代遍历的集合。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回新扁平化数组。</li>
+</ul>
+</details></div><p>创建一个<strong>扁平化</strong>（同阶数组）的数组，这个数组的值来自<code>collection</code>中每一个值经过<code>iteratee(value, index | key, collection)</code>处理后返回的结果，并且扁平化合并。</p>
+<pre><code class="lang-js">function duplicate(n) {
+  return [n, n];
+}
+ 
+_.flatMap([1, 2], duplicate);
+// =&gt; [1, 1, 2, 2]
+</code></pre>
+<h3><a id="_.flatMapDeep(collection, [iteratee = _.identity])"></a>_.flatMapDeep(collection, [iteratee = _.identity])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回新扁平化数组。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.flatMap</code>不同之处在于，<code>_.flatMapDeep</code>会继续扁平化递归映射的结果。</p>
+<pre><code class="lang-js">function duplicate(n) {
+  return [[[n, n]]];
+}
+ 
+_.flatMapDeep([1, 2], duplicate);
+// =&gt; [1, 1, 2, 2]
+</code></pre>
+<h3><a id="_.flatMapDepth(collection, [iteratee = _.identity], [depth = 1])"></a>_.flatMapDepth(collection, [iteratee = _.identity], [depth = 1])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 一个用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Array|Function|Object|string): 每次迭代调用的函数。</li>
+<li>[depth=1] (number): 最大递归深度。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回新扁平化数组。</li>
+</ul>
+</details></div><p>该方法类似<code>_.flatMap</code>，不同之处在于<code>_.flatMapDepth</code>会根据指定的 <code>depth</code>（递归深度）继续扁平化递归映射结果。</p>
+<pre><code class="lang-js">function duplicate(n) {
+  return [[[n, n]]];
+}
+ 
+_.flatMapDepth([1, 2], duplicate, 2);
+// =&gt; [[1, 1], [2, 2]]
+</code></pre>
+<h2><a id="其它"></a>其它</h2>
+<h3><a id="_.invokeMap(collection, path, [args])"></a>_.invokeMap(collection, path, [args])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>path (Array|Function|string): 用来调用方法的路径 或 者每次迭代调用的函数。</li>
+<li>[args] (…*): 调用每个方法的参数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Array): 返回的结果数组。</li>
+</ul>
+</details></div><p>调用<code>path</code>（路径）上的方法处理<code>collection</code>中的每个元素，返回一个数组, 包含每次调用方法得到的结果。<br />
+任何附加的参数提供给每个被调用的方法。如果<code>methodName</code>（方法名）是一个函数，每次调用函数时，内部的<code>this</code>指向集合中的每个元素。</p>
+<pre><code class="lang-js">_.invokeMap([[5, 1, 7], [3, 2, 1]], 'sort');
+// =&gt; [[1, 5, 7], [1, 2, 3]]
+ 
+_.invokeMap([123, 456], String.prototype.split, '');
+// =&gt; [['1', '2', '3'], ['4', '5', '6']]
+</code></pre>
+<h3><a id="_.reduce(collection, [iteratee = _.identity], [ accumulator ])"></a>_.reduce(collection, [iteratee = _.identity], [ accumulator ])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Function): 每次迭代调用的函数。</li>
+<li>[accumulator] (*): 初始值。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(*): 返回累加后的值。</li>
+</ul>
+</details></div><p>压缩<code>collection</code>为一个值，通过<code>iteratee(accumulator, value, index|key, collection)</code>遍历<code>collection</code>中的每个元素，每次返回的值会作为下一次迭代使用(作为<code>iteratee</code>的第一个参数使用)。 如果没有提供<code>accumulator</code>，则<code>collection</code>中的第一个元素作为初始值。(<code>accumulator</code>参数在第一次迭代的时候作为<code>iteratee</code>第一个参数使用。)</p>
+<div class='tip-block warning'><p>lodash 中有许多方法是防止作为其他方法的迭代函数，例如：<br />
+_.reduce, _.reduceRight 和 _.transform。<br />
+注：即不能作为iteratee参数传递给其他方法</p>
+<p>受保护的方法有：<br />
+<code>assign</code>, <code>defaults</code>, <code>defaultsDeep</code>, <code>includes</code>, <code>merge</code>, <code>orderBy</code>和 <code>sortBy</code><br />
+注：即这些方法不能使用 <code>_.reduce</code>, <code>_.reduceRight</code> 和 <code>_.transform</code>作为<code>iteratee</code>迭代函数参数</p>
+</div><pre><code class="lang-js">_.reduce([1, 2], function(sum, n) {
+  return sum + n;
+}, 0);
+// =&gt; 3
+ 
+_.reduce({ 'a': 1, 'b': 2, 'c': 1 }, function(result, value, key) {
+  (result[value] || (result[value] = [])).push(key);
+  return result;
+}, {});
+// =&gt; { '1': ['a', 'c'], '2': ['b'] } (无法保证遍历的顺序)
+</code></pre>
+<h3><a id="_.reduceRight(collection, [iteratee = _.identity], [accumulator])"></a>_.reduceRight(collection, [iteratee = _.identity], [accumulator])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>collection (Array|Object): 用来迭代的集合。</li>
+<li>[iteratee=_.identity] (Function): 每次迭代调用的函数。</li>
+<li>[accumulator] (*): 初始值。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(*): 返回累加后的值。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.reduce</code>，除了它是从右到左遍历<code>collection</code>中的元素的。</p>
+<pre><code class="lang-js">var array = [[0, 1], [2, 3], [4, 5]];
+ 
+_.reduceRight(array, function(flattened, other) {
+  return flattened.concat(other);
+}, []);
+// =&gt; [4, 5, 2, 3, 0, 1]
+</code></pre>
+<h3><a id="_.size(collection)"></a>_.size(collection)</h3>
+<p>返回<code>collection</code>的长度，如果集合是类数组或字符串，返回其<code>length</code>；如果集合是对象，返回其可枚举属性的个数。</p>
+<pre><code class="lang-js">_.size([1, 2, 3]);
+// =&gt; 3
+ 
+_.size({ 'a': 1, 'b': 2 });
+// =&gt; 2
+ 
+_.size('pebbles');
+// =&gt; 7
+</code></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>

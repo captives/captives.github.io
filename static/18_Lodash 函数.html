@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <title>Lodash 函数</title>
+</head>
+
+<body>
+    <div class="content"><h1><a id="Lodash 函数"></a>Lodash 函数</h1>
+<h3><a id="_.before(n, func)"></a>_.before(n, func)</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>n (number): 超过多少次不再调用func（注：限制调用func 的次数）。</li>
+<li>func (Function): 限制执行的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Function): 返回新的限定函数。</li>
+</ul>
+</details></div><p>创建一个调用<code>func</code>的函数，通过<code>this</code>绑定和创建函数的参数调用<code>func</code>，调用次数不超过 n 次。<br />
+之后再调用这个函数，将返回最后一次调用<code>func</code>的结果。</p>
+<pre><code class="lang-js">jQuery(element).on('click', _.before(5, addContactToList));
+// =&gt; 允许将最多4个联系人添加到列表中
+</code></pre>
+<h3><a id="_.after(n, func)"></a>_.after(n, func)</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>n (number): func 方法应该在调用多少次后才执行。</li>
+<li>func (Function): 用来限定的函数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Function): 返回新的限定函数。</li>
+</ul>
+</details></div><p><code>_.before</code>的反向函数;<br />
+此方法创建一个函数，当他被调用至少<code>n</code>时才会触发<code>func</code>。</p>
+<pre><code class="lang-js">var saves = ['profile', 'settings'];
+ 
+var done = _.after(saves.length, function() {
+  console.log('done saving!');
+});
+ 
+_.forEach(saves, function(type) {
+  asyncSave({ 'type': type, 'complete': done });
+});
+// =&gt; 两次异步日志保存后才会输出：'done saving!'
+</code></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>

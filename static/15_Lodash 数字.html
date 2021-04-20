@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <title>Lodash 数字</title>
+</head>
+
+<body>
+    <div class="content"><h1><a id="Lodash 数字"></a>Lodash 数字</h1>
+<h2><a id="数字"></a>数字</h2>
+<h3><a id="_.clamp(number, [lower], upper)"></a>_.clamp(number, [lower], upper)</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>number (number): 被限制的值。</li>
+<li>[lower] (number): 下限。</li>
+<li>upper (number): 上限。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(number): 返回被限制的值。</li>
+</ul>
+</details></div><p>返回限制在<code>lower</code>和<code>upper</code>之间的值</p>
+<pre><code class="lang-js">_.clamp(-10, -5, 5);
+// =&gt; -5
+ 
+_.clamp(10, -5, 5);
+// =&gt; 5
+</code></pre>
+<h3><a id="_.inRange(number, [start = 0], end)"></a>_.inRange(number, [start = 0], end)</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>number (number): 要检查的值。</li>
+<li>[start=0] (number): 开始范围。</li>
+<li>end (number): 结束范围。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(boolean): 如果number在范围内 ，那么返回true，否则返回 false。</li>
+</ul>
+</details></div><p>检查<code>n</code>是否在<code>start</code>与<code>end</code>之间，但不包括<code>end</code>。 如果<code>end</code>没有指定，那么<code>start</code>设置为0。 如果<code>start</code>大于 <code>end</code>，那么参数会交换以便支持负范围。</p>
+<pre><code class="lang-js">_.inRange(3, 2, 4);
+// =&gt; true
+ 
+_.inRange(4, 8);
+// =&gt; true
+ 
+_.inRange(4, 2);
+// =&gt; false
+ 
+_.inRange(2, 2);
+// =&gt; false
+ 
+_.inRange(1.2, 2);
+// =&gt; true
+ 
+_.inRange(5.2, 4);
+// =&gt; false
+ 
+_.inRange(-3, -2, -6);
+// =&gt; true
+</code></pre>
+<h3><a id="_.random([lower = 0], [upper = 1], [floating])"></a>_.random([lower = 0], [upper = 1], [floating])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>[lower=0] (number): 下限。</li>
+<li>[upper=1] (number): 上限。</li>
+<li>[floating] (boolean): 指定是否返回浮点数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(number): 返回随机数。</li>
+</ul>
+</details></div><p>产生一个包括<code>lower</code>与<code>upper</code>之间的数。 如果只提供一个参数返回一个0到提供数之间的数。 如果<code>floating</code>设为<code>true</code>，或者<code>lower</code>或<code>upper</code>是浮点数，结果返回浮点数。</p>
+<div class='tip-block warning'><span class='title'> 注意: </span><p>JavaScript 遵循 IEEE-754 标准处理无法预料的浮点数结果。</p>
+</div><pre><code class="lang-js">_.random(0, 5);
+// =&gt; an integer between 0 and 5
+ 
+_.random(5);
+// =&gt; also an integer between 0 and 5
+ 
+_.random(5, true);
+// =&gt; a floating-point number between 0 and 5
+ 
+_.random(1.2, 5.2);
+// =&gt; a floating-point number between 1.2 and 5.2
+</code></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>
