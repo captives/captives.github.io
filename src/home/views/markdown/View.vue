@@ -122,7 +122,7 @@ export default {
     beforeCreate() {
         const link = document.createElement("link");
         link.rel = "stylesheet";
-        link.href = "/assets/css/page.css";
+        link.href = "/css/page.css";
         document.querySelector("head").appendChild(link);
         cache.push(link);
     },

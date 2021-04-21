@@ -4,7 +4,7 @@ import "mavon-editor/dist/css/index.css";
 import markdownItContainer from "markdown-it-container";
 const markdownIt = MavonEditor.markdownIt;
 
-["tip", "info", "warning", "error"].forEach((type) => {
+["success", "info", "warning", "error"].forEach((type) => {
     const reg = eval("/^" + type + "\\s+(.*)|" + type + "$/");
     markdownIt.use(markdownItContainer, type, {
         validate: function(params) {

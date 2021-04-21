@@ -6,7 +6,7 @@
             <el-button type="success" @click="redirectHander('/edit/new')">新建文章</el-button>
         </div>
         <el-tabs v-model="activeName" style="width: 100%;">
-            <el-tab-pane label="用户管理" name="first">
+            <el-tab-pane label="类别管理" name="first">
             </el-tab-pane>
             <el-tab-pane label="文章管理" name="second">
                 <!-- 查询条件 -->
@@ -14,8 +14,8 @@
                     <el-table-column prop="id" label="ID"> </el-table-column>
                     <el-table-column prop="title" label="文章标题"> </el-table-column>
                     <el-table-column prop="desc" label="描述"> </el-table-column>
-                    <el-table-column prop="createTime" label="创建时间"> </el-table-column>
-                    <el-table-column prop="updateTime" label="更新时间"> </el-table-column>
+                    <el-table-column prop="create_time" label="创建时间"> </el-table-column>
+                    <el-table-column prop="update_time" label="更新时间"> </el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="{row}">
                             <el-button type="text" @click="redirectHander('/edit/' + row.id)">编辑</el-button>
@@ -80,20 +80,15 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 export default class MarkDownEditor extends Vue {
     private activeName: string | null = "second";
-    private list: Array<any> = [];
-    private files: Array<any> = [];
+    private categoryList: Array<any> = [];//类别
+    private list: Array<any> = [];//文章
+    private files: Array<any> = [];//文件
 
-    private dialog: any = {
-        visible: false,
-        title: "",
-    };
+    private dialog: any = { visible: false, title: "" };
 
 
     private resetDialog() {
-        this.dialog = {
-            visible: false,
-            title: "",
-        };
+        this.dialog = { visible: false, title: "" };
     }
 
     private downloadText(text: string, title: string) {
@@ -114,6 +109,23 @@ export default class MarkDownEditor extends Vue {
         } else {
             this.$message({ type: 'error', message: "暂无内容需要导出" });
         }
+    }
+
+
+    //获取类别列表
+    private getCategoryList() {
+        request("/edit/category").then(({ data }: any) => {
+            console.log(data);
+            this.categoryList = data;
+        });
+    }
+
+    //添加类别
+    private addCategory() {
+        request('/edit/category_add').then(({ success }: any) => {
+            this.$message({ type: success ? 'success' : 'error', message: "添加完成" });
+            this.getCategoryList();
+        })
     }
 
     private getList() {
@@ -227,6 +239,7 @@ export default class MarkDownEditor extends Vue {
     }
 
     private created() {
+        this.addCategory();
         this.getList();
         this.getFileList();
     }

@@ -24,9 +24,9 @@
 </ul>
 </details></div><p>创建一个调用<code>func</code>的函数，通过<code>this</code>绑定和创建函数的参数调用<code>func</code>，调用次数不超过 n 次。<br />
 之后再调用这个函数，将返回最后一次调用<code>func</code>的结果。</p>
-<pre><code class="lang-js">jQuery(element).on('click', _.before(5, addContactToList));
-// =&gt; 允许将最多4个联系人添加到列表中
-</code></pre>
+<pre><div class="hljs"><code class="lang-js">jQuery(element).on(<span class="hljs-string">'click'</span>, _.before(<span class="hljs-number">5</span>, addContactToList));
+<span class="hljs-comment">// =&gt; 允许将最多4个联系人添加到列表中</span>
+</code></div></pre>
 <h3><a id="_.after(n, func)"></a>_.after(n, func)</h3>
 <div class='more-block'><details><summary>参数</summary>
 <ul>
@@ -38,18 +38,211 @@
 <li>(Function): 返回新的限定函数。</li>
 </ul>
 </details></div><p><code>_.before</code>的反向函数;<br />
-此方法创建一个函数，当他被调用至少<code>n</code>时才会触发<code>func</code>。</p>
-<pre><code class="lang-js">var saves = ['profile', 'settings'];
+此方法创建一个函数，当他被调用至少<code>n</code>次时才会触发<code>func</code>。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> saves = [<span class="hljs-string">'profile'</span>, <span class="hljs-string">'settings'</span>];
  
-var done = _.after(saves.length, function() {
-  console.log('done saving!');
+<span class="hljs-keyword">var</span> done = _.after(saves.length, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'done saving!'</span>);
 });
  
-_.forEach(saves, function(type) {
-  asyncSave({ 'type': type, 'complete': done });
+_.forEach(saves, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">type</span>) </span>{
+  asyncSave({ <span class="hljs-string">'type'</span>: type, <span class="hljs-string">'complete'</span>: done });
 });
-// =&gt; 两次异步日志保存后才会输出：'done saving!'
-</code></pre>
+<span class="hljs-comment">// =&gt; 两次异步日志保存完成后才会输出：'done saving!'</span>
+</code></div></pre>
+<h3><a id="_.ary(func, [n = func.length])"></a>_.ary(func, [n = func.length])</h3>
+<div class='more-block'><details><summary>参数：</summary>
+<ul>
+<li>func (Function): 需要被限制参数个数的函数。</li>
+<li>[n=func.length] (number): 限制的参数数量。</li>
+</ul>
+<p>返回值：</p>
+<ul>
+<li>(Function): 返回新的覆盖函数。</li>
+</ul>
+</details></div><p>创建一个调用<code>func</code>的函数。调用<code>func</code>时最多接受<code>n</code>个参数，忽略多出的参数。</p>
+<pre><div class="hljs"><code class="lang-js">_.map([<span class="hljs-string">'6'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'10'</span>], _.ary(<span class="hljs-built_in">parseInt</span>, <span class="hljs-number">1</span>));
+<span class="hljs-comment">// =&gt; [6, 8, 10]</span>
+</code></div></pre>
+<p>等价于</p>
+<pre><div class="hljs"><code class="lang-js">_.map([<span class="hljs-string">'6'</span>, <span class="hljs-string">'8'</span>, <span class="hljs-string">'10'</span>], _.ary(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(a, b);
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">parseInt</span>(a);
+}, <span class="hljs-number">1</span>));
+<span class="hljs-comment">/**
+ 6 undefined
+ 8 undefined
+ 10 undefined 
+=&gt; [6, 8, 10]
+*/</span>
+</code></div></pre>
+<p>扩展<mark>n = 2</mark>时，将输出：</p>
+<pre><div class="hljs"><code class="lang-js"> <span class="hljs-number">6</span> <span class="hljs-number">0</span>
+ <span class="hljs-number">8</span> <span class="hljs-number">1</span>
+ <span class="hljs-number">10</span> <span class="hljs-number">2</span>
+=&gt; [<span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>]
+</code></div></pre>
+<h3><a id="_.bind(func, thisArg, [partials])"></a>_.bind(func, thisArg, [partials])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>func (Function): 绑定的函数。</li>
+<li>thisArg (*): func 绑定的this对象。</li>
+<li>[partials] (…*): 附加的部分参数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Function): 返回新的绑定函数。</li>
+</ul>
+</details></div><p>创建一个调用<code>func</code>的函数，<code>thisArg</code>绑定<code>func</code>函数中的<code>this</code>(注：this的上下文为thisArg)，并且<code>func</code>函数会接收<code>partials</code>附加参数。</p>
+<p>_.bind.placeholder 值，默认是以<code>_</code>作为附加部分参数的占位符。</p>
+<div class='tip-block warning'><p>不同于原生的 Function#bind，这个方法不会设置绑定函数的 <code>length</code> 属性。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> greet = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">greeting, punctuation</span>) </span>{
+  <span class="hljs-keyword">return</span> greeting + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.user + punctuation;
+};
+ 
+<span class="hljs-keyword">var</span> object = { <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span> };
+ 
+<span class="hljs-keyword">var</span> bound = _.bind(greet, object, <span class="hljs-string">'hi'</span>);
+bound(<span class="hljs-string">'!'</span>);
+<span class="hljs-comment">// =&gt; 'hi fred!'</span>
+ 
+<span class="hljs-comment">// 占位符绑定</span>
+<span class="hljs-keyword">var</span> bound = _.bind(greet, object, _, <span class="hljs-string">'!'</span>);
+bound(<span class="hljs-string">'hi'</span>);
+<span class="hljs-comment">// =&gt; 'hi fred!'</span>
+</code></div></pre>
+<h3><a id="_.bindKey(object, key, [partials])"></a>_.bindKey(object, key, [partials])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>object (Object): 需要绑定函数的对象。</li>
+<li>key (string): 需要绑定函数对象的键。</li>
+<li>[partials] (…*): 附加的部分参数。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Function): 返回新的绑定函数。</li>
+</ul>
+</details></div><p>创建一个函数,在<code>object[key]</code>上通过接收<code>partials</code>附加参数，调用这个方法。<br />
+这个方法与<code>_.bind</code>的不同之处在于允许重新定义绑定函数即使它还不存在。</p>
+<p>_.bind.placeholder值，默认是以<code>_</code>作为附加部分参数的占位符。</p>
+<div class='tip-block info'><p>浏览<a href="http://peter.michaux.ca/articles/lazy-function-definition-pattern" target="_blank">Peter Michaux’s article</a>了解更多详情。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> object = {
+  <span class="hljs-string">'user'</span>: <span class="hljs-string">'fred'</span>,
+  <span class="hljs-string">'greet'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">greeting, punctuation</span>) </span>{
+    <span class="hljs-keyword">return</span> greeting + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.user + punctuation;
+  }
+};
+ 
+<span class="hljs-keyword">var</span> bound = _.bindKey(object, <span class="hljs-string">'greet'</span>, <span class="hljs-string">'hi'</span>);
+bound(<span class="hljs-string">'!'</span>);
+<span class="hljs-comment">// =&gt; 'hi fred!'</span>
+ 
+object.greet = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">greeting, punctuation</span>) </span>{
+  <span class="hljs-keyword">return</span> greeting + <span class="hljs-string">'ya '</span> + <span class="hljs-keyword">this</span>.user + punctuation;
+};
+ 
+bound(<span class="hljs-string">'!'</span>);
+<span class="hljs-comment">// =&gt; 'hiya fred!'</span>
+ 
+<span class="hljs-comment">// 占位符绑定</span>
+<span class="hljs-keyword">var</span> bound = _.bindKey(object, <span class="hljs-string">'greet'</span>, _, <span class="hljs-string">'!'</span>);
+bound(<span class="hljs-string">'hi'</span>);
+<span class="hljs-comment">// =&gt; 'hiya fred!'</span>
+</code></div></pre>
+<h3><a id="_.curry(func, [arity = func.length])"></a>_.curry(func, [arity = func.length])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>func (Function): 用来柯里化（curry）的函数。</li>
+<li>[arity=func.length] (number): 需要提供给 func 的参数数量。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Function): 返回新的柯里化（curry）函数。</li>
+</ul>
+</details></div><p>创建一个函数，该函数接收<code>func</code>的参数，要么调用func返回的结果，如果 func 所需参数已经提供，则直接返回 func 所执行的结果。或返回一个函数，接受余下的func 参数的函数，可以使用 func.length 强制需要累积的参数个数。</p>
+<p>_.curry.placeholder 值，默认是以<code>_</code>作为附加部分参数的占位符。</p>
+<div class='tip-block warning'><p>这个方法不会设置<code>curried</code>函数的<code>length</code>属性。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> abc = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b, c</span>) </span>{
+  <span class="hljs-keyword">return</span> [a, b, c];
+};
+ 
+<span class="hljs-keyword">var</span> curried = _.curry(abc);
+ 
+curried(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+curried(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+curried(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+<span class="hljs-comment">// Curried with placeholders.</span>
+curried(<span class="hljs-number">1</span>)(_, <span class="hljs-number">3</span>)(<span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+</code></div></pre>
+<h3><a id="_.curryRight(func, [arity = func.length])"></a>_.curryRight(func, [arity = func.length])</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>func (Function): 用来柯里化（curry）的函数。</li>
+<li>[arity=func.length] (number): 需要提供给 func 的参数数量。</li>
+</ul>
+<p>返回</p>
+<ul>
+<li>(Function): 返回新的柯里化（curry）函数。</li>
+</ul>
+</details></div><p>这个方法类似<code>_.curry</code>。 除了它接受参数的方式用<code>_.partialRight</code>代替<code>_.partial</code>。</p>
+<p>_.curryRight.placeholder值，默认是以<code>_</code>作为附加部分参数的占位符。</p>
+<div class='tip-block warning'><p>这个方法不会设置 curried 函数的 “length” 属性。</p>
+</div><pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> abc = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b, c</span>) </span>{
+  <span class="hljs-keyword">return</span> [a, b, c];
+};
+ 
+<span class="hljs-keyword">var</span> curried = _.curryRight(abc);
+ 
+curried(<span class="hljs-number">3</span>)(<span class="hljs-number">2</span>)(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+curried(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+curried(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+ 
+<span class="hljs-comment">// Curried with placeholders.</span>
+curried(<span class="hljs-number">3</span>)(<span class="hljs-number">1</span>, _)(<span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; [1, 2, 3]</span>
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> convert = <span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> {
+            <span class="hljs-keyword">let</span> result = {
+                <span class="hljs-attr">label</span>: item.name,
+                <span class="hljs-attr">level</span>: item.level,
+                <span class="hljs-attr">value</span>: item.adcode,
+                <span class="hljs-attr">extra</span>: item.extra,
+                <span class="hljs-attr">children</span>: []
+            };
+
+            <span class="hljs-keyword">if</span> (<span class="hljs-string">'districts'</span> <span class="hljs-keyword">in</span> item &amp;&amp; item.districts <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span> &amp;&amp; item.districts.length &gt; <span class="hljs-number">0</span>) {
+                item.districts.forEach(<span class="hljs-function">(<span class="hljs-params">sub, idx</span>) =&gt;</span> {
+                    sub.extra = idx + <span class="hljs-number">1</span>;
+                    result.children.push(convert(sub));
+                });
+            }
+            <span class="hljs-keyword">return</span> result;
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+            <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'/api/basic/cities'</span>, {}, { <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'commonURL'</span> }).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+                data.unshift({ <span class="hljs-attr">name</span>: <span class="hljs-string">"全国"</span>, <span class="hljs-attr">level</span>: <span class="hljs-string">"province"</span>, <span class="hljs-attr">extra</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">adcode</span>: <span class="hljs-literal">null</span> });
+                data = data.map(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> {
+                    item.extra = index;
+                    <span class="hljs-keyword">return</span> convert(item);
+                });
+                <span class="hljs-built_in">console</span>.log(data);
+                resolve(data);
+            })
+        });
+</code></div></pre>
 </div>
 </body>
 <script src="/js/prism.js"></script>

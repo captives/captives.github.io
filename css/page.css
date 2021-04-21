@@ -183,6 +183,7 @@ input.button {
 
 .content h1 {
     margin: 0 0 1em;
+    text-shadow: #eee 0.1em 0.1em 0.1em;
 }
 
 .content h2,
@@ -374,6 +375,40 @@ input.button {
     background-color: #42b983;
 }
 
+.content mark {
+    color: #409EFF;
+    background: rgba(160, 207, 255, .35);
+    padding: 0 .2em;
+    font-size: 0.85em;
+    border-radius: 0.3em;
+    margin: 0 0.3em;
+}
+
+.content code {
+    color: #F56C6C;
+    background: rgb(254 240 240);
+    padding: 0 .2em;
+    font-size: 0.85em;
+    border-radius: 0.3em;
+    margin: 0 0.3em;
+}
+
+.content pre {
+    margin: 20px 0;
+    border-radius: 2px;
+    background: #405261;
+    overflow: auto;
+}
+
+.content pre code {
+    color: #f8f8f8;
+    background: initial;
+    margin: initial;
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 0.3em;
+}
+
 .content .tip-block::before {
     width: 25px;
     height: 25px;
@@ -439,18 +474,6 @@ input.button {
 
 .content .more-block details summary {
     outline: none;
-}
-
-.content pre {
-    margin: 20px 0;
-    border-radius: 2px;
-    background: #405261;
-    overflow: auto;
-}
-
-.content pre code {
-    padding: 10px;
-    border-radius: 0.3em;
 }
 
 .content .toc-block h3 {

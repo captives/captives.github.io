@@ -50,7 +50,7 @@
         "desc": "Lodash是一个一致性、模块化、高性能的 JavaScript 实用工具库。通过降低 array、number、objects、string 等等的使用难度从而让 JavaScript 变得更简单。",
         "about": [
             { "label": "主页", "value": "https://www.lodashjs.com/" },
-            { "label": "文档", "value": "https://www.lodashjs.com/docs/latest" },
+            { "label": "文档", "value": "https://www.lodashjs.com/docs/lodash" },
             { "label": "Github", "value": "https://github.com/lodash/lodash/wiki/FP-Guide" }
         ]
     }, {

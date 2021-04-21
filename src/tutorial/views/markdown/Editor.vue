@@ -266,5 +266,29 @@ export default class MarkDownEditor extends Vue {
             outline: none;
         }
     }
+
+    >>> mark {
+        color: #409EFF;
+        background: rgba(160, 207, 255, 0.35);
+        padding: 1px 10px;
+        font-size: 0.75em;
+        border-radius: 5px;
+        margin: 0 5px;
+    }
+
+    >>> code {
+        background: rgb(254 240 240);
+        padding: 1px 5px;
+        font-size: 0.75em;
+        border-radius: 5px;
+        margin: 0 5px;
+    }
+
+    >>> pre code {
+        background: initial;
+        padding: initial;
+        border-radius: initial;
+        margin: initial;
+    }
 }
 </style>
