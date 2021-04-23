@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>Lodash 数学 Math</title>
+</head>
+
+<body>
+    <div class="content"><h1><a id="Lodash 数学"></a>Lodash 数学</h1>
+<h2><a id="逻辑运算"></a>逻辑运算</h2>
+<h3><a id="_.add(augend, addend)"></a>_.add(augend, addend)</h3>
+<p>两个数相加。</p>
+<pre><div class="hljs"><code class="lang-js">_.add(<span class="hljs-number">6</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; 10</span>
+</code></div></pre>
+<h3><a id="_.subtract(minuend, subtrahend)"></a>_.subtract(minuend, subtrahend)</h3>
+<p>两个数相减。</p>
+<pre><div class="hljs"><code class="lang-js">_.subtract(<span class="hljs-number">6</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; 2</span>
+</code></div></pre>
+<h3><a id="_.multiply(multiplier, multiplicand)"></a>_.multiply(multiplier, multiplicand)</h3>
+<p>两个数相乘。</p>
+<pre><div class="hljs"><code class="lang-js">_.multiply(<span class="hljs-number">6</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; 24</span>
+</code></div></pre>
+<h3><a id="_.divide(dividend, divisor)"></a>_.divide(dividend, divisor)</h3>
+<p>两个数相除。</p>
+<pre><div class="hljs"><code class="lang-js">_.divide(<span class="hljs-number">6</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; 1.5</span>
+</code></div></pre>
+<h3><a id="_.sum(array)"></a>_.sum(array)</h3>
+<p>计算<code>array</code>中所有值的总和<br />
+_.sum([4, 2, 8, 6]);<br />
+// =&gt; 20</p>
+<h3><a id="_.sumBy(array, [iteratee = _.identity])"></a>_.sumBy(array, [iteratee = _.identity])</h3>
+<p>这个方法类似<a href="https://www.lodashjs.com/docs/lodash.summin" target="_blank">_.summin</a>除了它接受<code>iteratee(value)</code>来调用<code>array中</code>的每一个元素，来生成其值排序的标准。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'n'</span>: <span class="hljs-number">4</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">8</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">6</span> }];
+ 
+_.sumBy(objects, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">o</span>) </span>{ <span class="hljs-keyword">return</span> o.n; });
+<span class="hljs-comment">// =&gt; 20</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.sumBy(objects, <span class="hljs-string">'n'</span>);
+<span class="hljs-comment">// =&gt; 20</span>
+</code></div></pre>
+<h3><a id="_.mean(array)"></a>_.mean(array)</h3>
+<p>计算<code>array</code>的平均值。</p>
+<pre><div class="hljs"><code class="lang-js">_.mean([<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>]);
+<span class="hljs-comment">// =&gt; 5</span>
+</code></div></pre>
+<h3><a id="_.meanBy(array, [iteratee = _.identity])"></a>_.meanBy(array, [iteratee = _.identity])</h3>
+<p>这个方法类似<code>_.mean</code>，除了它接受<code>iteratee(value) </code>来调用<code>array</code>中的每一个元素，来生成其值排序的标准。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'n'</span>: <span class="hljs-number">4</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">2</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">8</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">6</span> }];
+ 
+_.meanBy(objects, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">o</span>) </span>{ <span class="hljs-keyword">return</span> o.n; });
+<span class="hljs-comment">// =&gt; 5</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.meanBy(objects, <span class="hljs-string">'n'</span>);
+<span class="hljs-comment">// =&gt; 5</span>
+</code></div></pre>
+<h2><a id="格式化"></a>格式化</h2>
+<h3><a id="_.round(number, [precision=0])"></a>_.round(number, [precision=0])</h3>
+<p>根据<code>precision</code>四舍五入 number。</p>
+<pre><div class="hljs"><code class="lang-js">_.round(<span class="hljs-number">4.006</span>);
+<span class="hljs-comment">// =&gt; 4</span>
+ 
+_.round(<span class="hljs-number">4.006</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 4.01</span>
+ 
+_.round(<span class="hljs-number">4060</span>, <span class="hljs-number">-2</span>);
+<span class="hljs-comment">// =&gt; 4100</span>
+</code></div></pre>
+<h3><a id="_.ceil(number, [precision = 0])"></a>_.ceil(number, [precision = 0])</h3>
+<p>根据<code>precision</code>（精度）向上舍入<code>number</code>。（注：<code>precision</code>（精度）可以理解为保留几位小数。）</p>
+<pre><div class="hljs"><code class="lang-js">_.ceil(<span class="hljs-number">4.006</span>);
+<span class="hljs-comment">// =&gt; 5</span>
+ 
+_.ceil(<span class="hljs-number">6.004</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 6.01</span>
+ 
+_.ceil(<span class="hljs-number">6040</span>, <span class="hljs-number">-2</span>);
+<span class="hljs-comment">// =&gt; 6100</span>
+</code></div></pre>
+<h3><a id="_.floor(number, [precision=0])"></a>_.floor(number, [precision=0])</h3>
+<p>根据<code>precision</code>（精度）向下舍入<code>number</code>。（注：<code>precision</code>（精度）可以理解为保留几位小数。）</p>
+<pre><div class="hljs"><code class="lang-js">_.floor(<span class="hljs-number">4.006</span>);
+<span class="hljs-comment">// =&gt; 4</span>
+ 
+_.floor(<span class="hljs-number">0.046</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 0.04</span>
+ 
+_.floor(<span class="hljs-number">4060</span>, <span class="hljs-number">-2</span>);
+<span class="hljs-comment">// =&gt; 4000</span>
+</code></div></pre>
+<h2><a id="比较"></a>比较</h2>
+<h3><a id="_.min(array)"></a>_.min(array)</h3>
+<p>计算<code>array</code>中的最小值。 如果<code>array</code>是[]或者假值将会返回 undefined。</p>
+<pre><div class="hljs"><code class="lang-js">_.min([<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>]);
+<span class="hljs-comment">// =&gt; 2</span>
+ 
+_.min([]);
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></div></pre>
+<h3><a id="_.minBy(array, [iteratee = _.identity])"></a>_.minBy(array, [iteratee = _.identity])</h3>
+<p>这个方法类似<code>_.min</code>除了它接受<code>iteratee(value)</code>来调用<code>array</code>中的每一个元素，来生成其值排序的标准。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'n'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">2</span> }];
+ 
+_.minBy(objects, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">o</span>) </span>{ <span class="hljs-keyword">return</span> o.n; });
+<span class="hljs-comment">// =&gt; { 'n': 1 }</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.minBy(objects, <span class="hljs-string">'n'</span>);
+<span class="hljs-comment">// =&gt; { 'n': 1 }</span>
+</code></div></pre>
+<h3><a id="_.max(array)"></a>_.max(array)</h3>
+<p>计算<code>array</code>中的最大值。 如果<code>array</code>是[]或者假值将会返回 undefined。</p>
+<pre><div class="hljs"><code class="lang-js">_.max([<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">8</span>, <span class="hljs-number">6</span>]);
+<span class="hljs-comment">// =&gt; 8</span>
+ 
+_.max([]);
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></div></pre>
+<h3><a id="_.maxBy(array, [iteratee = _.identity])"></a>_.maxBy(array, [iteratee = _.identity])</h3>
+<p>这个方法类似<code>_.max</code>除了它接受<code>iteratee(value)</code>来调用<code>array</code>中的每一个元素，来生成其值排序的标准。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> objects = [{ <span class="hljs-string">'n'</span>: <span class="hljs-number">1</span> }, { <span class="hljs-string">'n'</span>: <span class="hljs-number">2</span> }];
+ 
+_.maxBy(objects, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">o</span>) </span>{ <span class="hljs-keyword">return</span> o.n; });
+<span class="hljs-comment">// =&gt; { 'n': 2 }</span>
+ 
+<span class="hljs-comment">// The `_.property` iteratee shorthand.</span>
+_.maxBy(objects, <span class="hljs-string">'n'</span>);
+<span class="hljs-comment">// =&gt; { 'n': 2 }</span>
+</code></div></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>
