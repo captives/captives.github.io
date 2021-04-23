@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <title>省市区级联笔记</title>
+</head>
+
+<body>
+    <div class="content"><h2><a id="省市区数据添加头[全部]"></a>省市区数据添加头[全部]</h2>
+<pre><code class="lang-js">const convert = (list) =&gt; {
+    return list.map((item, index) =&gt; {
+        let data = { label: item.name, level: item.level, value: item.adcode, extra: index };
+
+        if (data.level === 'province') {
+            item.districts = item.districts || [];
+            item.districts.unshift({ name: &quot;全部&quot;, level: &quot;city&quot;, adcode: null });
+        }
+
+        if (data.level === 'city') {
+            item.districts = item.districts || [];
+            item.districts.unshift({ name: &quot;全部&quot;, level: &quot;district&quot;, adcode: null });
+        }
+
+        if (data.level === 'district') {
+            delete item.districts;
+        }
+
+        if ('districts' in item &amp;&amp; item.districts instanceof Array) {
+            data.children = convert(item.districts);
+        }
+        return data;
+    });
+}
+
+data.unshift({ name: &quot;全国&quot;, level: &quot;province&quot;, adcode: null, extra: 0 });
+console.log(convert(data));
+// =&gt; 省市区每一项都增加全部/全国
+</code></pre>
+<h2><a id="省市区移除【全国/全部】项"></a>省市区移除【全国/全部】项</h2>
+<pre><code class="lang-js">all = !!all; //是否显示全国
+const tree = JSON.parse(JSON.stringify(store.state.dicInfo.gx_city));
+const filter = (list) =&gt; {
+    let arr = [];
+    list.forEach((item) =&gt; {
+        if (item.extra) {
+            if (item.children &amp;&amp; item.children instanceof Array) {
+                item.children = filter(item.children);
+            }
+            arr.push(item);
+        }
+    })
+    return arr;
+}
+
+return all ? tree : filter(tree);
+</code></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>
