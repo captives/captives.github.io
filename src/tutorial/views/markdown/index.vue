@@ -1,12 +1,29 @@
 <template>
     <el-main>
         <div style="text-align:right">
+            <span v-if="activeName=='first'" style="float: left; display:flex">
+                <el-button v-show="!cateItem.visible" type="primary" @click="cateItem.visible=true">添加类别</el-button>
+                <el-input v-show="cateItem.visible" v-model="cateItem.value"></el-input>
+                <el-button v-show="cateItem.visible" type="success" @click="addCategoryHandler">确认</el-button>
+            </span>
+
             <el-button type="primary" @click="exportToFileHandler">数据库导出文档</el-button>
             <el-button type="primary" @click="buildToHtmlHandler">数据库发布文档</el-button>
             <el-button type="success" @click="redirectHander('/edit/new')">新建文章</el-button>
         </div>
         <el-tabs v-model="activeName" style="width: 100%;">
             <el-tab-pane label="类别管理" name="first">
+                <el-table :data="categoryList" style="width: 100%">
+                    <el-table-column prop="id" label="ID"> </el-table-column>
+                    <el-table-column prop="name" label="名称"> </el-table-column>
+                    <el-table-column prop="create_time" label="创建时间"> </el-table-column>
+                    <el-table-column label="操作">
+                        <template slot-scope="{row}">
+                            <el-button type="text" @click="editCategoryHandler(row)">编辑</el-button>
+                            <el-button type="text" @click="deleteCategoryHandler(row)">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
             </el-tab-pane>
             <el-tab-pane label="文章管理" name="second">
                 <!-- 查询条件 -->
@@ -84,6 +101,7 @@ export default class MarkDownEditor extends Vue {
     private list: Array<any> = [];//文章
     private files: Array<any> = [];//文件
 
+    private cateItem: any = { visible: false, id: null, value: "" };
     private dialog: any = { visible: false, title: "" };
 
 
@@ -121,11 +139,31 @@ export default class MarkDownEditor extends Vue {
     }
 
     //添加类别
-    private addCategory() {
-        request('/edit/category_add').then(({ success }: any) => {
-            this.$message({ type: success ? 'success' : 'error', message: "添加完成" });
+    private addCategoryHandler() {
+        if (this.cateItem.value) {
+            request('/edit/category_add', { id: this.cateItem.id, name: this.cateItem.value, enabled: true }).then(({ success }: any) => {
+                this.$message({ type: success ? 'success' : 'error', message: "添加完成" });
+                this.getCategoryList();
+                this.cateItem.value = "";
+                this.cateItem.visible = false;
+                this.cateItem.id = null;
+            })
+        }
+    }
+
+    //编辑
+    private editCategoryHandler(row: any) {
+        this.cateItem.value = row.name;
+        this.cateItem.visible = true;
+        this.cateItem.id = row.id;
+    }
+
+    //删除
+    private deleteCategoryHandler(row: any) {
+        request("/edit/category_remove", { id: row.id }).then(({ data }: any) => {
+            console.log(data);
             this.getCategoryList();
-        })
+        });
     }
 
     private getList() {
@@ -239,7 +277,7 @@ export default class MarkDownEditor extends Vue {
     }
 
     private created() {
-        this.addCategory();
+        this.getCategoryList();
         this.getList();
         this.getFileList();
     }

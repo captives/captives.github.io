@@ -3,10 +3,7 @@
         <el-header>
             <label>标&nbsp;&nbsp;题：</label>
             <el-input v-model="title" placeholder="请输入文章标题"></el-input>
-
-            <el-button type="primary" @click="newHandler">新&nbsp;&nbsp;建</el-button>
-
-            <el-dropdown split-button type="danger" @click="saveHandler" @command="exportHandler">
+            <el-dropdown split-button type="primary" @click="saveHandler" @command="exportHandler">
                 保&nbsp;&nbsp;存
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="md">导出 *.md</el-dropdown-item>
@@ -17,22 +14,38 @@
 
         <el-main>
             <mavon-editor ref="mavon-editor" class="fill" v-model="value" :toolbars="toolbars" fontSize="16px" placeholder="请输入文本" @change="changeHandler" @save="saveHandler">
+                <template slot="left-toolbar-before">
+                    <button type="button" title="新建" class="op-icon fa el-button el-icon-document-add" @click="newHandler"></button>
+                    <span class="op-icon-divider"></span>
+                </template>
+                <template slot="left-toolbar-after">
+                    <button type="button" title="页面样式和扩展" class="op-icon fa el-button el-icon-tableware" @click="tableware.visible = true"></button>
+                </template>
                 <!-- <i slot="left-toolbar-before">1</i> -->
                 <!-- <i slot="left-toolbar-after">2</i> -->
                 <!-- <i slot="right-toolbar-before">3</i> -->
                 <!-- <i slot="right-toolbar-after">4</i> -->
             </mavon-editor>
         </el-main>
+        <el-dialog title="资源" :visible.sync="tableware.visible" center width="500px">
+            <MoreList title="style" v-model="tableware.styles" placeholder="请输入style地址"></MoreList>
+            <MoreList title="script" v-model="tableware.scripts" placeholder="请输入script地址"></MoreList>
+            <div slot="footer">
+                <el-button @click="tableware.visible = false">取 消</el-button>
+                <el-button type="primary" @click="tableware.visible = false">确 定</el-button>
+            </div>
+        </el-dialog>
     </el-container>
 </template>
 <script lang="ts">
 import request from "./../../api/Request";
 import { Component, Vue } from "vue-property-decorator";
 import VueCode from "@/components/VueCode.vue";
+import MoreList from './MoreList.vue';
 const URL: any = window.URL || window.webkitURL;
 
 @Component({
-    components: { VueCode }, name: "MarkDownEditor"
+    components: { VueCode, MoreList }, name: "MarkDownEditor"
 })
 export default class MarkDownEditor extends Vue {
     private id: number | null = null;
@@ -41,6 +54,14 @@ export default class MarkDownEditor extends Vue {
     private html: string | null = null;
     private desc: string | null = "";
     private error: string | null = "";
+
+    //餐具，页面附加的样式或js库，支持相对引入或CDN方式
+    private tableware: any = {
+        visible: false,
+        styles: [], //样式
+        scripts: [], //js库
+    };
+
     private toolbars: any = {
         bold: true, // 粗体
         italic: true, // 斜体
@@ -112,6 +133,9 @@ export default class MarkDownEditor extends Vue {
                 this.title = data.title;
                 this.value = data.text || "";
                 this.desc = data.desc;
+                const links = JSON.parse(data.links);
+                this.tableware.styles = links.styles || [];
+                this.tableware.scripts = links.scripts || [];
                 document.title = this.title || '新建文档';
             } else {
                 this.resetDocument();
@@ -132,6 +156,10 @@ export default class MarkDownEditor extends Vue {
                 text: this.value,
                 html: this.html,
                 desc: this.desc,
+                links: {
+                    styles: this.tableware.styles.filter((item: string) => item.trim()),
+                    scripts: this.tableware.scripts.filter((item: string) => item.trim())
+                }
             }).then((data: any) => {
                 console.log("保存", data);
                 //  this.$router.push({ path: "/markdown/edit/"+ data.id });
@@ -197,8 +225,8 @@ export default class MarkDownEditor extends Vue {
         display: flex;
     }
 
-    .el-button {
-        margin: 0 10px;
+    .el-input {
+        margin-right: 10px;
     }
 }
 
