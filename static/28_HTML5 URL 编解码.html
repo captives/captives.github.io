@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>HTML5 URL 编解码</title>
+</head>
+
+<body>
+    <script type='text/javascript' src='//cn.vuejs.org/js/vue.min.js'> </script>
+    <div class="content"><h1><a id="url 编解码"></a>url 编解码</h1>
+<div id="example">
+  <p>输入 </p>
+  <textarea v-model="textInput" style="width: 80%;height:100px"> </textarea>
+  <br />
+  <button @click="urlEncodeHandler">URL编码</button>
+   <button @click="urlDecodeHandler">URL解码</button>
+  <button @click="clean">清空</button>
+  <br />
+  <div>
+      <p>输出</p>
+      <p>{{textOutput}}</p>
+  </div>
+  <div>
+      <p>参数解析</p>
+      <ol>
+          <li v-for="(item, index) in list" :key="index">{{ item }}</li>
+      </ol>
+  </div>
+</div>
+<script>
+new Vue({
+    el: "#example",
+    data: {
+        textInput: "",
+        textOutput: "",
+        list: [],
+    },
+    methods: {
+        urlEncodeHandler() {
+            this.value = encodeURIComponent(this.textInput);
+            this.list = [];
+        },
+        urlDecodeHandler() {
+            this.textOutput = decodeURIComponent(this.textInput);
+            this.list = this.textOutput.match(/(\w+):\/\/([^/:]+):(\d*)([^?]*)([^&].*)(#[^#]*)/);
+        },
+        clean() {
+            this.textInput = this.textOutput = null;
+        },
+    },
+});
+</script>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-keyword">this</span>.textInput);
+
+<span class="hljs-built_in">decodeURIComponent</span>(<span class="hljs-keyword">this</span>.textInput);
+</code></div></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>
