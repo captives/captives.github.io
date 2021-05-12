@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> <link rel="stylesheet" href="/css/animate.css/4.1.1/animate.min.css">
+    <title>Vue3 使用笔记</title>
+</head>
+
+<body>
+    <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
+    <div class="content"><h3><a id="指令"></a>指令</h3>
+<script src="https://unpkg.com/vue@next"></script>
+<h4><a id="[key](https://v3.cn.vuejs.org/api/special-attributes.html#key)"></a><a href="https://v3.cn.vuejs.org/api/special-attributes.html#key" target="_blank">key</a></h4>
+<p>key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。<br />
+有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。</p>
+<p>最常见的用例是结合 v-for：</p>
+<pre><div class="hljs"><code class="lang-js">&lt;ul&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/ul&gt;
+</span></code></div></pre>
+<p>它也可以用于强制替换元素/组件而不是重复使用它。当你遇到如下场景时它可能会很有用：</p>
+<ul>
+<li>完整地触发组件的生命周期钩子</li>
+<li>触发过渡</li>
+</ul>
+<p>例如：</p>
+<pre><div class="hljs"><code class="lang-js">&lt;transition&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"text"</span>&gt;</span>{{ text }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+&lt;<span class="hljs-regexp">/transition&gt;
+</span></code></div></pre>
+<div class='tip-block info'><p>当 text 发生改变时，<span> 总是会被替换而不是被修改，因此会触发过渡。</p>
+<h4 id="example1" class="clock">
+<b>例子：</b>
+    <transition mode="in-out" enter-active-class="animate__animated animate__flipInX" leave-active-class="animate__animated animate__flipInX">
+        <span :key="time">{{time}}</span>
+    </transition>
+</h4>
+</div><style>
+.clock {
+    display: block;
+    position: relative;
+    height: 50px;
+    margin:0;
+}
+
+.clock span {
+    display: inline-block;
+    left: 50px;
+    position: absolute;
+    background: #f8f8f8;
+    padding: 5px 10px;
+}
+</style>
+<script>
+Vue.createApp({
+    data() {
+        return {
+            time: "00:00"
+        }
+    },
+    created() {
+        setInterval(() => {
+            this.time = new Date().toLocaleString("chinese", { hour12: false });
+        }, 500);
+    }
+}).mount('#example1');
+</script>
+<h3><a id="内置组件"></a>内置组件</h3>
+<h4><a id="[Teleport](https://v3.cn.vuejs.org/guide/teleport.html)"></a><a href="https://v3.cn.vuejs.org/guide/teleport.html" target="_blank">Teleport</a></h4>
+<p>Vue 鼓励我们通过将 UI 和相关行为封装到组件中来构建 UI。我们可以将它们嵌套在另一个内部，以构建一个组成应用程序 UI 的树。</p>
+<ul>
+<li><code>to</code> - <mark>string</mark>。需要<code>prop</code>，必须是有效的查询选择器或<code>HTMLElement</code>(如果在浏览器环境中使用)。指定将在其中移动 <code>&lt;teleport&gt;</code> 内容的目标元素</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js">&lt;!-- 正确 --&gt;
+&lt;teleport to="#some-id" /&gt;
+&lt;teleport to=".some-class" /&gt;
+&lt;teleport to="[data-teleport]" /&gt;
+
+&lt;!-- 错误 --&gt;
+&lt;teleport to="h1" /&gt;
+&lt;teleport to="some-string" /&gt;
+</code></div></pre>
+<ul>
+<li><code>disabled</code> - <mark>boolean</mark>。此可选属性可用于禁用 <teleport> 的功能，这意味着其插槽内容将不会移动到任何位置，而是在您在周围父组件中指定了 <code>&lt;teleport&gt;</code> 的位置渲染。</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js">&lt;teleport to=<span class="hljs-string">"#popup"</span> :disabled=<span class="hljs-string">"displayVideoInline"</span>&gt;
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./my-movie.mp4"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">teleport</span>&gt;</span></span>
+</code></div></pre>
+<div class='tip-block warning'><p>请注意，将移动实际的 DOM 节点，而不是被销毁和重新创建，并且它还将保持任何组件实例的活动状态。所有有状态的 HTML 元素 (即播放的视频) 都将保持其状态。</p>
+</div><p>例子：</p>
+<style>
+.video-item {
+    width: 240px;
+    height: 135px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 5px;
+    background: #eee;
+}
+
+.video-item::before {
+    content: 'come here';
+    color: #bababa;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+</style>
+<div id="example2">
+    <teleport :to="target">
+        <video src="assets/medias/Piper_720P.mp4" class="video-item" autoplay loop></video>
+    </teleport>
+    <div class="video">
+        <div id="seat" class="video-item" @click="goHandler"> </div>
+        <div id="seat1" class="video-item" @click="goHandler"></div>
+        <div id="seat2" class="video-item" @click="goHandler"></div>
+        <div id="seat3" class="video-item" @click="goHandler"></div>
+    </div>
+</div>
+<script>
+Vue.createApp({
+    data() {
+        return {
+            target: "#seat",
+        }
+    },
+    methods: {
+        goHandler(event) => {
+          this.target = "#"+ event.target.getAttribute('id');
+        }
+    }
+}).mount('#example2');
+</script>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>

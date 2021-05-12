@@ -66,7 +66,7 @@ input.button {
 .content {
     margin: 0 20%;
     box-shadow: 0 5px 26px -5px #9da5ab;
-    padding: 20px;
+    padding: 20px 50px 100px 70px;
 }
 
 .content .platinum {
