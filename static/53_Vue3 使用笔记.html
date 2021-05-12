@@ -95,6 +95,7 @@ Vue.createApp({
 </div><p>例子：</p>
 <style>
 .video-item {
+    position: relative;
     width: 240px;
     height: 135px;
     display: inline-block;
@@ -103,12 +104,18 @@ Vue.createApp({
     background: #eee;
 }
 
+.video-item video {
+    padding: 0;
+    margin: 0;
+}
+
 .video-item::before {
     content: 'come here';
     color: #bababa;
     width: 100%;
     display: block;
     text-align: center;
+    position: absolute;
 }
 </style>
 <div id="example2">
