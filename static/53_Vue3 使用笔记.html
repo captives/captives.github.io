@@ -33,13 +33,13 @@
 &lt;<span class="hljs-regexp">/transition&gt;
 </span></code></div></pre>
 <div class='tip-block info'><p>当 text 发生改变时，<span> 总是会被替换而不是被修改，因此会触发过渡。</p>
+</div><p>例子：</p>
 <h4 id="example1" class="clock">
-<b>例子：</b>
     <transition mode="in-out" enter-active-class="animate__animated animate__flipInX" leave-active-class="animate__animated animate__flipInX">
         <span :key="time">{{time}}</span>
     </transition>
 </h4>
-</div><style>
+<style>
 .clock {
     display: block;
     position: relative;
@@ -49,10 +49,9 @@
 
 .clock span {
     display: inline-block;
-    left: 50px;
     position: absolute;
-    background: #f8f8f8;
-    padding: 5px 10px;
+    background: #fff;
+    padding: 5px 20px;
 }
 </style>
 <script>
