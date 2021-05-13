@@ -12,8 +12,134 @@
 
 <body>
     <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
-    <div class="content"><h1><a id="指令"></a>指令</h1>
-<p><div class="toc-block"><ul><li><a href="#指令">指令</a></li><ul><li><a href="#常用指令">常用指令</a></li><li><a href="#特殊指令">特殊指令</a></li><ul><li><a href="#key : number | string">key : number | string</a></li><li><a href="#ref : string | Function">ref : string | Function</a></li><li><a href="#is : string | Object (component’s options object)">is : string | Object (component’s options object)</a></li></ul></ul><li><a href="#组件">组件</a></li><ul><li><a href="#内置组件">内置组件</a></li><ul><li><a href="#Teleport">Teleport</a></li></ul></ul></ul></div></p>
+    <div class="content"><div class='more-block'><details><summary>目录导航</summary>
+<p><div class="toc-block"><ul><li><a href="#API">API</a></li><ul><li><a href="#全局API">全局API</a></li><li><a href="#应用API">应用API</a></li><li><a href="#组合式API">组合式API</a></li><li><a href="#响应式API">响应式API</a></li></ul><li><a href="#方法">方法</a></li><ul><li><a href="#实例方法">实例方法</a></li><ul><li><a href="#$watch">$watch</a></li><li><a href="#$emit">$emit</a></li><li><a href="#$forceUpdate">$forceUpdate</a></li><li><a href="#$nextTick">$nextTick</a></li></ul></ul><li><a href="#指令">指令</a></li><ul><li><a href="#常用指令">常用指令</a></li><li><a href="#特殊指令">特殊指令</a></li><ul><li><a href="#key : number | string">key : number | string</a></li><li><a href="#ref : string | Function">ref : string | Function</a></li><li><a href="#is : string | Object (component’s options object)">is : string | Object (component’s options object)</a></li></ul></ul><li><a href="#组件">组件</a></li><ul><li><a href="#内置组件">内置组件</a></li><ul><li><a href="#Teleport">Teleport</a></li></ul></ul></ul></div></p>
+</details></div><h1><a id="API"></a>API</h1>
+<h2><a id="全局API"></a>全局API</h2>
+<h2><a id="应用API"></a>应用API</h2>
+<h2><a id="组合式API"></a>组合式API</h2>
+<h2><a id="响应式API"></a>响应式API</h2>
+<hr />
+<h1><a id="方法"></a>方法</h1>
+<h2><a id="实例方法"></a>实例方法</h2>
+<h3><a id="$watch"></a>$watch</h3>
+<div class='more-block'><details><summary>参数：</summary>
+<ul>
+<li>source：string | Function</li>
+<li>callback：Function | Object</li>
+<li>[options]：Object</li>
+<li>
+<ul>
+<li>deep：boolean</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>immediate：boolean</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>flush：string</li>
+</ul>
+</li>
+</ul>
+<p>返回：</p>
+<ul>
+<li>{Function} unwatch  取消侦听函数，用来停止触发回调</li>
+</ul>
+</details></div><p>参考 <a href="https://v3.cn.vuejs.org/api/instance-methods.html#watch" target="_blank">$watch</a>、<a href="https://v3.cn.vuejs.org/guide/computed.html#%E4%BE%A6%E5%90%AC%E5%99%A8" target="_blank">Watchers</a>、</p>
+<p>侦听组件实例上的响应式 property 或函数计算结果的变化。回调函数得到的参数为新值和旧值。我们只能将顶层的 <code>data</code>、<code>prop</code>或<code>computed</code>property 名作为字符串传递。对于更复杂的表达式，用一个函数取代。</p>
+<p>当侦听的值是一个对象或者数组时，对其属性或元素的任何更改都不会触发侦听器，因为它们引用相同的对象/数组：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> app = Vue.createApp({
+  data() {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">article</span>: {
+        <span class="hljs-attr">text</span>: <span class="hljs-string">'Vue is awesome!'</span>
+      },
+      <span class="hljs-attr">comments</span>: [<span class="hljs-string">'Indeed!'</span>, <span class="hljs-string">'I agree'</span>]
+    }
+  },
+  created() {
+    <span class="hljs-keyword">this</span>.$watch(<span class="hljs-string">'article'</span>, () =&gt; {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Article changed!'</span>)
+    })
+
+    <span class="hljs-keyword">this</span>.$watch(<span class="hljs-string">'comments'</span>, () =&gt; {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Comments changed!'</span>)
+    })
+  },
+  <span class="hljs-attr">methods</span>: {
+    <span class="hljs-comment">// 这些方法不会触发侦听器，因为我们只更改了Object/Array的一个property，</span>
+    <span class="hljs-comment">// 不是对象/数组本身</span>
+    changeArticleText() {
+      <span class="hljs-keyword">this</span>.article.text = <span class="hljs-string">'Vue 3 is awesome'</span>
+    },
+    addComment() {
+      <span class="hljs-keyword">this</span>.comments.push(<span class="hljs-string">'New comment'</span>)
+    },
+
+    <span class="hljs-comment">// 这些方法将触发侦听器，因为我们完全替换了对象/数组</span>
+    changeWholeArticle() {
+      <span class="hljs-keyword">this</span>.article = { <span class="hljs-attr">text</span>: <span class="hljs-string">'Vue 3 is awesome'</span> }
+    },
+    clearComments() {
+      <span class="hljs-keyword">this</span>.comments = []
+    }
+  }
+}).mount(<span class="hljs-string">'#app'</span>)
+
+<span class="hljs-keyword">const</span> unwatch = vm.$watch(<span class="hljs-string">'a'</span>, cb)
+<span class="hljs-comment">// 停掉观察者</span>
+unwatch()
+</code></div></pre>
+<p><em><strong>option.deep</strong></em><br />
+为了发现对象内部值的变化，可以在选项参数中指定 deep: true。这个选项同样适用于监听数组变更。</p>
+<div class='tip-block warning'><span class='title'> 注意: </span><p>当变更(不是替换)对象或数组并使用 deep 选项时，<strong>旧值</strong>将与<strong>新值</strong>相同，因为它们的引用指向同一个对象/数组。Vue 不会保留变更之前值的副本。</p>
+</div><p><em><strong>option.immediate</strong></em><br />
+在参数中指定<code>immediate: true</code>将立即以表达式当前的值来触发回调：</p>
+<pre><div class="hljs"><code class="lang-js">vm.$watch(<span class="hljs-string">'a'</span>, callback, {
+  <span class="hljs-attr">immediate</span>: <span class="hljs-literal">true</span>
+})
+<span class="hljs-comment">// 立即以 `a` 的当前值触发 `callback`</span>
+</code></div></pre>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>在带有<code>immediate</code>选项时，你不能在第一次回调时取消侦听给定的property。</p>
+<p>参考：<a href="https://v3.cn.vuejs.org/api/instance-methods.html#watch" target="_blank">$watch</a></p>
+</div><p><em><strong>option. flush</strong></em><br />
+<mark>flush</mark>选项可以更好地控制回调的时间。它可以设置为<code>pre</code>、<code>post</code>或<code>sync</code>。<br />
+默认值是<code>pre</code>，指定的回调应该在渲染前被调用。它允许回调在模板运行前更新其他值。<br />
+<code>post</code>值是可以用来将回调推迟到渲染之后的。如果回调需要通过<code>$refs</code>访问更新的DOM或子组件，那么则使用该值。<br />
+如果<mark>flush</mark>被设置为<code>sync</code>，一旦值发生了变化，回调将被同步调用。<br />
+对于 <code>pre</code>、<code>post</code>回调使用队列进行缓冲。回调只被添加到队列中一次，即使观察值变化了多次。值的中间变化将被跳过，不会传递给回调。</p>
+<p>缓冲回调不仅可以提高性能，还有助于保证数据的一致性。在执行数据更新的代码完成之前，侦听器不会被触发。</p>
+<p><code>sync</code>侦听器应少用，因为它们没有这些好处。<br />
+更多关于 flush 的信息，请参阅<a href="https://v3.cn.vuejs.org/guide/reactivity-computed-watchers.html#%E5%89%AF%E4%BD%9C%E7%94%A8%E5%88%B7%E6%96%B0%E6%97%B6%E6%9C%BA" target="_blank">副作用刷新时机</a>.</p>
+<h3><a id="$emit"></a>$emit</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>eventName：string</li>
+<li>[…args]</li>
+</ul>
+</details></div><p>触发当前实例上的事件。附加参数都会传给监听器回调。</p>
+<pre><div class="hljs"><code class="lang-js">app.component(<span class="hljs-string">'welcome-button'</span>, {
+  <span class="hljs-attr">emits</span>: [<span class="hljs-string">'welcome'</span>],
+  <span class="hljs-attr">template</span>: <span class="hljs-string">`&lt;button v-on:click="$emit('welcome')"&gt; Click me &lt;/button&gt;`</span>
+})
+</code></div></pre>
+<div class='tip-block warning'><p>自定义事件时，建议定义所有发出的事件；参考：<a href="https://v3.cn.vuejs.org/guide/component-custom-events.html" target="_blank">自定义事件</a>、<a href="https://v3.cn.vuejs.org/guide/component-basics.html#%E4%BD%BF%E7%94%A8%E4%BA%8B%E4%BB%B6%E6%8A%9B%E5%87%BA%E4%B8%80%E4%B8%AA%E5%80%BC" target="_blank">使用事件抛出一个值</a></p>
+</div><h3><a id="$forceUpdate"></a>$forceUpdate</h3>
+<p>迫使组件实例重新渲染。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
+</div><h3><a id="$nextTick"></a>$nextTick</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>callback：Function</li>
+</ul>
+</details></div><p>将回调延迟到下次 DOM 更新循环之后执行。</p>
+<div class='tip-block warning'><span class='title'> 注意： </span><p>组件内<code>nextTick</code>跟全局方法<code>nextTick</code>一样，不同的是回调的<code>this</code>自动绑定到调用它的实例上。</p>
+</div><p>参考：<a href="https://v3.cn.vuejs.org/api/global-api.html#nexttick" target="_blank">nextTick</a></p>
+<hr />
+<h1><a id="指令"></a>指令</h1>
 <div id="top"></div>
 <h2><a id="常用指令"></a>常用指令</h2>
 <p><a href="https://v3.cn.vuejs.org/api/directives.html#v-text" target="_blank">v-text</a><br />
@@ -71,7 +197,7 @@
 <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-pre</span>&gt;</span>{{ this will not be compiled }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
 
 &lt;!-- 正常运行，不编译表达式，HTML正常被浏览器解析 --&gt;
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-pre</span>&gt;</span> {{ title }} <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"red"</span>&gt;</span>文字<span class="hljs-tag">&lt;/<span class="hljs-name">font</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-pre</span>&gt;</span> {{ title }} <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"red"</span>&gt;</span>文字<span class="hljs-tag">&lt;/<span class="hljs-name">font</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>@[toc]
 </code></div></pre>
 <p><strong><a href="https://v3.cn.vuejs.org/api/directives.html#v-cloak" target="_blank">v-cloak</a></strong><br />
 cloak(英 [kləʊk]) 遮盖; 掩盖; 伪装; 幌子<br />
@@ -87,7 +213,7 @@ cloak(英 [kləʊk]) 遮盖; 掩盖; 伪装; 幌子<br />
 </code></div></pre>
 <p>当网络较慢，网页还在加载 Vue.js ，而导致 Vue 来不及渲染，这时页面就会显示出 Vue 源代码<code>{{ message }}</code>。<br />
 我们可以使用 v-cloak 指令来解决差值表达式闪烁的问题（即：可以隐藏未编译的标签直到实例准备完毕）。</p>
-<p>例子：页面加载完成后，延迟3秒挂载vue.js，观察v-cloak修饰的组件区别！</p>
+<p>例子：页面加载完成后，延迟3秒挂载vue.js，观察v-cloak修饰的组件区别</p>
 <style>
 [v-cloak] {
     color: red;
