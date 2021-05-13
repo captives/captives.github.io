@@ -371,7 +371,7 @@ Vue.createApp({
     <div id="seat" class="video-item" @click.self="goHandler"> </div>
     <div class="video-item" @click.self="goHandler"></div>
     <teleport :to="target">
-        <video src="/assets/medias/Piper_720P.mp4" class="video-item" controls loop></video>
+        <video src="/assets/medias/Piper_720P.mp4" class="video-item" controls loop webkit-playsinline="webkit-playsinline" playsinline="playsinline"></video>
     </teleport>
     <div class="video-item" @click.self="goHandler"></div>
     <div class="video-item" @click.self="goHandler"></div>
