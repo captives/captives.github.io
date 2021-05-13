@@ -13,10 +13,10 @@
 <body>
     <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
     <div class="content"><h3><a id="指令"></a>指令</h3>
-<script src="https://unpkg.com/vue@next"></script>
-<h4><a id="[key](https://v3.cn.vuejs.org/api/special-attributes.html#key)"></a><a href="https://v3.cn.vuejs.org/api/special-attributes.html#key" target="_blank">key</a></h4>
-<p>key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。<br />
-有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。</p>
+<div id="top"></div>
+#### [key](https://v3.cn.vuejs.org/api/special-attributes.html#key)
+key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。
+有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。
 <p>最常见的用例是结合 v-for：</p>
 <pre><div class="hljs"><code class="lang-js">&lt;ul&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
@@ -118,15 +118,20 @@ Vue.createApp({
 }
 </style>
 <div id="example2">
-    <div class="video">
-        <div id="seat" class="video-item" @click="goHandler"> </div>
-        <div id="seat1" class="video-item" @click="goHandler"></div>
-        <div id="seat2" class="video-item" @click="goHandler"></div>
-        <div id="seat3" class="video-item" @click="goHandler"></div>
-    </div>
+    <div id="seat" class="video-item" @click="goHandler"> </div>
+    <div id="seat1" class="video-item" @click="goHandler"></div>
     <teleport :to="target">
         <video src="/assets/medias/Piper_720P.mp4" class="video-item" autoplay loop></video>
     </teleport>
+    <div id="seat2" class="video-item" @click="goHandler"></div>
+    <div id="seat3" class="video-item" @click="goHandler"></div>
+    <div>
+        <button @click="moveHandler('body')">移动到body</button>
+        <button @click="moveHandler('#top')">移动到顶部</button>
+        <button @click="moveHandler('#example1')">移动到中间</button>
+        <button @click="moveHandler('.content')">移动到底部</button>
+        <small>video在移动后播放状态不会暂停</small>
+    </div>
 </div>
 <script>
 Vue.createApp({
@@ -137,8 +142,11 @@ Vue.createApp({
     },
     methods: {
         goHandler(event) {
-          this.target = "#"+ event.target.getAttribute('id');
-        }
+          this.moveHandler("#"+ event.target.getAttribute('id'));
+        },
+        moveHandler(el) {
+          this.target = el;
+        },
     }
 }).mount('#example2');
 </script>
