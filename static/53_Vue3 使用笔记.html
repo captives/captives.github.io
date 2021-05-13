@@ -118,13 +118,13 @@ Vue.createApp({
 }
 </style>
 <div id="example2">
-    <div id="seat" class="video-item" @click="goHandler"> </div>
-    <div id="seat1" class="video-item" @click="goHandler"></div>
+    <div id="seat" class="video-item" @click.self="goHandler"> </div>
+    <div class="video-item" @click.self="goHandler"></div>
     <teleport :to="target">
         <video src="/assets/medias/Piper_720P.mp4" class="video-item" autoplay loop></video>
     </teleport>
-    <div id="seat2" class="video-item" @click="goHandler"></div>
-    <div id="seat3" class="video-item" @click="goHandler"></div>
+    <div class="video-item" @click.self="goHandler"></div>
+    <div class="video-item" @click.self="goHandler"></div>
     <div>
         <button @click="moveHandler('body')">移动到body</button>
         <button @click="moveHandler('#top')">移动到顶部</button>
@@ -142,7 +142,7 @@ Vue.createApp({
     },
     methods: {
         goHandler(event) {
-          this.moveHandler("#"+ event.target.getAttribute('id'));
+          this.moveHandler(event.target);
         },
         moveHandler(el) {
           this.target = el;
