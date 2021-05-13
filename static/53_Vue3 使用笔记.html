@@ -14,9 +14,9 @@
     <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
     <div class="content"><h3><a id="指令"></a>指令</h3>
 <div id="top"></div>
-#### [key](https://v3.cn.vuejs.org/api/special-attributes.html#key)
-key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。
-有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。
+<h4><a id="[key](https://v3.cn.vuejs.org/api/special-attributes.html#key)"></a><a href="https://v3.cn.vuejs.org/api/special-attributes.html#key" target="_blank">key</a></h4>
+<p>key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。<br />
+有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。</p>
 <p>最常见的用例是结合 v-for：</p>
 <pre><div class="hljs"><code class="lang-js">&lt;ul&gt;
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
