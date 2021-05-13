@@ -12,9 +12,112 @@
 
 <body>
     <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
-    <div class="content"><h3><a id="指令"></a>指令</h3>
+    <div class="content"><h1><a id="指令"></a>指令</h1>
+<p><div class="toc-block"><ul><li><a href="#指令">指令</a></li><ul><li><a href="#常用指令">常用指令</a></li><li><a href="#特殊指令">特殊指令</a></li><ul><li><a href="#key : number | string">key : number | string</a></li><li><a href="#ref : string | Function">ref : string | Function</a></li><li><a href="#is : string | Object (component’s options object)">is : string | Object (component’s options object)</a></li></ul></ul><li><a href="#组件">组件</a></li><ul><li><a href="#内置组件">内置组件</a></li><ul><li><a href="#Teleport">Teleport</a></li></ul></ul></ul></div></p>
 <div id="top"></div>
-<h4><a id="[key](https://v3.cn.vuejs.org/api/special-attributes.html#key)"></a><a href="https://v3.cn.vuejs.org/api/special-attributes.html#key" target="_blank">key</a></h4>
+<h2><a id="常用指令"></a>常用指令</h2>
+<p><a href="https://v3.cn.vuejs.org/api/directives.html#v-text" target="_blank">v-text</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-html" target="_blank">v-html</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-show" target="_blank">v-show</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-if" target="_blank">v-if</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-else" target="_blank">v-else</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-else-if" target="_blank">v-else-if</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-for" target="_blank">v-for</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-on" target="_blank">v-on</a> （abbr:<code>@</code>）<br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-bind" target="_blank">v-bind</a> （abbr:<code>:</code>）<br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-model" target="_blank">v-model</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-once" target="_blank">v-once</a><br />
+<a href="https://v3.cn.vuejs.org/api/directives.html#v-is" target="_blank">v-is</a></p>
+<p><strong><a href="https://v3.cn.vuejs.org/api/directives.html#v-slot" target="_blank">v-slot</a></strong> （abbr:<code>#</code>）<br />
+可放置在函数参数位置的 JavaScript 表达式 (在支持的环境下可使用解构)。可选，即只需要在为插槽传入 prop 的时候使用。<br />
+提供具名插槽或需要接收 prop 的插槽。</p>
+<pre><div class="hljs"><code class="lang-js">&lt;!-- 具名插槽 --&gt;
+&lt;base-layout&gt;
+  &lt;template v-slot:header&gt;
+    Header content
+  &lt;/template&gt;
+
+  &lt;template v-slot:default&gt;
+    Default slot content
+  &lt;/template&gt;
+
+  &lt;template v-slot:footer&gt;
+    Footer content
+  &lt;/template&gt;
+&lt;/base-layout&gt;
+
+&lt;!-- 接收 prop 的具名插槽 --&gt;
+&lt;infinite-scroll&gt;
+  &lt;template v-slot:item="slotProps"&gt;
+    &lt;div class="item"&gt;
+      {{ slotProps.item.text }}
+    &lt;/div&gt;
+  &lt;/template&gt;
+&lt;/infinite-scroll&gt;
+
+&lt;!-- 接收 prop 的默认插槽，使用了解构 --&gt;
+&lt;mouse-position v-slot="{ x, y }"&gt;
+  Mouse position: {{ x }}, {{ y }}
+&lt;/mouse-position&gt;
+</code></div></pre>
+<p>扩展阅读：<a href="https://v3.cn.vuejs.org/guide/component-slots.html" target="_blank">组件 - 插槽</a></p>
+<p><strong><a href="https://v3.cn.vuejs.org/api/directives.html#v-pre" target="_blank">v-pre</a></strong><br />
+跳过这个元素和它的子元素的编译过程。可以用来显示原始 Mustache 标签。</p>
+<div class='tip-block info'><p>不需要表达式；跳过大量没有指令的节点会加快编译。</p>
+</div><pre><div class="hljs"><code class="lang-js">&lt;!-- 抛出错误 --&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>{{ this will not be compiled }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+
+&lt;!-- 正常运行，不编译表达式直接显示内容 --&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-pre</span>&gt;</span>{{ this will not be compiled }}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+
+&lt;!-- 正常运行，不编译表达式，HTML正常被浏览器解析 --&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-pre</span>&gt;</span> {{ title }} <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">color</span>=<span class="hljs-string">"red"</span>&gt;</span>文字<span class="hljs-tag">&lt;/<span class="hljs-name">font</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+</code></div></pre>
+<p><strong><a href="https://v3.cn.vuejs.org/api/directives.html#v-cloak" target="_blank">v-cloak</a></strong><br />
+cloak(英 [kləʊk]) 遮盖; 掩盖; 伪装; 幌子<br />
+这个指令保持和元素实例的关联，直到关联组件实例结束被移除。</p>
+<div class='tip-block info'><p>不需要表达式。</p>
+</div><pre><div class="hljs"><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-cloak</span>&gt;</span>
+  {{ message }}
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-attr">[v-cloak]</span> {
+  <span class="hljs-attribute">display</span>: none;
+}
+</code></div></pre>
+<p>当网络较慢，网页还在加载 Vue.js ，而导致 Vue 来不及渲染，这时页面就会显示出 Vue 源代码<code>{{ message }}</code>。<br />
+我们可以使用 v-cloak 指令来解决差值表达式闪烁的问题（即：可以隐藏未编译的标签直到实例准备完毕）。</p>
+<p>例子：页面加载完成后，延迟3秒挂载vue.js，观察v-cloak修饰的组件区别！</p>
+<style>
+[v-cloak] {
+    color: red;
+    opacity: 0.25;
+    font-weight: bold;
+    font-size: 2em;
+}
+</style>
+<div id="example3">
+    使用 v-cloak：
+    <span v-cloak>{{title}}</span>
+    未使用v-cloak：
+    <span>{{title}}</span>
+</div>
+<script>
+const app3 = Vue.createApp({
+    data() {
+        return {
+            title: "helloword",
+        }
+    }
+});
+
+setTimeout(()=>{
+  app3.mount('#example3')
+}, 3000);
+</script>
+<h2><a id="特殊指令"></a>特殊指令</h2>
+<h3><a id="key : number | string"></a>key : number | string</h3>
+<p><a href="https://v3.cn.vuejs.org/api/special-attributes.html#key" target="_blank">查看文档</a></p>
 <p>key 的特殊 attribute 主要用在 Vue 的虚拟 DOM 算法，在新旧 nodes 对比时辨识 VNodes。<br />
 有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。</p>
 <p>最常见的用例是结合 v-for：</p>
@@ -68,8 +171,29 @@ Vue.createApp({
     }
 }).mount('#example1');
 </script>
-<h3><a id="内置组件"></a>内置组件</h3>
-<h4><a id="[Teleport](https://v3.cn.vuejs.org/guide/teleport.html)"></a><a href="https://v3.cn.vuejs.org/guide/teleport.html" target="_blank">Teleport</a></h4>
+<h3><a id="ref : string | Function"></a>ref : string | Function</h3>
+<p><a href="https://v3.cn.vuejs.org/api/special-attributes.html#ref" target="_blank">查看文档</a></p>
+<p><code>ref</code>被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的<code>$refs</code>对象上。如果在普通的<mark>DOM</mark>元素上使用，引用指向的就是<mark>DOM</mark>元素；如果用在子组件上，引用就指向组件实例：</p>
+<pre><div class="hljs"><code class="lang-js">&lt;!-- vm.$refs.p 会是 DOM 节点 --&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"p"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span>
+
+&lt;!-- vm.$refs.child 会是子组件实例 --&gt;
+&lt;child-component ref="child"&gt;&lt;/child-component&gt;
+
+&lt;!-- 当动态绑定时，我们可以将ref定义为回调函数，显式地传递元素或组件实例 --&gt;
+&lt;child-component :ref="(el) =&gt; child = el"&gt;&lt;/child-component&gt;
+</code></div></pre>
+<p>当 v-for 用于元素或组件的时候，引用信息将是包含 DOM 节点或组件实例的数组。</p>
+<div class='tip-block warning'><span class='title'> 关于 ref 注册时间的重要说明 </span><p>因为 ref 本身是作为渲染结果被创建的，在初始渲染的时候你不能访问它们 - <strong>它们还不存在</strong>！<br />
+<code>$refs</code>也是非响应式的，因此你不应该试图用它在模板中做数据绑定。</p>
+</div><p>参考<a href="https://v3.cn.vuejs.org/api/special-attributes.html#key" target="_blank">子组件Refs</a></p>
+<h3><a id="is : string | Object (component’s options object)"></a>is : string | Object (component’s options object)</h3>
+<p><a href="https://v3.cn.vuejs.org/api/special-attributes.html#is" target="_blank">查看文档</a> 、<a href="https://v3.cn.vuejs.org/guide/component-basics.html#%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6" target="_blank">动态组件基础</a>、<a href="https://v3.cn.vuejs.org/guide/component-dynamic-async.html" target="_blank">动态组件 &amp; 异步组件</a>。</p>
+<p>扩展 html标签的限制, 动态切换并渲染指定的组件</p>
+<h1><a id="组件"></a>组件</h1>
+<h2><a id="内置组件"></a>内置组件</h2>
+<h3><a id="Teleport"></a>Teleport</h3>
+<p><a href="https://v3.cn.vuejs.org/guide/teleport.html" target="_blank">查看文档</a></p>
 <p>Vue 鼓励我们通过将 UI 和相关行为封装到组件中来构建 UI。我们可以将它们嵌套在另一个内部，以构建一个组成应用程序 UI 的树。</p>
 <ul>
 <li><code>to</code> - <mark>string</mark>。需要<code>prop</code>，必须是有效的查询选择器或<code>HTMLElement</code>(如果在浏览器环境中使用)。指定将在其中移动 <code>&lt;teleport&gt;</code> 内容的目标元素</li>
@@ -121,7 +245,7 @@ Vue.createApp({
     <div id="seat" class="video-item" @click.self="goHandler"> </div>
     <div class="video-item" @click.self="goHandler"></div>
     <teleport :to="target">
-        <video src="/assets/medias/Piper_720P.mp4" class="video-item" autoplay loop></video>
+        <video src="/assets/medias/Piper_720P.mp4" class="video-item" controls loop></video>
     </teleport>
     <div class="video-item" @click.self="goHandler"></div>
     <div class="video-item" @click.self="goHandler"></div>
