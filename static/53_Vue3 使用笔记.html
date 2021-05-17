@@ -13,9 +13,169 @@
 <body>
     <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
     <div class="content"><div class='more-block'><details><summary>目录导航</summary>
-<p><div class="toc-block"><ul><li><a href="#API">API</a></li><ul><li><a href="#全局API">全局API</a></li><li><a href="#应用API">应用API</a></li><li><a href="#组合式API">组合式API</a></li><li><a href="#响应式API">响应式API</a></li></ul><li><a href="#方法">方法</a></li><ul><li><a href="#实例方法">实例方法</a></li><ul><li><a href="#$watch">$watch</a></li><li><a href="#$emit">$emit</a></li><li><a href="#$forceUpdate">$forceUpdate</a></li><li><a href="#$nextTick">$nextTick</a></li></ul></ul><li><a href="#指令">指令</a></li><ul><li><a href="#常用指令">常用指令</a></li><li><a href="#特殊指令">特殊指令</a></li><ul><li><a href="#key : number | string">key : number | string</a></li><li><a href="#ref : string | Function">ref : string | Function</a></li><li><a href="#is : string | Object (component’s options object)">is : string | Object (component’s options object)</a></li></ul></ul><li><a href="#组件">组件</a></li><ul><li><a href="#内置组件">内置组件</a></li><ul><li><a href="#Teleport">Teleport</a></li></ul></ul></ul></div></p>
+<p><div class="toc-block"><ul><li><a href="#API">API</a></li><ul><li><a href="#全局API">全局API</a></li><ul><li><a href="#createApp">createApp</a></li><li><a href="#h">h</a></li><li><a href="#createRenderer(HostNode, HostElement)">createRenderer(HostNode, HostElement)</a></li><li><a href="#nextTick">nextTick</a></li><li><a href="#mergeProps">mergeProps</a></li><li><a href="#defineComponent">defineComponent</a></li><li><a href="#defineAsyncComponent">defineAsyncComponent</a></li><li><a href="#resolveComponent">resolveComponent</a></li><li><a href="#resolveDynamicComponent">resolveDynamicComponent</a></li><li><a href="#resolveDirective">resolveDirective</a></li><li><a href="#withDirectives">withDirectives</a></li></ul><li><a href="#应用API">应用API</a></li><li><a href="#组合式API">组合式API</a></li><li><a href="#响应式API">响应式API</a></li></ul><li><a href="#方法">方法</a></li><ul><li><a href="#实例方法">实例方法</a></li><ul><li><a href="#$watch">$watch</a></li><li><a href="#$emit">$emit</a></li><li><a href="#$forceUpdate">$forceUpdate</a></li><li><a href="#$nextTick">$nextTick</a></li></ul></ul><li><a href="#指令">指令</a></li><ul><li><a href="#常用指令">常用指令</a></li><li><a href="#特殊指令">特殊指令</a></li><ul><li><a href="#key : number | string">key : number | string</a></li><li><a href="#ref : string | Function">ref : string | Function</a></li><li><a href="#is : string | Object (component’s options object)">is : string | Object (component’s options object)</a></li></ul></ul><li><a href="#组件">组件</a></li><ul><li><a href="#内置组件">内置组件</a></li><ul><li><a href="#Teleport">Teleport</a></li></ul></ul></ul></div></p>
 </details></div><h1><a id="API"></a>API</h1>
 <h2><a id="全局API"></a>全局API</h2>
+<h3><a id="createApp"></a>createApp</h3>
+<p>返回一个提供应用上下文的应用实例。应用实例挂载的整个组件树共享同一个上下文。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> app = Vue.createApp({})
+</code></div></pre>
+<p>你可以在<code>createApp</code>之后链式调用其它方法，这些方法可以在<a href="#%E5%BA%94%E7%94%A8API">应用API</a> 中找到。</p>
+<p>参数：<br />
+该函数接收一个根组件选项对象作为第一个参数， 第二个参数，可以将根 prop 传递给应用程序：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> app = Vue.createApp({
+  <span class="hljs-attr">props</span>: [<span class="hljs-string">'username'</span>],
+  data() {
+    <span class="hljs-keyword">return</span> {
+      ...
+    }
+  },
+  <span class="hljs-attr">methods</span>: {...},
+  <span class="hljs-attr">computed</span>: {...}
+  ...
+  },
+  { <span class="hljs-attr">username</span>: <span class="hljs-string">'Evan'</span> }
+)
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 会显示 'Evan' --&gt;</span>
+  {{ username }}
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></div></pre>
+<p><a href="https://v3.cn.vuejs.org/api/global-api.html#createapp" target="_blank">查看源文档</a></p>
+<h3><a id="h"></a>h</h3>
+<p>返回一个”虚拟节点“，通常缩写为<strong>VNode</strong>：一个普通对象，其中包含向 Vue 描述它应在页面上渲染哪种节点的信息，包括所有子节点的描述。它的目的是用于手动编写的渲染函数：</p>
+<pre><div class="hljs"><code class="lang-js">render() {
+  <span class="hljs-keyword">return</span> Vue.h(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'Some title'</span>)
+}
+</code></div></pre>
+<p><a href="https://v3.cn.vuejs.org/api/global-api.html#h" target="_blank">查看源文档</a></p>
+<h3><a id="createRenderer(HostNode, HostElement)"></a>createRenderer(HostNode, HostElement)</h3>
+<div class='more-block'><details><summary>参数</summary>
+<ul>
+<li>HostNode:Node 宿主环境中的节点。</li>
+<li>HostElement:Element 宿主环境中的元素。</li>
+</ul>
+</details></div><p><code>createRenderer</code>函数接受两个泛型参数：<code>HostNode</code>和<code>HostElement</code>，对应于宿主环境中的 <mark>Node</mark>和<mark>Element</mark>类型。<br />
+自定义渲染器可以传入特定于平台的类型，如下所示：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { createRenderer } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+<span class="hljs-keyword">const</span> { render, createApp } = createRenderer&lt;Node, Element&gt;({
+  patchProp,
+  ...nodeOps
+})
+</code></div></pre>
+<p><a href="https://v3.cn.vuejs.org/api/global-api.html#createRenderer" target="_blank">查看源文档</a></p>
+<h3><a id="nextTick"></a>nextTick</h3>
+<p>将回调推迟到下一个 DOM 更新周期之后执行。在更改了一些数据以等待 DOM 更新后立即使用它。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { createApp, nextTick } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+
+<span class="hljs-keyword">const</span> app = createApp({
+  setup() {
+    <span class="hljs-keyword">const</span> message = ref(<span class="hljs-string">'Hello!'</span>)
+    <span class="hljs-keyword">const</span> changeMessage = <span class="hljs-keyword">async</span> newMessage =&gt; {
+      message.value = newMessage
+      <span class="hljs-keyword">await</span> nextTick()
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Now DOM is updated'</span>)
+    }
+  }
+})
+</code></div></pre>
+<p>参考：<code>$nextTick</code><a href="#$nextTick">实例方法</a></p>
+<h3><a id="mergeProps"></a>mergeProps</h3>
+<p>将包含 VNode prop 的多个对象合并为一个单独的对象。其返回的是一个新创建的对象，而作为参数传递的对象则不会被修改。</p>
+<p>可以传递不限数量的对象，后面参数的 property 优先。事件监听器被特殊处理，class 和 style 也是如此，这些 property 的值是被合并的而不是覆盖的。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { h, mergeProps } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  <span class="hljs-attr">inheritAttrs</span>: <span class="hljs-literal">false</span>,
+  render() {
+    <span class="hljs-keyword">const</span> props = mergeProps({
+      <span class="hljs-comment">// 该 class 将与 $attrs 中的其他 class 合并。</span>
+      <span class="hljs-class"><span class="hljs-keyword">class</span>: '<span class="hljs-title">active</span>'
+    }, <span class="hljs-title">this</span>.$<span class="hljs-title">attrs</span>)
+    <span class="hljs-title">return</span> <span class="hljs-title">h</span>('<span class="hljs-title">div</span>', <span class="hljs-title">props</span>)
+  }
+}
+</span></code></div></pre>
+<h3><a id="defineComponent"></a>defineComponent</h3>
+<p>从实现上看，<code>defineComponent</code>只返回传递给它的对象。但是，就类型而言，返回的值有一个合成类型的构造函数，用于手动渲染函数、TSX 和 IDE 工具支持。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { defineComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> defineComponent({
+  data() {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">count</span>: <span class="hljs-number">1</span> }
+  },
+  setup() { .... },
+  <span class="hljs-attr">methods</span>: {
+    increment() {
+      <span class="hljs-keyword">this</span>.count++
+    }
+  }
+})
+</code></div></pre>
+<p>或者是一个<code>setup</code>函数，函数名称将作为<strong>组件名称</strong>来使用:</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { defineComponent, ref } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> defineComponent(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HelloWorld</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> count = ref(<span class="hljs-number">0</span>)
+  <span class="hljs-keyword">return</span> { count }
+})
+</code></div></pre>
+<p>defineComponent函数，对setup函数进行封装，返回options的对象；在TypeScript下，给予了组件正确的参数类型推断 。<br />
+<a href="https://v3.cn.vuejs.org/api/global-api.html#defineComponent" target="_blank">查看源文档</a></p>
+<h3><a id="defineAsyncComponent"></a>defineAsyncComponent</h3>
+<p>创建一个只有在需要时才会加载的异步组件。<br />
+参数：<br />
+对于基本用法，<code>defineAsyncComponent</code>可以接受一个返回<code>Promise</code>的工厂函数。<code>Promise</code>的<code>resolve</code>回调应该在服务端返回组件定义后被调用。你也可以调用<code>reject(reason)</code>来表示加载失败。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { defineAsyncComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+
+<span class="hljs-keyword">const</span> AsyncComp = defineAsyncComponent(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+  <span class="hljs-keyword">import</span>(<span class="hljs-string">'./components/AsyncComponent.vue'</span>)
+)
+
+app.component(<span class="hljs-string">'async-component'</span>, AsyncComp)
+</code></div></pre>
+<p>当使用<a href="https://v3.cn.vuejs.org/guide/component-registration.html#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C" target="_blank">局部注册</a>时，你也可以直接提供一个返回<code>Promise</code>的函数：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { createApp, defineAsyncComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+
+createApp({
+  <span class="hljs-comment">// ...</span>
+  components: {
+    <span class="hljs-attr">AsyncComponent</span>: defineAsyncComponent(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>
+      <span class="hljs-keyword">import</span>(<span class="hljs-string">'./components/AsyncComponent.vue'</span>)
+    )
+  }
+})
+</code></div></pre>
+<p>更多高阶用法<a href="https://v3.cn.vuejs.org/api/global-api.html#defineAsyncComponent" target="_blank">查看源文档</a>、<a href="https://v3.cn.vuejs.org/guide/component-dynamic-async.html" target="_blank">动态和异步组件</a></p>
+<h3><a id="resolveComponent"></a>resolveComponent</h3>
+<div class='tip-block warning'><p>resolveComponent 只能在<code>render</code>或<code>setup</code>函数中使用。</p>
+</div><p>如果在当前应用实例中可用，则允许按名称解析component。</p>
+<p>返回一个Component。如果没有找到，则返回接收的参数 name。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> app = Vue.createApp({})
+app.component(<span class="hljs-string">'MyComponent'</span>, {
+  <span class="hljs-comment">/* ... */</span>
+})
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { resolveComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+render() {
+  <span class="hljs-keyword">const</span> MyComponent = resolveComponent(<span class="hljs-string">'MyComponent'</span>)
+}
+</code></div></pre>
+<p><a href="https://v3.cn.vuejs.org/api/global-api.html#defineComponent" target="_blank">查看源文档</a></p>
+<h3><a id="resolveDynamicComponent"></a>resolveDynamicComponent</h3>
+<div class='tip-block warning'><p>resolveDynamicComponent 只能在 render 或 setup 函数中使用。</p>
+</div><p>允许使用与<code>&lt;component :is=&quot;&quot;&gt;</code>相同的机制来解析一个<code>component</code>。</p>
+<p>返回已解析的<code>Component</code>或新创建的<code>VNode</code>，其中组件名称作为节点标签。如果找不到<code>Component</code>，将发出警告。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">import</span> { resolveDynamicComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+render () {
+  <span class="hljs-keyword">const</span> MyComponent = resolveDynamicComponent(<span class="hljs-string">'MyComponent'</span>)
+}
+</code></div></pre>
+<p>详细信息<a href="https://v3.cn.vuejs.org/api/global-api.html#defineComponent" target="_blank">查看源文档</a>、<a href="https://v3.cn.vuejs.org/guide/component-dynamic-async.html" target="_blank">动态组件</a></p>
+<h3><a id="resolveDirective"></a>resolveDirective</h3>
+<p><a href="https://v3.cn.vuejs.org/api/global-api.html#resolveDirective" target="_blank">查看源文档</a></p>
+<h3><a id="withDirectives"></a>withDirectives</h3>
+<p><a href="https://v3.cn.vuejs.org/api/global-api.html#withDirectives" target="_blank">查看源文档</a></p>
 <h2><a id="应用API"></a>应用API</h2>
 <h2><a id="组合式API"></a>组合式API</h2>
 <h2><a id="响应式API"></a>响应式API</h2>
@@ -371,7 +531,7 @@ Vue.createApp({
     <div id="seat" class="video-item" @click.self="goHandler"> </div>
     <div class="video-item" @click.self="goHandler"></div>
     <teleport :to="target">
-        <video src="/assets/medias/Piper_720P.mp4" class="video-item" controls loop webkit-playsinline="webkit-playsinline" playsinline="playsinline"></video>
+        <video src="/assets/medias/Piper_720P.mp4" class="video-item" controls loop webkit-playsinline="webkit-playsinline" playsinline="true"></video>
     </teleport>
     <div class="video-item" @click.self="goHandler"></div>
     <div class="video-item" @click.self="goHandler"></div>

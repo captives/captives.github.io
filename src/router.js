@@ -26,7 +26,7 @@ const router = [{
         children: tutorial.options.routes,
     },
     {
-        path: "/sprite/index.html",
+        path: "/static/sprite/index.html",
         name: "雪碧图",
     },
     {

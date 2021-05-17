@@ -6,21 +6,24 @@ import Code from "./../components/Code";
 import Source from "./../components/Source";
 import SourceCode from "./../components/SourceCode";
 import URLInput from "./../components/URLInput.vue";
-import NavMenu from "./../components/NavMenu";
+import NavBar from "./../components/NavBar";
 import Lottie from "./../components/Lottie";
 import QRCode from "./../components/QRCode.vue";
+import SearchBar from "./../components/SearchBar.vue";
 import DebuggerPopover from "./../components/DebuggerPopover.vue";
 import { fetch } from "./common";
 
 const global = {
     install(Vue) {
-        Vue.component("qr-code", QRCode);
         Vue.component("vue-code", Code);
         Vue.component("vue-source", Source);
         Vue.component("vue-lottie", Lottie);
-        Vue.component("vue-menu", NavMenu);
+        Vue.component("vue-nav-bar", NavBar);
+
         Vue.component("url-input", URLInput);
         Vue.component("source-code", SourceCode);
+        Vue.component("search-bar", SearchBar);
+        Vue.component("qr-code", QRCode);
         Vue.component("vue-debugger", DebuggerPopover);
 
         Vue.prototype.$fetch = fetch;

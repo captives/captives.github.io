@@ -1,27 +1,28 @@
 <template>
     <el-container id="app" class="fill">
         <el-header>
-            <NavMenu :list="list" mode="horizontal" class="nav"></NavMenu>
+            <nav-bar :list="routes" mode="horizontal" text-color="#fff" active-text-color="#ffd04b" background-color="#545c64" class="nav" @change="navChangeHandler"> </nav-bar>
         </el-header>
         <router-view></router-view>
     </el-container>
 </template>
 <script>
-import NavMenu from "@/components/NavMenu";
+import NavBar from "@/components/NavBar";
+
 export default {
     name: "App",
     components: {
-        NavMenu,
+        NavBar,
     },
     data() {
         return {
-            list: [
-                { name: "Home", path: "/index.html" },
-                { name: "目录", path: "/" },
-                { name: "E-Charts", path: "/e-charts" },
-                { name: "About", path: "/about" },
-            ],
+            routes: this.$router.options.routes,
         };
+    },
+    methods: {
+        navChangeHandler(path, list) {
+            this.$router.push({ path });
+        },
     },
 };
 </script>
@@ -29,6 +30,16 @@ export default {
 .el-header {
     text-align: center;
     padding: 0;
+}
+
+.fill {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
 }
 
 .chart {

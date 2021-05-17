@@ -6,16 +6,16 @@ Vue.use(VueRouter);
 
 const routes = [{
         path: "/",
-        name: "快速入门",
+        name: "入门",
         component: Home,
     },
+    echarts,
     {
         path: "/about",
         name: "About",
         component: () =>
             import ("../views/About.vue"),
     },
-    echarts,
 ];
 
 const router = new VueRouter({

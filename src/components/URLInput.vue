@@ -1,7 +1,7 @@
 <template>
     <el-input v-model="text" placeholder="请输入内容" clearable v-bind="$attrs">
         <template slot="prepend">
-            <el-select v-if="list.length" v-model="selectValue" placeholder="请选择视频" @change="changeHandler">
+            <el-select v-if="list.length" v-model="selectValue" placeholder="请选择" @change="changeHandler">
                 <el-option v-for="item in list" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
             <span v-else>URL：</span>
@@ -40,8 +40,12 @@ export default {
             this.text = this.selectValue;
         },
         requestURL() {
-            this.$emit("input", this.text);
-            this.$emit("change", this.selectValue);
+            if (this.text) {
+                this.$emit("input", this.text);
+                this.$emit("change", this.selectValue);
+            } else {
+                this.$message({ type: "warning", message: "请输入内容" });
+            }
         },
     },
 };

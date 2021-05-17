@@ -62,6 +62,27 @@ body {
     margin-top: 60px;
 }
 
+/* 修改滚动条样式-滚动条整体部分 */
+::-webkit-scrollbar {
+    width: 5px !important;
+    height: 5px !important;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    background-color: rgba(125, 125, 125, 0.7);
+    box-shadow: none;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background-color: rgba(125, 125, 125, 0.7);
+    box-shadow: none;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
 .el-drawer__wrapper {
     >>> .el-drawer:focus {
         outline: none;
@@ -103,6 +124,9 @@ body {
 </style>
 <style lang="stylus" scoped>
 .el-container {
+    display: flex;
+    height: 100%;
+
     .el-header {
         padding: 0;
 

@@ -148,6 +148,19 @@
         "href": "https://www.rollupjs.com/",
         "desc": "Rollup 是一个 JavaScript 模块打包器，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序。"
     }],
+    "Web工具": [{
+        "title": "amcharts",
+        "href": "https://www.amcharts.com/demos/",
+        "desc": "Amcharts是一组SVG图表，你可以免费使用在你的网站和基于网络的产品（非开源）。 Amcharts可以从简单的CSV或XML文件提取数据，也可以从动态数据读取生成，比如PHP, .NET, Ruby on Rails和Perl，以及其他许多编程语言"
+    }, {
+        "title": "zingchart",
+        "href": "https://www.zingchart.com/",
+        "desc": "ZingChart是一组SVG图表, 提供了一个丰富的API，用于通过重新绘制绘图（重新加载）"
+    }, {
+        "title": "更多图库",
+        "href": "https://blog.csdn.net/cunqu9743/article/details/106998837",
+        "desc": "第三方整理的SVG图库"
+    }],
     "其它": [{
         "title": "ContentTools",
         "href": "https://contenttools.co/",

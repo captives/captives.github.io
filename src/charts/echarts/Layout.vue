@@ -1,7 +1,7 @@
 <template>
     <el-container>
-        <el-aside width="220px">
-            <vue-menu :list="list"></vue-menu>
+        <el-aside width="220px" class="hidden-sm-and-down">
+            <nav-bar :list="list" class="nav" @change="navChangeHandler"> </nav-bar>
         </el-aside>
         <el-main>
             <router-view></router-view>
@@ -10,11 +10,11 @@
 </template>
 <script>
 import router from "./../router/echarts";
-import NavMenu from "@/components/NavMenu";
+import NavBar from "@/components/NavBar";
 export default {
-    label: "ECharts",
+    label: "Layout",
     components: {
-        "vue-menu": NavMenu,
+        NavBar,
     },
     data() {
         return {
@@ -23,6 +23,11 @@ export default {
     },
     created() {
         this.list = router.children;
+    },
+    methods: {
+        navChangeHandler(path, list) {
+            this.$router.push({ path });
+        },
     },
 };
 </script>

@@ -8,7 +8,6 @@ const prefix = "";
 
 let moreRoutes: Array<RouteConfig> = [
   { name: "文章", path: prefix + "/articles/index", component: () => import("../views/articles/index.vue") },
-  { name: "WebSite", path: prefix + "/article/website", component: () => import("../views/WebSite.vue") },
 ]
 
 //只允许本地添加

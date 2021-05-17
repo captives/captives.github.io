@@ -35,20 +35,32 @@ export default {
 } </pre>
         </vue-code>
 
-        <h3>例子：</h3>
+        <h3>例子1 ：</h3>
         <VuePropItem :propA="propA" :propC="propC">
             <el-button type="primary" @click="changeHandler">更改值</el-button>
+            <p>组件外面值更改，组件内部值跟着更新； 单向更新</p>
         </VuePropItem>
+
+        <h3>例子2: <em>v-model</em></h3>
+        <VuePropModelItem v-model="title"></VuePropModelItem>
+        <div>
+            <span>组件外：{{title}}</span>
+            <el-button type="success" @click="title = '默认值' ">恢复值</el-button>
+        </div>
     </div>
 </template>
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator'
 import VuePropItem from './VuePropItem.vue';
+import VuePropModelItem from './VuePropModelItem.vue';
 
-@Component({ name: 'VueProp', components: { VuePropItem } })
+@Component({ name: 'VueProp', components: { VuePropItem, VuePropModelItem } })
 export default class VueProp extends Vue {
     private propA: number = Date.now();
     private propC: string | boolean = "文本A";
+
+    //测试v-model
+    private title: string | null = null;
 
     private changeHandler() {
         this.propA = Date.now();

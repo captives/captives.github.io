@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import ElementUI from "element-ui";
+import 'element-ui/lib/theme-chalk/display.css';
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
 
@@ -34,6 +35,9 @@ import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 import "echarts/lib/component/toolbox";
 import "echarts/lib/component/legend";
+
+//SVG渲染器模块
+import 'zrender/lib/svg/svg';
 
 Vue.prototype.$echarts = echarts;
 

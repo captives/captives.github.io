@@ -1,6 +1,7 @@
 <template>
     <div class="hello">
         <h1>{{ msg }}</h1>
+        <search-bar size="medium" placeholder="请输入关键字" clearable></search-bar>
         <h3>安装</h3>
         <ul>
             <li>

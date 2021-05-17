@@ -15,10 +15,9 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/swiper.min.css';
 Vue.use(VueAwesomeSwiper);
 
-//引入动画库
-//@ts-ignore
-import animate from 'animate.css/animate.compat.css'
-Vue.use(animate);
+//引入动画库, 新旧使用方式不一致
+// import 'animate.css';
+import 'animate.css/animate.compat.css';
 
 import Vant from 'vant';
 import 'vant/lib/index.css';

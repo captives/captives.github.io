@@ -1,5 +1,5 @@
 <template>
-    <el-main>
+    <el-main class="page">
         <div style="text-align:right">
             <span v-if="activeName=='first'" style="float: left; display:flex">
                 <el-button v-show="!cateItem.visible" type="primary" @click="cateItem.visible=true">添加类别</el-button>
@@ -7,9 +7,9 @@
                 <el-button v-show="cateItem.visible" type="success" @click="addCategoryHandler">确认</el-button>
             </span>
 
-            <el-button type="primary" @click="exportToFileHandler">数据库导出文档</el-button>
-            <el-button type="primary" @click="buildToHtmlHandler">数据库发布文档</el-button>
-            <el-button type="success" @click="redirectHander('/edit/new')">新建文章</el-button>
+            <el-button type="primary" @click="exportToFileHandler">导出</el-button>
+            <el-button type="primary" @click="buildToHtmlHandler">发布</el-button>
+            <el-button type="success" @click="redirectHander('/edit/new')">新建</el-button>
         </div>
         <el-tabs v-model="activeName" style="width: 100%;">
             <el-tab-pane label="类别管理" name="first">
@@ -31,9 +31,9 @@
                     <el-table-column prop="id" label="ID"> </el-table-column>
                     <el-table-column prop="title" label="文章标题"> </el-table-column>
                     <el-table-column prop="desc" label="描述"> </el-table-column>
-                    <el-table-column prop="create_time" label="创建时间"> </el-table-column>
-                    <el-table-column prop="update_time" label="更新时间"> </el-table-column>
-                    <el-table-column label="操作">
+                    <el-table-column prop="create_time" width="150" label="创建时间"> </el-table-column>
+                    <el-table-column prop="update_time" width="150" label="更新时间"> </el-table-column>
+                    <el-table-column label="操作" width="200">
                         <template slot-scope="{row}">
                             <el-button type="text" @click="redirectHander('/edit/' + row.id)">编辑</el-button>
                             <el-button type="text" @click="itemPriviewHandler(row)">预览</el-button>
@@ -49,7 +49,7 @@
                     <el-table-column prop="fid" label="ID"> </el-table-column>
                     <el-table-column prop="name" label="文件名"> </el-table-column>
                     <el-table-column label="大小">
-                        <template slot-scope="{ row }">{{ row.size|byteConver }}</template>
+                        <template slot-scope="{ row }">{{ row.size | byteConver }}</template>
                     </el-table-column>
                     <el-table-column prop="time" label="创建时间">
                         <template slot-scope="{ row }">{{ row.time | time }}</template>
@@ -283,5 +283,77 @@ export default class MarkDownEditor extends Vue {
     }
 }
 </script>
-<style lang='' scoped>
+<style lang='stylus' scoped>
+.el-main {
+    overflow: hidden;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .el-tabs >>> {
+        flex: 1;
+        min-height: 610px;
+        display: flex;
+        flex-direction: column;
+
+        .el-tabs__header {
+            margin: 0;
+        }
+
+        .el-tabs__content {
+            flex: 1;
+
+            .el-tab-pane {
+                box-sizing: border-box;
+                height: 100%;
+            }
+        }
+    }
+}
+
+.el-table {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #EBEEF5;
+    box-sizing: border-box;
+
+    &:before {
+        display: none;
+    }
+
+    >>> {
+        .el-table__fixed-header-wrapper, .el-table__header-wrapper {
+            position: absolute;
+            width: 100%;
+            top: 0;
+
+            th {
+                color: #333;
+                font-weight: bolder;
+            }
+        }
+
+        .el-table__fixed-right .el-table__fixed-header-wrapper {
+            table {
+                float: right;
+            }
+        }
+
+        // 固定列处理
+        .el-table__fixed-body-wrapper, .el-table__body-wrapper {
+            overflow-y: auto;
+            height: calc(100% - 40px);
+            top: 40px;
+
+            td {
+                padding: 2px 0;
+            }
+        }
+
+        .el-table__body-wrapper {
+            top: 41px;
+        }
+    }
+}
 </style>

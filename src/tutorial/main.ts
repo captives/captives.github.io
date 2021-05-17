@@ -13,9 +13,7 @@ import global from "@/plugins/global";
 Vue.use(global);
 
 //引入动画库
-//@ts-ignore
-import animate from 'animate.css/animate.compat.css'
-Vue.use(animate);
+import 'animate.css/animate.compat.css'
 
 import MarkdownEditor from '@/plugins/MarkdownEditor';
 Vue.use(MarkdownEditor);
