@@ -1,9 +1,11 @@
 <template>
     <el-container id="app" class="fill">
-        <el-header>
+        <el-header style="text-align:center">
             <nav-bar :list="routes" mode="horizontal" text-color="#fff" active-text-color="#ffd04b" background-color="#545c64" class="nav" @change="navChangeHandler"> </nav-bar>
         </el-header>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
     </el-container>
 </template>
 <script>

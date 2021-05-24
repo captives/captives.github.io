@@ -48,9 +48,48 @@ const byteConver = (value) => {
 }
 
 
+const fileToBlob = (file, callback) => {
+    let blob = null;
+    let reader = new FileReader();
+    reader.addEventListener('load', (e) => {
+        if (typeof e.target.result === 'object') {
+            blob = new Blob([e.target.result], { type: file.type });
+        } else {
+            blob = e.target.result
+        }
+
+        callback(blob);
+    });
+    reader.readAsArrayBuffer(file);
+}
+
+const fileToBase64 = (file, callback) => {
+    let reader = new FileReader();
+    reader.addEventListener('load', (e) => {
+        callback(reader.result);
+    })
+    reader.readAsDataURL(file);
+}
+
+const downloadFile = (url, fileName, callback) => {
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url + "?v" + Date.now();
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        callback && callback();
+    }, 100);
+}
+
 export {
     queryGet,
     hashGetData,
     isNumber,
-    byteConver
+    byteConver,
+    fileToBlob,
+    fileToBase64,
+    downloadFile
 }

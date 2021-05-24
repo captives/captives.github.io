@@ -160,6 +160,10 @@
         "title": "更多图库",
         "href": "https://blog.csdn.net/cunqu9743/article/details/106998837",
         "desc": "第三方整理的SVG图库"
+    }, {
+        "title": "Leaflet",
+        "href": "https://leafletjs.com/",
+        "desc": "Leaflet 是一个为移动设备设计的交互式地图的开源的 javascript库， 并只有38k，包含了大多数开发者需要的地图特点"
     }],
     "其它": [{
         "title": "ContentTools",
@@ -174,6 +178,10 @@
         "href": "http://fabricjs.com",
         "desc": "Javascript Canvas库，SVG到画布（和canvas到SVG）解析器"
     }, {
+        "title": "Scrawl canvas",
+        "href": "https://scrawl.rikweb.org.uk/",
+        "desc": "一个用于处理HTML5 <canvas>元素的Javascript库"
+    }, {
         "title": "Kinetic.js",
         "href": "http://www.kineticjs.com/",
         "desc": "KineticJS是一个快速，健壮的HTML5 Canvas库;"
@@ -185,6 +193,10 @@
         "title": "Particles.js",
         "href": "http://vue-particles.netlify.com/",
         "desc": "--- 轻量级JavaScript粒子库！"
+    }, {
+        "title": "Raphael.js",
+        "href": "http://raphaeljs.com/",
+        "desc": "一个专门为艺术家和图形设计师设计的JavaScript库;能够使用网络浏览器来创建可伸缩矢量图形(SVG)"
     }, {
         "title": "file pond",
         "href": "https://pqina.nl/filepond/docs/",
