@@ -3,7 +3,7 @@
         <p>client</p>
         <vue-source src="/charts/views/Xterm.vue" lang="html"></vue-source>
         <p>server</p>
-        <vue-source src="srv/socket/xterm.js" lang="html"></vue-source>
+        <vue-source src="srv/socket/xterm.js" lang="js"></vue-source>
     </el-main>
 </template>
 
