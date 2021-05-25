@@ -84,7 +84,7 @@ window.vue = new Vue({
         };
         //向编辑器插入头部表示
         view.dispatch({
-            changes: { from: 0, insert: "// !/usr/bin/env node\n\n" },
+            changes: { from: 0, insert: "#!/usr/bin/env node\n\n" },
         });
 
         setInterval(() => {

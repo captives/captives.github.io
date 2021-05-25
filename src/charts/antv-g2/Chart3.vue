@@ -37,6 +37,7 @@ export default {
             container: this.$refs["container"],
             autoFit: true,
             height: 500,
+            renderer: "svg",
         });
 
         chart.data(this.data);

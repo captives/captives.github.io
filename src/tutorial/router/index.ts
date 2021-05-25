@@ -34,10 +34,11 @@ const routes: Array<RouteConfig> = [
 ];
 
 //屏蔽重复导航,控制台报错
-// const originalPush = VueRouter.prototype.push;
-// VueRouter.prototype.push = function push(location: any) {
-//   return originalPush.call(this, location).catch((err: any) => err)
-// }
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location: any) {
+  //@ts-ignore
+  return originalPush.call(this, location).catch((err: any) => err)
+}
 
 const router = new VueRouter({
   routes,

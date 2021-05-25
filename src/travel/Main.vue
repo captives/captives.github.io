@@ -38,6 +38,13 @@ export default class Main extends Vue {
         }
     };
 
+    beforeCreate() {
+        console.log(this.$route);
+        this.$router.afterEach(() => {
+            document.title = this.$route.name || document.title;
+        });
+    }
+
     private calendarChangeHandler(date: Date) {
         console.log('time', date.toLocaleString());
     }

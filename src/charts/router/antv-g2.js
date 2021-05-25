@@ -26,7 +26,7 @@ export default {
             import ("../antv-g2/Chart2.vue"),
     }, {
         path: path + "/chart3",
-        name: "G2/镜像分组条行图",
+        name: "G2/镜像分组条行图(SVG)",
         component: () =>
             import ("../antv-g2/Chart3.vue"),
     }]

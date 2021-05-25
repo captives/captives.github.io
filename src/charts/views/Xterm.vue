@@ -45,7 +45,7 @@ export default {
             fontSize: 16, //字体大小
             theme: {
                 // foreground: "yellow", // 字体
-                background: "#060101", // 背景色
+                background: "#405261", // 背景色
                 cursor: "help", // 设置光标
             },
         });

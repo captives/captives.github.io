@@ -39,6 +39,13 @@ export default class Main extends Vue {
         });
     }
 
+    private beforeCreate() {
+        console.log(this.$route);
+        this.$router.afterEach(() => {
+            document.title = this.$route.name || document.title;
+        });
+    }
+
     private navSelectHandler(path: string, list: any, el: any) {
         console.log("nav", path, list, el);
 

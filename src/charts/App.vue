@@ -21,6 +21,11 @@ export default {
             routes: this.$router.options.routes,
         };
     },
+    beforeCreate() {
+        this.$router.afterEach(() => {
+            document.title = this.$route.name;
+        });
+    },
     methods: {
         navChangeHandler(path, list) {
             this.$router.push({ path });

@@ -1,0 +1,42 @@
+{
+  "name": "source-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "build": "export NODE_ENV='production' && node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect-redis": "^5.0.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "ffmpeg": "0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "jwt-service": "^5.0.0",
+    "jwt-simple": "^0.5.6",
+    "md5": "^2.3.0",
+    "mysql": "^2.18.1",
+    "nedb": "^1.8.0",
+    "node-cache": "^5.1.2",
+    "open": "^7.3.0",
+    "puppeteer": "^5.3.1",
+    "redis": "^3.0.2",
+    "socket.io": "^4.1.2",
+    "sqlite3": "^5.0.2",
+    "wrtc": "^0.4.6",
+    "wrtc-to-ffmpeg": "0.0.0",
+    "ws": "^7.3.1",
+    "xvfb": "^0.4.0"
+  },
+  "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "node-pty": "^0.10.1",
+    "nodemon": "^1.19.4",
+    "uuid": "^8.3.1"
+  }
+}

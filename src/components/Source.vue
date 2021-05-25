@@ -42,7 +42,8 @@ export default {
     },
     mounted() {
         if (this.src) {
-            this.fetch("src/" + this.src).then((code) => {
+            this.src = this.src.indexOf("srv/") == -1 ? "src" + this.src : this.src;
+            this.fetch(this.src).then((code) => {
                 this.code = code;
             });
         }
