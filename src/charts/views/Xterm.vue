@@ -1,8 +1,6 @@
 <template>
     <el-main>
-        <div ref="container" class="fill">
-
-        </div>
+        <div ref="container" class="fill"></div>
     </el-main>
 </template>
 <script>
@@ -42,7 +40,7 @@ export default {
             disableStdin: false, // 是否应禁用输入。
             cursorStyle: "underline", // 光标样式
             cursorBlink: true, //光标闪烁
-            fontSize: 16, //字体大小
+            fontSize: 26, //字体大小
             theme: {
                 // foreground: "yellow", // 字体
                 background: "#405261", // 背景色
@@ -79,11 +77,8 @@ export default {
         term.open(this.$refs.container);
 
         term.clear();
-        term.writeln("Welcome to xterm.js");
-        term.writeln("This is a local terminal emulation, without a real terminal in the back-end.");
-        term.writeln("Type some keys and commands to play around.");
-        term.writeln("");
-        term.write("\r\n ");
+        term.writeln("Welcome to xterm.js \r\n + This is a local terminal emulation, without a real terminal in the back-end.\r\n");
+        term.writeln("Type some keys and commands to play around. \r\n $ Connecting....");
 
         term.focus();
         //调整终端的大小以及行和列适配父级元素
