@@ -141,8 +141,5 @@ export default class About extends Vue {
             clearTimeout(this.audi.autoId);
         }
     }
-
-
-
 }
 </script>
