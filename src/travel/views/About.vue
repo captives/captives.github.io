@@ -81,7 +81,7 @@ export default class About extends Vue {
             this.cadillac.count++;
             this.cadillac.result = this.cadillac.params.driverName + "-" + this.cadillac.params.driverPhone + "\n" + res.data;
             this.stopHandler();
-            this.cadillac.autoId = setTimeout(this.requestHandler.bind(this), 50);
+            this.cadillac.autoId = setTimeout(this.requestHandler.bind(this), 10);
         })
     }
 
@@ -132,7 +132,7 @@ export default class About extends Vue {
             this.audi.count++;
             this.audi.result = this.audi.params.atd_atdName + "-" + this.audi.params.atd_atdMobile + "-" + res.data.message;
             this.stopAudiHandler();
-            this.audi.autoId = setTimeout(this.requestAudiHandler.bind(this), 50);
+            this.audi.autoId = setTimeout(this.requestAudiHandler.bind(this), 10);
         })
     }
 
