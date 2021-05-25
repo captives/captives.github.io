@@ -2,7 +2,10 @@
     <van-row>
         <van-button type="default">凯迪拉克</van-button>
         <van-field v-model="cadillac.count" type="number" label="次数"></van-field>
-        <van-cell :border="false" title="结果" :value="cadillac.result" />
+        <van-cell :border="false" title="结果">
+            {{cadillac.result}}
+        </van-cell>
+
         <van-cell>
             <van-button type="default" @click="requestHandler">开始请求</van-button>
             <van-button type="danger" @click="stopHandler">停止请求</van-button>
@@ -10,7 +13,9 @@
 
         <van-button type="default">大众奥迪</van-button>
         <van-field v-model="audi.count" type="number" label="次数"></van-field>
-        <van-cell :border="false" title="结果" :value="audi.result" />
+        <van-cell :border="false" title="结果">
+            {{audi.result}}
+        </van-cell>
         <van-cell>
             <van-button type="default" @click="requestAudiHandler">开始请求</van-button>
             <van-button type="danger" @click="stopAudiHandler">停止请求</van-button>
@@ -57,23 +62,24 @@ export default class About extends Vue {
 
     requestHandler() {
         const days = [1, 2, 4, 5, 30];
+        this.cadillac.params = Object.assign(this.cadillac.params, {
+            ts: Date.now() - Math.floor(Math.random() * 99999),
+            driverName: citys[Math.floor(Math.random() * citys.length)],
+            city: citys[Math.floor(Math.random() * citys.length)],
+            driverPlan: days[Math.floor(Math.random() * days.length)].toString(),
+            selmodel: Number(Math.floor(Math.random() * 9999)),
+            dealer: _.padEnd("CD10" + Math.floor(Math.random() * 100), 5, "1"),
+            driverPhone: _.padEnd("1" + Math.floor(Math.random() * 9999999999), 11, "2"),
+            driverRead: Math.random() > 0.5 ? "1" : "0"
+        })
         axios({
             method: "get",
             url: "https://www.cadillac.com.cn/api/testdrive.ashx",
-            params: Object.assign(this.cadillac.params, {
-                ts: Date.now() - Math.floor(Math.random() * 99999),
-                driverName: citys[Math.floor(Math.random() * citys.length)],
-                city: citys[Math.floor(Math.random() * citys.length)],
-                driverPlan: days[Math.floor(Math.random() * days.length)].toString(),
-                selmodel: Number(Math.floor(Math.random() * 9999)),
-                dealer: _.padEnd("CD10" + Math.floor(Math.random() * 100), 5, "1"),
-                driverPhone: _.padEnd("1" + Math.floor(Math.random() * 9999999999), 11, "2"),
-                driverRead: Math.random() > 0.5 ? "1" : "0"
-            })
+            params: this.cadillac.params
         }).then(res => {
             console.log(res.data);
             this.cadillac.count++;
-            this.cadillac.result = res.data;
+            this.cadillac.result = this.cadillac.params.driverName + "-" + this.cadillac.params.driverPhone + "\n" + res.data;
             this.stopHandler();
             this.cadillac.autoId = setTimeout(this.requestHandler.bind(this), 50);
         })
@@ -107,23 +113,24 @@ export default class About extends Vue {
 
 
     private requestAudiHandler() {
-        const days = [1, 2, 4, 5, 30];
+        this.audi.params = Object.assign(this.audi.params, {
+            atd_atdName: citys[Math.floor(Math.random() * citys.length)],
+            atd_atdIntentCar: 163000 + Math.floor(Math.random() * 1000),
+            atd_atdIntentModel: 164000 + Math.floor(Math.random() * 1000),
+            atd_atdDealerProvince: Math.floor(Math.random() * 9999),
+            atd_atdDealerCity: Math.floor(Math.random() * 100000),
+            atd_atdPlanBuytime: Math.floor(Math.random() * 100),//购车时间
+            atd_atdGender: Math.random() > 0.5 ? 1 : 2,
+            atd_atdMobile: _.padEnd("1" + Math.floor(Math.random() * 9999999999), 11, "2"),//电话
+        })
+
         axios({
             method: "POST",
             url: "https://contact.audi.cn/contact/testdrive_add.json",
-            params: Object.assign(this.audi.params, {
-                atd_atdName: citys[Math.floor(Math.random() * citys.length)],
-                atd_atdIntentCar: 163000 + Math.floor(Math.random() * 1000),
-                atd_atdIntentModel: 164000 + Math.floor(Math.random() * 1000),
-                atd_atdDealerProvince: Math.floor(Math.random() * 9999),
-                atd_atdDealerCity: Math.floor(Math.random() * 100000),
-                atd_atdGender: Math.floor(Math.random() * 10),//购车时间
-                atd_atdMobile: _.padEnd("1" + Math.floor(Math.random() * 9999999999), 11, "2"),//电话
-            })
+            params: this.audi.params
         }).then(res => {
-            console.log(res.data);
             this.audi.count++;
-            this.audi.result = res.data.message;
+            this.audi.result = this.audi.params.atd_atdName + "-" + this.audi.params.atd_atdMobile + "-" + res.data.message;
             this.stopAudiHandler();
             this.audi.autoId = setTimeout(this.requestAudiHandler.bind(this), 50);
         })
