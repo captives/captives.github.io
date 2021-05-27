@@ -1,7 +1,7 @@
 <template>
     <div class="hello">
         <h1>{{ msg }}</h1>
-        <search-bar size="medium" placeholder="请输入关键字" clearable></search-bar>
+        <search-bar style="max-width:50%" placeholder="请输入关键字" clearable @change="searchChangeHandler"></search-bar>
         <h3>安装</h3>
         <ul>
             <li>
@@ -87,6 +87,14 @@
                 <a href="https://gyufei.github.io/2018/07/23/vue-with-typescript/" target="_blank" rel="noopener">使用 TypeScript 构建 Vue 项目</a>
             </li>
         </ul>
+        <h3>后续</h3>
+        <ul>
+            <li><a href="https://github.com/">Github</a></li>
+            <li><a href="https://npmjs.com/">Npm</a></li>
+            <li>
+                <a href="https://www.travis-ci.com/">Travis CI</a>
+            </li>
+        </ul>
         <slot></slot>
     </div>
 </template>
@@ -96,6 +104,11 @@ export default {
     name: "HelloWorld",
     props: {
         msg: String,
+    },
+    methods: {
+        searchChangeHandler(url) {
+            window.open(url);
+        },
     },
 };
 </script>

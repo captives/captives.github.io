@@ -10,7 +10,7 @@ const xxjc = require('./recorder/xxjc');
 setInterval(() => {
     xxjc();
 }, 12 * 60 * 60 * 1000);
-console.log('小小机场 自动签到任务开启');
+console.log('小小机场 自动签到任务开启', new Date().toLocaleString('chinese', 12));
 
 const XtermSocket = require('./socket/xterm');
 const SocketServer = require('./socket/SocketServer');

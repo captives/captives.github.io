@@ -1,5 +1,5 @@
 <template>
-    <el-input v-model="keyword" v-bind="$attrs">
+    <el-input v-model="keyword" v-bind="$attrs" @keyup.enter.native="requestURL">
         <el-select slot="prepend" v-if="list.length" v-model="selectValue" placeholder="请选择">
             <el-option v-for="item in list" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>

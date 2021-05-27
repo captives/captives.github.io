@@ -120,6 +120,6 @@ export default {
         name: "Web FullScreen",
         icon: "el-icon-notebook-2",
         component: () =>
-            import ("../views/web/FullScreen.vue"),
+            import ("../views/web/VueFullScreen.vue"),
     }, ],
 };
