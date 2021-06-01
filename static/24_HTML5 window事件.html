@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>HTML5 window事件</title>
+</head>
+
+<body>
+    <script type='text/javascript' src='//cn.vuejs.org/js/vue.min.js'> </script>
+    <div class="content"><h2><a id="浏览器选项卡获取焦点和失去焦点"></a>浏览器选项卡获取焦点和失去焦点</h2>
+<div id="example1">
+  监听 <input type="checkbox" v-model="listened">
+</div>
+<script>
+new Vue({
+    el: '#example1',
+    data: {
+        listened: false
+    },
+    methods: {
+        changeHandler() {
+            if (this.listened) {
+                if (document.visibilityState == "hidden") {
+                    document.title = "选项卡被隐藏";
+                } else {
+                    document.title = "选项卡被激活";
+                }
+            }
+        }
+    },
+    created() {
+        document.addEventListener("visibilitychange", this.changeHandler);
+    }
+})
+</script>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">"visibilitychange"</span>, () =&gt; {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.visibilityState == <span class="hljs-string">"hidden"</span>) {
+        <span class="hljs-built_in">document</span>.title = <span class="hljs-string">"选项卡被隐藏"</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-built_in">document</span>.title = <span class="hljs-string">"选项卡被激活"</span>;
+    }
+});
+</code></div></pre>
+<h2><a id="浏览器选项卡关闭"></a>浏览器选项卡关闭</h2>
+<div id="example2">
+   监听  <input type="checkbox" v-model="listened">
+</div>
+<script>
+new Vue({
+    el: '#example2',
+    data: {
+        listened: false
+    },
+    methods: {
+        changeHandler(e) {
+            if (this.listened) {
+                var confirmationMessage = "要记得保存！你确定要离开我吗？";
+                (e || window.event).returnValue = confirmationMessage; // 兼容 Gecko + IE
+                return confirmationMessage; // 兼容 Gecko + Webkit, Safari, Chrome
+            }
+        }
+    },
+    created() {
+        window.addEventListener("beforeunload", this.changeHandler);
+    }
+})
+</script>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"beforeunload"</span>, (e) =&gt; {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.listened) {
+        <span class="hljs-keyword">var</span> confirmationMessage = <span class="hljs-string">"要记得保存！你确定要离开我吗？"</span>;
+        (e || <span class="hljs-built_in">window</span>.event).returnValue = confirmationMessage; <span class="hljs-comment">// 兼容 Gecko + IE</span>
+        <span class="hljs-keyword">return</span> confirmationMessage; <span class="hljs-comment">// 兼容 Gecko + Webkit, Safari, Chrome</span>
+    }
+});
+</code></div></pre>
+<h2><a id="页面开始打印/打印结束后事件"></a>页面开始打印/打印结束后事件</h2>
+<div id="example3">
+   监听 <input type="checkbox" v-model="listened">
+</div>
+<script>
+new Vue({
+    el: '#example3',
+    data: {
+        listened: false
+    },
+    created() {
+        window.addEventListener("beforeprint", (event) => {
+            if (this.listened) {
+                document.title = "打印开始，准备点什么";
+            }
+            console.log('beforeprint', event);
+        });
+
+        window.addEventListener("afterprint", (event) => {
+            if (this.listened) {
+                document.title = "打印完成，做点什么";
+            }
+            console.log('打印完成', event);
+        });
+    }
+})
+</script>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"beforeprint"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'准备打印'</span>, event);
+});
+
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"afterprint"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'打印完成/取消'</span>, event);
+});
+</code></div></pre>
+<h2><a id="其它页面更改存储触发"></a>其它页面更改存储触发</h2>
+<div id="example4">
+    监听 <input type="checkbox" v-model="listened">
+    <ul>
+        <li v-for="(item, index) in list" :key="index">{{item}}</li>
+    </ul>
+</div>
+<script>
+new Vue({
+    el: '#example4',
+    data: {
+        listened: false,
+	list: []
+    },
+    created() {
+        window.addEventListener("storage", (event) => {
+            if (this.listened) {
+                this.list.push(event.key + ' 键已经从 ' + event.oldValue + ' 改变为 ' + event.newValue + '.');
+                console.log("其它页面更新存储", event.key + ' 键已经从 ' + event.oldValue + ' 改变为 ' + event.newValue + '.');
+            }
+        });
+    }
+})
+</script>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"storage"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"其它页面更新存储"</span>, event.key + <span class="hljs-string">' 键已经从 '</span> + event.oldValue + <span class="hljs-string">' 改变为 '</span> + event.newValue + <span class="hljs-string">'.'</span>);
+});
+</code></div></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>

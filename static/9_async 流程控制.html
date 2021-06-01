@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>async 流程控制</title>
+</head>
+
+<body>
+    
+    <div class="content"><div class='more-block'><details><summary>目录导航</summary>
+<p><div class="toc-block"><ul><li><a href="#async">async</a></li><ul><ul><li><a href="#内容">内容</a></li><li><a href="#安装">安装</a></li><li><a href="#流程控制">流程控制</a></li><ul><li><a href="#series 串行执行">series 串行执行</a></li><li><a href="#waterfall 串行传参">waterfall 串行传参</a></li><li><a href="#parallel 并行执行">parallel 并行执行</a></li><li><a href="#whilst 循环">whilst 循环</a></li><li><a href="#doWhilst 循环">doWhilst 循环</a></li><li><a href="#until">until</a></li><li><a href="#doUntil">doUntil</a></li><li><a href="#during">during</a></li><li><a href="#doDuring">doDuring</a></li><li><a href="#auto">auto</a></li></ul><li><a href="#Collections集合">Collections集合</a></li><ul><li><a href="#each">each</a></li><li><a href="#eachLimit">eachLimit</a></li><li><a href="#eachSeries">eachSeries</a></li><li><a href="#map">map</a></li><li><a href="#mapLimit">mapLimit</a></li><li><a href="#mapSeries">mapSeries</a></li></ul><li><a href="#mapValues">mapValues</a></li><ul><li><a href="#mapValuesLimit">mapValuesLimit</a></li><li><a href="#mapValuesSeries">mapValuesSeries</a></li><li><a href="#filter 条件过滤">filter 条件过滤</a></li><li><a href="#filterLimit条件过滤">filterLimit条件过滤</a></li><li><a href="#filterSeries 条件过滤">filterSeries 条件过滤</a></li><li><a href="#reject 过滤例外">reject 过滤例外</a></li><li><a href="#rejectLimit">rejectLimit</a></li><li><a href="#rejectSeries">rejectSeries</a></li><li><a href="#reduce 串行累加">reduce 串行累加</a></li><li><a href="#reduceRight 元素计算">reduceRight 元素计算</a></li><li><a href="#detect">detect</a></li><li><a href="#detectLimit">detectLimit</a></li><li><a href="#detectSeries">detectSeries</a></li><li><a href="#sortBy 排序">sortBy 排序</a></li><li><a href="#some">some</a></li><li><a href="#someLimit">someLimit</a></li><li><a href="#someSeries">someSeries</a></li><li><a href="#every">every</a></li><li><a href="#everyLimit">everyLimit</a></li><li><a href="#everySeries">everySeries</a></li><li><a href="#concat 合并">concat 合并</a></li><li><a href="#concatLimit 合并">concatLimit 合并</a></li><li><a href="#concatSeries 合并">concatSeries 合并</a></li><li><a href="#groupBy">groupBy</a></li><li><a href="#groupByLimit">groupByLimit</a></li><li><a href="#groupBySeries">groupBySeries</a></li></ul></ul></ul></ul></div></p>
+</details></div><h1><a id="async"></a>async</h1>
+<blockquote>
+<p>异步编程是指由于异步I/O等因素，无法同步获得执行结果时，在回调函数中进行下一步操作的代码编写风格,常见的如setTimeout函数、ajax请求等等。</p>
+</blockquote>
+<h3><a id="内容"></a>内容</h3>
+<ul>
+<li>流程控制： 简化九种常见的流程的处理</li>
+<li>集合处理：如何使用异步操作处理集中的数据</li>
+<li>工具类：几个常用的工具类</li>
+</ul>
+<h3><a id="安装"></a>安装</h3>
+<pre><div class="hljs"><code class="lang-sh">npm install async –-save
+</code></div></pre>
+<h3><a id="流程控制"></a>流程控制</h3>
+<h4><a id="series 串行执行"></a>series 串行执行</h4>
+<ul>
+<li>series(tasks |Array | Object, callback)</li>
+</ul>
+<p>多个函数依次执行，之间没有数据交换。仅仅需要保证其顺序执行,中间发生错误，后续不执行，直接报告结果。<br />
+tasks可以是一个数组也可以是一个JSON对象，参数类型不同，影响的是返回数据的格式。</p>
+<blockquote>
+<p>注： 多个series调用之间是不分先后的，因为series本身也是异步调用。</p>
+</blockquote>
+<p>示例1：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> list = {
+    <span class="hljs-attr">one</span>: <span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, <span class="hljs-string">'1'</span>);
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, <span class="hljs-string">'1'</span>);
+            callback(<span class="hljs-literal">null</span>, <span class="hljs-number">1</span>);
+        }, <span class="hljs-number">2000</span>);
+    },
+    <span class="hljs-attr">two</span>: <span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, <span class="hljs-string">'2'</span>);
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, <span class="hljs-string">'2'</span>);
+            callback(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+        }, <span class="hljs-number">1000</span>);
+    }
+};
+
+<span class="hljs-keyword">async</span>.series(list, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'series'</span>,err, results);
+});
+</code></div></pre>
+<p>控制台输出:</p>
+<pre><div class="hljs"><code class="lang-console">start 1
+end 1
+start 2
+end 2
+series null { one: 1, two: 2 }
+</code></div></pre>
+<p>示例2：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> list = {
+    <span class="hljs-attr">one</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
+        callback(<span class="hljs-string">'异常'</span>, <span class="hljs-number">1</span>);
+    },
+    <span class="hljs-attr">two</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
+        callback(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+    }
+};
+
+<span class="hljs-keyword">async</span>.series(list, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'series'</span>,err, results);
+});
+</code></div></pre>
+<p>控制台输出:</p>
+<pre><div class="hljs"><code class="lang-console">series 异常 { one: 1 }
+</code></div></pre>
+<h4><a id="waterfall 串行传参"></a>waterfall 串行传参</h4>
+<ul>
+<li>waterfall(tasks|Array, callback)</li>
+</ul>
+<p>多个函数依次执行，函数间可传值。</p>
+<p>可以解决callback嵌套的问题。上一个流程的执行结果，会传给下一个流程的参数。如果其中一个流程出错，则会中止后续流程的执行，直接调用最终的callback。否则最后一个流程的结果，会传递给最终callback。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.waterfall([
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'1'</span>);
+        callback(<span class="hljs-literal">null</span>, <span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>);
+    },
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg1, arg2, callback</span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'2'</span>, arg1, arg2);
+        callback(<span class="hljs-literal">null</span>, <span class="hljs-string">'three'</span>);
+    },
+    <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">arg1, callback</span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'3'</span>, arg1);
+        callback(<span class="hljs-literal">null</span>, <span class="hljs-string">'done'</span>);
+    }
+], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'waterfall'</span>,err, results);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">```console
+1
+2 one two
+3 three
+waterfall null done
+</code></div></pre>
+<h4><a id="parallel 并行执行"></a>parallel 并行执行</h4>
+<ul>
+<li>parallel(tasks|Array|Object, callback)</li>
+</ul>
+<p>多个函数并行执行，每个函数都是立刻执行，不需要等待其他函数先执行。传给最终callback的数组中的数据按照tasks声明的顺序，而不是执行完成的顺序。<br />
+如果某个函数出错，则立刻将err和已经执行完的函数的结果值传给parallel最终的callback。其它为执行完的函数的值不会传到最终数据，但要占个位置。</p>
+<blockquote>
+<p>同时支持json形式的tasks，其最终callback的结果也为json形式。</p>
+</blockquote>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> list = {
+    <span class="hljs-attr">one</span>: <span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, <span class="hljs-string">'1'</span>);
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, <span class="hljs-string">'1'</span>);
+            callback(<span class="hljs-literal">null</span>, <span class="hljs-number">1</span>);
+        }, <span class="hljs-number">2000</span>);
+    },
+    <span class="hljs-attr">two</span>: <span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, <span class="hljs-string">'2'</span>);
+        setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, <span class="hljs-string">'2'</span>);
+            callback(<span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+        }, <span class="hljs-number">1000</span>);
+    }
+};
+<span class="hljs-keyword">async</span>.parallel(list, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'parallel'</span>,err, results);
+});
+</code></div></pre>
+<p>控制台输出:</p>
+<pre><div class="hljs"><code class="lang-console">start 1
+start 2
+end 2
+end 1
+parallel null { two: 2, one: 1 }
+</code></div></pre>
+<h4><a id="whilst 循环"></a>whilst 循环</h4>
+<ul>
+<li>whilst(test, iterator, callback)</li>
+</ul>
+<p>相当于while，先判断的循环,test为true, 执行iterator;<br />
+重复执行一个函数。当test函数为true时，重复调用iterator。直到test函数为false或者iterator函数有错误产生时候，调用最后的callback</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> count = <span class="hljs-number">6</span>;
+<span class="hljs-keyword">async</span>.whilst(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span> {
+    <span class="hljs-keyword">return</span> count &gt; <span class="hljs-number">1</span>;
+}, (callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, count);
+    count--;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, count);
+        callback(<span class="hljs-literal">null</span>, count);
+    }, <span class="hljs-number">1000</span>);
+}, (err, results) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'whilst'</span>, err, results);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 6
+end 5
+start 5
+end 4
+start 4
+end 3
+start 3
+end 2
+start 2
+end 1
+whilst null 1
+</code></div></pre>
+<h4><a id="doWhilst 循环"></a>doWhilst 循环</h4>
+<ul>
+<li>doWhilst(iterator, test, callback)</li>
+</ul>
+<p>相当于do…while，后判断的循环,先执行iterator，然后判断test，如果为true,则继续执行;</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> count = <span class="hljs-number">6</span>;
+<span class="hljs-keyword">async</span>.doWhilst(<span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, count);
+    count--;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, count);
+        callback(<span class="hljs-literal">null</span>, count);
+    }, <span class="hljs-number">1000</span>);
+}, ()=&gt; {
+    <span class="hljs-keyword">return</span> count &gt; <span class="hljs-number">1</span>;
+}, (err, results) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'doWhilst'</span>, err, results);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 6
+end 5
+start 5
+end 4
+start 4
+end 3
+start 3
+end 2
+start 2
+end 1
+doWhilst null 1
+</code></div></pre>
+<h4><a id="until"></a>until</h4>
+<ul>
+<li>until(test, iterator, callback)</li>
+</ul>
+<p>无限循环函数，当test返回false, 执行iterator;test返回true, 则停止循环。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> count = <span class="hljs-number">6</span>;
+<span class="hljs-keyword">async</span>.until(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span> {
+    <span class="hljs-keyword">return</span> count &lt; <span class="hljs-number">3</span>;
+}, (callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, count);
+    count--;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, count);
+        callback(<span class="hljs-literal">null</span>, count);
+    }, <span class="hljs-number">1000</span>);
+}, (err, results) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'until'</span>, err, results);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 6
+end 5
+start 5
+end 4
+start 4
+end 3
+start 3
+end 2
+until null 2
+</code></div></pre>
+<h4><a id="doUntil"></a>doUntil</h4>
+<ul>
+<li>doUntil(iterator, test, callback)</li>
+</ul>
+<p>相当于do…while，后判断的循环,先执行iterator，然后判断test，如果为false,继续执行;如果为true则停止。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.doUntil(<span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, count);
+    count--;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, count);
+        callback(<span class="hljs-literal">null</span>, count);
+    }, <span class="hljs-number">1000</span>);
+}, ()=&gt; {
+    <span class="hljs-keyword">return</span> count &gt; <span class="hljs-number">1</span>;
+}, (err, results) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'doWhilst'</span>, err, results);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 6
+end 5
+doWhilst null 5
+</code></div></pre>
+<h4><a id="during"></a>during</h4>
+<ul>
+<li>during(test, iterator, callback)</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> count = <span class="hljs-number">6</span>;
+<span class="hljs-keyword">async</span>.during(<span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, count);
+        callback(<span class="hljs-literal">null</span>, count &gt; <span class="hljs-number">1</span>);
+    },(callback) =&gt; {
+        count--;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'change'</span>, count);
+        setTimeout(callback, <span class="hljs-number">1000</span>);
+    },(err) =&gt; {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'during'</span>, err);
+    }
+);
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 6
+change 5
+start 5
+change 4
+start 4
+change 3
+start 3
+change 2
+start 2
+change 1
+start 1
+during null
+</code></div></pre>
+<h4><a id="doDuring"></a>doDuring</h4>
+<ul>
+<li>doDuring(iterator, test, callback)</li>
+</ul>
+<p>过程中的后检查版本。为了反映操作顺序的差异，是一个具有异步测试功能的doWhilst版本。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> count = <span class="hljs-number">6</span>;
+<span class="hljs-keyword">async</span>.doDuring(<span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, count);
+    count--;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, count);
+        callback(<span class="hljs-literal">null</span>, count);
+    }, <span class="hljs-number">1000</span>);
+}, (args, callback) =&gt; {
+    <span class="hljs-keyword">return</span> callback(<span class="hljs-literal">null</span>, args &gt; <span class="hljs-number">3</span>);
+    <span class="hljs-comment">// return callback('异常', args &gt; 3);</span>
+}, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'doDuring'</span>, err);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 6
+end 5
+start 5
+end 4
+start 4
+end 3
+doDuring null
+auto
+auto(test, iterator, callback)
+</code></div></pre>
+<h4><a id="auto"></a>auto</h4>
+<ul>
+<li>auto(tasks|Array|Object, [callback])</li>
+</ul>
+<p>多个函数有依赖关系， 有的并行执行，有的一次执行</p>
+<ul>
+<li>until</li>
+<li>queue</li>
+<li>iterator</li>
+<li>nextTick</li>
+</ul>
+<h3><a id="Collections集合"></a>Collections集合</h3>
+<h4><a id="each"></a>each</h4>
+<ul>
+<li>
+<p>each(arr, iterator, callback)</p>
+</li>
+<li>
+<p>1、 arr 想要循环的数组</p>
+</li>
+<li>
+<p>2、 iterator(item, callback) 一个回调函数，循环到的每一项都会调用这个函数。<br />
+item 数组中的每一项。callback(err) 当完成的时候调用，应该不带参数执行，或者明确指定一个 null</p>
+</li>
+<li>
+<p>3、callback(err) 一个回调函数，用于循环完成后 或 发生错误时调用<br />
+并行遍历集合元素。</p>
+</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> data  = [
+    {<span class="hljs-attr">name</span>:<span class="hljs-string">'Apple'</span>,<span class="hljs-attr">price</span>:<span class="hljs-number">6.8</span>, <span class="hljs-attr">delay</span>:<span class="hljs-number">200</span>},
+    {<span class="hljs-attr">name</span>:<span class="hljs-string">'Litchi'</span>,<span class="hljs-attr">price</span>:<span class="hljs-number">2.5</span>, <span class="hljs-attr">delay</span>:<span class="hljs-number">300</span>},
+    {<span class="hljs-attr">name</span>:<span class="hljs-string">'Orange'</span>,<span class="hljs-attr">price</span>:<span class="hljs-number">8.2</span>, <span class="hljs-attr">delay</span>:<span class="hljs-number">400</span>}
+];
+
+<span class="hljs-keyword">async</span>.each(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback();
+    }, item.delay);
+}, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error'</span>, err);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+Error null
+</code></div></pre>
+<p>遍历过程有异常时通过callback返回，进程不会中断，直到全部遍历完成后err在最后的回调函数返回。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+<span class="hljs-keyword">async</span>.each(arr, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'item'</span>, item);
+    <span class="hljs-keyword">if</span>(item == <span class="hljs-number">3</span>){
+        callback(<span class="hljs-string">'这是'</span> + item);
+    }<span class="hljs-keyword">else</span>{
+        callback();
+    }
+}, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'each'</span>, err);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">arr [ 1, 2, 3, 2, 4, 5 ]
+item 1
+item 2
+item 3
+each 这是3
+item 2
+item 4
+item 5
+</code></div></pre>
+<h4><a id="eachLimit"></a>eachLimit</h4>
+<ul>
+<li>eachLimit(arr, limit, iterator, callback)</li>
+</ul>
+<p>limit 限制并行的最大数量<br />
+批量遍历集合元素，同一时候限制执行limit个任务。<br />
+单个任务执行：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.eachLimit(data, <span class="hljs-number">1</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback();
+    }, item.delay);
+}, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'eachLimit'</span>, err);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+end Apple
+start Orange
+end Litchi
+end Orange
+eachLimit null
+</code></div></pre>
+<p>多个任务执行：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.eachLimit(data, <span class="hljs-number">3</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback();
+    }, item.delay);
+}, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'eachLimit'</span>, err);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+eachLimit null
+</code></div></pre>
+<p>遍历过程有异常通过cb返回，进程不会中断，直到全部遍历完成后err在最后的回调函数返回。</p>
+<h4><a id="eachSeries"></a>eachSeries</h4>
+<ul>
+<li>eachSeries(arr, iterator, callback)</li>
+</ul>
+<p>arr 想要循环的数组<br />
+iterator(item, callback) 一个回调函数，循环到的每一项都会调用这个函数。<br />
+item 数组中的每一项。<br />
+callback(err) 当完成的时候调用，应该不带参数执行，或者明确指定一个 null<br />
+callback(err) 一个回调函数，用于循环完成后 或 发生错误时调用<br />
+顺序遍历集合元素。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.eachSeries(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback();
+    }, item.delay);
+}, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error'</span>, err);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+Error null
+</code></div></pre>
+<p>一个元素遍历完成及后续的操作完成后，才会进入下一个元素遍历。遍历过程出现err中断循环并在最后的回调函数返回err。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+<span class="hljs-keyword">async</span>.eachSeries(arr, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'item'</span>, item);
+    <span class="hljs-keyword">if</span>(item == <span class="hljs-number">3</span>){
+        callback(<span class="hljs-string">'这是'</span> + item);
+    }<span class="hljs-keyword">else</span>{
+        callback();
+    }
+}, (err) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'eachSeries'</span>, err);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">arr [ 1, 2, 3, 2, 4, 5 ]
+item 1
+item 2
+item 3
+eachSeries 这是3
+</code></div></pre>
+<h4><a id="map"></a>map</h4>
+<ul>
+<li>map(arr, iterator, callback)</li>
+</ul>
+<p>并行执行集合中的元素</p>
+<p>参数：<br />
+arr 想要循环的数组<br />
+iterator(item, callback) 一个回调函数，循环到得每一项都会调用这个函数<br />
+item 数组中的每一项。<br />
+callback(err, transformed) 当程序执行完时，调用此参数(必须调用此参数)<br />
+callback(err, results) 一个回调函数，当所有数组执行完成，或发生错误的时候，被调用。<br />
+map 通俗点说，就是通过一个转换函数（iterator），把数组中的每个值映射到一个新的数组中。（产生一个新的数组）。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.map(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.name + <span class="hljs-string">"!"</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'map'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+map null [ 'Apple!', 'Litchi!', 'Orange!' ]
+</code></div></pre>
+<h4><a id="mapLimit"></a>mapLimit</h4>
+<ul>
+<li>mapLimit(arr, limit, iterator, callback)</li>
+<li></li>
+</ul>
+<p>limit 限制并行的最大数量<br />
+批量执行集合元素，同一时候限制执行limit个任务。<br />
+单个任务执行：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.mapLimit(data, <span class="hljs-number">1</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.name + <span class="hljs-string">"!"</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mapLimit'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+mapLimit null [ 'Apple!', 'Litchi!', 'Orange!' ]
+</code></div></pre>
+<p>多个任务执行：</p>
+<pre><code class="lang-">async.mapLimit(data, 3, (item, callback) =&gt; {
+    console.log('start', item.name);
+    setTimeout(() =&gt; {
+        console.log('end', item.name);
+        callback(null, item.name + &quot;!&quot;);
+    }, item.delay);
+},function (err, result) {
+    console.log('mapLimit', err, result);
+});
+</code></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+mapLimit null [ 'Apple!', 'Litchi!', 'Orange!' ]
+</code></div></pre>
+<h4><a id="mapSeries"></a>mapSeries</h4>
+<ul>
+<li>mapSeries(arr, iterator, callback)</li>
+</ul>
+<p>顺序执行集合中的元素</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.mapSeries(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.name + <span class="hljs-string">"!"</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mapSeries'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+mapSeries null [ 'Apple!', 'Litchi!', 'Orange!' ]
+</code></div></pre>
+<h3><a id="mapValues"></a>mapValues</h3>
+<ul>
+<li>mapValues(arr, iterator, callback)</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.mapValues(data, (item, key, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, key, item);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, key, item);
+        callback(<span class="hljs-literal">null</span>, item.name);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mapValues'</span>, err, result);
+});
+
+控制台输出：
+<span class="hljs-string">``</span><span class="hljs-string">`console
+start 0 { name: 'Apple', price: 6.8, delay: 200 }
+start 1 { name: 'Litchi', price: 2.5, delay: 300 }
+start 2 { name: 'Orange', price: 8.2, delay: 400 }
+end 0 { name: 'Apple', price: 6.8, delay: 200 }
+end 1 { name: 'Litchi', price: 2.5, delay: 300 }
+end 2 { name: 'Orange', price: 8.2, delay: 400 }
+mapValues null { '0': 'Apple', '1': 'Litchi', '2': 'Orange' }
+</span></code></div></pre>
+<h4><a id="mapValuesLimit"></a>mapValuesLimit</h4>
+<ul>
+<li>mapValuesLimit(arr, limit, iterator, callback)</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.mapValuesLimit(data, <span class="hljs-number">2</span>, (item, key, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, key, item);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, key, item);
+        callback(<span class="hljs-literal">null</span>, item.name);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mapValuesLimit'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 0 { name: 'Apple', price: 6.8, delay: 200 }
+start 1 { name: 'Litchi', price: 2.5, delay: 300 }
+end 0 { name: 'Apple', price: 6.8, delay: 200 }
+start 2 { name: 'Orange', price: 8.2, delay: 400 }
+end 1 { name: 'Litchi', price: 2.5, delay: 300 }
+end 2 { name: 'Orange', price: 8.2, delay: 400 }
+mapValuesLimit null { '0': 'Apple', '1': 'Litchi', '2': 'Orange' }
+</code></div></pre>
+<h4><a id="mapValuesSeries"></a>mapValuesSeries</h4>
+<ul>
+<li>mapValuesSeries(arr, iterator, callback)</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.mapValuesSeries(data, (item, key, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, key, item);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, key, item);
+        callback(<span class="hljs-literal">null</span>, item.name);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mapValuesSeries'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start 0 { name: 'Apple', price: 6.8, delay: 200 }
+end 0 { name: 'Apple', price: 6.8, delay: 200 }
+start 1 { name: 'Litchi', price: 2.5, delay: 300 }
+end 1 { name: 'Litchi', price: 2.5, delay: 300 }
+start 2 { name: 'Orange', price: 8.2, delay: 400 }
+end 2 { name: 'Orange', price: 8.2, delay: 400 }
+mapValuesSeries null { '0': 'Apple', '1': 'Litchi', '2': 'Orange' }
+</code></div></pre>
+<h4><a id="filter 条件过滤"></a>filter 条件过滤</h4>
+<ul>
+<li>filter(arr, iterator, callback)</li>
+</ul>
+<p>这个操作是并行的，但返回的结果是顺序的。<br />
+参数：<br />
+arr 一个数组，用于遍历<br />
+iterator(item, callback) 一个函数，用于真值检测<br />
+item 数组中的每一项<br />
+callback(err, truthValue) 完成时调用，必须带一个布尔参数<br />
+callback 一个回调函数，用于执行完成后，或发生错误时调用。<br />
+过滤array中的元素，iterator中的cb是一个表达式，只有两个结果false和true，结果为true汇总在最后的callback。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.filter(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'filter'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+filter null [ { name: 'Apple', price: 6.8, delay: 200 },{ name: 'Orange', price: 8.2, delay: 400 } ]
+</code></div></pre>
+<h4><a id="filterLimit条件过滤"></a>filterLimit条件过滤</h4>
+<ul>
+<li>filterLimit (arr, limit, iterator, callback)</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.filterLimit(data, <span class="hljs-number">2</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'filter'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+end Apple
+start Orange
+end Litchi
+end Orange
+filter null [ { name: 'Apple', price: 6.8, delay: 200 },  { name: 'Orange', price: 8.2, delay: 400 } ]
+</code></div></pre>
+<h4><a id="filterSeries 条件过滤"></a>filterSeries 条件过滤</h4>
+<ul>
+<li>filterSeries(arr, iterator, callback);</li>
+</ul>
+<p>这个操作是顺序执行的。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.filterSeries(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'filterSeries'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+filterSeries null [ { name: 'Apple', price: 6.8, delay: 200 }, { name: 'Orange', price: 8.2, delay: 400 } ]
+</code></div></pre>
+<h4><a id="reject 过滤例外"></a>reject 过滤例外</h4>
+<ul>
+<li>reject(arr, iterator, callback)</li>
+</ul>
+<p>和filter相反，filter是保留t的表达式为true的item，而reject是表达式值为false的item;</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.reject(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'reject'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+reject null [ { name: 'Litchi', price: 2.5, delay: 300 } ]
+</code></div></pre>
+<h4><a id="rejectLimit"></a>rejectLimit</h4>
+<ul>
+<li>rejectLimit (arr, limit, iterator, callback);</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.rejectLimit(data, <span class="hljs-number">2</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejectLimit'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+end Apple
+start Orange
+end Litchi
+end Orange
+reject null [ { name: 'Litchi', price: 2.5, delay: 300 } ]
+</code></div></pre>
+<h4><a id="rejectSeries"></a>rejectSeries</h4>
+<ul>
+<li>rejectSeries(arr, iterator, callback);</li>
+</ul>
+<p>这个操作是顺序执行的。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.rejectSeries(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'rejectSeries'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+rejectSeries null [ { name: 'Litchi', price: 2.5, delay: 300 } ]
+</code></div></pre>
+<h4><a id="reduce 串行累加"></a>reduce 串行累加</h4>
+<ul>
+<li>reduce(arr, memo, iterator, callback)</li>
+</ul>
+<p>逐渐累加,只支持 series 模式，不支持并行。<br />
+Reduce可以让我们给定一个初始值，用它与集合中的每一个元素做运算（前一次的运算结果与下一个值做运算），最后得到一个值。reduce从左向右来遍历元素，如果想从右向左，可使用reduceRight。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.reduce(data, <span class="hljs-number">0</span>, (memo, item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price + memo);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'reduce'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+reduce null 17.5
+</code></div></pre>
+<p>| 参看：Array.prototype.reduce</p>
+<h4><a id="reduceRight 元素计算"></a>reduceRight 元素计算</h4>
+<ul>
+<li>reduceRight(arr, memo, iterator, callback)</li>
+</ul>
+<p>与 reduce 一样，不同的是，reduceRight 是从右向左计算。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.reduceRight(data, <span class="hljs-number">0</span>, (memo, item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price + memo);
+    }, item.delay);
+},<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, result</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'reduceRight'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Orange
+end Orange
+start Litchi
+end Litchi
+start Apple
+end Apple
+reduceRight null 17.5
+</code></div></pre>
+<h4><a id="detect"></a>detect</h4>
+<ul>
+<li>detect(arr, iterator, callback)</li>
+</ul>
+<p>用于取得集合中满足条件的第一个元素（并行执行）。<br />
+参数：<br />
+arr 一个数组<br />
+iterator(item, callback) 回调函数，用于处理逻辑（迭代器）<br />
+item 数组中的每一项<br />
+callback(truthValue) 程序完成后执行。必须传入布尔值。<br />
+callback(result) 回调函数， iterator 第一次返回 true，或 循环完成后执行。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.detect(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'detect'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+detect null { name: 'Apple', price: 6.8, delay: 200 }
+end Litchi
+end Orange
+参看：Array.prototype.reduceRight
+</code></div></pre>
+<h4><a id="detectLimit"></a>detectLimit</h4>
+<ul>
+<li>detectLimit(arr, limit, iterator, callback)</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.detectLimit(data, <span class="hljs-number">2</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'detectLimit'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+end Apple
+detectLimit null { name: 'Apple', price: 6.8, delay: 200 }
+end Litchi
+</code></div></pre>
+<h4><a id="detectSeries"></a>detectSeries</h4>
+<ul>
+<li>detectSeries(arr, iterator, callback)</li>
+</ul>
+<p>用于取得集合中满足条件的第一个元素（顺序执行）。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.detectSeries(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span> || item.delay &lt; <span class="hljs-number">300</span>);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'detectSeries'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+detectSeries null { name: 'Apple', price: 6.8, delay: 200 }
+</code></div></pre>
+<h4><a id="sortBy 排序"></a>sortBy 排序</h4>
+<ul>
+<li>sortBy(arr, iterator, callback)</li>
+</ul>
+<p>参数：<br />
+arr 一个数组<br />
+iterator(item, callback) 一个回调函数，循环到得每一项都会执行。<br />
+item 数组中的每一项<br />
+callback(err, sortValue) 完成时调用。sortValue排序字段<br />
+callback(err, results) 一个回调函数，所有 iterator 完成后或发生错误时执行。<br />
+对集合内的元素进行排序，根据每个元素进行某异步操作后产生的值，从小到大排序。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> data = [<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>];
+<span class="hljs-keyword">async</span>.sortBy(data, (item, callback) =&gt; {
+    callback(<span class="hljs-literal">null</span>, item);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'sortBy'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出</p>
+<pre><div class="hljs"><code class="lang-console">sortBy null [ 0, 1, 2, 4, 5, 6, 7, 8, 9 ]
+</code></div></pre>
+<p>例2：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.sortBy(data, (item, callback) =&gt; {
+    callback(<span class="hljs-literal">null</span>, item.price); <span class="hljs-comment">//item.price 排序字段</span>
+},(err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'sortBy'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出:</p>
+<pre><div class="hljs"><code class="lang-console">sortBy null [ { name: 'Litchi', price: 2.5, delay: 300 },{ name: 'Apple', price: 6.8, delay: 200 },  { name: 'Orange', price: 8.2, delay: 400 } ]
+</code></div></pre>
+<h4><a id="some"></a>some</h4>
+<ul>
+<li>some(arr, iterator, callback)</li>
+</ul>
+<p>判断集合中是否有至少一个元素满足条件，如果是最终callback得到的值为true，否则为false.<br />
+参数：<br />
+arr 一个数组<br />
+iterator(item, callback) 一个回调函数，循环到得每一项都会执行。<br />
+callback(truthValue) 必须传递一个布尔值。<br />
+callback(result) 回调函数 result为 true 或 false 取决于iterator 的运行结果。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.some(data, (item, callback) =&gt; {
+    callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span>);
+},(err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'some'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">some null true
+</code></div></pre>
+<h4><a id="someLimit"></a>someLimit</h4>
+<ul>
+<li>someLimit(arr, limit, iterator, callback)</li>
+</ul>
+<h4><a id="someSeries"></a>someSeries</h4>
+<ul>
+<li>someSeries(arr, iterator, callback)</li>
+</ul>
+<h4><a id="every"></a>every</h4>
+<ul>
+<li>every(arr, iterator, callback)</li>
+</ul>
+<p>参数：<br />
+arr 一个数组<br />
+iterator(item, callback) 一个回调函数，循环到得每一项都会执行。<br />
+callback(truthValue) 必须传递一个布尔值。<br />
+callback(result) 回调函数 result为 true 或 false 取决于iterator 的运行结果。<br />
+如果集合里每一个元素都满足条件，则传给最终回调的result为true，否则为false。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.every(data, (item, callback) =&gt; {
+    callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">7</span>);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'every'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">every null false
+</code></div></pre>
+<p>例子2：</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.every(data, (item, callback) =&gt; {
+    callback(<span class="hljs-literal">null</span>, item.price &gt; <span class="hljs-number">2</span>);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'every'</span>,err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">every null true
+</code></div></pre>
+<h4><a id="everyLimit"></a>everyLimit</h4>
+<ul>
+<li>everyLimit (arr, limit, iterator, callback)</li>
+</ul>
+<h4><a id="everySeries"></a>everySeries</h4>
+<ul>
+<li>everySeries(arr, iterator, callback)</li>
+</ul>
+<h4><a id="concat 合并"></a>concat 合并</h4>
+<ul>
+<li>concat(arr, iterator, callback)</li>
+</ul>
+<p>将多个异步操作的结果并行合并为一个数组。合并之后的顺序是不固定的。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.concat(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price * <span class="hljs-number">2</span>);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'concat'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+concat null [ 13.6, 5, 16.4 ]
+</code></div></pre>
+<h4><a id="concatLimit 合并"></a>concatLimit 合并</h4>
+<ul>
+<li>concatLimit(arr, limit, iterator, callback)</li>
+</ul>
+<p>将异步操作的结果，限制数量并行合并为一个数组。合并之后的顺序是不固定的。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.concatLimit(data, <span class="hljs-number">2</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price * <span class="hljs-number">2</span>);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'concatLimit'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+end Apple
+start Orange
+end Litchi
+end Orange
+concatLimit null [ 13.6, 5, 16.4 ]
+</code></div></pre>
+<h4><a id="concatSeries 合并"></a>concatSeries 合并</h4>
+<ul>
+<li>concatSeries(arr, iterator, callback)</li>
+</ul>
+<p>将多个异步操作的结果顺序合并为一个数组。合并之后的顺序是不固定的。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.concatSeries(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.price * <span class="hljs-number">2</span>);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'concatSeries'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+concatSeries null [ 13.6, 5, 16.4 ]
+</code></div></pre>
+<h4><a id="groupBy"></a>groupBy</h4>
+<ul>
+<li>groupBy(arr, iterator, callback)</li>
+</ul>
+<p>传入一系列对象，并根据设置的 key 并发进行分组。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> data = [
+    { <span class="hljs-attr">name</span>: <span class="hljs-string">'Apple'</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">6.8</span>, <span class="hljs-attr">delay</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">origin</span>:<span class="hljs-string">'A'</span>},
+    { <span class="hljs-attr">name</span>: <span class="hljs-string">'Litchi'</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">2.5</span>, <span class="hljs-attr">delay</span>: <span class="hljs-number">300</span>, <span class="hljs-attr">origin</span>:<span class="hljs-string">'B'</span> },
+    { <span class="hljs-attr">name</span>: <span class="hljs-string">'Orange'</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">8.2</span>, <span class="hljs-attr">delay</span>: <span class="hljs-number">400</span>, <span class="hljs-attr">origin</span>:<span class="hljs-string">'A'</span> }
+];
+<span class="hljs-keyword">async</span>.groupBy(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.origin);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'groupBy'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+start Orange
+end Apple
+end Litchi
+end Orange
+groupBy null { A: [ { name: 'Apple', price: 6.8, delay: 200, origin: 'A' }, { name: 'Orange', price: 8.2, delay: 400, origin: 'A' } ],B: [ { name: 'Litchi', price: 2.5, delay: 300, origin: 'B' } ] }
+</code></div></pre>
+<h4><a id="groupByLimit"></a>groupByLimit</h4>
+<ul>
+<li>groupByLimit(arr, limit, iterator, callback)</li>
+</ul>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.groupByLimit(data, <span class="hljs-number">2</span>, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.origin);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'groupByLimit'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+start Litchi
+end Apple
+start Orange
+end Litchi
+end Orange
+groupByLimit null { A: 
+   [ { name: 'Apple', price: 6.8, delay: 200, origin: 'A' }, { name: 'Orange', price: 8.2, delay: 400, origin: 'A' } ], B: [ { name: 'Litchi', price: 2.5, delay: 300, origin: 'B' } ] }
+</code></div></pre>
+<h4><a id="groupBySeries"></a>groupBySeries</h4>
+<ul>
+<li>groupBySeries(arr, iterator, callback)</li>
+</ul>
+<p>传入一系列对象，并根据设置的 key 顺序进行分组。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">async</span>.groupBySeries(data, (item, callback) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start'</span>, item.name);
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>, item.name);
+        callback(<span class="hljs-literal">null</span>, item.origin);
+    }, item.delay);
+}, (err, result) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'groupBySeries'</span>, err, result);
+});
+</code></div></pre>
+<p>控制台输出：</p>
+<pre><div class="hljs"><code class="lang-console">start Apple
+end Apple
+start Litchi
+end Litchi
+start Orange
+end Orange
+groupBySeries null { A: [ { name: 'Apple', price: 6.8, delay: 200, origin: 'A' },{ name: 'Orange', price: 8.2, delay: 400, origin: 'A' } ],B: [ { name: 'Litchi', price: 2.5, delay: 300, origin: 'B' } ] }
+</code></div></pre>
+</div>
+</div>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>
