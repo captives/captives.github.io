@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>Sass 使用笔记</title>
+</head>
+
+<body>
+    
+    <div class="content"><h1><a id="Sass 使用笔记"></a>Sass 使用笔记</h1>
+<p>Sass 是世界上最成熟、稳定、强大的专业级 CSS 扩展语言。<br />
+<img src="https://sass.bootcss.com/assets/img/illustrations/glasses-2087d741.svg" alt="" /></p>
+<h2><a id="快速开始"></a>快速开始</h2>
+<p>Sass 是一种 CSS 的预编译语言。Sass还提供了CSS中还不存在的特性：变量(Variables)、嵌套(Nesting)、片段(Partials)、 混合(Mixins)、 扩展(Extend)、函数（functions）等功能，并且完全兼容 CSS 语法，让编写CSS 代码变得再次有趣。</p>
+<p>Sass 能够帮助复杂的样式表更有条理， 并且易于在项目内部或跨项目共享设计。</p>
+<p><a href="https://ninghao.net/video/2096" target="_blank">视频学习</a></p>
+<h3><a id="安装(Install)"></a>安装(Install)</h3>
+<p>node环境安装</p>
+<pre><div class="hljs"><code class="lang-sh">npm install -g sass
+</code></div></pre>
+<div class='tip-block warning'><p>这种方式安装的 Sass 是纯 JavaScript 实现的，运行的速度比这里列出的其它安装方式安装的Sass要稍微慢一些。<br />
+但是接口是完全一致的，所以，如果你需要 更快的执行速度，请使用其他方式重新安装Sass ！</p>
+</div><p>Mac OS X（通过Homebrew安装）<br />
+可以按照如下命令安装 Dart Sass：</p>
+<pre><div class="hljs"><code class="lang-sh">brew install sass/sass/sass
+</code></div></pre>
+<h3><a id="注释(Annotation)"></a>注释(Annotation)</h3>
+<p>正常编译后，多行注释会保留；压缩编译<code>--style compressed</code>，所有注释都会移除</p>
+<pre><code class="lang-scss">//这是单行注释
+/** 这是多行块注释 **/
+/*!
+　　重要注释！版权声明
+*/
+</code></pre>
+<p>多行注释后增加<code>!</code>为重要注视，即使压缩编译也会被保留；</p>
+<h3><a id="预处理(Preprocessing)"></a>预处理(Preprocessing)</h3>
+<p>最直接的方式就是在命令行中调用<code>sass</code>命令。安装Sass之后，你就可以用<code>sass</code>命令将Sass编译为CSS了。<br />
+首先你需要告诉Sass从哪个文件开始构建，以及将生成的 CSS 输出到哪里。</p>
+<pre><div class="hljs"><code class="lang-sh">sass input.scss output.css
+</code></div></pre>
+<p>还可以利用<code>--watch</code>参数来监视单个文件或目录;<code>--watch</code>参数告诉Sass监听源文件的变化，并在每次保存Sass文件时重新编译为CSS。</p>
+<pre><div class="hljs"><code class="lang-sh">sass --watch input.scss output.css
+</code></div></pre>
+<p>可以使用文件夹路径作为输入和输出， 并使用冒号分隔它们，来监听文件并输出到目录。</p>
+<pre><div class="hljs"><code class="lang-sh">sass --watch app/sass:public/css
+</code></div></pre>
+<p><code>--style</code> 参数提供输出风格：</p>
+<ul>
+<li><code>expanded</code>：默认格式，没有缩进、扩展的css代码。</li>
+<li><code>compressed</code>：压缩后的css代码,移除所有注释。</li>
+</ul>
+<pre><div class="hljs"><code class="lang-sh">sass --watch sass:css --style compressed
+</code></div></pre>
+<h3><a id="变量(Variables)"></a>变量(Variables)</h3>
+<p>Sass 使用<code>$</code>符号作为变量的标志。<br />
+变量是存储信息并在将来重复利用的一种方式，在整个样式表中都可访问。 你可以在变量中存储颜色、字体 或任何 CSS 值，并在将来重复利用。例如：<br />
+scss</p>
+<pre><div class="hljs"><code class="lang-css">$<span class="hljs-selector-tag">font-size</span><span class="hljs-selector-pseudo">:22px</span>;
+$<span class="hljs-selector-tag">font-color</span>:<span class="hljs-selector-id">#FFF</span>;
+$<span class="hljs-selector-tag">primary-color</span><span class="hljs-selector-pseudo">:teal</span>;
+<span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">color</span>: $font-color;
+    <span class="hljs-attribute">font-size</span>: $font-size;
+}
+</code></div></pre>
+<p>css</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#FFF</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">22px</span>;
+}
+</code></div></pre>
+<h3><a id="嵌套(Nesting)"></a>嵌套(Nesting)</h3>
+<p>在编写HTML时，您可能已经注意到它有一个清晰的嵌套和可视化层次结构，而CSS则没有。<br />
+Sass 允许您嵌套 CSS 选择器，嵌套方式 与 HTML 的视觉层次结构相同。<br />
+scss</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">nav</span> {
+  ul {
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">list-style</span>: none;
+  }
+
+  <span class="hljs-selector-tag">li</span> { <span class="hljs-attribute">display</span>: inline-block; }
+
+  <span class="hljs-selector-tag">a</span> {
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">text-decoration</span>: none;
+  }
+}
+</code></div></pre>
+<p>css</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">nav</span> <span class="hljs-selector-tag">ul</span> {
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">list-style</span>: none;
+}
+<span class="hljs-selector-tag">nav</span> <span class="hljs-selector-tag">li</span> {
+  <span class="hljs-attribute">display</span>: inline-block;
+}
+<span class="hljs-selector-tag">nav</span> <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">12px</span>;
+  <span class="hljs-attribute">text-decoration</span>: none;
+}
+</code></div></pre>
+<div class='tip-block warning'><span class='title'> 注意 </span><p>过度嵌套的规则 将导致过度限定的CSS，这些CSS可能很难维护，并且通常被认为是不好的做法。</p>
+</div><p>属性也可以嵌套，比如<code>border-color</code>属性，可以写成：<br />
+scss</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">p</span> {
+    <span class="hljs-attribute">border</span>: {
+        color: red;
+    }
+    &amp;<span class="hljs-selector-pseudo">:hover</span> {
+        <span class="hljs-attribute">background</span>: blue;
+    }
+}
+</code></div></pre>
+<p>css</p>
+<pre><code class="lang-">p {
+  border-color: red;
+}
+
+p:hover {
+  background: blue;
+}
+</code></pre>
+<div class='tip-block warning'><span class='title'> 注意 </span><p>border后面必须加上冒号;<br />
+在嵌套的代码块内，可以使用<code>&amp;</code>引用父元素。</p>
+</div><h3><a id="片段(Partials)"></a>片段(Partials)</h3>
+<p>你可以创建部分Sass文件，其中可以包含在其他Sass文件中的CSS片段，这是一个很好的方法来帮助你模块化CSS， 并保持css更容易维护。片段代码需要<code>_</code>开头命名文件名，sass会认为这是片段，不会生成对应的css文件；</p>
+<h3><a id="模块(Modules)"></a>模块(Modules)</h3>
+<p>你不必把所有的Sass都写在一个文件中。你可以用<code>@use</code>规则任意分割。此规则将另一个Sass文件作为模块加载，这意味着可以使用基于文件名的命名空间在Sass文件中引用其变量、mixin和函数。</p>
+<p>该<code>@use</code>规则是主要代替<code>@import</code>, 它使 CSS、变量、mixin 和来自另一个样式表的函数可在当前样式表中访问。默认情况下，变量、mixin 和函数在基于URL基本名称的命名空间中可用 。</p>
+<p>除了命名空间之外，<code>@use</code>和 之间还有一些重要的区别<code>@import</code>：</p>
+<ul>
+<li><code>@use</code>只执行一个样式表并包含它的CSS一次，无论该样式表被使用多少次。</li>
+<li><code>@use</code>仅使名称在当前样式表中可用，而不是全局可用。</li>
+<li>名称以<code>-</code>or<code>_</code>开头的成员对于带有<code>@use</code>的当前样式表是私有的</li>
+<li>如果样式表包含<code>@extend</code>，则该扩展只应用于它导入的样式表，而不应用于导入它的样式表。</li>
+</ul>
+<p>请注意，占位符选择器没有命名空间，但它们确实认为是私有的。参考：<a href="https://sass.bootcss.com/blog/the-module-system-is-launched" target="_blank">The Module System is Launched</a></p>
+<p>_footer.scss</p>
+<pre><div class="hljs"><code class="lang-css">$<span class="hljs-selector-tag">font-size</span><span class="hljs-selector-pseudo">:30px</span>;
+<span class="hljs-selector-class">.footer</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">color</span>: $primary-color; //错误，$primary-color访问不到
+}
+</code></div></pre>
+<p>scss</p>
+<pre><div class="hljs"><code class="lang-css">$<span class="hljs-selector-tag">font-size</span><span class="hljs-selector-pseudo">:22px</span>;
+$<span class="hljs-selector-tag">font-color</span>:<span class="hljs-selector-id">#FFF</span>;
+$<span class="hljs-selector-tag">primary-color</span><span class="hljs-selector-pseudo">:teal</span>;
+@<span class="hljs-keyword">use</span> <span class="hljs-string">'base'</span>;
+@<span class="hljs-keyword">use</span> <span class="hljs-string">'_footer'</span> as footer;
+<span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">width</span>: base.$width;
+    <span class="hljs-attribute">color</span>: $font-color;
+    <span class="hljs-attribute">font-size</span>: footer.$font-size;
+}
+</code></div></pre>
+<div class='tip-block warning'><span class='title'> 注意 </span><p>在<code>@use 'base';</code>中没有扩展名，这是不需要的，sass很聪明，它会帮我们解决</p>
+</div><h3><a id="混合(Mixins)"></a>混合(Mixins)</h3>
+<p>Mixins是Sass中的一个强大的功能。使用<code>@mixin</code>根据功能定义一个模块，然后在需要使用的地方通过<code>@include</code>来调用声明的mixins。</p>
+<p>scss</p>
+<pre><div class="hljs"><code class="lang-css">@<span class="hljs-keyword">mixin</span> css3($property, $value) {
+    @<span class="hljs-keyword">each</span> $prefix in -webkit-, -moz-, -ms-, -o-, <span class="hljs-string">''</span> {
+        #{$prefix}#{$property}: $<span class="hljs-selector-tag">value</span>;
+    }
+}
+
+<span class="hljs-selector-class">.border_radius</span> {
+    @include css3(transition, 0.5s);
+}
+</code></div></pre>
+<p>css</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-class">.border_radius</span> {
+    <span class="hljs-attribute">-webkit-transition</span>: <span class="hljs-number">0.5s</span>;
+    <span class="hljs-attribute">-moz-transition</span>: <span class="hljs-number">0.5s</span>;
+    <span class="hljs-attribute">-ms-transition</span>: <span class="hljs-number">0.5s</span>;
+    <span class="hljs-attribute">-o-transition</span>: <span class="hljs-number">0.5s</span>;
+    <span class="hljs-attribute">transition</span>: <span class="hljs-number">0.5s</span>;
+}
+</code></div></pre>
+<p>要创建mixin，请使用<code>@mixin</code>指令为其命名。我们还在括号内使用变量<code>$property</code>，这样我们就可以传递任何我们想要的转换。创建mixin之后，可以将其用作CSS声明，以<code>@include</code>开头，后跟mixin的名称。</p>
+<blockquote>
+<p><a href="http://compass-style.org/" target="_blank">Compass</a>是一个Sass的<code>mixins</code>库，里面包括了很多有用的功能模块，比如说<code>border-radius</code>和<code>box-shadow</code>等;<br />
+参考：SASS基础 <a href="https://www.w3cplus.com/preprocessor/ten-best-common-mixins.html" target="_blank">10个常见的Mixins</a>、<a href="https://www.w3cplus.com/preprocessor/css-shapes-reference-boxes.html" target="_blank">10个有用的Sass Mixins</a></p>
+</blockquote>
+<h3><a id="扩展(Extend)和继承(Inheritance)"></a>扩展(Extend)和继承(Inheritance)</h3>
+<p><code>@extend</code>是Sass的一项功能，它允许类彼此共享一组属性。 在Sass中<code>@extend</code>类的选择器将在其扩展的类旁边添加选择器，从而产生一个逗号分隔的列表。<br />
+scss</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-class">.block</span> {
+    <span class="hljs-attribute">color</span>: black;
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;
+}
+
+<span class="hljs-selector-class">.block</span> <span class="hljs-selector-tag">a</span> {
+    <span class="hljs-attribute">font-weight</span>: bold;
+}
+
+<span class="hljs-selector-class">.card</span> {
+    @extend .block;
+    <span class="hljs-attribute">background-color</span>: red;
+}
+</code></div></pre>
+<p>css</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-class">.block</span>, <span class="hljs-selector-class">.card</span> {
+  <span class="hljs-attribute">color</span>: black;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid black;
+}
+
+<span class="hljs-selector-class">.block</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-class">.card</span> <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-attribute">font-weight</span>: bold;
+}
+
+<span class="hljs-selector-class">.card</span> {
+  <span class="hljs-attribute">background-color</span>: red;
+}
+
+</code></div></pre>
+<p><code>@extend</code>优点:</p>
+<ul>
+<li>更干净HTML类</li>
+<li>减少CSS重复</li>
+<li>节省时间和精力</li>
+</ul>
+<div class='tip-block error'><span class='title'> 注意： </span><p><code>@extend</code>会大大增加CSS文件的大小，并且在不加保护的情况下影响CSS的性能。</p>
+</div><h3><a id="操作符(Operators)"></a>操作符(Operators)</h3>
+<p>在CSS中经常需要做数学计算。Sass 支持一些标准的<strong>数学运算符</strong>，例如<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>和<code>%</code>。在下面的例子中，我们将做一些简单的数学运算来计算出<code>aside</code>&amp;<code>article</code>的宽度。<br />
+scss</p>
+<pre><div class="hljs"><code class="lang-css">@<span class="hljs-keyword">use</span> <span class="hljs-string">'sass:math'</span>;
+<span class="hljs-selector-tag">article</span><span class="hljs-selector-attr">[role="main"]</span> {
+    <span class="hljs-attribute">float</span>: left;
+    <span class="hljs-attribute">width</span>: math.<span class="hljs-built_in">div</span>(600rpx, 960rpx) * <span class="hljs-number">100%</span>;
+}
+
+<span class="hljs-selector-tag">aside</span><span class="hljs-selector-attr">[role="complementary"]</span> {
+    <span class="hljs-attribute">float</span>: right;
+    <span class="hljs-attribute">width</span>: math.<span class="hljs-built_in">div</span>(330px, 960px) * <span class="hljs-number">100%</span>;
+}
+</code></div></pre>
+<p>css</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">article</span><span class="hljs-selector-attr">[role=main]</span> {
+  <span class="hljs-attribute">float</span>: left;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">62.5%</span>;
+}
+
+<span class="hljs-selector-tag">aside</span><span class="hljs-selector-attr">[role=complementary]</span> {
+  <span class="hljs-attribute">float</span>: right;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">34.375%</span>;
+}
+</code></div></pre>
+<p>上述代码创建了一个非常简单的流式网格，以<strong>960px</strong>作为基准。Sass中的内置模块和操作符让我们可以做一些比如将像素值转换为百分比的操作，并且使用起来非常简单。</p>
+<h2><a id="内置"></a>内置</h2>
+<h3><a id="模块(Modules)"></a>模块(Modules)</h3>
+<ul>
+<li><code>sass:math</code>模块提供对<a href="https://sass.bootcss.com/documentation/values/numbers" target="_blank">数字</a>进行操作的函数。</li>
+<li><code>sass:string</code> 模块提供对<a href="https://sass.bootcss.com/documentation/values/strings" target="_blank">字符串</a>进行操作的函数。</li>
+<li><code>sass:color</code>模块基于现有<a href="https://sass.bootcss.com/documentation/values/colors" target="_blank">颜色</a>生成新颜色，从而轻松构建颜色主题。</li>
+<li><code>sass:list</code>模块允许您访问和修改<a href="https://sass.bootcss.com/documentation/values/lists" target="_blank">列表</a>中的值。</li>
+<li><code>sass:map</code>模块可以在<a href="https://sass.bootcss.com/documentation/values/maps" target="_blank">map</a>中查找与键关联的值，等等。</li>
+<li><code>sass:selector</code>模块提供对Sass强大的<a href="https://sass.bootcss.com/documentation/modules/selector" target="_blank">选择器引擎</a>的访问。</li>
+<li><code>sass:meta</code>模块公开了 Sass<a href="https://sass.bootcss.com/documentation/modules/meta" target="_blank">内部工作</a>的细节。</li>
+</ul>
+<h3><a id="全局函数(Function)"></a>全局函数(Function)</h3>
+<h3><a id="HLS/HLSA"></a>HLS/HLSA</h3>
+<ul>
+<li>hsl($hue $saturation $lightness)</li>
+<li>hsl($hue $saturation $lightness / $alpha)</li>
+<li>hsl($hue, $saturation, $lightness, $alpha: 1)</li>
+<li>hsla($hue $saturation $lightness)</li>
+<li>hsla($hue $saturation $lightness / $alpha)</li>
+<li>hsla($hue, $saturation, $lightness, $alpha: 1) //alpha (0-1/0%-100%)</li>
+</ul>
+<p>scss</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">div</span> {
+    <span class="hljs-attribute">border-top</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">hsl</span>(210deg 100% 20%);
+    <span class="hljs-attribute">border-right</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">hsl</span>(210 100% 20%);
+    <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">hsla</span>(210deg 100% 20% / 60%);
+    <span class="hljs-attribute">border-left</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">hsla</span>(210deg, 100%, 20%, 60%);
+}
+</code></div></pre>
+<p>css</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">div</span> {
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">5px</span> solid <span class="hljs-number">#003366</span>;
+  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">5px</span> solid <span class="hljs-number">#003366</span>;
+  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgba</span>(0, 51, 102, 0.6);
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgba</span>(0, 51, 102, 0.6);
+}
+</code></div></pre>
+<h3><a id="RGB/RGBA"></a>RGB/RGBA</h3>
+<ul>
+<li>rgb($red $green $blue)</li>
+<li>rgb($red $green $blue / $alpha)</li>
+<li>rgb($red, $green, $blue, $alpha: 1)</li>
+<li>rgb($color, $alpha)</li>
+<li>rgba($red $green $blue)</li>
+<li>rgba($red $green $blue / $alpha)</li>
+<li>rgba($red, $green, $blue, $alpha: 1)</li>
+<li>rgba($color, $alpha) //=&gt; color</li>
+</ul>
+<p>scss</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">div</span> {
+    <span class="hljs-attribute">border-top</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgb</span>(210 21 210);
+    <span class="hljs-attribute">border-right</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgb</span>(210 21 210);
+    <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgba</span>(210 21 210 / 60%);
+    <span class="hljs-attribute">border-left</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgba</span>(210, 21, 210, 60%);
+}
+</code></div></pre>
+<p>css</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">div</span> {
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">5px</span> solid <span class="hljs-number">#d215d2</span>;
+  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">5px</span> solid <span class="hljs-number">#d215d2</span>;
+  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgba</span>(210, 21, 210, 0.6);
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">rgba</span>(210, 21, 210, 0.6);
+}
+
+</code></div></pre>
+<h3><a id="内置颜色函数"></a>内置颜色函数</h3>
+<pre><div class="hljs"><code class="lang-css">　　<span class="hljs-selector-tag">lighten</span>(<span class="hljs-selector-id">#cc3</span>, 10%) // <span class="hljs-selector-id">#d6d65c</span>
+　　<span class="hljs-selector-tag">darken</span>(<span class="hljs-selector-id">#cc3</span>, 10%) // <span class="hljs-selector-id">#a3a329</span>
+　　<span class="hljs-selector-tag">grayscale</span>(<span class="hljs-selector-id">#cc3</span>) // <span class="hljs-selector-id">#808080</span>
+　　<span class="hljs-selector-tag">complement</span>(<span class="hljs-selector-id">#cc3</span>) // <span class="hljs-selector-id">#33c</span>
+</code></div></pre>
+<h3><a id="IF"></a>IF</h3>
+<ul>
+<li>if($condition, $if-true, $if-false)</li>
+</ul>
+<p>如果<code>$condition</code>为<mark>truthy</mark>，则返回<code>$if(true)</code>，否则返回<code>$if(false)</code>。<br />
+此函数的特殊之处在于它甚至不计算未返回的参数，因此即使未使用的参数会引发错误，也可以安全地调用。<br />
+scss</p>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">font-size</span>: <span class="hljs-selector-tag">if</span>(<span class="hljs-selector-tag">true</span>, 20<span class="hljs-selector-tag">px</span>, 30<span class="hljs-selector-tag">px</span>);	//20<span class="hljs-selector-tag">px</span>
+<span class="hljs-selector-tag">font-size</span>: <span class="hljs-selector-tag">if</span>(<span class="hljs-selector-tag">false</span>, 20<span class="hljs-selector-tag">px</span>, 30<span class="hljs-selector-tag">px</span>);	//30<span class="hljs-selector-tag">px</span>
+<span class="hljs-selector-tag">font-size</span>: <span class="hljs-selector-tag">if</span>(<span class="hljs-selector-tag">null</span>, 20<span class="hljs-selector-tag">px</span>, 30<span class="hljs-selector-tag">px</span>);	//30<span class="hljs-selector-tag">px</span>
+<span class="hljs-selector-tag">font-size</span>: <span class="hljs-selector-tag">if</span>(2, 20<span class="hljs-selector-tag">px</span>, 30<span class="hljs-selector-tag">px</span>);		//20<span class="hljs-selector-tag">px</span>
+</code></div></pre>
+<h2><a id="控制指令"></a>控制指令</h2>
+<h3><a id="条件语句`if`、`if-else`"></a>条件语句<code>if</code>、<code>if-else</code></h3>
+<pre><div class="hljs"><code class="lang-css">　　<span class="hljs-selector-tag">p</span> {
+　　　　@if 1 + 1 == 2 { <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid; }
+　　　　@<span class="hljs-keyword">if</span> <span class="hljs-number">5</span> &lt; <span class="hljs-number">3</span> { <span class="hljs-selector-tag">border</span>: 2<span class="hljs-selector-tag">px</span> <span class="hljs-selector-tag">dotted</span>; }
+　　}
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">p</span> {
+    @if lightness($color) {
+        <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid;
+    } @<span class="hljs-keyword">else</span> {
+        <span class="hljs-selector-tag">border</span>: 2<span class="hljs-selector-tag">px</span> <span class="hljs-selector-tag">dotted</span>;
+    }
+}
+</code></div></pre>
+<h3><a id="循环语句`for`、`while`、`each`"></a>循环语句<code>for</code>、<code>while</code>、<code>each</code></h3>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">p</span> {
+    @for $i from 1 to 10 {
+        .border-#{$i} {
+            <span class="hljs-attribute">border</span>: #{$i}<span class="hljs-selector-tag">px</span> <span class="hljs-selector-tag">solid</span> <span class="hljs-selector-tag">blue</span>;
+        }
+    }
+}
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">p</span> {
+    $<span class="hljs-attribute">i</span>: <span class="hljs-number">6</span>;
+    @while $i&gt;0 {
+        .item-#{$i} {
+            <span class="hljs-attribute">width</span>: <span class="hljs-number">2em</span> * $i;
+        }
+        $<span class="hljs-selector-tag">i</span>: $<span class="hljs-selector-tag">i</span> <span class="hljs-selector-tag">-</span> 2;
+    }
+}
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-css">@<span class="hljs-keyword">mixin</span> css3($property, $value) {
+    @<span class="hljs-keyword">each</span> $prefix in -webkit-, -moz-, -ms-, -o-, <span class="hljs-string">''</span> {
+        #{$prefix}#{$property}: $<span class="hljs-selector-tag">value</span>;
+    }
+}
+</code></div></pre>
+<h3><a id="自定义函数`function`"></a>自定义函数<code>function</code></h3>
+<p>SASS允许用户编写自己的函数:</p>
+<pre><div class="hljs"><code class="lang-css">@<span class="hljs-keyword">function</span> double($n) {
+    @<span class="hljs-keyword">return</span> $n * <span class="hljs-number">2</span>;
+}
+
+<span class="hljs-selector-id">#sidebar</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-built_in">double</span>(5px);
+}
+</code></div></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>
