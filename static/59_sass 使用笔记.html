@@ -31,12 +31,12 @@
 </code></div></pre>
 <h3><a id="注释(Annotation)"></a>注释(Annotation)</h3>
 <p>正常编译后，多行注释会保留；压缩编译<code>--style compressed</code>，所有注释都会移除</p>
-<pre><code class="lang-scss">//这是单行注释
-/** 这是多行块注释 **/
-/*!
+<pre><div class="hljs"><code class="lang-scss"><span class="hljs-comment">//这是单行注释</span>
+<span class="hljs-comment">/** 这是多行块注释 **/</span>
+<span class="hljs-comment">/*!
 　　重要注释！版权声明
-*/
-</code></pre>
+*/</span>
+</code></div></pre>
 <p>多行注释后增加<code>!</code>为重要注视，即使压缩编译也会被保留；</p>
 <h3><a id="预处理(Preprocessing)"></a>预处理(Preprocessing)</h3>
 <p>最直接的方式就是在命令行中调用<code>sass</code>命令。安装Sass之后，你就可以用<code>sass</code>命令将Sass编译为CSS了。<br />
@@ -52,7 +52,7 @@
 <p><code>--style</code> 参数提供输出风格：</p>
 <ul>
 <li><code>expanded</code>：默认格式，没有缩进、扩展的css代码。</li>
-<li><code>compressed</code>：压缩后的css代码,移除所有注释。</li>
+<li><code>compressed</code>：压缩后的css代码,移除所有注释(强制注释除外)。</li>
 </ul>
 <pre><div class="hljs"><code class="lang-sh">sass --watch sass:css --style compressed
 </code></div></pre>
