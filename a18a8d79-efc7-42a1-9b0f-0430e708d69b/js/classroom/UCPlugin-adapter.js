@@ -1,4 +1,28 @@
 "use strict";
+
+
+// if (typeof Object.assign != 'function') {
+Object.assign = function(target) {
+    'use strict';
+    if (target == null) {
+        throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    target = Object(target);
+    for (var index = 1; index < arguments.length; index++) {
+        var source = arguments[index];
+        if (source != null) {
+            for (var key in source) {
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+    return target;
+};
+// }
+
 /********************************************************
  *      事件处理器
  *********************************************************/
@@ -57,6 +81,14 @@ function SocketClient() {
 
     //掉线重连提示
     this.element = document.createElement('span');
+    this.elementStyle = {
+        position: 'fixed',
+        bottom: '10px',
+        'font-size': '12px',
+        left: '10px',
+        display: 'none'
+    };
+
     // this.element.style = "position: fixed; bottom: 10px; font-size: 12px; left: 10px; display:none";
     Object.assign(this.element.style, {
         position: 'fixed',
@@ -65,6 +97,7 @@ function SocketClient() {
         left: '10px',
         display: 'none'
     });
+    // this.element.setAttribute('style', this.elementStyle);
     document.querySelector('body').appendChild(this.element);
 }
 
