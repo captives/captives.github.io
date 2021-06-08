@@ -281,7 +281,8 @@
             };
 
             //跨域设置
-            document.domain = (function getCurrentDomain() {
+            document.domain = window.location.hostname;
+            /*  (function getCurrentDomain() {
                 var host = window.location.hostname;
                 var occurrences = host.split('.');
                 var domain = '';
@@ -295,7 +296,7 @@
                 }
                 // console.log(domain);
                 return domain;
-            })();
+            })(); */
 
             if (iframe.attachEvent) {
                 iframe.attachEvent('onload', loadEvent);
