@@ -281,23 +281,21 @@
             };
 
             //跨域设置
-            if (typeof document == 'object') {
-                document.domain = (function getCurrentDomain() {
-                    var host = window.location.hostname;
-                    var occurrences = host.split('.');
-                    var domain = '';
+            document.domain = (function getCurrentDomain() {
+                var host = window.location.hostname;
+                var occurrences = host.split('.');
+                var domain = '';
 
-                    if (occurrences.length === 1) {
-                        domain = occurrences.join('.');
-                    } else if (occurrences.length === 2) {
-                        domain = occurrences.join('.');
-                    } else {
-                        domain = occurrences.splice(occurrences.length - 2).join('.');
-                    }
-                    // console.log(domain);
-                    return domain;
-                })();
-            }
+                if (occurrences.length === 1) {
+                    domain = occurrences.join('.');
+                } else if (occurrences.length === 2) {
+                    domain = occurrences.join('.');
+                } else {
+                    domain = occurrences.splice(occurrences.length - 2).join('.');
+                }
+                // console.log(domain);
+                return domain;
+            })();
 
             if (iframe.attachEvent) {
                 iframe.attachEvent('onload', loadEvent);
