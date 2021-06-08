@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>JavaScript Array 数组</title>
+</head>
+
+<body>
+    
+    <div class="content"><h1><a id="Array 数组"></a>Array 数组</h1>
+<h2><a id="数组去重 - indexOf()"></a>数组去重 - indexOf()</h2>
+<pre><code class="lang-js">const list = [2, 1, 3, 45, 5, 4, 3, 2, 4, 5];
+
+function distinct(list) {
+    for (let i = 0; i &lt; list.length; i++) {
+        //如果有相同的值,不同的索引,删除当前数据
+        if (list.indexOf(list[i]) != i) {
+            list.splice(i, 1); 
+            i--; //删除后索引回退
+        }
+    }
+    return list;
+}
+
+console.log('before', list);
+console.log('after', distinct(list));
+</code></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>
