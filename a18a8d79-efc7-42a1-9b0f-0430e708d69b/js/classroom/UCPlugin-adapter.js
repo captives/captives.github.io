@@ -63,7 +63,7 @@ function SocketClient() {
         bottom: '10px',
         'font-size': '12px',
         left: '10px',
-        display: none
+        display: 'none'
     });
     document.querySelector('body').appendChild(this.element);
 }
