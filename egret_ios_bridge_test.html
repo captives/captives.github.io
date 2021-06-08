@@ -71,9 +71,6 @@
             xhr.onloadend = function(e) {
                 console.log("vconsole.min.js loaded");
                 script.type = 'text/javascript';
-
-                // script.src = window.location.origin + "/js/libs/vconsole.min.js";
-                // script.text =  "var vConsole = new VConsole();vConsole.setSwitchPosition(0,200);";
                 script.text = xhr.responseText + ";var vConsole = new VConsole();";
             };
             xhr.send(null);
@@ -185,6 +182,17 @@
 
         function bridgeHandler(bridge) {
             var loadEvent = function(e) {
+                if (iframe.contentDocument) {
+                    console.log('插入调试工具 ->');
+                    const dom = iframe.contentDocument.getElementsByTagName('head');
+                    // const dom = el.contentWindow.document.getElementsByTagName('head');
+                    if (dom && dom.length > 0) {
+                        dom[0].appendChild(script);
+                    }
+                } else {
+                    console.log('iframe.contentDocument =null, 监听失败');
+                }
+
                 //方法注册
                 //页面交互许可
                 iframe.contentWindow.actionReply = function() {
@@ -318,22 +326,6 @@
                 } else {
                     alert('地址参数不合法');
                 }
-
-                setTimeout(() => {
-                    const el = document.getElementById('lessonFrame');
-                    if (el) {
-                        const dom = el.contentDocument.getElementsByTagName('head');
-                        // const dom = el.contentWindow.document.getElementsByTagName('head');
-                        if (dom && dom.length > 0) {
-                            dom[0].appendChild(script);
-                        }
-                    } else {
-                        console.log('没有iframe元素，无法监听');
-                    }
-                    console.log('插入调试工具 ->');
-                }, 1000)
-
-
                 console.log('load = ' + JSON.stringify(options));
                 responseCallback('success');
             });
