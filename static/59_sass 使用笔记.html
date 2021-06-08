@@ -271,7 +271,8 @@ scss</p>
 <li><code>sass:meta</code>模块公开了 Sass<a href="https://sass.bootcss.com/documentation/modules/meta" target="_blank">内部工作</a>的细节。</li>
 </ul>
 <h3><a id="全局函数(Function)"></a>全局函数(Function)</h3>
-<h3><a id="HLS/HLSA"></a>HLS/HLSA</h3>
+<h3><a id="HSL/HSLA"></a>HSL/HSLA</h3>
+<p>色相Hue、饱和度Saturation、亮度Lightness、透明度Alpha；</p>
 <ul>
 <li>hsl($hue $saturation $lightness)</li>
 <li>hsl($hue $saturation $lightness / $alpha)</li>
@@ -280,7 +281,15 @@ scss</p>
 <li>hsla($hue $saturation $lightness / $alpha)</li>
 <li>hsla($hue, $saturation, $lightness, $alpha: 1) //alpha (0-1/0%-100%)</li>
 </ul>
-<p>scss</p>
+<p>色相(H)是色彩的基本属性，就是平常所说的颜色名称，如红色、黄色等。</p>
+<p>色环上的0度、120度、240度位置，分别对应了RGB模型的红、绿、蓝三原色。原色两两混合形成了二次色。比如黄色（60度）就是由红色和绿色混合而成；蓝色和绿色则相加形成青色（180度）；品红（300度）则由红蓝两色组成。</p>
+<p>饱和度(S)是指色彩的纯度，饱和度越高色彩越纯越浓，饱和度越低则色彩变灰变淡，取0-100%的数值。</p>
+<p>亮度（Lightness）指的是色彩的明暗程度，亮度值越高，色彩越白，亮度越低，色彩越黑,取0-100%的数值。</p>
+<p>把色相（Hue）、饱和度（Saturation）和亮度（Lightness）三个属性整合到一个圆柱中，就形成了HSL色彩空间模型:<br />
+<img width="300" src="https://cms.qn.img-space.com/product/157/156/cepN1SXMSbQ.jpg"><br />
+HSL圆柱中的任意一个点，都对应了一种颜色。圆环上的度数代表了颜色的色相，离中轴的距离代表了颜色的饱和度，点的高度则对应了颜色的亮度。</p>
+<p>示例：<br />
+scss</p>
 <pre><div class="hljs"><code class="lang-css"><span class="hljs-selector-tag">div</span> {
     <span class="hljs-attribute">border-top</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">hsl</span>(210deg 100% 20%);
     <span class="hljs-attribute">border-right</span>: <span class="hljs-number">5px</span> solid <span class="hljs-built_in">hsl</span>(210 100% 20%);

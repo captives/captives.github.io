@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//coureware.uuabc.com">
+    <title>白鹭引擎ios设备桥接框架</title>
+    <style>
+        html,
+        body,
+        .fill {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        iframe {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="center fill">
+        <iframe id="lessonFrame" name="lessonFrame" allow="autoplay"></iframe>
+    </div>
+    </ul>
+    <script src="./js/libs/vconsole.min.js"></script>
+    <script>
+        if ('VConsole' in window && window.location.hash.indexOf('debug') != -1) {
+            var vConsole = new VConsole();
+        }
+
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                return callback(WebViewJavascriptBridge);
+            }
+            if (window.WVJBCallbacks) {
+                return window.WVJBCallbacks.push(callback);
+            }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe)
+            }, 0);
+        }
+
+        setupWebViewJavascriptBridge(bridgeHandler);
+
+        var iframe = document.querySelector("#lessonFrame");
+        //课件内部自动模式
+        var autoMode = false;
+        var url = '';
+
+        function bridgeHandler(bridge) {
+            var loadEvent = function(e) {
+                //方法注册
+                //页面交互许可
+                iframe.contentWindow.actionReply = function() {
+                    bridge.callHandler('actionReply', null, function(response) {
+                        console.log('JS # actionReply', response);
+                    });
+                    iframe.src = url;
+                };
+
+                //页面更改成功
+                iframe.contentWindow.callbackPageLoaded = function(single, action) {
+                    bridge.callHandler('callbackPageLoaded', {
+                        single: single,
+                        action: action
+                    }, function(response) {
+                        console.log('JS # callbackPageLoaded', response);
+                    });
+                };
+
+                //媒体数据
+                iframe.contentWindow.callbackInSoundPlay = function(mediaData) {
+                    bridge.callHandler('callbackInSoundPlay', mediaData, function(response) {
+                        console.log('JS # callbackInSoundPlay', response);
+                    });
+                };
+
+                //页面指令响应
+                iframe.contentWindow.callbackSendMsg = function(msg) {
+                    bridge.callHandler('callbackSendMsg', msg, function(response) {
+                        console.log('JS # callbackSendMsg', response);
+                    });
+                };
+
+                //加载进度
+                iframe.contentWindow.progressNum = function(num) {
+                    bridge.callHandler('progressNum', num, function(response) {
+                        console.log('JS #progressNum', response);
+                    });
+                };
+
+                //鼠标点击
+                iframe.contentWindow.mouseClick = function(x, y) {
+                    bridge.callHandler('mouseClick', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS #mouseClick', response);
+                    });
+                };
+
+                //鼠标按下
+                iframe.contentWindow.mouseDown = function(x, y) {
+                    bridge.callHandler('mouseDown', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS #mouseDown', response);
+                    });
+                };
+
+                //鼠标松开
+                iframe.contentWindow.mouseUp = function(x, y) {
+                    bridge.callHandler('mouseUp', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS #mouseUp', response);
+                    });
+                };
+
+                //鼠标移动
+                iframe.contentWindow.mouseMove = function(x, y) {
+                    bridge.callHandler('mouseMove', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS #mouseMove', response);
+                    });
+                };
+
+                //课件资源加载完成
+                iframe.contentWindow.callbackResLoaded = function(total) {
+                    autoMode = iframe.contentWindow.ucPlugin && iframe.contentWindow.ucPlugin.autoMode || false;
+                    console.log('callbackResLoaded = ' + total);
+
+                    bridge.callHandler('autoMode', autoMode, function(response) {
+                        console.log('JS #autoMode', response);
+                    });
+
+                    bridge.callHandler('callbackResLoaded', total, function(response) {
+                        console.log('JS #callbackResLoaded', response);
+                    });
+                }
+            };
+
+            //跨域设置
+            if (typeof document == 'object') {
+                document.domain = (function getCurrentDomain() {
+                    var host = window.location.hostname;
+                    var occurrences = host.split('.');
+                    var domain = '';
+
+                    if (occurrences.length === 1) {
+                        domain = occurrences.join('.');
+                    } else if (occurrences.length === 2) {
+                        domain = occurrences.join('.');
+                    } else {
+                        domain = occurrences.splice(occurrences.length - 2).join('.');
+                    }
+
+                    console.log(domain);
+                    return domain;
+                })();
+            }
+
+            if (iframe.attachEvent) {
+                iframe.attachEvent('onload', loadEvent);
+            } else {
+                iframe.onload = loadEvent;
+            }
+
+            //初始化加载
+            bridge.registerHandler('load', function(options, responseCallback) {
+                if (options instanceof Object) {
+                    if (options.guided) {
+                        url = options.src;
+                        iframe.src = '/loading.html';
+                    } else {
+                        iframe.src = options.src;
+                    }
+                } else if (options instanceof String) {
+                    iframe.src = options;
+                } else {
+                    alert('地址参数不合法');
+                }
+
+                console.log('load = ' + JSON.stringify(options));
+                responseCallback('success');
+            });
+
+            //响应交互
+            bridge.registerHandler('receiveMsg', function(msg) {
+                console.log('receiveMsg = ' + msg);
+                iframe.contentWindow.PageMgr.receiveMsg(msg);
+            });
+
+            //鼠标样式及偏移量
+            bridge.registerHandler('cursorIcon', function(cur) {
+                console.log('cursorIcon = ' + JSON.stringify(cur));
+                iframe.contentWindow.PageMgr.cursorIcon(cur.icon, Number(cur.offsetX), Number(cur.offsetY));
+            });
+
+            //用户类型
+            bridge.registerHandler('userType', function(userType) {
+                console.log('userType = ' + userType);
+                iframe.contentWindow.GlobalData.userType = parseInt(userType);
+            });
+
+            //媒体控制
+            bridge.registerHandler('isMute', function(muted) {
+                console.log('isMute = ' + muted);
+                iframe.contentWindow.GlobalData.isMute = muted;
+            });
+
+            //授权
+            bridge.registerHandler('hasAuthority', function(enabled) {
+                console.log('hasAuthority = ' + enabled);
+                iframe.contentWindow.GlobalData.hasAuthority(enabled);
+            });
+
+            //授权开
+            bridge.registerHandler('onHasAuthority', function() {
+                console.log('onHasAuthority = ' + true);
+                iframe.contentWindow.GlobalData.hasAuthority(true);
+            });
+
+            //授权关
+            bridge.registerHandler('offHasAuthority', function() {
+                console.log('offHasAuthority = ' + false);
+                iframe.contentWindow.GlobalData.hasAuthority(false);
+            });
+
+            //上一页
+            bridge.registerHandler('prevPage', function() {
+                console.log('prevPage = ');
+                if (autoMode) {
+                    iframe.contentWindow.ucPlugin.prevPage();
+                } else {
+                    iframe.contentWindow.PageMgr.prevPage();
+                }
+            });
+
+            //下一页
+            bridge.registerHandler('nextPage', function() {
+                console.log('nextPage = ');
+                if (autoMode) {
+                    iframe.contentWindow.ucPlugin.nextPage();
+                } else {
+                    iframe.contentWindow.PageMgr.nextPage();
+                }
+            });
+
+            //翻页
+            bridge.registerHandler('turnPage', function(page) {
+                console.log('turnPage = ' + page);
+                if (autoMode) {
+                    iframe.contentWindow.ucPlugin.changePage(parseInt(page));
+                } else {
+                    iframe.contentWindow.PageMgr.turnPage(parseInt(page));
+                }
+            });
+
+            //返回当前页
+            bridge.registerHandler('currentPage', function(data, callback) {
+                console.log('currentPage = ' + iframe.contentWindow.PageMgr['cur_page']);
+                callback(iframe.contentWindow.PageMgr['cur_page']);
+            });
+        }
+    </script>
+</body>
+
+</html>

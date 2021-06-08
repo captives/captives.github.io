@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//coureware.uuabc.com">
+    <title>白鹭引擎ios设备桥接框架测试</title>
+    <style>
+        html,
+        body,
+        .fill {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        iframe {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border: hidden;
+        }
+        
+        .vc-switch {
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="center fill">
+        <iframe id="lessonFrame" name="lessonFrame"></iframe>
+    </div>
+    <div style="z-index: 9999; position: absolute;width: 100%;bottom: 30px;">
+        <!-- <input id="urlInput" type="text" value="https://uutest2.uuabc.com/coursewares-uc/040f4e59-9d14-4a0d-89c8-e5b77556fcb4/v45/index.html?app_id=10001&room_id=17822&user_type=1&user_id=1909"> -->
+        <input id="urlInput" type="text" value="https://courseware.uuabc.com/coursewares-cms/a18a8d79-efc7-42a1-9b0f-0430e708d69b/v11/index.html?app_id=10001&room_id=343294&user_type=1&user_id=25631&avatar=https://sishu-qiniu.uuabc.com/upfiles/1719D109-CC60-41BC-BC2A-93E9B02B1CA5.jpg&name=test">
+        <input id="userInput" type="text" value="1">
+        <input id="loadBtn" type="button" value="加载...">
+        <input id="prevBtn" type="button" value="上一页">
+        <input id="nextBtn" type="button" value="下一页">
+
+        <input id="onAuthBtn" type="button" value="开启权限">
+        <input id="offAuthBtn" type="button" value="关闭权限">
+        <small id="authInfo"></small>
+    </div>
+    <script src="./js/libs/vconsole.min.js"></script>
+    <script>
+        var script = document.createElement('script');
+        if ('VConsole' in window && window.location.hash.indexOf('debug') != -1) {
+            var vConsole = new VConsole();
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "js/libs/vconsole.min.js", true);
+            xhr.onloadend = function(e) {
+                console.log("vconsole.min.js loaded");
+                script.type = 'text/javascript';
+
+                // script.src = window.location.origin + "/js/libs/vconsole.min.js";
+                // script.text =  "var vConsole = new VConsole();vConsole.setSwitchPosition(0,200);";
+                script.text = xhr.responseText + ";var vConsole = new VConsole();";
+            };
+            xhr.send(null);
+        }
+
+        function EventEmitter() {
+            this.events = {};
+        }
+
+        //绑定事件函数
+        EventEmitter.prototype.registerHandler = function(eventName, callback) {
+            this.events[eventName] = this.events[eventName] || [];
+            this.events[eventName].push(callback);
+        };
+
+        //解除绑定事件函数
+        EventEmitter.prototype.off = function(eventName) {
+            delete this.events[eventName];
+        };
+
+        //触发事件函数
+        EventEmitter.prototype.callHandler = function(eventName, _) {
+            var events = this.events[eventName];
+            var args = Array.prototype.slice.call(arguments, 1),
+                i, m;
+            if (!events) {
+                return;
+            }
+            for (i = 0, m = events.length; i < m; i++) {
+                events[i].apply(null, args);
+            }
+        };
+
+        var userType = 1;
+        window.onload = function(e) {
+            function Bridge() {};
+            Bridge.prototype = new EventEmitter();
+
+            var bridge = new Bridge();
+            bridgeHandler(bridge);
+            document.querySelector('#loadBtn').onclick = function(e) {
+                userType = userInput.value;
+                console.log(userType);
+                bridge.callHandler('load', {
+                    src: document.getElementById('urlInput').value,
+                    guided: false
+                }, function(data) {
+                    console.log('--------------' + data);
+                });
+            };
+
+            document.querySelector('#prevBtn').onclick = function(e) {
+                bridge.callHandler('prevPage');
+            };
+
+            document.querySelector('#nextBtn').onclick = function(e) {
+                bridge.callHandler('nextPage');
+            };
+
+            document.querySelector('#onAuthBtn').onclick = function(e) {
+                document.querySelector('#authInfo').innerHTML = "开启权限";
+                bridge.callHandler('hasAuthority', true);
+            };
+
+            document.querySelector('#offAuthBtn').onclick = function(e) {
+                document.querySelector('#authInfo').innerHTML = "关闭权限";
+
+                bridge.callHandler('hasAuthority', false);
+            };
+
+            bridge.registerHandler('autoMode', function(data) {
+                console.warn('autoMode', autoMode);
+            });
+
+            bridge.registerHandler('callbackResLoaded', function(total) {
+                console.log('--------------callbackResLoaded' + total);
+                bridge.callHandler('userType', userType);
+                bridge.callHandler('turnPage', 2);
+            });
+
+            bridge.registerHandler('callbackSendMsg', function(msg) {
+                bridge.callHandler('receiveMsg', msg);
+            });
+        };
+
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                return callback(WebViewJavascriptBridge);
+            }
+            if (window.WVJBCallbacks) {
+                return window.WVJBCallbacks.push(callback);
+            }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe)
+            }, 0);
+        }
+
+        setupWebViewJavascriptBridge(bridgeHandler);
+
+        var iframe = document.querySelector("#lessonFrame");
+        //课件内部自动模式
+        var autoMode = false;
+        var url = '';
+
+        function bridgeHandler(bridge) {
+            var loadEvent = function(e) {
+                //方法注册
+                //页面交互许可
+                iframe.contentWindow.actionReply = function() {
+                    bridge.callHandler('actionReply', null, function(response) {
+                        console.log('JS # actionReply', response);
+                    });
+                    iframe.src = url;
+                };
+
+                //页面更改成功
+                iframe.contentWindow.callbackPageLoaded = function(single, action) {
+                    bridge.callHandler('callbackPageLoaded', {
+                        single: single,
+                        action: action
+                    }, function(response) {
+                        console.log('JS got response # callbackPageLoaded', response);
+                    });
+                };
+
+                //媒体数据
+                iframe.contentWindow.callbackInSoundPlay = function(mediaData) {
+                    bridge.callHandler('callbackInSoundPlay', mediaData, function(response) {
+                        console.log('JS # callbackInSoundPlay', response);
+                    });
+                };
+
+                //页面指令响应
+                iframe.contentWindow.callbackSendMsg = function(msg) {
+                    bridge.callHandler('callbackSendMsg', msg, function(response) {
+                        console.log('JS got response # callbackSendMsg', response);
+                    });
+                };
+
+                //加载进度
+                iframe.contentWindow.progressNum = function(num) {
+                    bridge.callHandler('progressNum', num, function(response) {
+                        console.log('JS got response #progressNum', response);
+                    });
+                };
+
+                //鼠标点击
+                iframe.contentWindow.mouseClick = function(x, y) {
+                    bridge.callHandler('mouseClick', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS got response', response);
+                    });
+                };
+
+                //鼠标按下
+                iframe.contentWindow.mouseDown = function(x, y) {
+                    bridge.callHandler('mouseDown', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS got response', response);
+                    });
+                };
+
+                //鼠标松开
+                iframe.contentWindow.mouseUp = function(x, y) {
+                    bridge.callHandler('mouseUp', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS got response', response);
+                    });
+                };
+
+                //鼠标移动
+                iframe.contentWindow.mouseMove = function(x, y) {
+                    bridge.callHandler('mouseMove', {
+                        x: x,
+                        y: y
+                    }, function(response) {
+                        console.log('JS got response', response);
+                    });
+                };
+
+                //课件资源加载完成
+                iframe.contentWindow.callbackResLoaded = function(total) {
+                    autoMode = iframe.contentWindow.ucPlugin && iframe.contentWindow.ucPlugin.autoMode || false;
+                    console.log('callbackResLoaded = ' + total, autoMode);
+
+                    bridge.callHandler('autoMode', autoMode, function(response) {
+                        console.log('JS #autoMode', response);
+                    });
+
+                    bridge.callHandler('callbackResLoaded', total, function(response) {
+                        console.log('JS got response', response);
+                    });
+                }
+            };
+
+            //跨域设置
+            if (typeof document == 'object') {
+                document.domain = (function getCurrentDomain() {
+                    var host = window.location.hostname;
+                    var occurrences = host.split('.');
+                    var domain = '';
+
+                    if (occurrences.length === 1) {
+                        domain = occurrences.join('.');
+                    } else if (occurrences.length === 2) {
+                        domain = occurrences.join('.');
+                    } else {
+                        domain = occurrences.splice(occurrences.length - 2).join('.');
+                    }
+
+                    console.log(domain);
+                    return domain;
+                })();
+            }
+
+            if (iframe.attachEvent) {
+                iframe.attachEvent('onload', loadEvent);
+            } else {
+                iframe.onload = loadEvent;
+            }
+
+            //初始化加载
+            bridge.registerHandler('load', function(options, responseCallback) {
+                if (options instanceof Object) {
+                    if (options.guided) {
+                        url = options.src;
+                        iframe.src = '/loading.html';
+                    } else {
+                        iframe.src = options.src;
+                    }
+                } else if (options instanceof String) {
+                    iframe.src = options;
+                } else {
+                    alert('地址参数不合法');
+                }
+
+                setTimeout(() => {
+                    const el = document.getElementById('lessonFrame');
+                    if (el) {
+                        const dom = el.contentDocument.getElementsByTagName('head');
+                        // const dom = el.contentWindow.document.getElementsByTagName('head');
+                        if (dom && dom.length > 0) {
+                            dom[0].appendChild(script);
+                        }
+                    } else {
+                        console.log('没有iframe元素，无法监听');
+                    }
+                    console.log('插入调试工具 ->');
+                }, 1000)
+
+
+                console.log('load = ' + JSON.stringify(options));
+                responseCallback('success');
+            });
+
+            //响应交互
+            bridge.registerHandler('receiveMsg', function(msg) {
+                console.log('receiveMsg = ' + msg);
+                iframe.contentWindow.PageMgr.receiveMsg(msg);
+            });
+
+            //鼠标样式及偏移量
+            bridge.registerHandler('cursorIcon', function(cur) {
+                console.log('cursorIcon = ' + JSON.stringify(cur));
+                iframe.contentWindow.PageMgr.cursorIcon(cur.icon, Number(cur.offsetX), Number(cur.offsetY));
+            });
+
+            //用户类型
+            bridge.registerHandler('userType', function(userType) {
+                console.log('userType = ' + userType);
+                iframe.contentWindow.GlobalData.userType = parseInt(userType);
+            });
+
+            //媒体控制
+            bridge.registerHandler('isMute', function(muted) {
+                console.log('isMute = ' + muted);
+                iframe.contentWindow.GlobalData.isMute = muted;
+            });
+
+            //授权
+            bridge.registerHandler('hasAuthority', function(enabled) {
+                console.log('hasAuthority = ' + enabled);
+                iframe.contentWindow.GlobalData.hasAuthority(enabled);
+            });
+
+            //授权开
+            bridge.registerHandler('onHasAuthority', function() {
+                console.log('onHasAuthority = ' + true);
+                iframe.contentWindow.GlobalData.hasAuthority(true);
+            });
+
+            //授权关
+            bridge.registerHandler('offHasAuthority', function() {
+                console.log('offHasAuthority = ' + false);
+                iframe.contentWindow.GlobalData.hasAuthority(false);
+            });
+
+            //上一页
+            bridge.registerHandler('prevPage', function() {
+                console.log('prevPage = ');
+                if (autoMode) {
+                    iframe.contentWindow.ucPlugin.prevPage();
+                } else {
+                    iframe.contentWindow.PageMgr.prevPage();
+                }
+            });
+
+            //下一页
+            bridge.registerHandler('nextPage', function() {
+                console.log('nextPage = ');
+                if (autoMode) {
+                    iframe.contentWindow.ucPlugin.nextPage();
+                } else {
+                    iframe.contentWindow.PageMgr.nextPage();
+                }
+            });
+
+            //翻页
+            bridge.registerHandler('turnPage', function(page) {
+                console.log('turnPage = ' + page);
+                if (autoMode) {
+                    iframe.contentWindow.ucPlugin.changePage(parseInt(page));
+                } else {
+                    iframe.contentWindow.PageMgr.turnPage(parseInt(page));
+                }
+            });
+
+            //返回当前页
+            bridge.registerHandler('currentPage', function(data, callback) {
+                console.log('currentPage = ' + iframe.contentWindow.PageMgr['cur_page']);
+                callback(iframe.contentWindow.PageMgr['cur_page']);
+            });
+        }
+    </script>
+</body>
+
+</html>
