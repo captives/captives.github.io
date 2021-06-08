@@ -11,7 +11,7 @@ function EventEmitter() {
  * @param eventName
  * @param callback
  */
-EventEmitter.prototype.on = function (eventName, callback) {
+EventEmitter.prototype.on = function(eventName, callback) {
     this.events[eventName] = this.events[eventName] || [];
     this.events[eventName].push(callback);
 };
@@ -20,7 +20,7 @@ EventEmitter.prototype.on = function (eventName, callback) {
  * 解除绑定事件函数
  * @param eventName
  */
-EventEmitter.prototype.off = function (eventName) {
+EventEmitter.prototype.off = function(eventName) {
     delete this.events[eventName];
 };
 
@@ -29,9 +29,10 @@ EventEmitter.prototype.off = function (eventName) {
  * @param eventName
  * @param _
  */
-EventEmitter.prototype.emit = function (eventName, _) {
+EventEmitter.prototype.emit = function(eventName, _) {
     var events = this.events[eventName],
-        args = Array.prototype.slice.call(arguments, 1), i, m;
+        args = Array.prototype.slice.call(arguments, 1),
+        i, m;
     if (!events) {
         return;
     }
@@ -56,12 +57,19 @@ function SocketClient() {
 
     //掉线重连提示
     this.element = document.createElement('span');
-    this.element.style = "position: fixed; bottom: 10px; font-size: 12px; left: 10px; display:none";
+    // this.element.style = "position: fixed; bottom: 10px; font-size: 12px; left: 10px; display:none";
+    Object.assign(this.element.style, {
+        position: 'fixed',
+        bottom: '10px',
+        'font-size': '12px',
+        left: '10px',
+        display: none
+    });
     document.querySelector('body').appendChild(this.element);
 }
 
 SocketClient.prototype = new EventEmitter();
-SocketClient.prototype.connect = function (server) {
+SocketClient.prototype.connect = function(server) {
     Logger("UCPlugin", "socket 开始连接服务器", server);
 
     server.options = server.options || {};
@@ -70,12 +78,12 @@ SocketClient.prototype.connect = function (server) {
     var manager = {
         path: server.path,
         secure: true,
-        transports: ['websocket'],  // ['websocket', 'polling']
-        reconnection: true,                //启动自动连接
-        reconnectionAttempts: this.count,  //最大重试连接次数
-        reconnectionDelay: 2000,           //最初尝试新的重新连接等待时间
-        reconnectionDelayMax: 10000,       //最大等待重新连接,之前的2倍增长
-        timeout: 20000                     //
+        transports: ['websocket'], // ['websocket', 'polling']
+        reconnection: true, //启动自动连接
+        reconnectionAttempts: this.count, //最大重试连接次数
+        reconnectionDelay: 2000, //最初尝试新的重新连接等待时间
+        reconnectionDelayMax: 10000, //最大等待重新连接,之前的2倍增长
+        timeout: 20000 //
     };
 
     that.server = server;
@@ -85,13 +93,13 @@ SocketClient.prototype.connect = function (server) {
     this.connected = false;
     this.socket = io.connect(server.url, manager);
     //连接时触发
-    this.socket.on("connected", function () {
+    this.socket.on("connected", function() {
         console.log(that.server.url, "socket io connected success");
         that.socket.emit('authenticate', 'token');
     });
 
     //身份验证成功 authenticated
-    this.socket.on('authenticated', function () {
+    this.socket.on('authenticated', function() {
         that.save(server);
         console.log(that.server.url, 'authenticated');
         that.connected = true;
@@ -99,25 +107,29 @@ SocketClient.prototype.connect = function (server) {
     });
 
     //连接时发生错误
-    this.socket.on("connect_error", function (err) {
-        that.element.style.display = "block";
+    this.socket.on("connect_error", function(err) {
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
         console.error(that.server.url, "socket io", "connect error");
         that.connected = false;
         that.emit('error', "connect error");
     });
 
     //连接时超时
-    this.socket.on("connect_timeout", function () {
+    this.socket.on("connect_timeout", function() {
         Logger("UCPlugin", "socket 连接超时");
-        that.element.style.display = "block";
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
+
         that.element.innerText = "连接超时~";
         console.log(that.server.url, "socket io", "connect_timeout");
         that.connected = false;
     });
 
     //断开连接时触发
-    this.socket.on('disconnect', function () {
-        that.element.style.display = "block";
+    this.socket.on('disconnect', function() {
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
         that.element.innerText = "消息断开, 正在重连中....";
         that.isKoConnected = true;
         that.count--;
@@ -131,41 +143,46 @@ SocketClient.prototype.connect = function (server) {
     });
 
     //成功重连后触发,num连接尝试次数
-    this.socket.on('reconnect', function (num) {
-        that.element.style.display = "block";
+    this.socket.on('reconnect', function(num) {
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
         that.element.innerText = "消息断开, 正在重连中....";
         console.log(that.server.url, "socket io", 'reconnect', num);
     });
 
     //试图重新连接时触发
-    this.socket.on('reconnect_attempt', function () {
+    this.socket.on('reconnect_attempt', function() {
         console.log(that.server.url, "socket io", 'reconnect attempt');
     });
 
     //试图重新连接中触发, num连接尝试次数
-    this.socket.on('reconnecting', function (num) {
+    this.socket.on('reconnecting', function(num) {
         that.isKoConnected = true;
         console.log(that.server.url, "socket io", 'reconnecting', num);
         that.emit('reconnect', num, manager.reconnectionAttempts);
     });
 
     //重联尝试错误,err
-    this.socket.on('reconnect_error', function (err) {
+    this.socket.on('reconnect_error', function(err) {
         console.error(that.server.url, "socket io", 'reconnect error');
         that.connected = false;
     });
 
     //重连失败
-    this.socket.on('reconnect_failed', function () {
-        that.element.style.display = "block";
+    this.socket.on('reconnect_failed', function() {
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
+
         that.element.innerText = "连接失败....";
         console.log(that.server.url, "socket io", 'reconnect failed');
         that.connected = false;
         that.emit('close');
     });
 
-    this.socket.on('error', function (err) {
-        that.element.style.display = "block";
+    this.socket.on('error', function(err) {
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
+
         that.element.innerText = "服务器接入错误....";
         console.error(that.server.url, "socket io", 'error');
         that.connected = false;
@@ -174,7 +191,7 @@ SocketClient.prototype.connect = function (server) {
     this.attach(this.socket);
 };
 
-SocketClient.prototype.join = function (appid, roomId, userId, userType, info) {
+SocketClient.prototype.join = function(appid, roomId, userId, userType, info) {
     var that = this;
     this.joinData = {
         appid: appid,
@@ -189,64 +206,70 @@ SocketClient.prototype.join = function (appid, roomId, userId, userType, info) {
     this.socket.emit('join', this.joinData);
 }
 
-SocketClient.prototype.attach = function (socket) {
+SocketClient.prototype.attach = function(socket) {
     var that = this;
-    socket.on('enterSuccess', function (list) {
+    socket.on('enterSuccess', function(list) {
         Logger("UCPlugin", "socket 进入成功", list);
         list = list || [];
         that.emit('enterSuccess');
 
         console.log(that.server.url, 'enterSuccess', list);
-        list.forEach(function (item) {
+        list.forEach(function(item) {
             that.emit('userEnter', item.user_id, item.role, item.info || {});
         });
 
-        that.element.style.display = "none";
+        // that.element.style.display = "none";
+        Object.assign(that.element.style, { display: "none" });
+
         that.element.innerText = "";
     });
 
-    socket.on('enterReject', function (data) {
+    socket.on('enterReject', function(data) {
         Logger("UCPlugin", "socket 拒绝进入", data);
-        that.element.style.display = "block";
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
+
         that.element.innerText = "服务器拒绝接入....";
         console.warn(that.server.url, 'enterReject', data);
         that.emit('enterReject', data.code, data.message);
     });
 
-    socket.on('offline', function (data) {
+    socket.on('offline', function(data) {
         Logger("UCPlugin", "socket 掉线offline");
-        that.element.style.display = "block";
+        // that.element.style.display = "block";
+        Object.assign(that.element.style, { display: "block" });
+
         that.element.innerText = "已经掉线, 无服务....";
         console.log(that.server.url, 'offline', data);
         that.emit('offline', data.device, data.time);
     });
 
-    socket.on('userEnter', function (data) {
+    socket.on('userEnter', function(data) {
         Logger("UCPlugin", "socket 用户进入userEnter", data);
         console.log(that.server.url, 'userEnter', data);
         that.emit('userEnter', data.user_id, data.role, data.info || {});
     });
 
-    socket.on('userQuit', function (data) {
+    socket.on('userQuit', function(data) {
         Logger("UCPlugin", "socket 用户退出userQuit", data);
         console.log(that.server.url, 'userQuit', data);
         that.emit('userQuit', data.user_id, data.role, data.info || {});
     });
 
-    socket.on('share', function (data, user) {
+    socket.on('share', function(data, user) {
         console.warn('服务器返回', data, user);
         data.event ? that.emit('share', data.event, data.data || {}, user) : console.log('share', data);
     });
 };
 
-SocketClient.prototype.broadcast = function (event, data) {
+SocketClient.prototype.broadcast = function(event, data) {
     var that = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         if (that.connected) {
             that.socket.emit('share', {
                 event: event,
                 data: data
-            }, function (json) {
+            }, function(json) {
                 resolve(json);
             });
         }
@@ -256,7 +279,7 @@ SocketClient.prototype.broadcast = function (event, data) {
 /**
  * 报告
  */
-SocketClient.prototype.report = function (cam, mic, info) {
+SocketClient.prototype.report = function(cam, mic, info) {
     if (this.socket) {
         this.socket.emit('report', {
             type: 'user',
@@ -270,7 +293,7 @@ SocketClient.prototype.report = function (cam, mic, info) {
     }
 }
 
-SocketClient.prototype.reportError = function (info) {
+SocketClient.prototype.reportError = function(info) {
     if (this.socket) {
         this.socket.emit('report', {
             type: 'error',
@@ -285,14 +308,14 @@ SocketClient.prototype.reportError = function (info) {
 /**
  * 关闭远程消息传送
  */
-SocketClient.prototype.close = function () {
+SocketClient.prototype.close = function() {
     if (this.socket) {
         this.socket.close();
         console.log(this.server.url, "socket.io closed");
     }
 };
 
-SocketClient.prototype.init = function (id, list) {
+SocketClient.prototype.init = function(id, list) {
     this.cr_id = "cr_" + id;
     this.storageKey = 'uuabc_ws_cr';
     this.list = list || [];
@@ -301,7 +324,7 @@ SocketClient.prototype.init = function (id, list) {
 /**
  * 找到一个有效的socket
  */
-SocketClient.prototype.getSocketItem = function () {
+SocketClient.prototype.getSocketItem = function() {
     var data = window[this.storageKey] || null;
     try {
         data = window.localStorage && JSON.parse(window.localStorage.getItem(this.storageKey)) || null;
@@ -335,12 +358,12 @@ SocketClient.prototype.getSocketItem = function () {
 /**
  * 找到指定位置的下一个
  */
-SocketClient.prototype.nextSocketItem = function (item) {
+SocketClient.prototype.nextSocketItem = function(item) {
     var index = 0;
     this.list.forEach((opt, _index) => {
         if (item.id == opt.id) {
             index = _index + 1;
-            index = index >= this.list.length ? - 1 : index;
+            index = index >= this.list.length ? -1 : index;
         }
     });
 
@@ -348,7 +371,7 @@ SocketClient.prototype.nextSocketItem = function (item) {
     return this.list[index] || null;
 }
 
-SocketClient.prototype.save = function (item) {
+SocketClient.prototype.save = function(item) {
     const data = { id: this.cr_id, wid: item.id };
     try {
         console.log('save socket item', this.storageKey, data);
@@ -369,7 +392,7 @@ SocketClient.prototype.save = function (item) {
 
 function UCPlugin() {
     if (!('Logger' in window)) {
-        window.Logger = function () { }
+        window.Logger = function() {}
     }
     Logger("UCPlugin", "初始化 课件地址参数", location.href);
     //是否可以翻页控制按钮
@@ -387,14 +410,19 @@ function UCPlugin() {
     Object.assign(this, { company: this.queryGet('company_code') }, GlobalData);
 
     this.course = {
-        userType: GlobalData.userType, page: 1, total: 1, completed: false, auth: true,
-        firstEntry: false, history: null,
+        userType: GlobalData.userType,
+        page: 1,
+        total: 1,
+        completed: false,
+        auth: true,
+        firstEntry: false,
+        history: null,
     };
     GlobalData.hasAuthority(this.course.auth);
     Logger("UCPlugin", "初始化", this.course);
     //自动模式，提供socket和状态恢复
     Object.defineProperty(this, "autoMode", {
-        get: function () {
+        get: function() {
             return GlobalData.roomId && GlobalData.userId ? true : false;
         }
     });
@@ -403,7 +431,7 @@ function UCPlugin() {
     console.log('UCPlugin init', this.autoMode, GlobalData, this.course);
     if (this.autoMode) {
         Logger("UCPlugin", "同步模式", "进度状态 获取中", this.roomId);
-        this.getState(this.roomId).then(function (res) {
+        this.getState(this.roomId).then(function(res) {
             if (res.isSuccess) {
                 that.course.page = Number(res.result) || 1;
                 that.course.completed && that.changePage(that.course.page);
@@ -419,7 +447,7 @@ function UCPlugin() {
     }
 }
 
-UCPlugin.prototype.queryGet = function (name) {
+UCPlugin.prototype.queryGet = function(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = decodeURIComponent(window.location.search).substr(1).match(reg);
     if (r != null)
@@ -427,7 +455,7 @@ UCPlugin.prototype.queryGet = function (name) {
     return null;
 };
 
-UCPlugin.prototype.fetch = function (data, options) {
+UCPlugin.prototype.fetch = function(data, options) {
     // const url = "https://sit-cms-state-svc.51uuabc.com" + options.path;
     // var url = "https://sit-cms-gate.51uuabc.com" + options.path;
     // var url = "https://sit-cms-gate.51uuabc.com" + options.path;
@@ -437,8 +465,8 @@ UCPlugin.prototype.fetch = function (data, options) {
         var xhr = new XMLHttpRequest();
         xhr.open(options.method || 'POST', url, false);
         xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.onloadstart = () => { };
-        xhr.onprogress = (e) => { };
+        xhr.onloadstart = () => {};
+        xhr.onprogress = (e) => {};
         xhr.onload = () => {
             resolve(JSON.parse(xhr.response));
         }
@@ -451,7 +479,7 @@ UCPlugin.prototype.fetch = function (data, options) {
     });
 }
 
-UCPlugin.prototype.setState = function (key, value, expire) {
+UCPlugin.prototype.setState = function(key, value, expire) {
     if (this.autoMode) {
         console.log('UCPlugin setState ---- success', key, value);
         return this.fetch({ key: "CMS:" + key, value: value, expire: expire }, { path: '/state/set' });
@@ -460,7 +488,7 @@ UCPlugin.prototype.setState = function (key, value, expire) {
     }
 }
 
-UCPlugin.prototype.getState = function (key, type = 0, needParseJson = false) {
+UCPlugin.prototype.getState = function(key, type = 0, needParseJson = false) {
     if (this.autoMode) {
         console.log('UCPlugin getState ---- success', key);
         return this.fetch({ key: "CMS:" + key, type: type, needParseJson: needParseJson }, { path: '/state/get' });
@@ -470,7 +498,7 @@ UCPlugin.prototype.getState = function (key, type = 0, needParseJson = false) {
 }
 
 //适用多key
-UCPlugin.prototype.mgetState = function () {
+UCPlugin.prototype.mgetState = function() {
     const list = Array.prototype.slice.call(arguments);
     if (this.autoMode && list.length) {
         console.log('UCPlugin mgetState ---- success', list);
@@ -485,7 +513,7 @@ UCPlugin.prototype.mgetState = function () {
     value	是	string	value
     type	是	int	    0添加到首部 1添加尾部, 默认0
  */
-UCPlugin.prototype.pushState = function (key, value, type) {
+UCPlugin.prototype.pushState = function(key, value, type) {
     if (this.autoMode) {
         console.log('UCPlugin pushState ---- success');
         return this.fetch({ key: "CMS:" + key, value: value, type: type }, { path: '/state/push' });
@@ -500,7 +528,7 @@ UCPlugin.prototype.pushState = function (key, value, type) {
     stop	        是	int	    结束位置 默认 －1 ，返回全部
     needParseJson	否	boolean	是否需要转成object－json , 默认false
  */
-UCPlugin.prototype.lrangeState = function (key, startIndex, endIndex, needParseJson) {
+UCPlugin.prototype.lrangeState = function(key, startIndex, endIndex, needParseJson) {
     if (this.autoMode) {
         console.log('UCPlugin pushState ---- success');
         return this.fetch({ key: "CMS:" + key, start: startIndex, stop: endIndex, needParseJson: needParseJson }, { path: '/state/lrange' });
@@ -510,7 +538,7 @@ UCPlugin.prototype.lrangeState = function (key, startIndex, endIndex, needParseJ
 }
 
 /* 获取服务器时间 */
-UCPlugin.prototype.save = function (content, name) {
+UCPlugin.prototype.save = function(content, name) {
     if (this.autoMode) {
         return this.fetch({
             companyCode: this.company,
@@ -526,7 +554,7 @@ UCPlugin.prototype.save = function (content, name) {
 }
 
 /* 获取服务器时间 */
-UCPlugin.prototype.getServerTime = function () {
+UCPlugin.prototype.getServerTime = function() {
     if (this.autoMode) {
         return this.fetch({}, { path: '/healthcheck', method: "GET" });
     } else {
@@ -534,7 +562,7 @@ UCPlugin.prototype.getServerTime = function () {
     }
 }
 
-UCPlugin.prototype.addButton = function (label, callback) {
+UCPlugin.prototype.addButton = function(label, callback) {
     const imgData = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAAH7+Yj7AAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAKKADAAQAAAABAAAAKAAAAABZLkSWAAAE00lEQVRYCcWYQWhdRRSG32tjRbSiCUTMostSKuKiJaiL+JpFkdaFJZiN4MKN4MKFUopC8XURRDSIoZTSVVooSKTUglLcaBRbQQoKtqWIi5BFS7NQJC2Sphq/f94907n3zr3v3vcSe+Bkzpz5zz/nzsyde14ajUTW1tYm0OfVbeoPnbZak01CJJ2j3olxI+kMmTMaboPifc86zewkDMxt8qPNZjuxJ73TBtUqvEUrddIkws2uXoS7g2o05gHOF6V5EtQ/6OuGHghTllPTxNiLGL8mZgF9A3US5rgTz2Ti941mUMcD1WHKQZpX0WUAs7RebGq173tvYBijLWQUJLw9mPa7HRA401jMD2bcGM1ny/OMd3SMsRRQTERvY+xABthIAZUG4EVA52LAO6EzAf8c+rA/tuVpZwZSXaXkF1xMqdFO5zagj2R6YAgiqEVfWiZKeRqilRDkCSGRXbhBYVDEvgrxnPyOsGJGEZ60y60NZDqAb6WHcr0TgK/LC173yd4cInEM0Oo0F8knEP2lQYhGafYVAc2vg7NsnUj7eOBLHbLAnzJtDdspb77zBZn+IjeZPkvzYh7iPEtG+CDddwtAVd3uLDpCi2B2XSW6UurKFE+wqqAUYcgC+Tj9sdAX2EvYpyC5FficWUioUUh1RLajI6g2T0fnW4j+oI1KjhASrec76JZoxD2nu/nvdTtWihCyFm5pHTlCxmsW4Akh63VDxOVJ3WGFTDvby+5aYv5SsdOf+/IYsmqbLFdDnwsdj26yyjrpPm+XAFsa0+VQdNY0Lvkbog87ZvlfkhsUYZnomzptAAL8Wpkv0+4pI/wTsk8tALK22SXtiG1KDHPcnBXJBN9aRqi3xUmXzTCY2utlhFvI7LChE1L/Rpg/0/4mQt0cRbI53AhIjxQB5Wf8oghPlYGEq7iG+k77z+hB7Ifl6EM+IMMVt4YYrozog0xXmasgHGFCNNUjoaqGeYv115c5WK86jz8H2VWLVZsjlBPSR2heQ4fVj8j3EH0T8ccJY0D5kolGMXegRZMJGhMdz2voTyST+7jFAuSLPnEIJild5PvRfk9VSCv7NvpVdguyoGiCJPUAwANoP1+Z7FxlfZ2TsyTrao8QmEuQ5FoApPdDcpWDT5DEVH6oLF7vraz7oNr6GVbT3QsuQZLTW6bkutVGVSa7C+g8ehkdQl9G675QulaV5C1L8M0eSAhJiZ74NKSLoZeHf5T+26Gvor0E1zH98ld5WvcJwzm0JaqLb4ZO2XA/RTOR9VfsDys3lSCqnXsR/bI6SWK5OhviXYy9hPoz3ssExGxXgirs68osiS1kg5Ld2Jv199F3NddyDwRbC2LCj3EBpJZ7WcWKzsjTtcI6YL2tn7GSv2dj4dyNT1vcr/yqBKv8W6Bson8ZPEOiV7IguPXg+iL1urIzds2MQ9LtF0V2/lj/SxK9FA6Q5EP0D4W+irarcPxbBlGLQOl6yA+QXEAfQ3VRP4HWEf/J8wkqmiRVHEzWYdoAbKrITCWoyUhSvlfQ/6uS0bQSVTSfc0RSv31yCToof5JEX8BsmW+D2nl4v8smZnMVJmgAtSSrSuc5VJ/FfgsKFQIX0R9JylUs2IVSKcFYNEnrelLp/ySqi9sU0/3LSR8A6Q30GsnkPon4u8p/qbSQnZFb1FwAAAAASUVORK5CYII=';
     var button = document.createElement('span');
     button.onclick = callback;
@@ -543,7 +571,7 @@ UCPlugin.prototype.addButton = function (label, callback) {
     return button;
 }
 
-UCPlugin.prototype.prevPage = function () {
+UCPlugin.prototype.prevPage = function() {
     this.course.page -= 1;
     this.course.page = this.course.page < 1 ? 1 : this.course.page;
     Logger("UCPlugin", this.autoMode ? "同步模式" : "", "上一页 当前页面", this.course.page, "课件内页面", PageMgr.cur_page);
@@ -554,7 +582,7 @@ UCPlugin.prototype.prevPage = function () {
     }
 }
 
-UCPlugin.prototype.nextPage = function () {
+UCPlugin.prototype.nextPage = function() {
     this.course.page += 1;
     this.course.page = this.course.page <= this.course.total ? this.course.page : this.course.total;
     Logger("UCPlugin", this.autoMode ? "同步模式" : "", "下一页 当前页面", this.course.page, "课件内页面", PageMgr.cur_page);
@@ -565,7 +593,7 @@ UCPlugin.prototype.nextPage = function () {
     }
 }
 
-UCPlugin.prototype.changePage = function (page) {
+UCPlugin.prototype.changePage = function(page) {
     page = Number(page);
     var that = this;
     Logger("UCPlugin", this.autoMode ? "同步模式" : "", "课件加载状态", this.course.completed, "切换页面 当前页面", this.course.page, "课件内页面", PageMgr.cur_page);
@@ -586,7 +614,7 @@ UCPlugin.prototype.changePage = function (page) {
         }
 
         Logger("UCPlugin", "同步模式", "获取", that.course.page, "页状态");
-        that.getState([that.roomId, that.course.page].join('-')).then(function (res) {
+        that.getState([that.roomId, that.course.page].join('-')).then(function(res) {
             if (res.isSuccess) {
                 that.course.history = res.result;
                 console.warn('changePage history', page, JSON.parse(that.course.history));
@@ -600,7 +628,7 @@ UCPlugin.prototype.changePage = function (page) {
     }
 }
 
-UCPlugin.prototype.callbackResLoaded = function (total, callback) {
+UCPlugin.prototype.callbackResLoaded = function(total, callback) {
     const that = this;
     this.course.total = total;
     this.course.completed = true;
@@ -617,10 +645,10 @@ UCPlugin.prototype.callbackResLoaded = function (total, callback) {
         }
 
         Logger("UCPlugin", "获取服务配置信息(/state/info)");
-        this.fetch({}, { path: '/state/info' }).then(function (res) {
+        this.fetch({}, { path: '/state/info' }).then(function(res) {
             Logger("UCPlugin", "服务配置信息 获取成功", res);
             if (res.isSuccess) {
-                if ('loadScript' in that) {//启用socket 服务
+                if ('loadScript' in that) { //启用socket 服务
                     Logger("UCPlugin", "启用socket,加载socket插件");
                     that.loadScript('js/socket.io/socket.io.slim.js', that.socketHandler.bind(that, res.result, callback));
                 } else {
@@ -631,7 +659,7 @@ UCPlugin.prototype.callbackResLoaded = function (total, callback) {
                 console.log('互动服务数据请求失败, 互动服务已停用');
             }
             console.log(res);
-        }).catch(function (error) {
+        }).catch(function(error) {
             Logger("UCPlugin", "服务配置信息 获取失败", error);
             console.log('互动服务数据请求失败, 互动服务已停用');
         });
@@ -640,12 +668,13 @@ UCPlugin.prototype.callbackResLoaded = function (total, callback) {
     }
 }
 
-UCPlugin.prototype.callbackPageLoaded = function (single, action) {
+UCPlugin.prototype.callbackPageLoaded = function(single, action) {
     console.warn('callbackPageLoaded', single, action, this.course);
     this.course.single = single;
     this.course.action = action;
 
     const that = this;
+
     function recovery() {
         const history = that.course.history;
         if (that.course.page == PageMgr['cur_page']) {
@@ -675,7 +704,7 @@ UCPlugin.prototype.callbackPageLoaded = function (single, action) {
     this.course.firstEntry = false;
 }
 
-UCPlugin.prototype.callbackSendMsg = function (msg) {
+UCPlugin.prototype.callbackSendMsg = function(msg) {
     if (msg) {
         this.mockAction(msg);
         this.autoMode && this.client.broadcast('action', msg);
@@ -683,18 +712,18 @@ UCPlugin.prototype.callbackSendMsg = function (msg) {
     }
 };
 
-UCPlugin.prototype.callbackSendInfo = function (html) {
+UCPlugin.prototype.callbackSendInfo = function(html) {
     console.log(html);
 };
 
-UCPlugin.prototype.mockAction = function (msg) {
+UCPlugin.prototype.mockAction = function(msg) {
     if (this.course.completed && msg) {
         console.warn('receiveMsg', JSON.parse(msg));
         PageMgr.receiveMsg(msg);
     }
 };
 
-UCPlugin.prototype.socketHandler = function (data, callback) {
+UCPlugin.prototype.socketHandler = function(data, callback) {
     const that = this;
     Logger("UCPlugin", "socket插件 加载完成", data.websocket ? "支持socket" : "不支持socket", " 初始化socket服务", data);
     var client = this.client = new SocketClient();
@@ -705,16 +734,16 @@ UCPlugin.prototype.socketHandler = function (data, callback) {
 
     client.init(that.roomId, data.websocket);
 
-    client.on('connected', function () {
+    client.on('connected', function() {
         Logger("UCPlugin", "socket 连接成功,注入验证信息");
         client.join(that.company, that.roomId, that.user.id, that.user.type, that.user);
     });
 
-    client.on("enterReject", function (code, info) {
+    client.on("enterReject", function(code, info) {
         alert(code + "\n" + info);
     });
 
-    client.on("enterSuccess", function () {
+    client.on("enterSuccess", function() {
         Logger("UCPlugin", "socket 连接成功,验证信息通过");
         callback && callback();
         that.course.firstEntry = true;
@@ -726,18 +755,18 @@ UCPlugin.prototype.socketHandler = function (data, callback) {
         }
     });
 
-    client.on('userEnter', function (userId, userType, info) {
+    client.on('userEnter', function(userId, userType, info) {
         if (that.course.userType == 2) {
             Logger("UCPlugin", "socket 老师进入, 老师发送翻页指令", that.course.page);
             that.client.broadcast('page', { page: that.course.page, total: that.course.total, reset: 1 });
         }
     });
 
-    client.on('userQuit', function (userId, userType, info) {
+    client.on('userQuit', function(userId, userType, info) {
 
     });
 
-    client.on('share', function (event, value, user) {
+    client.on('share', function(event, value, user) {
         switch (event) {
             case 'page':
                 Logger("UCPlugin", "socket 接收翻页指令", value);
@@ -751,19 +780,20 @@ UCPlugin.prototype.socketHandler = function (data, callback) {
                     that.mockAction(value);
                 }
                 break;
-            default: {
-                console.log('event', event, value, user);
-            }
+            default:
+                {
+                    console.log('event', event, value, user);
+                }
         }
     });
 
-    client.on('close', function () {
+    client.on('close', function() {
         Logger("UCPlugin", "socket 断开");
         that.course.firstEntry = false;
         client.close();
         const ws = client.nextSocketItem(client.server);
         if (ws) {
-            setTimeout(function () {
+            setTimeout(function() {
                 Logger("UCPlugin", "socket 更换地址重连服务", ws);
                 client.connect(ws);
             }, 500);
@@ -772,7 +802,7 @@ UCPlugin.prototype.socketHandler = function (data, callback) {
         }
     });
 
-    client.on('error', function (err) {
+    client.on('error', function(err) {
         Logger("UCPlugin", "socket 连接错误", err);
         that.course.firstEntry = false;
         client.close();
