@@ -11,6 +11,9 @@ import Lottie from "./../components/Lottie";
 import QRCode from "./../components/QRCode.vue";
 import SearchBar from "./../components/SearchBar.vue";
 import DebuggerPopover from "./../components/DebuggerPopover.vue";
+
+import BaiduTts from '@/components/BaiduTts.vue';
+
 import { fetch } from "./common";
 
 const global = {
@@ -25,6 +28,8 @@ const global = {
         Vue.component("search-bar", SearchBar);
         Vue.component("qr-code", QRCode);
         Vue.component("vue-debugger", DebuggerPopover);
+
+        Vue.component('vue-tts', BaiduTts);
 
         Vue.prototype.$fetch = fetch;
         Vue.prototype.$videoList = [

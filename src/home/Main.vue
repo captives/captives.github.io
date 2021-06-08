@@ -14,6 +14,7 @@
         </el-header>
         <router-view />
         <vue-debugger class="debug-btn" v-if="isDebug"></vue-debugger>
+        <vue-tts value="Hello"></vue-tts>
     </el-container>
 </template>
 <script>

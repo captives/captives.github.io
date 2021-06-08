@@ -1,5 +1,8 @@
 <template>
     <el-main>
+        <h3>站点导航</h3>
+        <el-tree :data="routes" :props="{ label: 'name' }" @node-click="handleNodeClick"></el-tree>
+
         <p>
             tree 自定义节点内容
             <el-button type="text" size="mini" @click="append()">新增</el-button>
@@ -74,10 +77,13 @@ const data = [
         ],
     },
 ];
+import router from "@/router";
+
 export default {
     name: "VETree",
     data() {
         return {
+            routes: router,
             data: JSON.parse(JSON.stringify(data)),
         };
     },

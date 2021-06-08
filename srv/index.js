@@ -38,4 +38,3 @@ const httpsServer = https.createServer(options, app).listen(2020, (req, res) => 
 });
 
 const config = require('./config');
-console.dir(config);
