@@ -58,13 +58,18 @@ sass --watch sass:css --style compressed
 
 ### 变量(Variables)
 Sass 使用`$`符号作为变量的标志。
-变量是存储信息并在将来重复利用的一种方式，在整个样式表中都可访问。 你可以在变量中存储颜色、字体 或任何 CSS 值，并在将来重复利用。例如：
+变量是存储信息并在将来重复利用的一种方式，在整个样式表中都可访问。 
+在样式表顶层声明的变量是全局的,在块中声明的变量，只能在它们声明的块内访问；
+
+你可以在变量中存储颜色、字体 或任何 CSS 值，并在将来重复利用。例如：
 scss
 ```css
 $font-size:22px;
 $font-color:#FFF;
 $primary-color:teal;
 body {
+    $font-color:red;
+
     width: 100%;
     color: $font-color;
     font-size: $font-size;
@@ -74,10 +79,39 @@ css
 ```css
 body {
   width: 100%;
-  color: #FFF;
+  color: red;
   font-size: 22px;
 }
 ```
+如果需要在局部范围内（例如在`mixin`中）设置全局变量的值，则可以使用`!global`标志,标记`!global`的变量将始终分配给全局；
+scss
+```css
+$variable: first global value;
+
+.content {
+  $variable: second global value !global;
+  value: $variable;
+}
+
+.sidebar {
+  value: $variable;
+}
+```
+css
+```css
+.content {
+  value: second global value;
+}
+
+.sidebar {
+  value: second global value;
+}
+```
+
+
+Sass核心库提供了一组用于处理变量的高级函数：
+- `meta.variable-exists` 该函数返回具有给定名称的变量是否存在于当前作用域中；
+- `meta.global-variable-exists` 该函数执行相同的操作但仅针对全局作用域。
 
 ### 嵌套(Nesting)
 在编写HTML时，您可能已经注意到它有一个清晰的嵌套和可视化层次结构，而CSS则没有。
@@ -147,6 +181,166 @@ border后面必须加上冒号;
 在嵌套的代码块内，可以使用`&`引用父元素。
 :::
 
+#### @at-root
+Sass 3.3.0中新增的功能，用来跳出选择器嵌套, 摆脱样式规则。
+默认所有的嵌套，继承所有上级选择器，但有了这个就可以跳出所有上级选择器。
+:::more 示例
+scss
+```css
+//没有跳出
+.parent-1 {
+    color:#f00;
+    .child {
+        width:100px;
+    }
+}
+
+//单个选择器跳出
+.parent-2 {
+    color:#f00;
+    @at-root .child {
+        width:200px;
+    }
+}
+
+//多个选择器跳出
+.parent-3 {
+    background:#f00;
+    @at-root {
+        .child1 {
+            width:300px;
+        }
+        .child2 {
+            width:400px;
+        }
+    }
+}
+```
+css
+```css
+.parent-1 {
+  color: #f00;
+}
+
+.parent-1 .child {
+  width: 100px;
+}
+
+.parent-2 {
+  color: #f00;
+}
+
+.child {
+  width: 200px;
+}
+
+.parent-3 {
+  background: #f00;
+}
+
+.child1 {
+  width: 300px;
+}
+
+.child2 {
+  width: 400px;
+}
+```
+:::
+#### @at-root(without:…)和@at-root(with:…)
+默认`@at-root`只会跳出选择器嵌套，而不能跳出`@media`或`@support`，如果要跳出这两种，则需使用`@at-root(without:media)`，`@at-root(without:support)`。这个语法的关键词有四个：
+- 1、all（表示所有）
+- 2、rule（默认值，表示常规css）
+- 3、media（表示media）
+- 4、support（表示support，因为@support目前还无法广泛使用，所以在此不表）。
+:::more 示例
+scss
+```css
+/*跳出父级元素嵌套*/
+@media print {
+    .parent1{
+        color:#f00;
+        @at-root .child1 {
+            width:200px;
+        }
+    }
+}
+
+/*跳出media嵌套，父级有效*/
+@media print {
+    .parent2{
+        color:#f00;
+        @at-root (without: media) {
+            .child2 {
+                width:200px;
+            }
+        }
+    }
+}
+
+/*跳出media和父级*/
+@media print {
+    .parent3{
+        color:#f00;
+        @at-root (without: all) {
+            .child3 {
+                width:200px;
+            }
+        }
+    }
+}
+```
+css
+```css
+@charset "UTF-8";
+/*跳出父级元素嵌套*/
+@media print {
+  .parent1 {
+    color: #f00;
+  }
+  .child1 {
+    width: 200px;
+  }
+}
+
+/*跳出media嵌套，父级有效*/
+@media print {
+  .parent2 {
+    color: #f00;
+  }
+}
+
+.child2 {
+  width: 200px;
+}
+
+/*跳出media和父级*/
+@media print {
+  .parent3 {
+    color: #f00;
+  }
+}
+
+.child3 {
+  width: 200px;
+}
+:::
+
+#### @at-root与&
+scss
+```css
+.child{
+    @at-root .parent &{
+        color:#f00;
+    }
+}
+```
+css
+```css
+.parent .child {
+  color: #f00;
+}
+```
 
 ### 片段(Partials)
 你可以创建部分Sass文件，其中可以包含在其他Sass文件中的CSS片段，这是一个很好的方法来帮助你模块化CSS， 并保持css更容易维护。片段代码需要`_`开头命名文件名，sass会认为这是片段，不会生成对应的css文件；

@@ -61,7 +61,7 @@ export default {
             });
         },
         selecteItem(data) {
-            const url = data.value && data.value.indexOf("src/") == -1 ? "src/" + data.value : data.value;
+            const url = data.value && data.value.indexOf("src") == -1 ? "src/" + data.value : data.value;
             this.fetch(url).then((code) => {
                 this.selectItem = data;
                 this.drawerVisible = this.drawed;

@@ -39,6 +39,11 @@ export default {
             selectValue: null,
         };
     },
+    watch: {
+        value(_value) {
+            this.keyword = _value;
+        },
+    },
     mounted() {
         if (this.list.length) {
             this.selectValue = this.list[0].value;

@@ -1,7 +1,7 @@
 <template>
     <div class="hello">
         <h1>{{ msg }}</h1>
-        <search-bar style="max-width:50%" placeholder="请输入关键字" clearable @change="searchChangeHandler"></search-bar>
+        <search-bar v-model="keyword" style="width:100%; max-width:750px" placeholder="请输入关键字" clearable @change="searchChangeHandler"></search-bar>
         <h3>安装</h3>
         <ul>
             <li>
@@ -105,9 +105,15 @@ export default {
     props: {
         msg: String,
     },
+    data() {
+        return {
+            keyword: "tea",
+        };
+    },
     methods: {
         searchChangeHandler(url) {
             window.open(url);
+            this.keyword = "";
         },
     },
 };

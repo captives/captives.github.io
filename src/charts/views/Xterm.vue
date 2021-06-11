@@ -91,10 +91,16 @@ export default {
 <style lang="stylus" scoped>
 .fill {
     height: 100%;
+    position: relative;
 
     >>> .terminal {
         outline: none;
-        padding: 20px;
+        padding: 20px 10px 0 20px;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
     }
 }
 </style>

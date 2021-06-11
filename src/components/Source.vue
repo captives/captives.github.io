@@ -42,7 +42,7 @@ export default {
     },
     mounted() {
         if (this.src) {
-            const src = this.src.indexOf("srv/") == -1 ? "src" + this.src : this.src;
+            const src = this.src.indexOf("srv") == -1 ? "src/" + this.src : this.src;
             this.fetch(src).then((code) => {
                 this.code = code;
             });
