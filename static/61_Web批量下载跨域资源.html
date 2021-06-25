@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>Web批量下载跨域资源</title>
+</head>
+
+<body>
+    
+    <div class="content"><h1><a id="资源下载"></a>资源下载</h1>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">downFile</span>(<span class="hljs-params">url, callback</span>) </span>{
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"file"</span>, url);
+            <span class="hljs-keyword">var</span> x = <span class="hljs-keyword">new</span> XMLHttpRequest();
+            x.open(<span class="hljs-string">"GET"</span>, url, <span class="hljs-literal">true</span>);
+            x.responseType = <span class="hljs-string">"blob"</span>;
+            x.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"onload"</span>, x.response);
+                callback(<span class="hljs-built_in">window</span>.URL.createObjectURL(x.response));
+            };
+            x.send();
+        }
+
+        <span class="hljs-built_in">window</span>.run = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">index, node</span>) </span>{
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"run"</span>, index, node);
+            <span class="hljs-keyword">var</span> url = node.getAttribute(<span class="hljs-string">"src"</span>);
+            <span class="hljs-keyword">const</span> link = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"a"</span>);
+            link.style.display = <span class="hljs-string">"none"</span>;
+            <span class="hljs-comment">//url.substring(url.lastIndexOf("/") + 1, url.length)//原文件名</span>
+            link.download = [index + <span class="hljs-number">1</span>, url.substring(url.lastIndexOf(<span class="hljs-string">"."</span>) + <span class="hljs-number">1</span>, url.length)].join(<span class="hljs-string">"."</span>);
+            <span class="hljs-built_in">document</span>.body.appendChild(link);
+            <span class="hljs-built_in">console</span>.log(index, url);
+            setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+                downFile(url, (src) =&gt; {
+                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"src "</span>, src);
+                    link.href = src;
+                    link.click();
+                    link.remove();
+                });
+            }, index * <span class="hljs-number">500</span>);
+        };
+</code></div></pre>
+<p>示例：<a href="www.zcool.com.cn" target="_blank">站酷</a></p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">".reveal-work-wrap img"</span>).forEach(<span class="hljs-function">(<span class="hljs-params">node, index</span>) =&gt;</span> run(index, node));
+</code></div></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>

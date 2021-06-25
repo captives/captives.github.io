@@ -196,7 +196,7 @@ list.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&
 <span class="hljs-built_in">console</span>.log(distinct(list)); <span class="hljs-comment">//[ 2, 1, 3, 45, 5, 4 ]</span>
 </code></div></pre>
 <h2><a id="排序"></a>排序</h2>
-<h3><a id="普通排序"></a>普通排序</h3>
+<h3><a id="普通排序(Sort)"></a>普通排序(Sort)</h3>
 <pre><div class="hljs"><code class="lang-js">list.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b); <span class="hljs-comment">// 正序</span>
 list.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> b - a); <span class="hljs-comment">// 倒序</span>
 </code></div></pre>
@@ -222,6 +222,34 @@ list.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&
     }
 }
 </code></div></pre>
+<h3><a id="选择排序(Selection Sort)"></a>选择排序(Selection Sort)</h3>
+<p>选择排序是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。<br />
+<img src="/assets/array/2_selection_sort.gif" alt="选择排序(Selection Sort)" /></p>
+<p><mark>n</mark>个记录的直接可经过<mark>n-1</mark>趟直接得到有序结果。</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sort</span>(<span class="hljs-params">list</span>) </span>{
+    <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>; <span class="hljs-comment">//最小数的索引</span>
+    <span class="hljs-comment">// 待排序数组</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> k = <span class="hljs-number">0</span>; k &lt; list.length; k++) {
+        index = k;
+        <span class="hljs-comment">// 未排序序列</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = k + <span class="hljs-number">1</span>; i &lt; list.length; i++) {
+            <span class="hljs-keyword">if</span> (list[i] &lt; list[index]) {
+                index = i;
+            }
+        }
+
+        <span class="hljs-keyword">let</span> temp = list[index]; <span class="hljs-comment">//最小的数</span>
+        list[index] = list[k];
+        list[k] = temp;
+    }
+}
+</code></div></pre>
+<p>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n2)的时间复杂度，所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了吧。</p>
+<h3><a id="插入排序(Insertion Sort)"></a>插入排序(Insertion Sort)</h3>
+<p>插入排序的算法是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。</p>
+<p><img src="/assets/array/3_insertion_sort.gif" alt="插入排序(Insertion Sort)" /></p>
+<hr />
+<p><a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank">十大经典排序算法</a></p>
 </div>
 </body>
 <script src="/js/prism.js"></script>

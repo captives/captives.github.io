@@ -6,7 +6,7 @@ const async = require('async');
 
 const host = "https://xxjc.fun";
 const path = "/auth/login";
-const options = { headless: false }
+const options = { headless: true }
 
 let browser = null;
 const worker = (item) => {
@@ -57,6 +57,7 @@ const worker = (item) => {
 
 const run = (list) => {
     return new Promise(async(resolve, reject) => {
+        console.log('执行任务', new Date().toLocaleString('chinese', 12));
         browser = await puppeteer.launch(options);
         async.mapSeries(list, (item, callback) => {
             worker(item).then(data => {

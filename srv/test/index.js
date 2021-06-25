@@ -1,23 +1,21 @@
-const list = [2, 1, 3, 45, 5, 4, 3, 2, 4, 5];
+let list = [3, 5, 2, 15, 4, 0, 7, 56, 48, 14, 43, -10];
+console.log("升序 ", [].concat(list).sort((a, b) => a - b));
 
-function distinct(list) {
-    for (let i = 0; i < list.length; i++) {
-        //如果有相同的值,不同的索引,删除当前数据
-        if (list.indexOf(list[i]) != i) {
-            list.splice(i, 1);
-            i--; //删除后索引回退
+function sort(list) {
+    // 待排序数组
+    for (let k = 0; k < list.length; k++) {
+        console.log('\n\n第', k, "遍");
+        // 已经排序序列
+        for (let i = k; i >= 0; i--) {
+            console.log(list[k], list[i], "排序序列", JSON.stringify(list.slice(0, i + 1)));
+            if (list[k] > list[i]) {
+                let temp = list[k]; //比较的值
+                list.splice(i, 0, temp);
+                list.splice(k + 1, 1);
+            }
         }
     }
-    return list;
 }
 
-console.log('before', list);
-console.log('after', distinct(list));
-
-
-const os = require('os');
-console.log(os.type(), os.userInfo());
-
-
-const path = require('path');
-console.log(__dirname, __filename, path.join(__dirname, '3.MP4'));
+console.log(sort(list));
+console.log(list);
