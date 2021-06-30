@@ -2,9 +2,10 @@ import Vue from "vue";
 import App from "./Main.vue";
 import router from "./router";
 
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-Vue.use(ElementUI);
+//使用CDN方式引入
+// import ElementUI from "element-ui";
+// import "element-ui/lib/theme-chalk/index.css";
+// Vue.use(ElementUI);
 
 import global from "./../plugins/global";
 Vue.use(global);

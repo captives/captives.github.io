@@ -91,12 +91,8 @@ router.post('/save', (req, res) => {
 
 // 获取文章列表
 router.post('/list', (req, res) => {
-    store.getList(rows => {
-        const list = rows.map(row => {
-            row.html = row.html.substr(0, 100);
-            return row;
-        });
-        res.send(JSON.stringify({ success: true, data: list }));
+    store.getList(req.body.page, req.body.size, data => {
+        res.send(JSON.stringify({ success: true, data: data }));
     });
 });
 

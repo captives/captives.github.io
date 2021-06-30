@@ -51,12 +51,11 @@
 <script lang="ts">
 import request from "./../../api/Request";
 import { Component, Vue, Watch } from "vue-property-decorator";
-import VueCode from "@/components/VueCode.vue";
 import MoreList from './MoreList.vue';
 const URL: any = window.URL || window.webkitURL;
 
 @Component({
-    components: { VueCode, MoreList }, name: "MarkDownEditor"
+    components: { MoreList }, name: "MarkDownEditor"
 })
 export default class MarkDownEditor extends Vue {
     private id: number | null = null;

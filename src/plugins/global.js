@@ -12,6 +12,8 @@ import QRCode from "./../components/QRCode.vue";
 import SearchBar from "./../components/SearchBar.vue";
 import DebuggerPopover from "./../components/DebuggerPopover.vue";
 
+import VueTable from './../components/table/index';
+
 import BaiduTts from '@/components/BaiduTts.vue';
 
 import { fetch } from "./common";
@@ -30,6 +32,8 @@ const global = {
         Vue.component("vue-debugger", DebuggerPopover);
 
         Vue.component('vue-tts', BaiduTts);
+
+        Vue.use(VueTable);
 
         Vue.prototype.$fetch = fetch;
         Vue.prototype.$videoList = [

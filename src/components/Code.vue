@@ -34,11 +34,18 @@ export default {
     font-size: 18px;
 
     p {
-        margin: 5px 10px 0 10px;
+        margin: 0;
         overflow-wrap: break-word;
+        position: absolute;
+        right: 10px;
+        top: 0px;
+        height: 32px;
+        line-height: 32px;
+        vertical-align: middle;
 
         &.title {
             font-size: 12px;
+            text-align: left;
         }
     }
 }

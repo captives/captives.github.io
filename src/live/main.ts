@@ -3,9 +3,10 @@ import Main from "./Main.vue";
 import router from "./router";
 import store from "./store";
 
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-Vue.use(ElementUI);
+//使用CDN方式引入
+// import ElementUI from "element-ui";
+// import "element-ui/lib/theme-chalk/index.css";
+// Vue.use(ElementUI);
 
 import VueSocketIO from "vue-socket.io";
 Vue.use(new VueSocketIO({

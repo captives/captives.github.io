@@ -3,10 +3,11 @@ import Vue from "vue";
 import App from "./views/Main.vue";
 import router from "./router";
 
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-import 'element-ui/lib/theme-chalk/display.css';
-Vue.use(ElementUI);
+//使用CDN方式引入
+// import ElementUI from "element-ui";
+// import "element-ui/lib/theme-chalk/index.css";
+// import 'element-ui/lib/theme-chalk/display.css';
+// Vue.use(ElementUI);
 
 import * as echarts from "echarts/lib/echarts";
 import "echarts/lib/chart/gauge";

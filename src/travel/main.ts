@@ -17,11 +17,12 @@ Vue.use(VueAwesomeSwiper);
 
 //引入动画库, 新旧使用方式不一致
 // import 'animate.css';
-import 'animate.css/animate.compat.css';
+// import 'animate.css/animate.compat.css';
 
-import Vant from 'vant';
-import 'vant/lib/index.css';
-Vue.use(Vant)
+// CDN 引入
+// import Vant from 'vant';
+// import 'vant/lib/index.css';
+// Vue.use(Vant)
 
 
 Vue.config.productionTip = false;

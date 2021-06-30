@@ -6,13 +6,25 @@ const async = require('async');
 
 const host = "https://xxjc.fun";
 const path = "/auth/login";
-const options = { headless: true }
 
+const options = {
+    headless: false,
+    defaultViewport: {
+        width: 375,
+        height: 800,
+        hasTouch: true,
+        isMobile: true,
+        deviceScaleFactor: 3,
+    },
+    args: [`--window-size=${375},${800}`],
+}
 let browser = null;
 const worker = (item) => {
+
     return new Promise(async(resolve, reject) => {
 
         const page = await browser.newPage();
+        await page.setViewport({ width: 375, height: 800 });
         page.on('load', async() => {
             const location = await page.evaluate(() => {
                 return window.location;
@@ -55,7 +67,8 @@ const worker = (item) => {
     })
 }
 
-const run = (list) => {
+const run = (list, headless) => {
+    options.headless = headless || options.headless;
     return new Promise(async(resolve, reject) => {
         console.log('执行任务', new Date().toLocaleString('chinese', 12));
         browser = await puppeteer.launch(options);

@@ -3,6 +3,7 @@ const https = require('https');
 const fs = require('fs');
 const app = require('./express');
 
+
 const webrtc = require('./recorder/webrtc');
 webrtc.run(app);
 
@@ -12,7 +13,7 @@ setInterval(() => {
     xxjc([
         { emil: "157676608@qq.com", pwd: "Seven123456" },
         { emil: "593278382@qq.com", pwd: "zhao123456" },
-    ]);
+    ], true);
 }, 12 * 60 * 60 * 1000);
 
 console.log('小小机场 自动签到任务开启', new Date().toLocaleString('chinese', 12));

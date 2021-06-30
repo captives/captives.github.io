@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/code-style.css">
+    <link rel="stylesheet" href="/css/page.css"> 
+    <title>JavaScript 二叉树</title>
+</head>
+
+<body>
+    
+    <div class="content"><h1><a id="JavaScript 二叉树"></a>JavaScript 二叉树</h1>
+<p>二叉树（Binary tree）是树形结构的一个重要类型。许多实际问题抽象出来的数据结构往往是二叉树形式，即使是一般的树也能简单地转换为二叉树，而且二叉树的存储结构及其算法都较为简单，因此二叉树显得特别重要。二叉树特点是每个结点最多只能有两棵子树，且有左右之分。</p>
+<h2><a id="定义"></a>定义</h2>
+<p>二叉树（binary tree）是指树中节点的度不大于2的有序树，它是一种最简单且最重要的树。二叉树的递归定义为：二叉树是一棵空树，或者是一棵由一个根节点和两棵互不相交的，分别称作根的左子树和右子树组成的非空树；左子树和右子树又同样都是二叉树</p>
+<h2><a id="遍历"></a>遍历</h2>
+<p>遍历是对树的一种最基本的运算，所谓遍历二叉树，就是按一定的规则和顺序走遍二叉树的所有结点，使每一个结点都被访问一次，而且只被访问一次。由于二叉树是非线性结构，因此，树的遍历实质上是将二叉树的各个结点转换成为一个线性序列来表示。</p>
+<h2><a id="创建二叉树"></a>创建二叉树</h2>
+<pre><div class="hljs"><code class="lang-js">        A
+      /   \
+     B     C
+    /     <span class="hljs-regexp">/  \ 
+   D     E    F
+ /</span>  \     \
+G    H     I 
+</code></div></pre>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataNode</span> </span>{
+    <span class="hljs-keyword">constructor</span>(data) {
+        <span class="hljs-keyword">this</span>.data = data;
+        <span class="hljs-keyword">this</span>.left = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">this</span>.right = <span class="hljs-literal">null</span>;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataTree</span> </span>{
+    <span class="hljs-keyword">constructor</span>() { }
+
+    createTree () {
+        <span class="hljs-keyword">let</span> dataNode = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'A'</span>);
+        dataNode.left = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'B'</span>);
+        dataNode.right = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'C'</span>);
+        dataNode.left.left = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'D'</span>);
+        dataNode.left.left.left = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'G'</span>);
+        dataNode.left.left.right = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'H'</span>);
+        dataNode.right.left = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'E'</span>);
+        dataNode.right.right = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'F'</span>);
+        dataNode.right.left.right = <span class="hljs-keyword">new</span> DataNode(<span class="hljs-string">'I'</span>);
+        <span class="hljs-keyword">return</span> dataNode;
+    }
+}
+</code></div></pre>
+<h2><a id="递归遍历"></a>递归遍历</h2>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-comment">//前序遍历：先遍历根结点，然后左子树，再右子树</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proOrderTraverse</span> (<span class="hljs-params">dataNode</span>) </span>{
+    <span class="hljs-keyword">if</span> (dataNode == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;
+    <span class="hljs-built_in">console</span>.log(dataNode.data);
+    proOrderTraverse(dataNode.left);
+    proOrderTraverse(dataNode.right);
+}
+
+<span class="hljs-comment">//中序遍历：先遍历左子树，然后根结点，再右子树</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inOrderTraverse</span> (<span class="hljs-params">dataNode</span>) </span>{
+    <span class="hljs-keyword">if</span> (dataNode == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;
+    inOrderTraverse(dataNode.left);
+    <span class="hljs-built_in">console</span>.log(dataNode.data);
+    inOrderTraverse(dataNode.right);
+}
+
+<span class="hljs-comment">//后续遍历：先遍历左子树，然后右子树，再根结点</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postOrderTraverse</span> (<span class="hljs-params">dataNode</span>) </span>{
+    <span class="hljs-keyword">if</span> (dataNode == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span>;
+    postOrderTraverse(dataNode.left);
+    postOrderTraverse(dataNode.right);
+    <span class="hljs-built_in">console</span>.log(dataNode.data);
+}
+
+<span class="hljs-keyword">let</span> tree = <span class="hljs-keyword">new</span> DataTree();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'二叉树遍历'</span>);
+<span class="hljs-built_in">console</span>.log(tree.createTree());
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'前序遍历'</span>)
+proOrderTraverse(tree.createTree());
+<span class="hljs-comment">// ["A", "B", "D", "G", "H", "C", "E", "I", "F"]</span>
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'中序遍历'</span>)
+inOrderTraverse(tree.createTree());
+<span class="hljs-comment">// ["G", "D", "H", "B", "A", "E", "I", "C", "F"]</span>
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'后续遍历'</span>)
+postOrderTraverse(tree.createTree());
+<span class="hljs-comment">// ["G", "H", "D", "B", "I", "E", "F", "C", "A"]</span>
+</code></div></pre>
+<h2><a id="深度优先遍历"></a>深度优先遍历</h2>
+<p>深度优先遍历，利用<strong>栈</strong>的先进后出（先压右子树，再压左子树）</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-comment">//深度优先</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">depthFirstSearch</span>(<span class="hljs-params">dataNode</span>) </span>{
+    <span class="hljs-keyword">let</span> stack = [];
+    stack.push(dataNode);
+
+    <span class="hljs-keyword">while</span> (stack.length != <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">let</span> node = stack.pop(); <span class="hljs-comment">//删除并返回数组的最后一个元素</span>
+        <span class="hljs-built_in">console</span>.log(node.data);
+
+        <span class="hljs-keyword">if</span> (node.right) {
+            stack.push(node.right);
+        }
+
+        <span class="hljs-keyword">if</span> (node.left) {
+            stack.push(node.left);
+        }
+    }
+}
+
+<span class="hljs-keyword">let</span> tree = <span class="hljs-keyword">new</span> TreeCode();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'二叉树遍历'</span>);
+<span class="hljs-built_in">console</span>.log(tree.createTree());
+
+<span class="hljs-comment">//输出结果和前序遍历相同</span>
+depthFirstSearch(tree.createTree());
+<span class="hljs-comment">// ["A", "B", "D", "G", "H", "C", "E", "I", "F"]</span>
+</code></div></pre>
+<h2><a id="广度优先遍历"></a>广度优先遍历</h2>
+<p>广度优先遍历，利用<strong>队列</strong>的先进先出（先入左子树，再入右子树）</p>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">breadthFirstSearch</span>(<span class="hljs-params">dataNode</span>) </span>{
+    <span class="hljs-keyword">let</span> queue = [];
+    queue.push(dataNode);
+
+    <span class="hljs-keyword">while</span> (queue.length != <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">let</span> node = queue.shift(); <span class="hljs-comment">//删除并返回数组的第一个元素</span>
+        <span class="hljs-built_in">console</span>.log(node.data);
+
+        <span class="hljs-keyword">if</span> (node.left) {
+            queue.push(node.left);
+        }
+
+        <span class="hljs-keyword">if</span> (node.right) {
+            queue.push(node.right);
+        }
+    };
+}
+
+<span class="hljs-keyword">let</span> tree = <span class="hljs-keyword">new</span> TreeCode();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'二叉树遍历'</span>);
+<span class="hljs-built_in">console</span>.log(tree.createTree());
+
+breadthFirstSearch(tree.createTree());
+<span class="hljs-comment">//["A", "B", "C", "D", "E", "F", "G", "H", "I"]</span>
+</code></div></pre>
+</div>
+</body>
+<script src="/js/prism.js"></script>
+<script>
+    window.onload = function() {
+        window.Prism = window.Prism || {};
+        window.Prism.manual = true;
+    }
+</script>
+
+</html>

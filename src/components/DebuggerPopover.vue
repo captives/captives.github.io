@@ -77,6 +77,7 @@ export default {
             Sys.mainVersion = Number(m[2].split(".")[0]);
 
             var e = window.performance || window.msPerformance || window.webkitPerformance;
+            // e.getEntries("paint") //获取fp/fcp来感知渲染
             let info = {};
             if (e && e.timing) {
                 var t = e.timing;

@@ -27,7 +27,7 @@
             </el-tab-pane>
             <el-tab-pane label="文章管理" name="second">
                 <!-- 查询条件 -->
-                <el-table :data="list" style="width: 100%">
+                <vue-table :data="list" style="width: 100%" :total="total" @page-change="getList">
                     <el-table-column prop="id" label="ID"> </el-table-column>
                     <el-table-column prop="title" label="文章标题"> </el-table-column>
                     <el-table-column prop="desc" label="描述"> </el-table-column>
@@ -42,7 +42,9 @@
                             <el-button type="text" @click="itemDownloadHandler(row)">下载</el-button>
                         </template>
                     </el-table-column>
-                </el-table>
+                </vue-table>
+                <!-- <el-pagination :page-size="20" :pager-count="11" layout="prev, pager, next" :total="1000">
+                </el-pagination> -->
             </el-tab-pane>
             <el-tab-pane label="文件管理" name="third">
                 <el-table :data="files" style="width: 100%">
@@ -99,6 +101,7 @@ export default class MarkDownEditor extends Vue {
     private activeName: string | null = "second";
     private categoryList: Array<any> = [];//类别
     private list: Array<any> = [];//文章
+    private total: number = 1;//文章总数量
     private files: Array<any> = [];//文件
 
     private cateItem: any = { visible: false, id: null, value: "" };
@@ -166,10 +169,11 @@ export default class MarkDownEditor extends Vue {
         });
     }
 
-    private getList() {
-        request("/edit/list").then(({ data }: any) => {
+    private getList(page: number = 1, size: number = 10) {
+        request("/edit/list", { page, size }).then(({ data }: any) => {
             console.log(data);
-            this.list = data;
+            this.list = data.list;
+            this.total = data.total;
         });
     }
 

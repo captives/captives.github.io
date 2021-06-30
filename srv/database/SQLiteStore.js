@@ -77,14 +77,31 @@ const save = (data, callback) => {
 }
 
 //获取文章列表
-const getList = (callback) => {
-    db.all("SELECT id, title, html, category_id, create_time, update_time FROM article", (err, row) => {
-        if (callback) {
-            callback(row);
-        } else {
-            return new Promise(Promise.resolve(row), Promise.reject(err));
-        }
-    });
+const getList = (page, size, callback) => {
+    page = page || 1;
+    size = size || 10;
+    let data = {
+        list: [],
+        total: 0
+    };
+    db.serialize(() => {
+        //总条数
+        db.get("SELECT count(*) as total FROM article", (err, row) => {
+            if (!err) {
+                data.total = row.total;
+            }
+        });
+
+        //offset代表从第几条记录“之后“开始查询，limit表明查询多少条结果
+        db.all("SELECT id, title, category_id, create_time, update_time FROM article order by id limit ? offset ?;", [size, (page - 1) * size], (err, row) => {
+            if (callback) {
+                data.list = row;
+                callback(data);
+            } else {
+                return new Promise(Promise.resolve(row), Promise.reject(err));
+            }
+        });
+    })
 }
 
 //获取指定文章的详细信息

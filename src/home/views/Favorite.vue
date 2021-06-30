@@ -27,20 +27,17 @@
 
             <el-tab-pane label="自定义指令" name="/demo">
                 <el-checkbox v-model="visible">闪屏</el-checkbox>
-                <VueCode v-splash:[visible].fullscreen="loadingText">
-                    <ColorRGBToHex style="width:45%"></ColorRGBToHex>
-                    <div>这是第二个元素</div>
-                </VueCode>
+                <ColorRGBToHex style="width:45%"></ColorRGBToHex>
+                <div>这是第二个元素</div>
             </el-tab-pane>
         </el-tabs>
     </el-main>
 </template>
 <script>
 import ColorRGBToHex from "@/components/ColorRGBToHex";
-import VueCode from "@/components/VueCode.vue";
 export default {
     name: "Favorite",
-    components: { ColorRGBToHex, VueCode },
+    components: { ColorRGBToHex },
     data() {
         return {
             data: {},
