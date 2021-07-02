@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/code-style.css">
     <link rel="stylesheet" href="/css/page.css"> 
     <title>安装Nodejs</title>
 </head>
 
 <body>
-    <script type='text/javascript' src='//cn.vuejs.org/js/vue.min.js'> </script>
-    <div class="content"><h2><a id="安装"></a>安装</h2>
+    <section class="page header">
+        <h1 class="project-name">安装Nodejs</h1>
+        <h2 class="project-tagline">captives</h2>
+    </section>
+    <section class="page content"><h2><a id="安装"></a>安装</h2>
 <p>命令行下载</p>
 <pre><div class="hljs"><code class="lang-sh">wget https://nodejs.org/dist/.../node-v4.2.1-linux-x64.tar.gz
 </code></div></pre>
@@ -52,7 +54,12 @@ windows路径在 <code>{npm_install_dir}/node_modules/npm/npmrc</code></p>
 <pre><div class="hljs"><code class="lang-sh">node –inspect index.js
 </code></div></pre>
 <p>一共有两种打开调试工具的方法，第一种是在<em>Chrome</em>浏览器的地址栏，键入<code>chrome://inspect</code>或者 <code>about:inspect</code>进入, 在<em>Devices/Target</em>部分，点击<em>inspect</em>链接，就能进入调试工具了。</p>
-</div>
+</section>
+    <!-- <footer class="page footer">
+        <span class="site-footer-owner"></span>
+        <span class="site-footer-credits"></span>
+    </footer> -->
+    <script type='text/javascript' src='//cn.vuejs.org/js/vue.min.js'> </script>
 </body>
 <script src="/js/prism.js"></script>
 <script>

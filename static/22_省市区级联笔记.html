@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/code-style.css">
     <link rel="stylesheet" href="/css/page.css"> 
     <title>省市区级联笔记</title>
 </head>
 
 <body>
-    
-    <div class="content"><h2><a id="省市区数据添加头[全部]"></a>省市区数据添加头[全部]</h2>
+    <section class="page header">
+        <h1 class="project-name">省市区级联笔记</h1>
+        <h2 class="project-tagline">captives</h2>
+    </section>
+    <section class="page content"><h2><a id="省市区数据添加头[全部]"></a>省市区数据添加头[全部]</h2>
 <pre><code class="lang-js">const convert = (list) =&gt; {
     return list.map((item, index) =&gt; {
         let data = { label: item.name, level: item.level, value: item.adcode, extra: index };
@@ -60,7 +62,12 @@ const filter = (list) =&gt; {
 
 return all ? tree : filter(tree);
 </code></pre>
-</div>
+</section>
+    <!-- <footer class="page footer">
+        <span class="site-footer-owner"></span>
+        <span class="site-footer-credits"></span>
+    </footer> -->
+    
 </body>
 <script src="/js/prism.js"></script>
 <script>

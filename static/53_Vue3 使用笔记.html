@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/code-style.css">
     <link rel="stylesheet" href="/css/page.css"> <link rel="stylesheet" href="/css/animate.css/4.1.1/animate.min.css">
     <title>Vue3 使用笔记</title>
 </head>
 
 <body>
-    <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
-    <div class="content"><div class='more-block'><details><summary>目录导航</summary>
+    <section class="page header">
+        <h1 class="project-name">Vue3 使用笔记</h1>
+        <h2 class="project-tagline">captives</h2>
+    </section>
+    <section class="page content"><div class='more-block'><details><summary>目录导航</summary>
 <p><div class="toc-block"><ul><li><a href="#API">API</a></li><ul><li><a href="#全局API">全局API</a></li><ul><li><a href="#createApp">createApp</a></li><li><a href="#h">h</a></li><li><a href="#createRenderer(HostNode, HostElement)">createRenderer(HostNode, HostElement)</a></li><li><a href="#nextTick">nextTick</a></li><li><a href="#mergeProps">mergeProps</a></li><li><a href="#defineComponent">defineComponent</a></li><li><a href="#defineAsyncComponent">defineAsyncComponent</a></li><li><a href="#resolveComponent">resolveComponent</a></li><li><a href="#resolveDynamicComponent">resolveDynamicComponent</a></li><li><a href="#resolveDirective">resolveDirective</a></li><li><a href="#withDirectives">withDirectives</a></li></ul><li><a href="#应用API">应用API</a></li><li><a href="#组合式API">组合式API</a></li><li><a href="#响应式API">响应式API</a></li></ul><li><a href="#方法">方法</a></li><ul><li><a href="#实例方法">实例方法</a></li><ul><li><a href="#$watch">$watch</a></li><li><a href="#$emit">$emit</a></li><li><a href="#$forceUpdate">$forceUpdate</a></li><li><a href="#$nextTick">$nextTick</a></li></ul></ul><li><a href="#指令">指令</a></li><ul><li><a href="#常用指令">常用指令</a></li><li><a href="#特殊指令">特殊指令</a></li><ul><li><a href="#key : number | string">key : number | string</a></li><li><a href="#ref : string | Function">ref : string | Function</a></li><li><a href="#is : string | Object (component’s options object)">is : string | Object (component’s options object)</a></li></ul></ul><li><a href="#组件">组件</a></li><ul><li><a href="#内置组件">内置组件</a></li><ul><li><a href="#Teleport">Teleport</a></li></ul></ul></ul></div></p>
 </details></div><h1><a id="API"></a>API</h1>
 <h2><a id="全局API"></a>全局API</h2>
@@ -560,7 +562,12 @@ Vue.createApp({
     }
 }).mount('#example2');
 </script>
-</div>
+</section>
+    <!-- <footer class="page footer">
+        <span class="site-footer-owner"></span>
+        <span class="site-footer-credits"></span>
+    </footer> -->
+    <script type='text/javascript' src='//unpkg.com/vue@3.0.11/dist/vue.global.js'> </script>
 </body>
 <script src="/js/prism.js"></script>
 <script>

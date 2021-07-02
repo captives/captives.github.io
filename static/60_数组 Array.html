@@ -5,15 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/code-style.css">
     <link rel="stylesheet" href="/css/page.css"> 
     <title>数组 Array</title>
 </head>
 
 <body>
-    
-    <div class="content"><h1><a id="数组 Array"></a>数组 Array</h1>
+    <section class="page header">
+        <h1 class="project-name">数组 Array</h1>
+        <h2 class="project-tagline">captives</h2>
+    </section>
+    <section class="page content"><h1><a id="数组 Array"></a>数组 Array</h1>
 <h2><a id="基础"></a>基础</h2>
+<h3><a id="求最大/小值"></a>求最大/小值</h3>
+<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">var</span> list = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">31</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>];
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Math</span>.max(...list)); <span class="hljs-comment">// 31</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Math</span>.mix(...list)); <span class="hljs-comment">// 1</span>
+
+<span class="hljs-built_in">Math</span>.max.apply(<span class="hljs-built_in">Math</span>, list);  <span class="hljs-comment">//返回 31</span>
+</code></div></pre>
 <h3><a id="map"></a>map</h3>
 <blockquote>
 <p>array.map(function(currentValue, index, arr), thisValue)</p>
@@ -250,7 +260,12 @@ list.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&
 <p><img src="/assets/array/3_insertion_sort.gif" alt="插入排序(Insertion Sort)" /></p>
 <hr />
 <p><a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank">十大经典排序算法</a></p>
-</div>
+</section>
+    <!-- <footer class="page footer">
+        <span class="site-footer-owner"></span>
+        <span class="site-footer-credits"></span>
+    </footer> -->
+    
 </body>
 <script src="/js/prism.js"></script>
 <script>
