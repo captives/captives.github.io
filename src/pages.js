@@ -64,12 +64,15 @@ module.exports = {
         filename: "travel.html",
         chunks: ["chunk-vendors", "chunk-common", "travel"],
         styles: [
-            "https://cdn.bootcdn.net/ajax/libs/vant/3.1.0/index.min.css",
-            "https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.min.css"
+            "//cdn.jsdelivr.net/npm/vant@2.12/lib/index.css",
+            "//cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.min.css"
         ],
         scripts: [
-            "https://cdn.bootcdn.net/ajax/libs/vant/3.1.0/vant.min.js",
-            "https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js",
+            "//res.wx.qq.com/open/js/jweixin-1.2.0.js",
+            // "//cdn.bootcdn.net/ajax/libs/vant/3.1.0/vant.min.js",
+            // "//cdn.jsdelivr.net/npm/vant@2.12.22/lib/index.min.js",
+            "//cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js",
+            "//cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js",
         ]
     },
     charts: {

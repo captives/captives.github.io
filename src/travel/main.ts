@@ -23,7 +23,8 @@ Vue.use(VueAwesomeSwiper);
 // import Vant from 'vant';
 // import 'vant/lib/index.css';
 // Vue.use(Vant)
-
+//@ts-ignore
+Vue.prototype.vx = window.vx;
 
 Vue.config.productionTip = false;
 new Vue({ router, render: (h) => h(Main) }).$mount("#app");

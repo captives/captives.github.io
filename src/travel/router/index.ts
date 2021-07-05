@@ -1,9 +1,11 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig, Route } from "vue-router";
 Vue.use(VueRouter);
+
+
 const prefix = "";
 const routes: Array<RouteConfig> = [
-  { path: prefix + "/", name: "Home", redirect: "/home" },
+  { path: prefix + "/", name: "Home", component: () => import("../views/WeChat.vue") },
   { path: prefix + "/home", name: "Home", component: () => import("../views/Home.vue") },
   { path: prefix + "/about", name: "About", component: () => import("../views/About.vue"), },
 ];
@@ -14,6 +16,7 @@ VueRouter.prototype.push = function push(location: any) {
   //@ts-ignore
   return originalPush.call(this, location).catch((err: any) => err)
 }
+
 
 type Position = { x: number; y: number }
 const router = new VueRouter({

@@ -14,6 +14,7 @@ declare module "vue/types/vue" {
     $http: any;
     $message: any;
     socket: any;
+    vx: any,
     sockets: VueSocketIO;
   }
 }

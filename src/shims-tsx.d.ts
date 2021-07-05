@@ -16,5 +16,6 @@ declare global {
   interface Window {
     location: Location;
     localStorage: Storage;
+    vx: any,
   }
 }
