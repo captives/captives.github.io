@@ -24,7 +24,6 @@ export default {
             list: [
                 { value: "components/SourceCode.vue", lang: "html" },
                 { value: "plugins/global.js", lang: "javascript" },
-                { value: "assets/css/code-style.css", lang: "css" },
             ],
         };
     },

@@ -3,6 +3,16 @@
 
 ## 基础
 
+### 求最大/小值
+```js
+var list = [1,2,31,4,5,6];
+
+console.log(Math.max(...list)); // 31
+console.log(Math.mix(...list)); // 1
+
+Math.max.apply(Math, list);  //返回 31
+```
+
 ### map
 > array.map(function(currentValue, index, arr), thisValue)
 

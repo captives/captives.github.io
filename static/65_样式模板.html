@@ -28,7 +28,11 @@
 <li>阻止事件冒泡： <code>event.stopPropagation()</code> 或 <code>event.cancelBubble = true (IE)</code></li>
 <li>阻止浏览器默认行为：<code>event.preventDefault()</code></li>
 </ul>
-</details></div><div class='tip-block info'><ul>
+</details></div><p>:::<br />
+阻止事件冒泡： <code>event.stopPropagation()</code> 或 <code>event.cancelBubble = true (IE)</code><br />
+阻止浏览器默认行为：<code>event.preventDefault()</code><br />
+:::</p>
+<div class='tip-block info'><ul>
 <li>阻止事件冒泡： <code>event.stopPropagation()</code> 或 <code>event.cancelBubble = true (IE)</code></li>
 <li>阻止浏览器默认行为：<code>event.preventDefault()</code></li>
 </ul>
@@ -80,55 +84,55 @@
 </div><h2><a id="自定义事件"></a>自定义事件</h2>
 <p><a href="https://v3.cn.vuejs.org/guide/component-custom-events.html#%E5%AE%9A%E4%B9%89%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6" target="_blank">查看文档</a></p>
 <p>可以通过<code>emits</code>选项在组件上定义已发出的事件。</p>
-<pre><div class="hljs"><code class="lang-js">app.component(<span class="hljs-string">'custom-form'</span>, {
-  <span class="hljs-attr">emits</span>: [<span class="hljs-string">'inFocus'</span>, <span class="hljs-string">'submit'</span>]
+<pre><code class="lang-js">app.component('custom-form', {
+  emits: ['inFocus', 'submit']
 })
-</code></div></pre>
+</code></pre>
 <div class='tip-block info'><span class='title'> Tip </span><p>建议定义所有发出的事件，以便更好地记录组件应该如何工作。</p>
 </div><h3><a id="验证抛出的事件"></a>验证抛出的事件</h3>
 <p>与<code>prop</code>类型验证类似，如果使用<strong>对象语法</strong>而不是<strong>数组语法</strong>定义发出的事件，则可以验证它。</p>
 <p>要添加验证，将为事件分配一个函数，该函数接收传递给<code>$emit</code>调用的参数，并返回一个布尔值以指示事件是否有效。</p>
-<pre><div class="hljs"><code class="lang-js">app.component(<span class="hljs-string">'custom-form'</span>, {
-  <span class="hljs-attr">emits</span>: {
-    <span class="hljs-comment">// 没有验证</span>
-    click: <span class="hljs-literal">null</span>,
+<pre><code class="lang-js">app.component('custom-form', {
+  emits: {
+    // 没有验证
+    click: null,
 
-    <span class="hljs-comment">// 验证submit 事件</span>
-    submit: <span class="hljs-function">(<span class="hljs-params">{ email, password }</span>) =&gt;</span> {
-      <span class="hljs-keyword">if</span> (email &amp;&amp; password) {
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-      } <span class="hljs-keyword">else</span> {
-        <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'Invalid submit event payload!'</span>)
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    // 验证submit 事件
+    submit: ({ email, password }) =&gt; {
+      if (email &amp;&amp; password) {
+        return true
+      } else {
+        console.warn('Invalid submit event payload!')
+        return false
       }
     }
   },
-  <span class="hljs-attr">methods</span>: {
+  methods: {
     submitForm() {
-      <span class="hljs-keyword">this</span>.$emit(<span class="hljs-string">'submit'</span>, { email, password })
+      this.$emit('submit', { email, password })
     }
   }
 })
-</code></div></pre>
+</code></pre>
 <h2><a id="v-model"></a>v-model</h2>
 <h3><a id="v-model 参数"></a>v-model 参数</h3>
 <p><a href="https://v3.cn.vuejs.org/guide/component-custom-events.html#v-model-%E5%8F%82%E6%95%B0" target="_blank">查看文档</a></p>
 <p>默认情况下，组件上的<code>v-model</code>使用<code>modelValue</code>作为 prop 和<code>update:modelValue</code>作为事件。我们可以通过向<code>v-model</code>传递参数来修改这些名称：</p>
-<pre><div class="hljs"><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">my-component</span> <span class="hljs-attr">v-model:title</span>=<span class="hljs-string">"bookTitle"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span>
-</code></div></pre>
-<pre><div class="hljs"><code class="lang-js">app.component(<span class="hljs-string">'my-component'</span>, {
-  <span class="hljs-attr">props</span>: {
-    <span class="hljs-attr">title</span>: <span class="hljs-built_in">String</span>
+<pre><code class="lang-html">&lt;my-component v-model:title=&quot;bookTitle&quot;&gt;&lt;/my-component&gt;
+</code></pre>
+<pre><code class="lang-js">app.component('my-component', {
+  props: {
+    title: String
   },
-  <span class="hljs-attr">emits</span>: [<span class="hljs-string">'update:title'</span>],
-  <span class="hljs-attr">template</span>: <span class="hljs-string">`
+  emits: ['update:title'],
+  template: `
     &lt;input
-      type="text"
-      :value="title"
-      @input="$emit('update:title', $event.target.value)"&gt;
-  `</span>
+      type=&quot;text&quot;
+      :value=&quot;title&quot;
+      @input=&quot;$emit('update:title', $event.target.value)&quot;&gt;
+  `
 })
-</code></div></pre>
+</code></pre>
 <h3><a id="多个 v-model 绑定"></a>多个 v-model 绑定</h3>
 <p><a href="https://v3.cn.vuejs.org/guide/component-custom-events.html#%E5%A4%9A%E4%B8%AA-v-model-%E7%BB%91%E5%AE%9A" target="_blank">查看文档</a></p>
 <p>通过利用以特定 prop 和事件为目标的能力，正如我们之前在<code>v-model</code>参数中所学的那样，我们现在可以在单个组件实例上创建多个<code>v-model</code>绑定。</p>
@@ -136,63 +140,63 @@
 <h3><a id="处理 v-model 修饰符"></a>处理 v-model 修饰符</h3>
 <p><a href="https://v3.cn.vuejs.org/guide/component-custom-events.html#%E5%A4%84%E7%90%86-v-model-%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank">查看文档</a></p>
 <p>学习表单输入绑定时，我们看到<code>v-model</code>有内置修饰符——<code>.trim</code>、<code>.number</code>和<code>.lazy</code>。但是，在某些情况下，你可能还需要添加自己的自定义修饰符。</p>
-<pre><div class="hljs"><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">my-component</span> <span class="hljs-attr">v-model.capitalize</span>=<span class="hljs-string">"myText"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span>
+<pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+  &lt;my-component v-model.capitalize=&quot;myText&quot;&gt;&lt;/my-component&gt;
   {{ myText }}
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-</code></div></pre>
-<pre><div class="hljs"><code class="lang-js"><span class="hljs-keyword">const</span> app = Vue.createApp({
+&lt;/div&gt;
+</code></pre>
+<pre><code class="lang-js">const app = Vue.createApp({
   data() {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">myText</span>: <span class="hljs-string">''</span>
+    return {
+      myText: ''
     }
   }
 })
 
-app.component(<span class="hljs-string">'my-component'</span>, {
-  <span class="hljs-attr">props</span>: {
-    <span class="hljs-attr">modelValue</span>: <span class="hljs-built_in">String</span>,
-    <span class="hljs-attr">modelModifiers</span>: {
-      <span class="hljs-attr">default</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> ({})
+app.component('my-component', {
+  props: {
+    modelValue: String,
+    modelModifiers: {
+      default: () =&gt; ({})
     }
   },
-  <span class="hljs-attr">emits</span>: [<span class="hljs-string">'update:modelValue'</span>],
-  <span class="hljs-attr">methods</span>: {
+  emits: ['update:modelValue'],
+  methods: {
     emitValue(e) {
-      <span class="hljs-keyword">let</span> value = e.target.value
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.modelModifiers.capitalize) {
-        value = value.charAt(<span class="hljs-number">0</span>).toUpperCase() + value.slice(<span class="hljs-number">1</span>)
+      let value = e.target.value
+      if (this.modelModifiers.capitalize) {
+        value = value.charAt(0).toUpperCase() + value.slice(1)
       }
-      <span class="hljs-keyword">this</span>.$emit(<span class="hljs-string">'update:modelValue'</span>, value)
+      this.$emit('update:modelValue', value)
     }
   },
-  <span class="hljs-attr">template</span>: <span class="hljs-string">`&lt;input
-    type="text"
-    :value="modelValue"
-    @input="emitValue"&gt;`</span>
+  template: `&lt;input
+    type=&quot;text&quot;
+    :value=&quot;modelValue&quot;
+    @input=&quot;emitValue&quot;&gt;`
 })
 
-app.mount(<span class="hljs-string">'#app'</span>)
-</code></div></pre>
+app.mount('#app')
+</code></pre>
 <p>添加到组件<code>v-model</code>的修饰符将通过<code>modelModifiers</code> prop 提供给组件。每当<code> &lt;input/&gt;</code>元素触发<code>input</code>事件时，我们都将字符串大写。<br />
 请注意，当组件的 created 生命周期钩子触发时，<code>modelModifiers</code>prop 会包含<code>capitalize</code>，且其值为 true<br />
 ——因为<code>capitalize</code>被设置在了写为``的 v-model 绑定上。</p>
 <div class='tip-block info'><p>对于带参数的 v-model 绑定，生成的 prop 名称将为 arg + “Modifiers”：</p>
-</div><pre><div class="hljs"><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">my-component</span> <span class="hljs-attr">v-model:description.capitalize</span>=<span class="hljs-string">"myText"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span>
-</code></div></pre>
-<pre><div class="hljs"><code class="lang-js">app.component(<span class="hljs-string">'my-component'</span>, {
-  <span class="hljs-attr">props</span>: [<span class="hljs-string">'description'</span>, <span class="hljs-string">'descriptionModifiers'</span>],
-  <span class="hljs-attr">emits</span>: [<span class="hljs-string">'update:description'</span>],
-  <span class="hljs-attr">template</span>: <span class="hljs-string">`
-    &lt;input type="text"
-      :value="description"
-      @input="$emit('update:description', $event.target.value)"&gt;
-  `</span>,
+</div><pre><code class="lang-html">&lt;my-component v-model:description.capitalize=&quot;myText&quot;&gt;&lt;/my-component&gt;
+</code></pre>
+<pre><code class="lang-js">app.component('my-component', {
+  props: ['description', 'descriptionModifiers'],
+  emits: ['update:description'],
+  template: `
+    &lt;input type=&quot;text&quot;
+      :value=&quot;description&quot;
+      @input=&quot;$emit('update:description', $event.target.value)&quot;&gt;
+  `,
   created() {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.descriptionModifiers) <span class="hljs-comment">// { capitalize: true }</span>
+    console.log(this.descriptionModifiers) // { capitalize: true }
   }
 })
-</code></div></pre>
+</code></pre>
 </section>
     <!-- <footer class="page footer">
         <span class="site-footer-owner"></span>

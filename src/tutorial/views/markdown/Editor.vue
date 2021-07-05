@@ -14,7 +14,7 @@
         </el-header>
 
         <el-main>
-            <mavon-editor ref="mavon-editor" class="fill" v-model="value" :toolbars="toolbars" fontSize="16px" placeholder="请输入文本" @change="changeHandler" @save="saveHandler()">
+            <mavon-editor ref="mavon-editor" class="fill content" v-model="value" :toolbars="toolbars" :ishljs="true" :externalLink="externalLink" fontSize="16px" placeholder="请输入文本" @change="changeHandler" @save="saveHandler()">
                 <template slot="left-toolbar-before">
                     <button type="button" title="新建" class="op-icon fa el-button el-icon-document-add" @click="newHandler"></button>
                     <span class="op-icon-divider"></span>
@@ -136,6 +136,14 @@ export default class MarkDownEditor extends Vue {
         /* 2.2.1 */
         subfield: true, // 单双栏模式
         preview: true, // 预览
+    };
+
+    private externalLink: any = {
+        // markdown_css: function () {
+        //     // 这是你的markdown css文件路径
+        //     return '/css/page.css';
+        // },
+        markdown_css: false
     };
 
     private changeHandler(value: string, html: string) {
@@ -265,96 +273,6 @@ export default class MarkDownEditor extends Vue {
 
     .el-input {
         margin-right: 10px;
-    }
-}
-
-.el-main {
-    >>> .tip-block {
-        border-color: #42b983;
-        background-color: #f8f8f8;
-        padding: 7px 20px;
-        margin: 10px 0;
-        border-left-width: 4px;
-        border-left-style: solid;
-        border-bottom-right-radius: 2px;
-        border-top-right-radius: 2px;
-        position: relative;
-
-        &::before {
-            position: absolute;
-            content: url('/assets/css/bulb.svg');
-            width: 20px;
-            height: 20px;
-            left: -14px;
-            top: 15px;
-        }
-
-        &.info {
-            border-color: #007bff;
-
-            &::before {
-                content: url('/assets/css/info.svg');
-            }
-        }
-
-        &.warning {
-            border-color: #f4cd00;
-
-            &::before {
-                content: url('/assets/css/warning.svg');
-            }
-        }
-
-        &.error {
-            border-color: #F56C6C;
-
-            &::before {
-                content: url('/assets/css/danger.svg');
-            }
-        }
-
-        span.title {
-            font-weight: 600;
-            margin-top: 10px;
-            display: block;
-            color: #222;
-        }
-
-        p {
-            margin: 10px 0;
-        }
-    }
-
-    >>> .more-block details {
-        cursor: pointer;
-
-        summary {
-            outline: none;
-        }
-    }
-
-    >>> mark {
-        color: #409EFF;
-        background: rgba(160, 207, 255, 0.35);
-        padding: 1px 10px;
-        font-size: 0.75em;
-        border-radius: 5px;
-        margin: 0 5px;
-    }
-
-    >>> code {
-        background: rgb(254 240 240);
-        padding: 1px 5px;
-        font-size: 0.75em;
-        border-radius: 5px;
-        margin: 0 5px;
-    }
-
-    >>> pre code {
-        background: initial;
-        padding: initial;
-        border-radius: initial;
-        margin: initial;
     }
 }
 </style>

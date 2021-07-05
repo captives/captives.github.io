@@ -21,7 +21,7 @@ export default {
 import App from "./App.vue";
 import router from "./router";
 
-import "./../assets/css/code-style.css";
+import '@/assets/themes-cayman/page-markdown.scss';
 import Source from "./../components/Source";
 Vue.component("vue-source", Source);
 

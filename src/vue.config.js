@@ -3,11 +3,7 @@ const path = require('path');
 const VueFilenameInjector = require('@d2-projects/vue-filename-injector');
 const pages = require("./src/pages.js");
 const prod = process.env.NODE_ENV === "production";
-
-const cdn = [
-    "https://lib.baomitu.com/markdown-it/12.0.6/markdown-it.min.js",
-    "https://unpkg.com/element-ui/lib/index.js",
-];
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     pages,
@@ -41,8 +37,7 @@ module.exports = {
         //     // 别名
         //     alias: {
         //         '@': path.resolve(__dirname, './src'),
-        //         '~': path.resolve(__dirname, './guide'),
-        //         assets: path.resolve(__dirname, './src/assets'),
+        //         '~': path.resolve(__dirname, './public'),
         //     }
         // };
     },
@@ -74,6 +69,15 @@ module.exports = {
         //     .options({ bypassOnDebug: true })
         //     .end();
 
+        //文件拷贝
+        // config.plugin('copy')
+        //     .use(require('copy-webpack-plugin'), [
+        //         [{
+        //             from: path.resolve(__dirname, 'src/assets/page.css'),
+        //             to: path.resolve(__dirname, 'dist/css'),
+        //         }]
+        //     ]);
+
         // 生产环境，开启js\css压缩
         if (process.env.NODE_ENV === "production") {
             // 删除系统默认的splitChunk
@@ -85,24 +89,27 @@ module.exports = {
         });
     },
 
-    // css: {
-    //     // 是否使用css分离插件
-    //     extract: true,
-    //     // 开启 CSS source maps， 一般不建议开启
-    //     sourceMap: false,
-    //     // 启用 CSS modules
-    //     modules: false,
-    //     loaderOptions: {
-    //         // 定义全局scss无需引入即可使用
-    //         sass: {
-    //             prependData: `
-    //                 @import "@/assets/css/variable.scss";
-    //                 @import "@/assets/css/common.scss";
-    //                 @import "@/assets/css/mixin.scss";
-    //             `
-    //         }
-    //     }
-    // },
+    css: {
+        // 是否使用css分离插件
+        extract: true,
+        // 开启 CSS source maps， 一般不建议开启
+        sourceMap: false,
+        // 因为配置了loaderOptions.css, 尽管requireModuleExtension的值为默认值，我们也需要指出
+        requireModuleExtension: true,
+        loaderOptions: {
+            // 定义全局scss无需引入即可使用
+            // sass: {
+            //     prependData: `
+            //         @import "@/assets/themes-cayman/page-markdown.scss";
+            //     `
+            // },
+            scss: {
+                prependData: `
+                    @import "@/assets/themes-cayman/page-markdown.scss";
+                `
+            }
+        }
+    },
 
     devServer: {
         // https: true,

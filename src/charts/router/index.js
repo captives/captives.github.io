@@ -24,6 +24,12 @@ const routes = [{
         component: () =>
             import ("../views/Xterm.vue"),
     },
+    // {
+    //     path: "/md",
+    //     name: "markdown页面样式",
+    //     component: () =>
+    //         import ("../views/Md.vue"),
+    // },
     {
         path: "/about",
         name: "About",

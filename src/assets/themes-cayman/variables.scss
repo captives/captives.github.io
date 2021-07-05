@@ -1,0 +1,27 @@
+// 断点
+$large-breakpoint: 64em !default;
+$medium-breakpoint: 42em !default;
+// 头部
+$header-heading-color: #fff !default;
+$header-bg-color: #159957 !default;
+$header-bg-color-secondary: #155799 !default;
+// 文本
+$section-headings-color: #159957 !default;
+$body-text-color: #606c71 !default;
+$body-link-color: #1e6bb8 !default;
+$blockquote-text-color: #819198 !default;
+// 代码
+$code-bg-color: #f3f6fa !default;
+$code-text-color: #567482 !default;
+// 边框
+$border-color: #dce6f0 !default;
+$table-border-color: #e9ebec !default;
+$hr-border-color: #eff0f1 !default;
+//提示块
+$tip-block-color:#567482 !default; //字体颜色
+$tip-block-bg-color:#f3f6fa !default;
+$tip-block-border-color:#dce6f0 !default;
+$tip-block-border-info-color:#007bff !default;
+$tip-block-border-success-color:#42b983 !default;
+$tip-block-border-warning-color:#f4cd00 !default;
+$tip-block-border-error-color:#F56C6C !default;

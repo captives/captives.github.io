@@ -66,28 +66,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    margin-top: 60px;
-}
-
-/* 修改滚动条样式-滚动条整体部分 */
-::-webkit-scrollbar {
-    width: 5px !important;
-    height: 5px !important;
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb:horizontal {
-    background-color: rgba(125, 125, 125, 0.7);
-    box-shadow: none;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:vertical {
-    background-color: rgba(125, 125, 125, 0.7);
-    box-shadow: none;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
 }
 
 .el-drawer__wrapper {

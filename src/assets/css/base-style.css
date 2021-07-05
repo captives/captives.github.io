@@ -6,12 +6,27 @@ body {
     padding: 0;
 }
 
-ul,
-ol,
-li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+
+/* 修改滚动条样式-滚动条整体部分 */
+
+::-webkit-scrollbar {
+    width: 5px !important;
+    height: 5px !important;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    background-color: rgba(125, 125, 125, 0.7);
+    box-shadow: none;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    background-color: rgba(125, 125, 125, 0.7);
+    box-shadow: none;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .video-container {

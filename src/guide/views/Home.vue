@@ -10,7 +10,7 @@
             <p>组件及样式引入</p>
             <vue-code>
                 <pre lang="javascript">
-import '@/assets/css/code-style.css';
+import '@/assets/theme';
 import Code from './../components/Code.vue'
 Vue.component('vue-code', Code);
 </pre>
@@ -20,7 +20,7 @@ Vue.component('vue-code', Code);
             <vue-code>
                 <pre lang="javascript">
 global.js
-import './assets/css/code-style.css';
+import '@/assets/themes-cayman/page-markdown.scss';
 import Code from './components/Code';
 export default {
     install(Vue) {
@@ -113,7 +113,7 @@ Vue.component('source-code', SourceCode);
 list: [
   { value: 'components/SourceCode.vue', lang: "html" },
   { value: 'plugins/global.js', lang: "javascript" },
-  { value: 'assets/css/code-style.css', lang: "css" },
+  { value: 'assets/themes-cayman/page-markdown.scss', lang: "css" },
 ]
 </pre>
             </vue-code>

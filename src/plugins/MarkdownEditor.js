@@ -2,6 +2,9 @@
 import MavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import markdownItContainer from "markdown-it-container";
+import anchorPlugin from 'markdown-it-anchor';
+import { slugify } from 'transliteration';
+
 const markdownIt = MavonEditor.markdownIt;
 
 ["success", "info", "warning", "error"].forEach((type) => {
@@ -24,6 +27,7 @@ const markdownIt = MavonEditor.markdownIt;
         },
     });
 });
+
 
 markdownIt.use(markdownItContainer, "more", {
     validate: function(params) {
@@ -56,4 +60,10 @@ markdownIt.use(markdownItContainer, "more", {
 
 //官网1.1.0有修改
 markdownIt.use(require('./libs/markdown-it-toc'), { resetIds: false });
+
+//没效果
+markdownIt.use(anchorPlugin, {
+    level: 2,
+    slugify: slugify, //对锚链接id，中文转英文
+});
 export default MavonEditor;

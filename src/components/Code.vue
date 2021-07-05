@@ -30,23 +30,19 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
-.code {
-    font-size: 18px;
+p {
+    margin: 0;
+    overflow-wrap: break-word;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
 
-    p {
-        margin: 0;
-        overflow-wrap: break-word;
-        position: absolute;
-        right: 10px;
-        top: 0px;
-        height: 32px;
-        line-height: 32px;
-        vertical-align: middle;
-
-        &.title {
-            font-size: 12px;
-            text-align: left;
-        }
+    &.title {
+        font-size: 12px;
+        text-align: left;
     }
 }
 </style>

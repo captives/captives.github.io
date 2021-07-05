@@ -19,9 +19,3 @@ console.log("升序 ", [].concat(list).sort((a, b) => a - b));
 
 // console.log(sort(list));
 // console.log(list);
-
-var debug = require('debug')('ins');
-
-console.log = debug;
-
-console.log('12345t');

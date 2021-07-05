@@ -1,6 +1,7 @@
-import "./../assets/css/code-style.css";
-import "./../assets/css/element-ui.styl";
-import "./../assets/css/base-style.css";
+import '@/assets/themes-cayman/page-markdown.scss';
+
+import "@/assets/css/element-ui.styl";
+import "@/assets/css/base-style.css";
 
 import Code from "./../components/Code";
 import Source from "./../components/Source";

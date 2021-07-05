@@ -41,7 +41,7 @@ import 'zrender/lib/svg/svg';
 
 Vue.prototype.$echarts = echarts;
 
-import "./../assets/css/code-style.css";
+import '@/assets/themes-cayman/page.scss';
 import Source from "./../components/Source";
 Vue.component("vue-source", Source);
 
