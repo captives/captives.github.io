@@ -35,7 +35,7 @@ export default class Home extends Vue {
             nonceStr: 'seven', // 必填，生成签名的随机串
             signature: 'seven',// 必填，签名，见附录1
             jsApiList: [
-
+                'scanQRCode'
             ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
 

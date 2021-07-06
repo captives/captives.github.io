@@ -1,6 +1,7 @@
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const schedule = require('node-schedule');
 const app = require('./express');
 
 
@@ -8,15 +9,26 @@ const webrtc = require('./recorder/webrtc');
 webrtc.run(app);
 
 const xxjc = require('./recorder/xxjc');
-
-setInterval(() => {
+/******************************************************
+ * 秒、分、时、日、月、周
+    *  *  *  *  *  *
+    ┬ ┬ ┬ ┬ ┬ ┬
+    │ │ │ │ │ └ day of week (0 - 7) (0 or 7 is Sun)
+    │ │ │ │ └───── month (1 - 12)
+    │ │ │ └────────── day of month (1 - 31)
+    │ │ └─────────────── hour (0 - 23)
+    │ └──────────────────── minute (0 - 59)
+    └───────────────────────── second (0 - 59, OPTIONAL)
+****************************************************/
+//每天凌晨1点
+schedule.scheduleJob('0 0 1 * * *', () => {
     xxjc([
         { emil: "157676608@qq.com", pwd: "Seven123456" },
         { emil: "593278382@qq.com", pwd: "zhao123456" },
     ], true);
-}, 12 * 60 * 60 * 1000);
-
+});
 console.log('小小机场 自动签到任务开启', new Date().toLocaleString('chinese', 12));
+
 
 const XtermSocket = require('./socket/xterm');
 const SocketServer = require('./socket/SocketServer');

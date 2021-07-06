@@ -50,6 +50,30 @@ pre[class*="language-"] {
     hyphens: none;
 }
 
+code[class*=language-console]::before,
+code[class*=language-bash]::before,
+code[class*=language-cmd]::before,
+code[class*=language-sh]::before {
+    content: "~";
+    padding-right: 10px;
+    color: #49cfef;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+code[class*=language-console]::before {
+    content: ">";
+}
+
+code[class*=language-cmd]::before {
+    content: "A:/";
+    letter-spacing: 2px;
+}
+
+code[class*=language-sh]::before {
+    content: "#";
+}
+
 
 /* Code blocks */
 

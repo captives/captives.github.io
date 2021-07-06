@@ -37,6 +37,7 @@
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "async": "^3.2.0",
     "node-pty": "^0.10.1",
+    "node-schedule": "^2.0.0",
     "nodemon": "^1.19.4",
     "uuid": "^8.3.1"
   }
