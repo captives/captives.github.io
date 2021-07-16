@@ -59,7 +59,5 @@ encodeURIComponent(this.textInput);
 
 decodeURIComponent(this.textInput);
 ```
-
----
-- script 
-- //cn.vuejs.org/js/vue.min.js
+<hr/>
+<script type="text/javascript" src="//cn.vuejs.org/js/vue.min.js"></script>

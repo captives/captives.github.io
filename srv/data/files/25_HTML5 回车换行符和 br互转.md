@@ -48,7 +48,5 @@ formatHtmlToText(value) {
     return lines.filter((item) => item != "").join("\n");
 },
 ```
-
----
-- script 
-- //cn.vuejs.org/js/vue.min.js
+<hr/>
+<script type="text/javascript" src="//cn.vuejs.org/js/vue.min.js"></script>

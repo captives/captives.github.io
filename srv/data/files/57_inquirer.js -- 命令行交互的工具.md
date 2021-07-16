@@ -59,3 +59,4 @@ inquirer.prompt([{
 - pageSize：修改某些type类型下的渲染行数；
 - prefix：修改`message`默认前缀；
 - suffix：修改`message`默认后缀。
+<hr/>

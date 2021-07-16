@@ -992,3 +992,5 @@ _.zipObjectDeep(['a.b[0].c', 'a.b[1].d'], [1, 2]);
 [^1]:[SameValueZero](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
 
 [^2]:[symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference)
+
+<hr/>

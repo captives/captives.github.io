@@ -146,3 +146,5 @@ console.log(tree.createTree());
 breadthFirstSearch(tree.createTree());
 //["A", "B", "C", "D", "E", "F", "G", "H", "I"]
 ```
+
+<hr/>

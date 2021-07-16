@@ -78,3 +78,5 @@ npm i captive-admin-ui --save
 ```bash
 npm unpublish  --force //删除包
 ```
+
+<hr/>

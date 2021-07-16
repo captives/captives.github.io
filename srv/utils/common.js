@@ -40,4 +40,30 @@ function writeFile(src, name, data, callback) {
     fs.writeFile(src + name, data, callback);
 }
 
-module.exports = { copyDirectory, writeFile };
+
+/**
+ * 删除指定文件，或者删除指定后缀名的文件
+ * @param {*} src 
+ * @param {*} name 文件名，或者后缀名集合
+ */
+function deleteFile(src, args) {
+    if (fs.existsSync(src) == false) {
+        return;
+    }
+
+    var dirs = fs.readdirSync(src);
+    if (typeof args == 'string') {
+        if (dirs.includes(args) && args.indexOf('.') != -1) {
+            fs.unlinkSync(path.join(src, args));
+        }
+    } else if (args instanceof Array) {
+        const reg = new RegExp("^.*?(" + args.join('|') + ")$");
+        dirs.forEach(item => {
+            if (reg.test(item)) {
+                fs.unlinkSync(path.join(src, item));
+            }
+        });
+    }
+}
+
+module.exports = { copyDirectory, writeFile, deleteFile };

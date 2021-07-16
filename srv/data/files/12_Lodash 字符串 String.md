@@ -396,7 +396,7 @@ compiled({ 'user': 'pebbles' });
 // => 'hello pebbles!'
  
 // 使用自定义的模板分隔符
-_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+_.templateSettings.interpolate = /{ {([\s\S]+?)} }/g;
 var compiled = _.template('hello {{ user }}!');
 compiled({ 'user': 'mustache' });
 // => 'hello mustache!'
@@ -434,3 +434,4 @@ fs.writeFileSync(path.join(cwd, 'jst.js'), '\
   };\
 ');
 ```
+<hr/>

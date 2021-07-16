@@ -54,7 +54,7 @@ code[class*=language-console]::before,
 code[class*=language-bash]::before,
 code[class*=language-cmd]::before,
 code[class*=language-sh]::before {
-    content: "~";
+    content: "#";
     padding-right: 10px;
     color: #49cfef;
     font-size: 15px;
@@ -71,7 +71,7 @@ code[class*=language-cmd]::before {
 }
 
 code[class*=language-sh]::before {
-    content: "#";
+    content: "~";
 }
 
 

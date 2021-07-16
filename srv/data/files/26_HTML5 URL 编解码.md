@@ -58,3 +58,4 @@ formatHtmlToText(value) {
     return lines.filter((item) => item != "").join("\n");
 },
 ```
+<hr/>

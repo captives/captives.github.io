@@ -105,7 +105,7 @@ const getList = (page, size, callback) => {
 }
 
 //获取指定文章的详细信息
-const getItemById = (id, callback) => {
+const getItemById = (id) => {
     //方式一
     // const stmt = db.prepare("SELECT * FROM article WHERE id = ?", (err, row) => {
     //     callback && callback(row);
@@ -119,7 +119,14 @@ const getItemById = (id, callback) => {
 
     // stmt.finalize();
     // 方式二
-    db.get("SELECT *, create_time as createTime, update_time as updateTime FROM article WHERE id = ?", id, callback)
+    return new Promise((resolve, reject) => {
+        db.get("SELECT *, create_time as createTime, update_time as updateTime FROM article WHERE id = ?", id, (err, data) => {
+            if (err) {
+                reject(err);
+            } else
+                resolve(data);
+        })
+    });
 }
 
 // 获取类别列表
@@ -146,8 +153,15 @@ const removeCategory = (id, callback) => {
 }
 
 //获取所有文章
-const getAllList = (callback) => {
-    db.all("SELECT * FROM article", callback);
+const getAllList = () => {
+    return new Promise((resolve, reject) => {
+        db.all("SELECT * FROM article", (err, data) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(data);
+        });
+    })
 }
 
 /**

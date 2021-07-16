@@ -80,3 +80,5 @@ _.random(5, true);
 _.random(1.2, 5.2);
 // => a floating-point number between 1.2 and 5.2
 ```
+
+<hr/>

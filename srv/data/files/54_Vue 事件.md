@@ -187,3 +187,4 @@ app.component('my-component', {
   }
 })
 ```
+<hr/>

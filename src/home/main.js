@@ -2,6 +2,9 @@ import Vue from "vue";
 import App from "./Main.vue";
 import router from "./router";
 
+import error from '@/plugins/error';
+Vue.use(error);
+
 //使用CDN方式引入
 // import ElementUI from "element-ui";
 // import "element-ui/lib/theme-chalk/index.css";

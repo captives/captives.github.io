@@ -602,3 +602,5 @@ var func = _.overArgs(function(x, y) {
 func(9, 3);
 // => 87
 ```
+
+<hr/>

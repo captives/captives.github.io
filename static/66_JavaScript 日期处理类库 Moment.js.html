@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+</html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JavaScript 日期处理类库 Moment.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/css/style.default.css" id="theme-stylesheet">
+    <!-- code stylesheet-->
+    <link rel="stylesheet" href="/css/page.css">
+    <!-- Custom stylesheet-->
+    <link rel="stylesheet" href="/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+
+<body>
+    <div id="all">
+        <div class="container-fluid">
+            <div class="row row-offcanvas row-offcanvas-left">
+                <!--   *** SIDEBAR ***-->
+<div id="sidebar" class="col-md-4 col-lg-3 sidebar-offcanvas">
+    <div class="sidebar-content">
+        <h1 class="sidebar-heading">
+            <a href="/index.html">Creative</a>
+        </h1>
+        <p class="sidebar-p">I am a creative illustrator and graphic designer with more than 10 years of experience. </p>
+        <p class="sidebar-p">Originally from Toronto, currently based in London. </p>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="/index.html" class="sidebar-link">首页</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/article.html" class="sidebar-link">文章</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/favorite.html" class="sidebar-link">收藏夹</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/contact.html" class="sidebar-link">联系我</a>
+            </li>
+        </ul>
+        <p class="social">
+            <a href="#" data-animate-hover="pulse" class="external facebook">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#" data-animate-hover="pulse" class="external gplus">
+                <i class="fa fa-google-plus"></i>
+            </a>
+            <a href="#" data-animate-hover="pulse" class="external twitter">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#" title="" class="external instagram">
+                <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" data-animate-hover="pulse" class="email">
+                <i class="fa fa-envelope"></i>
+            </a>
+        </p>
+    </div>
+</div>
+<!--   *** SIDEBAR END ***  -->
+                <!--*** DETAIL ***-->
+                <div class="col-md-8 col-lg-9 content-column white-background">
+                    <div class="small-navbar d-flex d-md-none">
+    <button type="button" data-toggle="offcanvas" class="btn btn-outline-primary"> <i class="fa fa-align-left mr-2"></i>Menu</button>
+    <h1 class="small-navbar-heading"> <a href="index.html">Creative </a></h1>
+</div>
+                    <div class="row">
+                        <div class="col-xl-10">
+                            <div class="content-column-content">
+                                <h1><a id="Moment.js"></a>Moment.js</h1>
+<style>
+.hero-circle {
+    width: 180px;
+    height: 180px;
+    margin: 20px auto;
+    position: relative;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 8px rgba(34,34,34,0.3),inset 0 1px 8px rgba(34,34,34,0.3);
+    background: #61b2a7;
+}
+
+.hero-face {
+    width: 100%;
+    height: 100%
+}
+
+.hero-face:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
+    background: #fff;
+    border-radius: 6px;
+    content: "";
+    display: block
+}
+
+.hero-hour {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -4px 0 -4px -25%;
+    padding: 4px 0 4px 25%;
+    background: #fff;
+    -ms-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+    border-radius: 4px 0 0 4px
+}
+
+.hero-minute {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -40% -3px 0;
+    padding: 40% 3px 0;
+    background: #fff;
+    -ms-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    border-radius: 3px 3px 0 0
+}
+
+.hero-second {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -40% -1px 0 0;
+    padding: 40% 1px 0;
+    background: #fff;
+    -ms-transform-origin: 50% 100%;
+    transform-origin: 50% 100%
+}
+</style>
+<div class="hero-circle">
+    <div class="hero-face">
+        <div id="hour" class="hero-hour"></div>
+        <div id="minute" class="hero-minute"></div>
+        <div id="second" class="hero-second"></div>
+    </div>
+</div>
+<script type="text/javascript" src="http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js"></script>
+<script>
+function updateClock(){
+    var now = moment(),
+        second = now.seconds() * 6,
+        minute = now.minutes() * 6 + second / 60,
+        hour = ((now.hours() % 12) / 12) * 360 + 90 + minute / 12;
+    document.getElementById('hour').style.transform = "rotate(" + hour + "deg)";
+    document.getElementById('minute').style.transform = "rotate(" + minute + "deg)";
+    document.getElementById('second').style.transform = "rotate(" + second + "deg)";
+    setTimeout(updateClock, 1000);
+}
+updateClock();
+</script>
+<p><a href="http://momentjs.cn/" target="_blank">官网</a>、<a href="http://momentjs.cn/docs/" target="_blank">文档</a></p>
+<h2><a id="日期格式化"></a>日期格式化</h2>
+<pre><div class="hljs"><code class="lang-js">moment().format(<span class="hljs-string">'MMMM Do YYYY, h:mm:ss a'</span>); <span class="hljs-comment">// 四月 4日 2018, 1:35:14 下午</span>
+moment().format(<span class="hljs-string">'dddd'</span>);                    <span class="hljs-comment">// 星期三</span>
+moment().format(<span class="hljs-string">"MMM Do YY"</span>);               <span class="hljs-comment">// 4月 4日 18</span>
+moment().format(<span class="hljs-string">'YYYY [escaped] YYYY'</span>);     <span class="hljs-comment">// 2018 escaped 2018</span>
+moment().format();                          <span class="hljs-comment">// 2018-04-04T13:35:14+08:00</span>
+</code></div></pre>
+<h2><a id="相对时间"></a>相对时间</h2>
+<pre><div class="hljs"><code class="lang-js">moment(<span class="hljs-string">"20111031"</span>, <span class="hljs-string">"YYYYMMDD"</span>).fromNow(); <span class="hljs-comment">// 6 年前</span>
+moment(<span class="hljs-string">"20120620"</span>, <span class="hljs-string">"YYYYMMDD"</span>).fromNow(); <span class="hljs-comment">// 6 年前</span>
+moment().startOf(<span class="hljs-string">'day'</span>).fromNow();        <span class="hljs-comment">// 14 小时前</span>
+moment().endOf(<span class="hljs-string">'day'</span>).fromNow();          <span class="hljs-comment">// 10 小时内</span>
+moment().startOf(<span class="hljs-string">'hour'</span>).fromNow();       <span class="hljs-comment">// 35 分钟前</span>
+</code></div></pre>
+<h2><a id="日历时间"></a>日历时间</h2>
+<pre><div class="hljs"><code class="lang-js">moment().subtract(<span class="hljs-number">10</span>, <span class="hljs-string">'days'</span>).calendar(); <span class="hljs-comment">// 2018年3月25日</span>
+moment().subtract(<span class="hljs-number">6</span>, <span class="hljs-string">'days'</span>).calendar();  <span class="hljs-comment">// 上周四下午1点35</span>
+moment().subtract(<span class="hljs-number">3</span>, <span class="hljs-string">'days'</span>).calendar();  <span class="hljs-comment">// 上周日下午1点35</span>
+moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'days'</span>).calendar();  <span class="hljs-comment">// 昨天下午1点35分</span>
+moment().calendar();                      <span class="hljs-comment">// 今天下午1点35分</span>
+moment().add(<span class="hljs-number">1</span>, <span class="hljs-string">'days'</span>).calendar();       <span class="hljs-comment">// 明天下午1点35分</span>
+moment().add(<span class="hljs-number">3</span>, <span class="hljs-string">'days'</span>).calendar();       <span class="hljs-comment">// 本周六下午1点35</span>
+moment().add(<span class="hljs-number">10</span>, <span class="hljs-string">'days'</span>).calendar();      <span class="hljs-comment">// 2018年4月14日</span>
+</code></div></pre>
+<h2><a id="多语言支持"></a>多语言支持</h2>
+<pre><div class="hljs"><code class="lang-js">moment().format(<span class="hljs-string">'L'</span>);    <span class="hljs-comment">// 2018-04-04</span>
+moment().format(<span class="hljs-string">'l'</span>);    <span class="hljs-comment">// 2018-04-04</span>
+moment().format(<span class="hljs-string">'LL'</span>);   <span class="hljs-comment">// 2018年4月4日</span>
+moment().format(<span class="hljs-string">'ll'</span>);   <span class="hljs-comment">// 2018年4月4日</span>
+moment().format(<span class="hljs-string">'LLL'</span>);  <span class="hljs-comment">// 2018年4月4日下午1点36分</span>
+moment().format(<span class="hljs-string">'lll'</span>);  <span class="hljs-comment">// 2018年4月4日下午1点36分</span>
+moment().format(<span class="hljs-string">'LLLL'</span>); <span class="hljs-comment">// 2018年4月4日星期三下午1点36分</span>
+moment().format(<span class="hljs-string">'llll'</span>); <span class="hljs-comment">// 2018年4月4日星期三下午1点36分</span>
+</code></div></pre>
+
+                            </div>
+                             <div class="content-column-content">
+                                <div>上一个：
+                                    <a href="/static/65_样式模板.html"> 样式模板</a>
+                                </div>
+                                <div>
+                                下一个：
+                                    <a href="/static/67_Ubuntu 配置 git.html"> Ubuntu 配置 git</a>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/popper.js/umd/popper.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/prism.js"></script>
+    <script>
+        window.onload = function() {
+            window.Prism = window.Prism || {};
+            window.Prism.manual = true;
+        }
+    </script>
+    <script>
+    // ------------------------------------------------------ //
+    // Main slider
+    // ------------------------------------------------------ //
+    // $('#main-slider').owlCarousel({
+    //     items: 1,
+    //     nav: false,
+    //     dots: true,
+    //     autoplay: true,
+    //     autoplayHoverPause: true
+    // });
+    </script>
+    <script src="/js/front.js "></script>
+</body>

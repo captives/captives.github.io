@@ -2,11 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const store = require('./../database/SQLiteStore');
+const { compile, renderFooter } = require('./../data/template/index');
 
 //TODO session 存储用户信息
 //TODO CRUD时，带上用户数据
-
-
 
 /******************************************************************
  * 类别
@@ -40,39 +39,22 @@ router.post('/category_remove', (req, res) => {
  * 文章
  ******************************************************************/
 //写磁盘文件
-function writeRowToFile(row, callback) {
-
-    //1、准备目录
-    copyDirectory(templateDir, outputDir);
-    //2、识别模板
-    fs.readFile(outputDir + "index.html", "utf-8", (err, html) => {
-        if (err) {
-            res.send(JSON.stringify({ success: false, message: "备份失败" + err }));
-            return;
-        }
-
+function writeRowToFile(row) {
+    return new Promise((resolve, reject) => {
+        //解析数据
         const links = JSON.parse(row.links) || {};
         const styles = links.styles || [];
         const scripts = links.scripts || [];
-        const doc = html.interpolate({ title: row.title, body: row.html, styles, scripts });
-        // 4、定义写文件任务
-        writeFile(path.join(outputDir, "static/"), row.id + "_" + row.title + ".html", doc, () => {
-            console.log('html文件 更新成功');
-        });
+        //渲染内容
+        const doc = compile('article', { styles, scripts, title: row.title, content: row.html, version: Date.now() });
+        //写HTML页面
+        fs.outputFileSync(path.join(outputDir, "static/" + row.id + "_" + row.title + ".html"), doc, { encoding: 'utf-8' });
 
-        if (styles.length) {
-            row.text += "\n\n---\n- style \n- " + styles.join('\n- ');
-        }
-
-        if (scripts.length) {
-            row.text += "\n\n---\n- script \n- " + scripts.join('\n- ');
-        }
-
-        //5、写md文档
-        fs.writeFile(docDir + row.id + "_" + row.title + ".md", row.text, (err) => {
-            callback && callback(err);
-        });
-    });
+        //写md文档
+        row.text += "\n" + renderFooter(styles, scripts);
+        fs.outputFileSync(docDir + row.id + "_" + row.title + ".md", row.text);
+        resolve();
+    })
 }
 
 // 保存文章信息
@@ -82,9 +64,11 @@ router.post('/save', (req, res) => {
         links: JSON.stringify(req.body.links)
     }, (err, data) => {
         console.log('插入成功', data);
-        store.getItemById(data.id, (err, row) => {
+        store.getItemById(data.id).then(row => {
             writeRowToFile(row);
-        });
+        }).catch(err => {
+            console.log('查询失败', err);
+        })
         res.send(JSON.stringify({ success: true, data }));
     });
 });
@@ -99,8 +83,10 @@ router.post('/list', (req, res) => {
 // 获取指定文章内容
 router.post('/read', (req, res) => {
     if (req.body.id) {
-        store.getItemById(req.body.id, (err, row) => {
-            res.send(JSON.stringify({ success: !err, data: row }));
+        store.getItemById(req.body.id).then(row => {
+            res.send(JSON.stringify({ success: true, data: row }));
+        }).catch(err => {
+            res.send(JSON.stringify({ success: false, data: null }));
         });
     } else {
         res.send(JSON.stringify({ success: false, message: "无效id" }));
@@ -110,23 +96,13 @@ router.post('/read', (req, res) => {
 // 查询指定的文档，写入文件
 router.post('/publish', (req, res) => {
     if (req.body.id) {
-        store.getItemById(req.body.id, (err, row) => {
-            if (!err) {
-                res.send(JSON.stringify({ success: !err }));
-                return;
-            }
-
-            store.getItemById(data.id, (err, row) => {
-                if (!err) {
-                    res.send(JSON.stringify({ success: !err }));
-                    return;
-                }
-
-                writeRowToFile(row, (err) => {
-                    res.send(JSON.stringify({ success: !err }));
-                });
+        store.getItemById(req.body.id).then(row => {
+            writeRowToFile(row).then(() => {
+                res.send(JSON.stringify({ success: true }));
             });
-        });
+        }).catch(err => {
+            res.send(JSON.stringify({ success: false, message: err }));
+        })
     } else {
         res.send(JSON.stringify({ success: false, message: "无效id" }));
     }
@@ -144,11 +120,10 @@ router.post('/delete', (req, res) => {
     }
 });
 
-
 /******************************************************************
  * 文件
  ******************************************************************/
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const async = require("async");
 
@@ -156,6 +131,8 @@ const dir = process.cwd() + "/data";
 const docDir = path.join(dir, '/files/');
 const templateDir = path.join(dir, '/template/');
 const outputDir = path.join(dir, '/dist/');
+
+const { deleteFile } = require('./../utils/common');
 
 /**
  *  读取目录，获取文件列表
@@ -167,6 +144,7 @@ router.post('/async_file_list', (req, res) => {
             return;
         }
 
+        //批量识别文件信息
         async.mapLimit(files, 10, (name, callback) => {
             fs.stat(path.join(docDir, name), function(err, file) {
                 let result = {
@@ -231,30 +209,22 @@ router.post('/async_delete_file', (req, res) => {
 });
 
 /**
- * 数据库内容写文件到磁盘
+ * 部署静态md文件
  */
 router.post('/async_to_file', (req, res) => {
-    //查询出文章数据库内容，备份为单个文档
-    store.getAllList((err, rows) => {
-        if (err) {
-            res.send(JSON.stringify({ success: false, message: "备份准备失败" + err }));
-            return;
-        }
+    //1、拷贝静态资源到dist目录
+    //2、递归分页查询列表内的所有信息
+    //3、序列化写文件
 
-        const list = rows || [];
-        async.eachLimit(list, 5, (item, callback) => {
-            const links = JSON.parse(item.links) || {};
+    //查询出文章数据库内容，备份为单个文档
+    store.getAllList().then(rows => {
+        async.eachLimit(rows, 5, (row, callback) => {
+            const links = JSON.parse(row.links) || {};
             const styles = links.styles || [];
             const scripts = links.scripts || [];
-            if (styles.length) {
-                item.text += "\n\n---\n- style \n- " + styles.join('\n- ');
-            }
-
-            if (scripts.length) {
-                item.text += "\n\n---\n- script \n- " + scripts.join('\n- ');
-            }
-
-            fs.writeFile(docDir + item.id + "_" + item.title + ".md", item.text, callback);
+            //写md文档
+            row.text += "\n" + renderFooter(styles, scripts);
+            fs.outputFile(docDir + row.id + "_" + row.title + ".md", row.text, callback);
         }, err => {
             if (err) {
                 res.send(JSON.stringify({ success: false, message: "备份失败" + err }));
@@ -262,99 +232,72 @@ router.post('/async_to_file', (req, res) => {
                 res.send(JSON.stringify({ success: true, message: "备份完成" }));
             }
         });
-    })
+    }).catch(err => {
+        res.send(JSON.stringify({ success: false, message: "数据库读取失败" + err }));
+    });
 });
 
-const { copyDirectory, writeFile } = require('./../utils/common');
-
 /**
- * 模板字符串渲染页面数据
- * @param {*} params 插值参数
- * @returns 渲染后的html 
- */
-String.prototype.interpolate = function(params) {
-    const style = '\<link rel="stylesheet" href="${value}"\>';
-    const script = "\<script type='text/javascript' src='${value}'\> \</script\>";
-
-    if (!!params.styles) {
-        params.style = params.styles.map(value => style.interpolate({ value })).join("\n");
-        delete params.styles;
-    } else {
-        params.style = "";
-    }
-
-    if (!!params.scripts) {
-        params.script = params.scripts.map(value => script.interpolate({ value })).join("\n");
-        delete params.scripts;
-    } else {
-        params.script = "";
-    }
-
-    const keys = Object.keys(params);
-    const values = Object.values(params);
-    return new Function(...keys, `return \`${this}\`;`)(...values);
-}
-
-/**
- * 部署静态文件
+ * 部署静态html文件
  */
 router.post('/async_build', (req, res) => {
-    //1、准备目录
-    copyDirectory(templateDir, outputDir);
-    //2、识别模板
-    fs.readFile(outputDir + "index.html", "utf-8", (err, html) => {
-        if (err) {
-            res.send(JSON.stringify({ success: false, message: "备份失败" + err }));
-            return;
-        }
+    //1、查询出文章数据库内容
+    store.getAllList().then(rows => {
+        //2、准备目录
+        fs.emptyDirSync(outputDir);
+        fs.copySync(templateDir, outputDir);
+        // 3、队列任务渲染html
+        async.eachOfLimit(rows, 5, (row, index, callback) => {
+            console.log(((index + 1) / rows.length * 100).toFixed(2) + '%', index, row.title);
+            const links = JSON.parse(row.links) || {};
+            const styles = links.styles || [];
+            const scripts = links.scripts || [];
+            const doc = compile('article', {
+                styles,
+                scripts,
+                title: row.title,
+                content: row.html,
+                version: Date.now(),
+                prev: rows[index - 1] ? { href: '/static/' + rows[index - 1].id + "_" + rows[index - 1].title + ".html", title: rows[index - 1].title } : null,
+                next: rows[index + 1] ? { href: '/static/' + rows[index + 1].id + "_" + rows[index + 1].title + ".html", title: rows[index + 1].title } : null,
+            });
 
-        //3、查询出文章数据库内容
-        store.getAllList((err, rows) => {
+            //4、写HTML页面
+            fs.outputFile(path.join(outputDir, "static/" + row.id + "_" + row.title + ".html"), doc, { encoding: 'utf-8' }, callback);
+        }, err => {
             if (err) {
-                res.send(JSON.stringify({ success: false, message: "备份准备失败" + err }));
-                return;
+                res.send(JSON.stringify({ success: false, message: "部署失败" + err }));
+            } else {
+                res.send(JSON.stringify({ success: true, message: "部署完成" }));
             }
 
-            // 4、执行任务
-            async.eachLimit(rows, 5, (item, callback) => {
-                const links = JSON.parse(item.links) || {};
-                const doc = html.interpolate({
-                    title: item.title,
-                    body: item.html,
-                    styles: links.styles || [],
-                    scripts: links.scripts || []
-                });
+            //5、 移除临时模版文件
+            deleteFile(outputDir, ['.js', '.tpl']);
 
-                // 5、定义写文件任务
-                writeFile(path.join(outputDir, "static/"), item.id + "_" + item.title + ".html", doc, callback);
-            }, err => {
-                if (err) {
-                    res.send(JSON.stringify({ success: false, message: "部署失败" + err }));
-                } else {
-                    res.send(JSON.stringify({ success: true, message: "部署完成" }));
+            //6、创建列表文件
+            const list = rows.map((row, index) => {
+                return {
+                    id: row.id,
+                    title: row.title,
+                    desc: row.desc,
+                    create_time: row.create_time,
+                    update_time: row.update_time,
+                    href: '/static/' + row.id + "_" + row.title + ".html",
                 }
-
-                //6、移除临时模版文件
-                fs.unlinkSync(outputDir + "index.html");
-
-                //7、创建列表文件
-                const list = rows.map(row => `<li><a href="/static/${row.id + '_' + row.title}.html" target="blank">${row.title}</a><i>${row.update_time}</i></li>`);
-                const page = html.interpolate({
-                    title: "文章列表",
-                    body: "<ul class='article-list'>" + list.join(" ") + "</ul>",
-                });
-
-                // 8、写列表文件
-                writeFile(outputDir, "article.html", page, err => {
-                    console.log(err ? "部署失败：" + err : '部署完成');
-                    const targetDir = "/Volumes/DATA/github/captives.github.io";
-                    //9、 同步到github目录
-                    copyDirectory(outputDir, targetDir);
-                });
             });
-        });
-    });
 
+            list.reverse();
+            const html = compile('list', { title: "文章列表自动生成", list, version: Date.now() });
+            //7、写列表文件
+            fs.outputFileSync(path.join(outputDir, "/article.html"), html, { encoding: 'utf-8' });
+            //8、同步到github目录
+            const targetDir = "/Volumes/DATA/github/captives.github.io";
+            fs.copySync(outputDir, targetDir);
+        });
+    }).catch(err => {
+        console.log(err);
+        res.send(JSON.stringify({ success: false, message: err }));
+    })
 });
 
 module.exports = router;

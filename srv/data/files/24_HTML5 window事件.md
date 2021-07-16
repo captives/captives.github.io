@@ -145,7 +145,5 @@ window.addEventListener("storage", function (event) {
     console.log("其它页面更新存储", event.key + ' 键已经从 ' + event.oldValue + ' 改变为 ' + event.newValue + '.');
 });
 ```
-
----
-- script 
-- //cn.vuejs.org/js/vue.min.js
+<hr/>
+<script type="text/javascript" src="//cn.vuejs.org/js/vue.min.js"></script>

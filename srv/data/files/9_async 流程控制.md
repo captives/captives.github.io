@@ -1267,3 +1267,5 @@ groupBySeries null { A: [ { name: 'Apple', price: 6.8, delay: 200, origin: 'A' }
 
 </div>
 </div>
+
+<hr/>

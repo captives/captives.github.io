@@ -5,7 +5,9 @@
         </el-aside>
         <el-main>
             <!-- 源码组件的演示 -->
-            <source-code v-model="list" :drawed="false">源码</source-code>
+            <source-code v-model="list" :drawed="false">
+                源码
+            </source-code>
             <el-row v-for="item in list" :key="item.value">
                 <vue-code v-if="item.code">
                     <p>{{ item.value }}</p>

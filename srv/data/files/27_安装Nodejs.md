@@ -61,7 +61,5 @@ registry = https://registry.npm.taobao.org
 node –inspect index.js
 ```
 一共有两种打开调试工具的方法，第一种是在*Chrome*浏览器的地址栏，键入`chrome://inspect`或者 `about:inspect`进入, 在*Devices/Target*部分，点击*inspect*链接，就能进入调试工具了。
-
----
-- script 
-- //cn.vuejs.org/js/vue.min.js
+<hr/>
+<script type="text/javascript" src="//cn.vuejs.org/js/vue.min.js"></script>

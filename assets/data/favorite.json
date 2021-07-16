@@ -135,6 +135,20 @@
                     "value": "https://apollo.vuejs.org"
                 }
             ]
+        },
+        {
+            "title": "Handlebars",
+            "href": "https://handlebarsjs.com/zh/",
+            "desc": "Handlebars 提供了必要的功能，使你可以高效地构建语义化模板。",
+            "about": [{
+                    "label": "入门",
+                    "value": "https://handlebarsjs.com/zh/installation/"
+                },
+                {
+                    "label": "文档",
+                    "value": "https://handlebarsjs.com/zh/guide/"
+                }
+            ]
         }
     ],
     "文档": [{
